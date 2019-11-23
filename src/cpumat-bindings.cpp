@@ -3,6 +3,10 @@
 #include "fml/src/cpu/linalg.hh"
 
 
+// -----------------------------------------------------------------------------
+// Core class methods
+// -----------------------------------------------------------------------------
+
 extern "C" SEXP R_cpumat_init(SEXP m_, SEXP n_)
 {
   SEXP ret;
@@ -194,5 +198,24 @@ extern "C" SEXP R_cpumat_rev_cols(SEXP x_robj)
 {
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
   x->rev_cols();
+  return R_NilValue;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// linalg namespace
+// -----------------------------------------------------------------------------
+
+extern "C" SEXP R_cpumat_linalg_crossprod(SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
+{
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  cpumat<double> *ret = (cpumat<double>*) getRptr(ret_robj);
+  
+  if (LOGICAL(xpose)[0])
+    linalg::tcrossprod(REAL(alpha)[0], *x, *ret);
+  else
+    linalg::crossprod(REAL(alpha)[0], *x, *ret);
+  
   return R_NilValue;
 }

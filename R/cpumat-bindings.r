@@ -1,3 +1,7 @@
+# ------------------------------------------------------------------------------
+# Core class methods
+# ------------------------------------------------------------------------------
+
 #' @useDynLib fmlr R_cpumat_init
 cpumat_init = function(m, n, type)
 {
@@ -164,4 +168,18 @@ cpumat_rev_rows = function(x_ptr)
 cpumat_rev_cols = function(x_ptr)
 {
   .Call(R_cpumat_rev_cols, x_ptr)
+}
+
+
+
+# ------------------------------------------------------------------------------
+# linalg namespace
+# ------------------------------------------------------------------------------
+
+#' @useDynLib fmlr R_cpumat_linalg_crossprod
+cpumat_linalg_crossprod = function(xpose, alpha, x_ptr, ret_ptr)
+{
+  xpose = as.logical(xpose)
+  alpha = as.double(alpha)
+  .Call(R_cpumat_linalg_crossprod, xpose, alpha, x_ptr, ret_ptr)
 }
