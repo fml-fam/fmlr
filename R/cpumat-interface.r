@@ -6,6 +6,17 @@ cpumatR6 = R6::R6Class("cpumat",
       private$type = type
     },
     
+    resize = function(nrows, ncols)
+    {
+      cpumat_resize(private$x_ptr, nrows, ncols)
+      invisible(self)
+    },
+    set = function(data)
+    {
+      cpumat_set(private$x_ptr, data)
+      invisible(self)
+    },
+    
     info = function()
     {
       cpumat_info(private$x_ptr)

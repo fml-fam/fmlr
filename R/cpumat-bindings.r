@@ -26,6 +26,25 @@ cpumat_dim = function(x_ptr)
 
 
 
+#' @useDynLib fmlr R_cpumat_set
+cpumat_set = function(x_ptr, data)
+{
+  if (!is.double(data))
+    storage.mode(data) = "double"
+  
+  .Call(R_cpumat_set, x_ptr, data)
+}
+
+#' @useDynLib fmlr R_cpumat_resize
+cpumat_resize = function(x_ptr, m, n)
+{
+  m = as.integer(m)
+  n = as.integer(n)
+  .Call(R_cpumat_resize, x_ptr, m, n)
+}
+
+
+
 #' @useDynLib fmlr R_cpumat_print
 cpumat_print = function(x_ptr, ndigits)
 {

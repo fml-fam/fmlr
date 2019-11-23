@@ -35,6 +35,22 @@ extern "C" SEXP R_cpumat_dim(SEXP x_robj)
 
 
 
+extern "C" SEXP R_cpumat_set(SEXP x_robj, SEXP data)
+{
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  x->set(REAL(data), nrows(data), ncols(data), false);
+  return R_NilValue;
+}
+
+extern "C" SEXP R_cpumat_resize(SEXP x_robj, SEXP m, SEXP n)
+{
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  x->resize(INTEGER(m)[0], INTEGER(n)[0]);
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_cpumat_print(SEXP x_robj, SEXP ndigits)
 {
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
