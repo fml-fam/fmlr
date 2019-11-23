@@ -60,3 +60,11 @@ cpumatR6 = R6::R6Class("cpumat",
     type = ""
   )
 )
+
+
+
+#' @export
+cpumat = function(nrows=0, ncols=0, type="double")
+{
+  cpumatR6$new(nrows=nrows, ncols=ncols, type=type)
+}
