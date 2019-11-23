@@ -54,6 +54,22 @@ cpumatR6 = R6::R6Class("cpumat",
       invisible(self)
     },
     
+    scale = function(s)
+    {
+      cpumat_scale(private$x_ptr, s)
+      invisible(self)
+    },
+    rev_rows = function()
+    {
+      cpumat_rev_rows(private$x_ptr)
+      invisible(self)
+    },
+    rev_cols = function()
+    {
+      cpumat_rev_cols(private$x_ptr)
+      invisible(self)
+    },
+    
     nrows = function() cpumat_nrows(private$x_ptr),
     ncols = function() cpumat_ncols(private$x_ptr),
     dim = function() cpumat_dim(private$x_ptr),

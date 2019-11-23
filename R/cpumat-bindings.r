@@ -106,3 +106,25 @@ cpumat_fill_rnorm = function(x_ptr, seed, min, max)
   
   .Call(R_cpumat_fill_rnorm, x_ptr, seed, min, max)
 }
+
+
+
+#' @useDynLib fmlr R_cpumat_scale
+cpumat_scale = function(x_ptr, s)
+{
+  s = as.double(s)
+  
+  .Call(R_cpumat_scale, x_ptr, s)
+}
+
+#' @useDynLib fmlr R_cpumat_rev_rows
+cpumat_rev_rows = function(x_ptr)
+{
+  .Call(R_cpumat_rev_rows, x_ptr)
+}
+
+#' @useDynLib fmlr R_cpumat_rev_cols
+cpumat_rev_cols = function(x_ptr)
+{
+  .Call(R_cpumat_rev_cols, x_ptr)
+}

@@ -109,3 +109,26 @@ extern "C" SEXP R_cpumat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_cpumat_scale(SEXP x_robj, SEXP s)
+{
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  x->scale(REAL(s)[0]);
+  return R_NilValue;
+}
+
+extern "C" SEXP R_cpumat_rev_rows(SEXP x_robj)
+{
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  x->rev_rows();
+  return R_NilValue;
+}
+
+extern "C" SEXP R_cpumat_rev_cols(SEXP x_robj)
+{
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  x->rev_cols();
+  return R_NilValue;
+}
