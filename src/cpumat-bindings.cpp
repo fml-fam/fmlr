@@ -21,6 +21,20 @@ extern "C" SEXP R_cpumat_init(SEXP m_, SEXP n_)
 
 
 
+extern "C" SEXP R_cpumat_dim(SEXP x_robj)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(INTSXP, 2));
+  
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  INTEGER(ret)[0] = x->nrows();
+  INTEGER(ret)[1] = x->ncols();
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
 extern "C" SEXP R_cpumat_print(SEXP x_robj, SEXP ndigits)
 {
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);

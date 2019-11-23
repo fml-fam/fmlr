@@ -53,6 +53,10 @@ cpumatR6 = R6::R6Class("cpumat",
       cpumat_fill_rnorm(private$x_ptr, seed, mean, sd)
       invisible(self)
     },
+    
+    nrows = function() cpumat_nrows(private$x_ptr),
+    ncols = function() cpumat_ncols(private$x_ptr),
+    dim = function() cpumat_dim(private$x_ptr),
   ),
   
   private = list(

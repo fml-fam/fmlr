@@ -8,6 +8,24 @@ cpumat_init = function(m, n, type)
 
 
 
+cpumat_nrows = function(x_ptr)
+{
+  cpumat_dim(x_ptr)[1]
+}
+
+cpumat_ncols = function(x_ptr)
+{
+  cpumat_dim(x_ptr)[2]
+}
+
+#' @useDynLib fmlr R_cpumat_dim
+cpumat_dim = function(x_ptr)
+{
+  .Call(R_cpumat_dim, x_ptr)
+}
+
+
+
 #' @useDynLib fmlr R_cpumat_print
 cpumat_print = function(x_ptr, ndigits)
 {
