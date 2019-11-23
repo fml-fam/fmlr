@@ -18,3 +18,19 @@ extern "C" SEXP R_cpumat_init(SEXP m_, SEXP n_)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+extern "C" SEXP R_cpumat_print(SEXP x_robj, SEXP ndigits)
+{
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  x->print(INTEGER(ndigits)[0]);
+  return R_NilValue;
+}
+
+extern "C" SEXP R_cpumat_info(SEXP x_robj)
+{
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  x->info();
+  return R_NilValue;
+}
