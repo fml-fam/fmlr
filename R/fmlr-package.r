@@ -1,6 +1,6 @@
 #' fmlr
 #' 
-#' TODO
+#' Interface to the fml library.
 #' 
 #' @import pbdMPI
 #' @importFrom float fl

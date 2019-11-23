@@ -6,7 +6,7 @@
 * **Author:** Drew Schmidt
 
 
-TODO
+Interface to the [fml library](https://github.com/wrathematics/fml).
 
 
 ## Installation

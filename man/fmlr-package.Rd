@@ -5,7 +5,7 @@
 \alias{fmlr-package}
 \title{fmlr}
 \description{
-TODO
+Interface to the fml library.
 }
 \author{
 Drew Schmidt \email{wrathematics AT gmail.com}
