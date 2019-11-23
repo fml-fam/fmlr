@@ -26,6 +26,24 @@ cpumat_dim = function(x_ptr)
 
 
 
+#' @useDynLib fmlr R_cpumat_to_robj
+cpumat_to_robj = function(x_ptr)
+{
+  .Call(R_cpumat_to_robj, x_ptr)
+}
+
+#' @useDynLib fmlr R_cpumat_from_robj
+cpumat_from_robj = function(x_ptr, robj)
+{
+  # TODO check matrix type of robj
+  if (!is.double(robj))
+    storage.mode(robj) = "double"
+  
+  .Call(R_cpumat_from_robj, x_ptr, robj)
+}
+
+
+
 #' @useDynLib fmlr R_cpumat_set
 cpumat_set = function(x_ptr, data)
 {

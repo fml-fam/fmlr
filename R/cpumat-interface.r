@@ -84,6 +84,13 @@ cpumatR6 = R6::R6Class("cpumat",
     nrows = function() cpumat_nrows(private$x_ptr),
     ncols = function() cpumat_ncols(private$x_ptr),
     dim = function() cpumat_dim(private$x_ptr),
+    
+    to_robj = function() cpumat_to_robj(private$x_ptr),
+    from_robj = function(robj)
+    {
+      cpumat_from_robj(private$x_ptr, robj)
+      invisible(self)
+    }
   ),
   
   private = list(

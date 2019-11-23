@@ -35,6 +35,54 @@ extern "C" SEXP R_cpumat_dim(SEXP x_robj)
 
 
 
+extern "C" SEXP R_cpumat_to_robj(SEXP x_robj)
+{
+  SEXP ret;
+  
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  
+  len_t m = x->nrows();
+  len_t n = x->ncols();
+  auto *x_d = x->data_ptr();
+  
+  PROTECT(ret = allocMatrix(REALSXP, m, n));
+  double *ret_d = REAL(ret);
+  
+  for (len_t j=0; j<n; j++)
+  {
+    for (len_t i=0; i<m; i++)
+      ret_d[i + m*j] = (double) x_d[i + m*j];
+  }
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+extern "C" SEXP R_cpumat_from_robj(SEXP x_robj, SEXP robj)
+{
+  int m = nrows(robj);
+  int n = ncols(robj);
+  double *r_d = REAL(robj);
+  
+  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+  len_t m_x = x->nrows();
+  len_t n_x = x->ncols();
+  
+  if (m_x != m || n_x != n)
+    x->resize(m, n);
+  
+  auto *x_d = x->data_ptr();
+  for (len_t j=0; j<n; j++)
+  {
+    for (len_t i=0; i<m; i++)
+      x_d[i + m*j] = (double) r_d[i + m*j];
+  }
+  
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_cpumat_set(SEXP x_robj, SEXP data)
 {
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
