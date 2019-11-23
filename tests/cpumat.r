@@ -8,11 +8,6 @@ x = cpumat(m, n)
 
 cmp(x$dim(), c(m, n))
 
-# r = x$to_robj()
-# r
-
-# s = matrix(4:1, 2)
-# x$from_robj(s)
 
 
 # ------------------------------------------------------------------------------
@@ -39,7 +34,7 @@ test = x$to_robj()
 truth = matrix(3, m, n)
 cmp(test, truth)
 
-x$fill_linspace(1, 6)
+x$fill_linspace(1, m*n)
 test = x$to_robj()
 truth = matrix(1:(m*n), m, n)
 cmp(test, truth)
@@ -50,7 +45,7 @@ cmp(test, truth)
 # misc
 # ------------------------------------------------------------------------------
 
-x$fill_linspace(1, 6)
+x$fill_linspace(1, m*n)
 x$rev_rows()
 test = x$to_robj()
 truth = matrix(1:(m*n), m, n)[m:1, ]
