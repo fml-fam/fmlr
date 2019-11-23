@@ -1,0 +1,21 @@
+Package: fmlr
+Type: Package
+Title: Fused Matrix Library
+Version: 0.1-0
+Description: TODO
+License: BSL-1.0
+Depends:
+    R (>= 3.4.0),
+    pbdMPI (>= 0.3-0)
+Imports:
+    R6,
+    float (>= 0.2-0)
+LinkingTo:
+    float (>= 0.2-0)
+SystemRequirements: C++14
+ByteCompile: yes
+Authors@R: c(
+    person("Drew", "Schmidt", role=c("aut", "cre"), email="wrathematics@gmail.com")
+    )
+Maintainer: Drew Schmidt <wrathematics@gmail.com>
+RoxygenNote: 6.1.1
