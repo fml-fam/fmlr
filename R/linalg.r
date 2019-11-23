@@ -1,22 +1,33 @@
+check_class_consistency = function(...)
+{
+  l = list(...)
+  if (all(sapply(l, is_cpumat)))
+    invisible(TRUE)
+  else
+    stop("")
+}
+
+
 linalg_crossprods = function(x, ret, alpha, xpose)
 {
+  if (!is.null(ret))
+  {
+    check_class_consistency(x, ret)
+    invisiret = TRUE
+  }
+  else
+    invisiret = FALSE
+  
   if (inherits(x, "cpumat"))
   {
     if (is.null(ret))
     {
       n = x$ncols()
       ret = cpumat(n, n)
-      invisiret = FALSE
     }
-    else if (!inherits(ret, "cpumat"))
-      stop("")
-    else
-      invisiret = TRUE
     
     cpumat_linalg_crossprod(xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
-  else
-    stop("")
   
   if (invisiret)
     invisible(ret)
