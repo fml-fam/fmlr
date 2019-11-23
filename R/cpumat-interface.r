@@ -106,3 +106,18 @@ cpumat = function(nrows=0, ncols=0, type="double")
 {
   cpumatR6$new(nrows=nrows, ncols=ncols, type=type)
 }
+
+
+
+#' @export
+as_cpumat = function(x, copy=TRUE)
+{
+  ret = cpumat()
+  
+  if (isTRUE(copy))
+    ret$from_robj(x)
+  else
+    ret$set(x)
+  
+  ret
+}
