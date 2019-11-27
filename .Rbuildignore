@@ -1,7 +1,7 @@
+src/fml/.git
+src/fml/.gitignore
 src/fml/benchmarks
 src/fml/docs
 src/fml/examples
 src/fml/tests
-src/fml/.git
-src/fml/.gitignore
 src/fml/README.md
