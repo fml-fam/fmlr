@@ -3,8 +3,36 @@ CXX_STD = CXX14
 SPMD_CPPFLAGS = @SPMD_CPPFLAGS@
 SPMD_LDFLAGS = @SPMD_LDFLAGS@
 
-FLOAT_LDFLAGS = `${R_HOME}/bin/Rscript -e "float:::ldflags()"`
+FLOAT_LIBS = @FLOAT_LIBS@
+FLOAT_INCL = @FLOAT_INCL@
+
+R_CPPFLAGS = @R_CPPFLAGS@
+
+NVCC = @NVCC@
+CUDA_CFLAGS = @CUDA_CFLAGS@
+CUDA_LDFLAGS = @CUDA_LDFLAGS@
+PKG_LIBS_GPU = $(CUDA_LDFLAGS) -lcudart -lcublas -lcusolver -lnvidia-ml
 
 PKG_CPPFLAGS = $(SPMD_CPPFLAGS)
 PKG_CXXFLAGS = $(SPMD_CPPFLAGS) $(SHLIB_OPENMP_CXXFLAGS)
-PKG_LIBS = $(SPMD_LDFLAGS) $(FLOAT_LDFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CXXFLAGS) 
+PKG_LIBS = $(SPMD_LDFLAGS) $(FLOAT_LDFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CXXFLAGS)
+
+CPU_OBJS = cpumat-bindings.o cpuvec-bindings.o
+
+ifeq "$(USE_GPU)" "TRUE"
+PKG_LIBS = $(PKG_LIBS) $(PKG_LIBS_GPU)
+OBJECTS = $(CPU_OBJS) gpu-bindings.o
+else
+OBJECTS = $(CPU_OBJS) gpu-dummy-bindings.o
+endif
+
+
+
+all: $(SHLIB)
+
+ifeq "$(USE_GPU)" "TRUE"
+%.o: %.cu
+	$(NVCC) -DGPU -O2 -x cu -c -arch=sm_61 -Xcompiler "-fPIC $(FLOAT_INCL) $(R_CPPFLAGS) $(SPMD_CPPFLAGS)" $< -o $@
+else
+$(SHLIB): $(OBJECTS)
+endif
