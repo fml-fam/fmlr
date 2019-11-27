@@ -20,8 +20,6 @@ extern "C" SEXP R_card_init(SEXP id_)
   return ret;
 }
 
-
-
 extern "C" SEXP R_card_info(SEXP c_robj)
 {
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
@@ -29,8 +27,6 @@ extern "C" SEXP R_card_info(SEXP c_robj)
   
   return R_NilValue;
 }
-
-
 
 extern "C" SEXP R_card_get_id(SEXP c_robj)
 {
@@ -42,8 +38,6 @@ extern "C" SEXP R_card_get_id(SEXP c_robj)
   UNPROTECT(1);
   return ret;
 }
-
-
 
 extern "C" SEXP R_card_valid_card(SEXP c_robj)
 {
@@ -79,8 +73,6 @@ extern "C" SEXP R_gpuvec_init(SEXP c_robj, SEXP size_)
   return ret;
 }
 
-
-
 extern "C" SEXP R_gpuvec_size(SEXP x_robj)
 {
   SEXP ret;
@@ -92,11 +84,10 @@ extern "C" SEXP R_gpuvec_size(SEXP x_robj)
   return ret;
 }
 
-
-
 extern "C" SEXP R_gpuvec_set(SEXP x_robj, SEXP data)
 {
   gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
+  // TODO FIXME
   // x->set(REAL(data), LENGTH(data), false);
   return R_NilValue;
 }
@@ -107,8 +98,6 @@ extern "C" SEXP R_gpuvec_resize(SEXP x_robj, SEXP size)
   x->resize(INTEGER(size)[0]);
   return R_NilValue;
 }
-
-
 
 extern "C" SEXP R_gpuvec_print(SEXP x_robj, SEXP ndigits)
 {
@@ -123,8 +112,6 @@ extern "C" SEXP R_gpuvec_info(SEXP x_robj)
   x->info();
   return R_NilValue;
 }
-
-
 
 extern "C" SEXP R_gpuvec_fill_zero(SEXP x_robj)
 {
@@ -154,8 +141,6 @@ extern "C" SEXP R_gpuvec_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
   return R_NilValue;
 }
 
-
-
 extern "C" SEXP R_gpuvec_scale(SEXP x_robj, SEXP s)
 {
   gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
@@ -169,8 +154,6 @@ extern "C" SEXP R_gpuvec_rev(SEXP x_robj)
   x->rev();
   return R_NilValue;
 }
-
-
 
 extern "C" SEXP R_gpuvec_to_robj(SEXP x_robj)
 {

@@ -9,8 +9,6 @@ card_init = function(id=0)
   .Call(R_card_init, id)
 }
 
-
-
 #' @useDynLib fmlr R_card_info
 card_info = function(c_ptr)
 {
@@ -18,15 +16,11 @@ card_info = function(c_ptr)
   invisible()
 }
 
-
-
 #' @useDynLib fmlr R_card_get_id
 card_get_id = function(c_ptr)
 {
   .Call(R_card_get_id, c_ptr)
 }
-
-
 
 #' @useDynLib fmlr R_card_valid_card
 card_valid_card = function(c_ptr)
@@ -47,15 +41,11 @@ gpuvec_init = function(card, size, type)
   .Call(R_gpuvec_init, card, size)
 }
 
-
-
 #' @useDynLib fmlr R_gpuvec_size
 gpuvec_size = function(x_ptr)
 {
   .Call(R_gpuvec_size, x_ptr)
 }
-
-
 
 #' @useDynLib fmlr R_gpuvec_set
 gpuvec_set = function(x_ptr, data)
@@ -73,8 +63,6 @@ gpuvec_resize = function(x_ptr, size)
   .Call(R_gpuvec_resize, x_ptr, size)
 }
 
-
-
 #' @useDynLib fmlr R_gpuvec_print
 gpuvec_print = function(x_ptr, ndigits)
 {
@@ -88,8 +76,6 @@ gpuvec_info = function(x_ptr)
 {
   .Call(R_gpuvec_info, x_ptr)
 }
-
-
 
 #' @useDynLib fmlr R_gpuvec_fill_zero
 gpuvec_fill_zero = function(x_ptr)
@@ -120,8 +106,6 @@ gpuvec_fill_linspace = function(x_ptr, start, stop)
   .Call(R_gpuvec_fill_linspace, x_ptr, start, stop)
 }
 
-
-
 #' @useDynLib fmlr R_gpuvec_scale
 gpuvec_scale = function(x_ptr, s)
 {
@@ -135,8 +119,6 @@ gpuvec_rev = function(x_ptr)
 {
   .Call(R_gpuvec_rev, x_ptr)
 }
-
-
 
 #' @useDynLib fmlr R_gpuvec_to_robj
 gpuvec_to_robj = function(x_ptr)

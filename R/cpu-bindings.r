@@ -9,33 +9,11 @@ cpuvec_init = function(size, type)
   .Call(R_cpuvec_init, size)
 }
 
-
-
 #' @useDynLib fmlr R_cpuvec_size
 cpuvec_size = function(x_ptr)
 {
   .Call(R_cpuvec_size, x_ptr)
 }
-
-
-
-#' @useDynLib fmlr R_cpuvec_to_robj
-cpuvec_to_robj = function(x_ptr)
-{
-  .Call(R_cpuvec_to_robj, x_ptr)
-}
-
-#' @useDynLib fmlr R_cpuvec_from_robj
-cpuvec_from_robj = function(x_ptr, robj)
-{
-  # TODO check matrix type of robj
-  if (!is.double(robj))
-    storage.mode(robj) = "double"
-  
-  .Call(R_cpuvec_from_robj, x_ptr, robj)
-}
-
-
 
 #' @useDynLib fmlr R_cpuvec_set
 cpuvec_set = function(x_ptr, data)
@@ -53,8 +31,6 @@ cpuvec_resize = function(x_ptr, size)
   .Call(R_cpuvec_resize, x_ptr, size)
 }
 
-
-
 #' @useDynLib fmlr R_cpuvec_print
 cpuvec_print = function(x_ptr, ndigits)
 {
@@ -68,8 +44,6 @@ cpuvec_info = function(x_ptr)
 {
   .Call(R_cpuvec_info, x_ptr)
 }
-
-
 
 #' @useDynLib fmlr R_cpuvec_fill_zero
 cpuvec_fill_zero = function(x_ptr)
@@ -100,8 +74,6 @@ cpuvec_fill_linspace = function(x_ptr, start, stop)
   .Call(R_cpuvec_fill_linspace, x_ptr, start, stop)
 }
 
-
-
 #' @useDynLib fmlr R_cpuvec_scale
 cpuvec_scale = function(x_ptr, s)
 {
@@ -114,6 +86,22 @@ cpuvec_scale = function(x_ptr, s)
 cpuvec_rev = function(x_ptr)
 {
   .Call(R_cpuvec_rev, x_ptr)
+}
+
+#' @useDynLib fmlr R_cpuvec_to_robj
+cpuvec_to_robj = function(x_ptr)
+{
+  .Call(R_cpuvec_to_robj, x_ptr)
+}
+
+#' @useDynLib fmlr R_cpuvec_from_robj
+cpuvec_from_robj = function(x_ptr, robj)
+{
+  # TODO check matrix type of robj
+  if (!is.double(robj))
+    storage.mode(robj) = "double"
+  
+  .Call(R_cpuvec_from_robj, x_ptr, robj)
 }
 
 
@@ -130,8 +118,6 @@ cpumat_init = function(m, n, type)
   .Call(R_cpumat_init, m, n)
 }
 
-
-
 cpumat_nrows = function(x_ptr)
 {
   cpumat_dim(x_ptr)[1]
@@ -147,26 +133,6 @@ cpumat_dim = function(x_ptr)
 {
   .Call(R_cpumat_dim, x_ptr)
 }
-
-
-
-#' @useDynLib fmlr R_cpumat_to_robj
-cpumat_to_robj = function(x_ptr)
-{
-  .Call(R_cpumat_to_robj, x_ptr)
-}
-
-#' @useDynLib fmlr R_cpumat_from_robj
-cpumat_from_robj = function(x_ptr, robj)
-{
-  # TODO check matrix type of robj
-  if (!is.double(robj))
-    storage.mode(robj) = "double"
-  
-  .Call(R_cpumat_from_robj, x_ptr, robj)
-}
-
-
 
 #' @useDynLib fmlr R_cpumat_set
 cpumat_set = function(x_ptr, data)
@@ -185,8 +151,6 @@ cpumat_resize = function(x_ptr, m, n)
   .Call(R_cpumat_resize, x_ptr, m, n)
 }
 
-
-
 #' @useDynLib fmlr R_cpumat_print
 cpumat_print = function(x_ptr, ndigits)
 {
@@ -200,8 +164,6 @@ cpumat_info = function(x_ptr)
 {
   .Call(R_cpumat_info, x_ptr)
 }
-
-
 
 #' @useDynLib fmlr R_cpumat_fill_zero
 cpumat_fill_zero = function(x_ptr)
@@ -268,8 +230,6 @@ cpumat_fill_rnorm = function(x_ptr, seed, min, max)
   .Call(R_cpumat_fill_rnorm, x_ptr, seed, min, max)
 }
 
-
-
 #' @useDynLib fmlr R_cpumat_scale
 cpumat_scale = function(x_ptr, s)
 {
@@ -288,6 +248,22 @@ cpumat_rev_rows = function(x_ptr)
 cpumat_rev_cols = function(x_ptr)
 {
   .Call(R_cpumat_rev_cols, x_ptr)
+}
+
+#' @useDynLib fmlr R_cpumat_to_robj
+cpumat_to_robj = function(x_ptr)
+{
+  .Call(R_cpumat_to_robj, x_ptr)
+}
+
+#' @useDynLib fmlr R_cpumat_from_robj
+cpumat_from_robj = function(x_ptr, robj)
+{
+  # TODO check matrix type of robj
+  if (!is.double(robj))
+    storage.mode(robj) = "double"
+  
+  .Call(R_cpumat_from_robj, x_ptr, robj)
 }
 
 
