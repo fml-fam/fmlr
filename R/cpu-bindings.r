@@ -49,8 +49,7 @@ cpuvec_set = function(x_ptr, data)
 #' @useDynLib fmlr R_cpuvec_resize
 cpuvec_resize = function(x_ptr, size)
 {
-  m = as.integer(m)
-  n = as.integer(n)
+  size = as.integer(size)
   .Call(R_cpuvec_resize, x_ptr, size)
 }
 
