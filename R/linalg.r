@@ -1,13 +1,3 @@
-check_class_consistency = function(...)
-{
-  l = list(...)
-  if (all(sapply(l, is_cpumat)))
-    invisible(TRUE)
-  else
-    stop("")
-}
-
-
 linalg_crossprods = function(x, ret, alpha, xpose)
 {
   if (!is.null(ret))
