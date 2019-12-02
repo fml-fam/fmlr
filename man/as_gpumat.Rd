@@ -4,7 +4,7 @@
 \alias{as_gpumat}
 \title{as_gpumat}
 \usage{
-as_gpumat(x, copy = TRUE)
+as_gpumat(card, x, copy = TRUE)
 }
 \arguments{
 \item{x}{R matrix.}

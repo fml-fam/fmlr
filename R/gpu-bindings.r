@@ -305,3 +305,17 @@ gpumat_from_robj = function(x_ptr, robj)
 
   .Call(R_gpumat_from_robj, x_ptr, robj)
 }
+
+
+
+# ------------------------------------------------------------------------------
+# linalg namespace
+# ------------------------------------------------------------------------------
+
+#' @useDynLib fmlr R_gpumat_linalg_crossprod
+gpumat_linalg_crossprod = function(xpose, alpha, x_ptr, ret_ptr)
+{
+  xpose = as.logical(xpose)
+  alpha = as.double(alpha)
+  .Call(R_gpumat_linalg_crossprod, xpose, alpha, x_ptr, ret_ptr)
+}

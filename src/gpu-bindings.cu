@@ -5,6 +5,7 @@
 #include "fml/src/gpu/card.hh"
 #include "fml/src/gpu/gpuhelpers.hh"
 #include "fml/src/gpu/gpuvec.hh"
+#include "fml/src/gpu/linalg.hh"
 
 
 // -----------------------------------------------------------------------------
@@ -372,6 +373,25 @@ extern "C" SEXP R_gpumat_from_robj(SEXP x_robj, SEXP robj)
   
   cpumat<double> robj_mat(REAL(robj), m, n, false);
   gpuhelpers::cpu2gpu(robj_mat, *x);
+  
+  return R_NilValue;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// linalg namespace
+// -----------------------------------------------------------------------------
+
+extern "C" SEXP R_gpumat_linalg_crossprod(SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  gpumat<double> *ret = (gpumat<double>*) getRptr(ret_robj);
+  
+  if (LOGICAL(xpose)[0])
+    linalg::tcrossprod(REAL(alpha)[0], *x, *ret);
+  else
+    linalg::crossprod(REAL(alpha)[0], *x, *ret);
   
   return R_NilValue;
 }

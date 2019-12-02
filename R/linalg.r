@@ -8,15 +8,21 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   else
     invisiret = FALSE
   
+  n = x$ncols()
+  
   if (inherits(x, "cpumat"))
   {
     if (is.null(ret))
-    {
-      n = x$ncols()
       ret = cpumat(n, n)
-    }
     
     cpumat_linalg_crossprod(xpose, alpha, x$data_ptr(), ret$data_ptr())
+  }
+  else if (inherits(x, "gpumat"))
+  {
+    if (is.null(ret))
+      ret = gpumat(x$get_card(), n, n)
+    
+    gpumat_linalg_crossprod(xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   
   if (invisiret)
