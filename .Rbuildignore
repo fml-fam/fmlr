@@ -3,5 +3,9 @@ src/fml/.gitignore
 src/fml/benchmarks
 src/fml/docs
 src/fml/examples
+src/fml/src/arraytools/examples
+src/fml/src/arraytools/tests
+src/fml/src/arraytools/.travis.yml
+src/fml/src/arraytools/README.md
 src/fml/tests
 src/fml/README.md
