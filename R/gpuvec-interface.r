@@ -11,7 +11,6 @@ gpuvecR6 = R6::R6Class("gpuvec",
   public = list(
     #' @details
     #' Class initializer. See also \code{?gpuvec}.
-    #' 
     #' @param card A GPU card object; the return of \code{card()}. See \code{?card}.
     #' @param size The length of the vector.
     #' @param type Storage type for the vector. Should be one of 'int', 'float', or 'double'.
@@ -24,17 +23,16 @@ gpuvecR6 = R6::R6Class("gpuvec",
     
     #' @details
     #' Change the length of the vector object.
-    #' 
     #' @param size The new length.
     resize = function(size)
     {
       gpuvec_resize(private$x_ptr, size)
       invisible(self)
     },
+    
     #' @details
     #' Set the data in the gpuvec object to point to the array in 'data'. See
     #' also \code{?as_gpuvec}.
-    #' 
     #' @param data R vector.
     set = function(data)
     {
@@ -49,9 +47,9 @@ gpuvecR6 = R6::R6Class("gpuvec",
       gpuvec_info(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Print the data.
-    #' 
     #' @param ndigits Number of decimal digits to print.
     print = function(ndigits=4)
     {
@@ -66,6 +64,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
       gpuvec_fill_zero(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Fill all entries with one.
     fill_one = function()
@@ -73,18 +72,18 @@ gpuvecR6 = R6::R6Class("gpuvec",
       gpuvec_fill_one(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Fill all entries with supplied value.
-    #' 
     #' @param v Value to set all entries to.
     fill_val = function(v)
     {
       gpuvec_fill_val(private$x_ptr, v)
       invisible(self)
     },
+    
     #' @details
     #' Fill the vector (column-wise) with linearly-spaced values.
-    #' 
     #' @param start,stop Beginning/end of the linear spacing.
     fill_linspace = function(start, stop)
     {
@@ -94,13 +93,13 @@ gpuvecR6 = R6::R6Class("gpuvec",
     
     #' @details
     #' Scale all entries by the supplied value.
-    #' 
     #' @param s Value to scale all entries by.
     scale = function(s)
     {
       gpuvec_scale(private$x_ptr, s)
       invisible(self)
     },
+    
     #' @details
     #' Reverse rows.
     rev = function()
@@ -112,6 +111,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @details
     #' Returns length of the vector.
     size = function() gpuvec_size(private$x_ptr),
+    
     #' @details
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
@@ -119,9 +119,9 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @details
     #' Returns an R vector containing a copy of the class data.
     to_robj = function() gpuvec_to_robj(private$x_ptr),
+    
     #' @details
     #' Copies the values of the input to the class data. See also \code{?as_gpuvec}.
-    #' 
     #' @param robj R vector.
     from_robj = function(robj)
     {

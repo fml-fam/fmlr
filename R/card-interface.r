@@ -11,7 +11,6 @@ cardR6 = R6::R6Class("card",
   public = list(
     #' @details
     #' Class initializer.
-    #' 
     #' @param id GPU id number.
     initialize = function(id=0)
     {
@@ -34,9 +33,9 @@ cardR6 = R6::R6Class("card",
       card_info(private$c_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Print the data.
-    #' 
     #' @param ndigits Number of decimal digits to print.
     print = function(ndigits=4)
     {
@@ -47,9 +46,11 @@ cardR6 = R6::R6Class("card",
     #' @details
     #' Returns GPU id number.
     get_id = function() card_get_id(private$c_ptr),
+    
     #' @details
     #' Returns whether or not the card object is valid.
     valid_card = function() card_valid_card(private$c_ptr),
+    
     #' @details
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$c_ptr

@@ -11,7 +11,6 @@ cpuvecR6 = R6::R6Class("cpuvec",
   public = list(
     #' @details
     #' Class initializer. See also \code{?cpuvec}.
-    #' 
     #' @param size The length of the vector.
     #' @param type Storage type for the vector. Should be one of 'int', 'float', or 'double'.
     initialize = function(size=0, type="double")
@@ -22,17 +21,16 @@ cpuvecR6 = R6::R6Class("cpuvec",
     
     #' @details
     #' Change the length of the vector object.
-    #' 
     #' @param size The new length.
     resize = function(size)
     {
       cpuvec_resize(private$x_ptr, size)
       invisible(self)
     },
+    
     #' @details
     #' Set the data in the cpuvec object to point to the array in 'data'. See
     #' also \code{?as_cpuvec}.
-    #' 
     #' @param data R vector.
     set = function(data)
     {
@@ -47,9 +45,9 @@ cpuvecR6 = R6::R6Class("cpuvec",
       cpuvec_info(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Print the data.
-    #' 
     #' @param ndigits Number of decimal digits to print.
     print = function(ndigits=4)
     {
@@ -64,6 +62,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
       cpuvec_fill_zero(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Fill all entries with one.
     fill_one = function()
@@ -71,18 +70,18 @@ cpuvecR6 = R6::R6Class("cpuvec",
       cpuvec_fill_one(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Fill all entries with supplied value.
-    #' 
     #' @param v Value to set all entries to.
     fill_val = function(v)
     {
       cpuvec_fill_val(private$x_ptr, v)
       invisible(self)
     },
+    
     #' @details
     #' Fill the vector (column-wise) with linearly-spaced values.
-    #' 
     #' @param start,stop Beginning/end of the linear spacing.
     fill_linspace = function(start, stop)
     {
@@ -92,13 +91,13 @@ cpuvecR6 = R6::R6Class("cpuvec",
     
     #' @details
     #' Scale all entries by the supplied value.
-    #' 
     #' @param s Value to scale all entries by.
     scale = function(s)
     {
       cpuvec_scale(private$x_ptr, s)
       invisible(self)
     },
+    
     #' @details
     #' Reverse rows.
     rev = function()
@@ -110,6 +109,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @details
     #' Returns length of the vector.
     size = function() cpuvec_size(private$x_ptr),
+    
     #' @details
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
@@ -117,9 +117,9 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @details
     #' Returns an R vector containing a copy of the class data.
     to_robj = function() cpuvec_to_robj(private$x_ptr),
+    
     #' @details
     #' Copies the values of the input to the class data. See also \code{?as_cpuvec}.
-    #' 
     #' @param robj R vector.
     from_robj = function(robj)
     {

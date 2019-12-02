@@ -11,7 +11,6 @@ cpumatR6 = R6::R6Class("cpumat",
   public = list(
     #' @details
     #' Class initializer. See also \code{?cpumat}.
-    #' 
     #' @param nrows,ncols The dimension of the matrix.
     #' @param type Storage type for the matrix. Should be one of 'int', 'float', or 'double'.
     initialize = function(nrows=0, ncols=0, type="double")
@@ -22,17 +21,16 @@ cpumatR6 = R6::R6Class("cpumat",
     
     #' @details
     #' Change the dimension of the matrix object.
-    #' 
     #' @param nrows,ncols The new dimension.
     resize = function(nrows, ncols)
     {
       cpumat_resize(private$x_ptr, nrows, ncols)
       invisible(self)
     },
+    
     #' @details
     #' Set the data in the cpumat object to point to the array in 'data'. See
     #' also \code{?as_cpumat}.
-    #' 
     #' @param data R matrix.
     set = function(data)
     {
@@ -47,9 +45,9 @@ cpumatR6 = R6::R6Class("cpumat",
       cpumat_info(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Print the data.
-    #' 
     #' @param ndigits Number of decimal digits to print.
     print = function(ndigits=4)
     {
@@ -64,6 +62,7 @@ cpumatR6 = R6::R6Class("cpumat",
       cpumat_fill_zero(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Fill all entries with one.
     fill_one = function()
@@ -71,24 +70,25 @@ cpumatR6 = R6::R6Class("cpumat",
       cpumat_fill_one(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Fill all entries with supplied value.
-    #' 
     #' @param v Value to set all entries to.
     fill_val = function(v)
     {
       cpumat_fill_val(private$x_ptr, v)
       invisible(self)
     },
+    
     #' @details
     #' Fill the matrix (column-wise) with linearly-spaced values.
-    #' 
     #' @param start,stop Beginning/end of the linear spacing.
     fill_linspace = function(start, stop)
     {
       cpumat_fill_linspace(private$x_ptr, start, stop)
       invisible(self)
     },
+    
     #' @details
     #' Fill diagonal values to 1 and non-diagonal values to 0.
     fill_eye = function()
@@ -96,10 +96,10 @@ cpumatR6 = R6::R6Class("cpumat",
       cpumat_fill_eye(private$x_ptr)
       invisible(self)
     },
+    
     # TODO diag
     #' @details
     #' Fill the matrix with random unifmorm data.
-    #' 
     #' @param seed Seed for the generator. Can be left blank.
     #' @param min,max Parameters for the generator.
     fill_runif = function(seed, min=0, max=1)
@@ -107,9 +107,9 @@ cpumatR6 = R6::R6Class("cpumat",
       cpumat_fill_runif(private$x_ptr, seed, min, max)
       invisible(self)
     },
+    
     #' @details
     #' Fill the matrix with random normal data.
-    #' 
     #' @param seed Seed for the generator. Can be left blank.
     #' @param mean,sd Parameters for the generator.
     fill_rnorm = function(seed, mean=0, sd=1)
@@ -120,13 +120,13 @@ cpumatR6 = R6::R6Class("cpumat",
     
     #' @details
     #' Scale all entries by the supplied value.
-    #' 
     #' @param s Value to scale all entries by.
     scale = function(s)
     {
       cpumat_scale(private$x_ptr, s)
       invisible(self)
     },
+    
     #' @details
     #' Reverse rows.
     rev_rows = function()
@@ -134,6 +134,7 @@ cpumatR6 = R6::R6Class("cpumat",
       cpumat_rev_rows(private$x_ptr)
       invisible(self)
     },
+    
     #' @details
     #' Reverse columns.
     rev_cols = function()
@@ -145,12 +146,15 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @details
     #' Returns number of rows of the matrix.
     nrows = function() cpumat_nrows(private$x_ptr),
+    
     #' @details
     #' Returns number of columns of the matrix.
     ncols = function() cpumat_ncols(private$x_ptr),
+    
     #' @details
     #' Returns number of rows and columns of the matrix.
     dim = function() cpumat_dim(private$x_ptr),
+    
     #' @details
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
@@ -158,9 +162,9 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @details
     #' Returns an R matrix containing a copy of the class data.
     to_robj = function() cpumat_to_robj(private$x_ptr),
+    
     #' @details
     #' Copies the values of the input to the class data. See also \code{?as_cpumat}.
-    #' 
     #' @param robj R matrix.
     from_robj = function(robj)
     {
