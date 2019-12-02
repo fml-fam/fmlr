@@ -20,6 +20,14 @@ extern "C" SEXP R_card_init(SEXP id_)
   return ret;
 }
 
+extern "C" SEXP R_card_set(SEXP c_robj, SEXP id)
+{
+  std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
+  (*c)->set(INTEGER(id)[0]);
+  
+  return R_NilValue;
+}
+
 extern "C" SEXP R_card_info(SEXP c_robj)
 {
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);

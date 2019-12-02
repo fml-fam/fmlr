@@ -19,6 +19,15 @@ cardR6 = R6::R6Class("card",
     },
     
     #' @details
+    #' Set card to a different GPU.
+    #' @param id GPU id number.
+    set = function(id)
+    {
+      card_set(private$c_ptr, id)
+      invisible(self)
+    },
+    
+    #' @details
     #' Print one-line information about the matrix.
     info = function()
     {

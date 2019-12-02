@@ -9,6 +9,14 @@ card_init = function(id=0)
   .Call(R_card_init, id)
 }
 
+#' @useDynLib fmlr R_card_set
+card_set = function(c_ptr, id)
+{
+  id = as.integer(id)
+  .Call(R_card_set, c_ptr, id)
+  invisible()
+}
+
 #' @useDynLib fmlr R_card_info
 card_info = function(c_ptr)
 {
