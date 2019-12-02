@@ -113,6 +113,10 @@ gpuvecR6 = R6::R6Class("gpuvec",
     size = function() gpuvec_size(private$x_ptr),
     
     #' @details
+    #' Returns the internal card object.
+    get_card = function() private$card,
+    
+    #' @details
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
     
