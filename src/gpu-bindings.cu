@@ -1,5 +1,9 @@
 #include "extptr.h"
+
+#include "fml/src/cpu/cpuvec.hh"
+
 #include "fml/src/gpu/card.hh"
+#include "fml/src/gpu/gpuhelpers.hh"
 #include "fml/src/gpu/gpuvec.hh"
 
 
@@ -167,15 +171,12 @@ extern "C" SEXP R_gpuvec_to_robj(SEXP x_robj)
 {
   gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
   len_t size = x->size();
-  auto *x_d = x->data_ptr();
   
   SEXP ret;
   PROTECT(ret = allocVector(REALSXP, size));
-  double *ret_d = REAL(ret);
   
-  size_t copylen = (size_t) size * sizeof(ret_d);
-  auto c = x->get_card();
-  c->mem_gpu2cpu(ret_d, x_d, copylen);
+  cpuvec<double> ret_vec(REAL(ret), size, false);
+  gpuhelpers::gpu2cpu(*x, ret_vec);
   
   UNPROTECT(1);
   return ret;
@@ -184,7 +185,6 @@ extern "C" SEXP R_gpuvec_to_robj(SEXP x_robj)
 extern "C" SEXP R_gpuvec_from_robj(SEXP x_robj, SEXP robj)
 {
   int size = LENGTH(robj);
-  double *r_d = REAL(robj);
   
   gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
   len_t size_x = x->size();
@@ -192,10 +192,186 @@ extern "C" SEXP R_gpuvec_from_robj(SEXP x_robj, SEXP robj)
   if (size_x != size)
     x->resize(size);
   
-  auto *x_d = x->data_ptr();
-  size_t copylen = (size_t) size * sizeof(r_d);
-  auto c = x->get_card();
-  c->mem_cpu2gpu(x_d, r_d, copylen);
+  cpuvec<double> robj_vec(REAL(robj), size, false);
+  gpuhelpers::cpu2gpu(robj_vec, *x);
+  
+  return R_NilValue;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// gpumat bindings
+// -----------------------------------------------------------------------------
+
+extern "C" SEXP R_gpumat_init(SEXP c_robj, SEXP m_, SEXP n_)
+{
+  SEXP ret;
+  
+  int m = INTEGER(m_)[0];
+  int n = INTEGER(n_)[0];
+  std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
+  
+  gpumat<double> *x = new gpumat<double>(*c);
+  if (m > 0 && n > 0)
+    x->resize(m, n);
+  
+  newRptr(x, ret, fml_object_finalizer<gpumat<double>>);
+  UNPROTECT(1);
+  return ret;
+}
+
+extern "C" SEXP R_gpumat_dim(SEXP x_robj)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(INTSXP, 2));
+  
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  INTEGER(ret)[0] = x->nrows();
+  INTEGER(ret)[1] = x->ncols();
+  
+  return ret;
+}
+
+extern "C" SEXP R_gpumat_set(SEXP x_robj, SEXP data)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  // TODO FIXME
+  // x->set(REAL(data), LENGTH(data), false);
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_resize(SEXP x_robj, SEXP m, SEXP n)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->resize(INTEGER(m)[0], INTEGER(n)[0]);
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_print(SEXP x_robj, SEXP ndigits)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->print(INTEGER(ndigits)[0]);
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_info(SEXP x_robj)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->info();
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_fill_zero(SEXP x_robj)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->fill_zero();
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_fill_one(SEXP x_robj)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->fill_one();
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_fill_val(SEXP x_robj, SEXP v)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->fill_val(REAL(v)[0]);
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->fill_linspace(REAL(start)[0], REAL(stop)[0]);
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_fill_eye(SEXP x_robj)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->fill_eye();
+  return R_NilValue;
+}
+
+// TODO diag
+
+extern "C" SEXP R_gpumat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  if (INTEGER(seed)[0] == -1)
+    x->fill_runif(REAL(min)[0], REAL(max)[0]);
+  else
+    x->fill_runif(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]);
+  
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  if (INTEGER(seed)[0] == -1)
+    x->fill_rnorm(REAL(min)[0], REAL(max)[0]);
+  else
+    x->fill_rnorm(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]);
+  
+  return R_NilValue;
+}
+
+extern "C" SEXP R_gpumat_scale(SEXP x_robj, SEXP s)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  x->scale(REAL(s)[0]);
+  return R_NilValue;
+}
+
+// extern "C" SEXP R_gpumat_rev_rows(SEXP x_robj)
+// {
+//   gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+//   x->rev_rows();
+//   return R_NilValue;
+// }
+// 
+// extern "C" SEXP R_gpumat_rev_cols(SEXP x_robj)
+// {
+//   gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+//   x->rev_cols();
+//   return R_NilValue;
+// }
+
+extern "C" SEXP R_gpumat_to_robj(SEXP x_robj)
+{
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  len_t m = x->nrows();
+  len_t n = x->ncols();
+  
+  SEXP ret;
+  PROTECT(ret = allocMatrix(REALSXP, m, n));
+  
+  cpumat<double> ret_mat(REAL(ret), m, n, false);
+  gpuhelpers::gpu2cpu(*x, ret_mat);
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+extern "C" SEXP R_gpumat_from_robj(SEXP x_robj, SEXP robj)
+{
+  int m = nrows(robj);
+  int n = ncols(robj);
+  
+  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+  len_t m_x = x->nrows();
+  len_t n_x = x->ncols();
+  
+  if (m_x != m || n_x != n)
+    x->resize(m, n);
+  
+  cpumat<double> robj_mat(REAL(robj), m, n, false);
+  gpuhelpers::cpu2gpu(robj_mat, *x);
   
   return R_NilValue;
 }

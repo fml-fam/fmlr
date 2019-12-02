@@ -143,3 +143,165 @@ gpuvec_from_robj = function(x_ptr, robj)
 
   .Call(R_gpuvec_from_robj, x_ptr, robj)
 }
+
+
+
+# ------------------------------------------------------------------------------
+# gpumat class methods
+# ------------------------------------------------------------------------------
+
+#' @useDynLib fmlr R_gpumat_init
+gpumat_init = function(card, m, n, type)
+{
+  m = as.integer(m)
+  n = as.integer(n)
+  .Call(R_gpumat_init, card, m, n)
+}
+
+gpumat_nrows = function(x_ptr)
+{
+  gpumat_dim(x_ptr)[1]
+}
+
+gpumat_ncols = function(x_ptr)
+{
+  gpumat_dim(x_ptr)[2]
+}
+
+#' @useDynLib fmlr R_gpumat_dim
+gpumat_dim = function(x_ptr)
+{
+  .Call(R_gpumat_dim, x_ptr)
+}
+
+#' @useDynLib fmlr R_gpumat_set
+gpumat_set = function(x_ptr, data)
+{
+  if (!is.double(data))
+    storage.mode(data) = "double"
+  
+  .Call(R_gpumat_set, x_ptr, data)
+}
+
+#' @useDynLib fmlr R_gpumat_resize
+gpumat_resize = function(x_ptr, m, n)
+{
+  m = as.integer(m)
+  n = as.integer(n)
+  .Call(R_gpumat_resize, x_ptr, m, n)
+}
+
+#' @useDynLib fmlr R_gpumat_print
+gpumat_print = function(x_ptr, ndigits)
+{
+  ndigits = min(as.integer(ndigits), 15L)
+  
+  .Call(R_gpumat_print, x_ptr, ndigits)
+}
+
+#' @useDynLib fmlr R_gpumat_info
+gpumat_info = function(x_ptr)
+{
+  .Call(R_gpumat_info, x_ptr)
+}
+
+#' @useDynLib fmlr R_gpumat_fill_zero
+gpumat_fill_zero = function(x_ptr)
+{
+  .Call(R_gpumat_fill_zero, x_ptr)
+}
+
+#' @useDynLib fmlr R_gpumat_fill_one
+gpumat_fill_one = function(x_ptr)
+{
+  .Call(R_gpumat_fill_one, x_ptr)
+}
+
+#' @useDynLib fmlr R_gpumat_fill_val
+gpumat_fill_val = function(x_ptr, v)
+{
+  v = as.double(v)
+  
+  .Call(R_gpumat_fill_val, x_ptr, v)
+}
+
+#' @useDynLib fmlr R_gpumat_fill_linspace
+gpumat_fill_linspace = function(x_ptr, start, stop)
+{
+  start = as.double(start)
+  stop = as.double(stop)
+  
+  .Call(R_gpumat_fill_linspace, x_ptr, start, stop)
+}
+
+#' @useDynLib fmlr R_gpumat_fill_eye
+gpumat_fill_eye = function(x_ptr)
+{
+  .Call(R_gpumat_fill_eye, x_ptr)
+}
+
+# TODO diag
+
+#' @useDynLib fmlr R_gpumat_fill_runif
+gpumat_fill_runif = function(x_ptr, seed, min, max)
+{
+  if (missing(seed))
+    seed = -1L
+  else
+    seed = as.integer(seed)
+  
+  min = as.double(min)
+  max = as.double(max)
+  
+  .Call(R_gpumat_fill_runif, x_ptr, seed, min, max)
+}
+
+#' @useDynLib fmlr R_gpumat_fill_rnorm
+gpumat_fill_rnorm = function(x_ptr, seed, min, max)
+{
+  if (missing(seed))
+    seed = -1L
+  else
+    seed = as.integer(seed)
+  
+  min = as.double(min)
+  max = as.double(max)
+  
+  .Call(R_gpumat_fill_rnorm, x_ptr, seed, min, max)
+}
+
+#' @useDynLib fmlr R_gpumat_scale
+gpumat_scale = function(x_ptr, s)
+{
+  s = as.double(s)
+  
+  .Call(R_gpumat_scale, x_ptr, s)
+}
+
+# #' @useDynLib fmlr R_gpumat_rev_rows
+# gpumat_rev_rows = function(x_ptr)
+# {
+#   .Call(R_gpumat_rev_rows, x_ptr)
+# }
+# 
+# #' @useDynLib fmlr R_gpumat_rev_cols
+# gpumat_rev_cols = function(x_ptr)
+# {
+#   .Call(R_gpumat_rev_cols, x_ptr)
+# }
+
+#' @useDynLib fmlr R_gpumat_to_robj
+gpumat_to_robj = function(x_ptr)
+{
+  .Call(R_gpumat_to_robj, x_ptr)
+}
+
+#' @useDynLib fmlr R_gpumat_from_robj
+gpumat_from_robj = function(x_ptr, robj)
+{
+  # TODO check matrix type of robj
+  if (!is.double(robj))
+    storage.mode(robj) = "double"
+
+  .Call(R_gpumat_from_robj, x_ptr, robj)
+}

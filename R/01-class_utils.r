@@ -2,6 +2,7 @@ is_cpumat = function(x) inherits(x, "cpumat")
 is_cpuvec = function(x) inherits(x, "cpuvec")
 
 is_gpuvec = function(x) inherits(x, "gpuvec")
+is_gpumat = function(x) inherits(x, "gpumat")
 
 
 

@@ -14,6 +14,7 @@ Data is held in an external pointer.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{cardR6$new()}}
+\item \href{#method-set}{\code{cardR6$set()}}
 \item \href{#method-info}{\code{cardR6$info()}}
 \item \href{#method-print}{\code{cardR6$print()}}
 \item \href{#method-get_id}{\code{cardR6$get_id()}}
@@ -38,6 +39,25 @@ Data is held in an external pointer.
 }
 \subsection{Details}{
 Class initializer.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set"></a>}}
+\subsection{Method \code{set()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cardR6$set(id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{GPU id number.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set card to a different GPU.
 }
 
 }
