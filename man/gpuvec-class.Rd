@@ -15,16 +15,16 @@ Data is held in an external pointer.
 \itemize{
 \item \href{#method-new}{\code{gpuvecR6$new()}}
 \item \href{#method-resize}{\code{gpuvecR6$resize()}}
-\item \href{#method-set}{\code{gpuvecR6$set()}}
+\item \href{#method-inherit}{\code{gpuvecR6$inherit()}}
 \item \href{#method-info}{\code{gpuvecR6$info()}}
 \item \href{#method-print}{\code{gpuvecR6$print()}}
 \item \href{#method-fill_zero}{\code{gpuvecR6$fill_zero()}}
-\item \href{#method-fill_one}{\code{gpuvecR6$fill_one()}}
 \item \href{#method-fill_val}{\code{gpuvecR6$fill_val()}}
 \item \href{#method-fill_linspace}{\code{gpuvecR6$fill_linspace()}}
 \item \href{#method-scale}{\code{gpuvecR6$scale()}}
 \item \href{#method-rev}{\code{gpuvecR6$rev()}}
 \item \href{#method-size}{\code{gpuvecR6$size()}}
+\item \href{#method-get_card}{\code{gpuvecR6$get_card()}}
 \item \href{#method-data_ptr}{\code{gpuvecR6$data_ptr()}}
 \item \href{#method-to_robj}{\code{gpuvecR6$to_robj()}}
 \item \href{#method-from_robj}{\code{gpuvecR6$from_robj()}}
@@ -74,10 +74,10 @@ Change the length of the vector object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set"></a>}}
-\subsection{Method \code{set()}}{
+\if{html}{\out{<a id="method-inherit"></a>}}
+\subsection{Method \code{inherit()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$set(data)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$inherit(data)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -133,18 +133,6 @@ Print the data.
 
 \subsection{Details}{
 Fill all entries with zero.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fill_one"></a>}}
-\subsection{Method \code{fill_one()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$fill_one()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Fill all entries with one.
 }
 
 }
@@ -226,6 +214,18 @@ Reverse rows.
 
 \subsection{Details}{
 Returns length of the vector.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_card"></a>}}
+\subsection{Method \code{get_card()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$get_card()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the internal card object.
 }
 
 }

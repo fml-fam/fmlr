@@ -34,9 +34,9 @@ gpumatR6 = R6::R6Class("gpumat",
     #' Set the data in the gpumat object to point to the array in 'data'. See
     #' also \code{?as_gpumat}.
     #' @param data R matrix.
-    set = function(data)
+    inherit = function(data)
     {
-      gpumat_set(private$x_ptr, data)
+      gpumat_inherit(private$x_ptr, data)
       invisible(self)
     },
     
@@ -62,14 +62,6 @@ gpumatR6 = R6::R6Class("gpumat",
     fill_zero = function()
     {
       gpumat_fill_zero(private$x_ptr)
-      invisible(self)
-    },
-    
-    #' @details
-    #' Fill all entries with one.
-    fill_one = function()
-    {
-      gpumat_fill_one(private$x_ptr)
       invisible(self)
     },
     
@@ -226,7 +218,7 @@ as_gpumat = function(card, x, copy=TRUE)
   if (isTRUE(copy))
     ret$from_robj(x)
   else
-    ret$set(x)
+    ret$inherit(x)
   
   ret
 }

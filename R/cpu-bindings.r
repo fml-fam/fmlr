@@ -15,13 +15,13 @@ cpuvec_size = function(x_ptr)
   .Call(R_cpuvec_size, x_ptr)
 }
 
-#' @useDynLib fmlr R_cpuvec_set
-cpuvec_set = function(x_ptr, data)
+#' @useDynLib fmlr R_cpuvec_inherit
+cpuvec_inherit = function(x_ptr, data)
 {
   if (!is.double(data))
     storage.mode(data) = "double"
   
-  .Call(R_cpuvec_set, x_ptr, data)
+  .Call(R_cpuvec_inherit, x_ptr, data)
 }
 
 #' @useDynLib fmlr R_cpuvec_resize
@@ -49,12 +49,6 @@ cpuvec_info = function(x_ptr)
 cpuvec_fill_zero = function(x_ptr)
 {
   .Call(R_cpuvec_fill_zero, x_ptr)
-}
-
-#' @useDynLib fmlr R_cpuvec_fill_one
-cpuvec_fill_one = function(x_ptr)
-{
-  .Call(R_cpuvec_fill_one, x_ptr)
 }
 
 #' @useDynLib fmlr R_cpuvec_fill_val
@@ -134,13 +128,13 @@ cpumat_dim = function(x_ptr)
   .Call(R_cpumat_dim, x_ptr)
 }
 
-#' @useDynLib fmlr R_cpumat_set
-cpumat_set = function(x_ptr, data)
+#' @useDynLib fmlr R_cpumat_inherit
+cpumat_inherit = function(x_ptr, data)
 {
   if (!is.double(data))
     storage.mode(data) = "double"
   
-  .Call(R_cpumat_set, x_ptr, data)
+  .Call(R_cpumat_inherit, x_ptr, data)
 }
 
 #' @useDynLib fmlr R_cpumat_resize
@@ -169,12 +163,6 @@ cpumat_info = function(x_ptr)
 cpumat_fill_zero = function(x_ptr)
 {
   .Call(R_cpumat_fill_zero, x_ptr)
-}
-
-#' @useDynLib fmlr R_cpumat_fill_one
-cpumat_fill_one = function(x_ptr)
-{
-  .Call(R_cpumat_fill_one, x_ptr)
 }
 
 #' @useDynLib fmlr R_cpumat_fill_val

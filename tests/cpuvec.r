@@ -13,7 +13,7 @@ cmp(x$size(), size)
 # fill
 # ------------------------------------------------------------------------------
 
-x$fill_one()
+x$fill_val(1)
 test = x$to_robj()
 truth = rep(1, size)
 cmp(test, truth)

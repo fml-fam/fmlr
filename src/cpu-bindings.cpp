@@ -34,10 +34,10 @@ extern "C" SEXP R_cpuvec_size(SEXP x_robj)
   return ret;
 }
 
-extern "C" SEXP R_cpuvec_set(SEXP x_robj, SEXP data)
+extern "C" SEXP R_cpuvec_inherit(SEXP x_robj, SEXP data)
 {
   cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
-  x->set(REAL(data), LENGTH(data), false);
+  x->inherit(REAL(data), LENGTH(data), false);
   return R_NilValue;
 }
 
@@ -66,13 +66,6 @@ extern "C" SEXP R_cpuvec_fill_zero(SEXP x_robj)
 {
   cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
   x->fill_zero();
-  return R_NilValue;
-}
-
-extern "C" SEXP R_cpuvec_fill_one(SEXP x_robj)
-{
-  cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
-  x->fill_one();
   return R_NilValue;
 }
 
@@ -175,10 +168,10 @@ extern "C" SEXP R_cpumat_dim(SEXP x_robj)
   return ret;
 }
 
-extern "C" SEXP R_cpumat_set(SEXP x_robj, SEXP data)
+extern "C" SEXP R_cpumat_inherit(SEXP x_robj, SEXP data)
 {
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->set(REAL(data), nrows(data), ncols(data), false);
+  x->inherit(REAL(data), nrows(data), ncols(data), false);
   return R_NilValue;
 }
 
@@ -207,13 +200,6 @@ extern "C" SEXP R_cpumat_fill_zero(SEXP x_robj)
 {
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
   x->fill_zero();
-  return R_NilValue;
-}
-
-extern "C" SEXP R_cpumat_fill_one(SEXP x_robj)
-{
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->fill_one();
   return R_NilValue;
 }
 

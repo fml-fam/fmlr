@@ -55,13 +55,13 @@ gpuvec_size = function(x_ptr)
   .Call(R_gpuvec_size, x_ptr)
 }
 
-#' @useDynLib fmlr R_gpuvec_set
-gpuvec_set = function(x_ptr, data)
+#' @useDynLib fmlr R_gpuvec_inherit
+gpuvec_inherit = function(x_ptr, data)
 {
   if (!is.double(data))
     storage.mode(data) = "double"
 
-  .Call(R_gpuvec_set, x_ptr, data)
+  .Call(R_gpuvec_inherit, x_ptr, data)
 }
 
 #' @useDynLib fmlr R_gpuvec_resize
@@ -89,12 +89,6 @@ gpuvec_info = function(x_ptr)
 gpuvec_fill_zero = function(x_ptr)
 {
   .Call(R_gpuvec_fill_zero, x_ptr)
-}
-
-#' @useDynLib fmlr R_gpuvec_fill_one
-gpuvec_fill_one = function(x_ptr)
-{
-  .Call(R_gpuvec_fill_one, x_ptr)
 }
 
 #' @useDynLib fmlr R_gpuvec_fill_val
@@ -174,13 +168,13 @@ gpumat_dim = function(x_ptr)
   .Call(R_gpumat_dim, x_ptr)
 }
 
-#' @useDynLib fmlr R_gpumat_set
-gpumat_set = function(x_ptr, data)
+#' @useDynLib fmlr R_gpumat_inherit
+gpumat_inherit = function(x_ptr, data)
 {
   if (!is.double(data))
     storage.mode(data) = "double"
   
-  .Call(R_gpumat_set, x_ptr, data)
+  .Call(R_gpumat_inherit, x_ptr, data)
 }
 
 #' @useDynLib fmlr R_gpumat_resize
@@ -209,12 +203,6 @@ gpumat_info = function(x_ptr)
 gpumat_fill_zero = function(x_ptr)
 {
   .Call(R_gpumat_fill_zero, x_ptr)
-}
-
-#' @useDynLib fmlr R_gpumat_fill_one
-gpumat_fill_one = function(x_ptr)
-{
-  .Call(R_gpumat_fill_one, x_ptr)
 }
 
 #' @useDynLib fmlr R_gpumat_fill_val

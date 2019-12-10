@@ -14,7 +14,7 @@ cmp(x$dim(), c(m, n))
 # fill
 # ------------------------------------------------------------------------------
 
-x$fill_one()
+x$fill_val(1)
 test = x$to_robj()
 truth = matrix(1, m, n)
 cmp(test, truth)

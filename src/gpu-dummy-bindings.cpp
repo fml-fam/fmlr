@@ -75,7 +75,7 @@ extern "C" SEXP R_gpuvec_size(SEXP x_robj)
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_set(SEXP x_robj, SEXP data)
+extern "C" SEXP R_gpuvec_inherit(SEXP x_robj, SEXP data)
 {
   unused(x_robj, data);
   WARN_AND_RETURN;
@@ -100,12 +100,6 @@ extern "C" SEXP R_gpuvec_info(SEXP x_robj)
 }
 
 extern "C" SEXP R_gpuvec_fill_zero(SEXP x_robj)
-{
-  unused(x_robj);
-  WARN_AND_RETURN;
-}
-
-extern "C" SEXP R_gpuvec_fill_one(SEXP x_robj)
 {
   unused(x_robj);
   WARN_AND_RETURN;
@@ -165,7 +159,7 @@ extern "C" SEXP R_gpumat_dim(SEXP x_robj)
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_set(SEXP x_robj, SEXP data)
+extern "C" SEXP R_gpumat_inherit(SEXP x_robj, SEXP data)
 {
   unused(x_robj, data);
   WARN_AND_RETURN;
@@ -190,12 +184,6 @@ extern "C" SEXP R_gpumat_info(SEXP x_robj)
 }
 
 extern "C" SEXP R_gpumat_fill_zero(SEXP x_robj)
-{
-  unused(x_robj);
-  WARN_AND_RETURN;
-}
-
-extern "C" SEXP R_gpumat_fill_one(SEXP x_robj)
 {
   unused(x_robj);
   WARN_AND_RETURN;

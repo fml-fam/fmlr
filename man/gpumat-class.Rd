@@ -15,11 +15,10 @@ Data is held in an external pointer.
 \itemize{
 \item \href{#method-new}{\code{gpumatR6$new()}}
 \item \href{#method-resize}{\code{gpumatR6$resize()}}
-\item \href{#method-set}{\code{gpumatR6$set()}}
+\item \href{#method-inherit}{\code{gpumatR6$inherit()}}
 \item \href{#method-info}{\code{gpumatR6$info()}}
 \item \href{#method-print}{\code{gpumatR6$print()}}
 \item \href{#method-fill_zero}{\code{gpumatR6$fill_zero()}}
-\item \href{#method-fill_one}{\code{gpumatR6$fill_one()}}
 \item \href{#method-fill_val}{\code{gpumatR6$fill_val()}}
 \item \href{#method-fill_linspace}{\code{gpumatR6$fill_linspace()}}
 \item \href{#method-fill_eye}{\code{gpumatR6$fill_eye()}}
@@ -31,6 +30,7 @@ Data is held in an external pointer.
 \item \href{#method-nrows}{\code{gpumatR6$nrows()}}
 \item \href{#method-ncols}{\code{gpumatR6$ncols()}}
 \item \href{#method-dim}{\code{gpumatR6$dim()}}
+\item \href{#method-get_card}{\code{gpumatR6$get_card()}}
 \item \href{#method-data_ptr}{\code{gpumatR6$data_ptr()}}
 \item \href{#method-to_robj}{\code{gpumatR6$to_robj()}}
 \item \href{#method-from_robj}{\code{gpumatR6$from_robj()}}
@@ -80,10 +80,10 @@ Change the dimension of the matrix object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set"></a>}}
-\subsection{Method \code{set()}}{
+\if{html}{\out{<a id="method-inherit"></a>}}
+\subsection{Method \code{inherit()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$set(data)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$inherit(data)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -139,18 +139,6 @@ Print the data.
 
 \subsection{Details}{
 Fill all entries with zero.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fill_one"></a>}}
-\subsection{Method \code{fill_one()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$fill_one()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Fill all entries with one.
 }
 
 }
@@ -322,6 +310,18 @@ Returns number of columns of the matrix.
 
 \subsection{Details}{
 Returns number of rows and columns of the matrix.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_card"></a>}}
+\subsection{Method \code{get_card()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$get_card()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the internal card object.
 }
 
 }

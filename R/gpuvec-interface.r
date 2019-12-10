@@ -34,9 +34,9 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' Set the data in the gpuvec object to point to the array in 'data'. See
     #' also \code{?as_gpuvec}.
     #' @param data R vector.
-    set = function(data)
+    inherit = function(data)
     {
-      gpuvec_set(private$x_ptr, data)
+      gpuvec_inherit(private$x_ptr, data)
       invisible(self)
     },
     
@@ -62,14 +62,6 @@ gpuvecR6 = R6::R6Class("gpuvec",
     fill_zero = function()
     {
       gpuvec_fill_zero(private$x_ptr)
-      invisible(self)
-    },
-    
-    #' @details
-    #' Fill all entries with one.
-    fill_one = function()
-    {
-      gpuvec_fill_one(private$x_ptr)
       invisible(self)
     },
     
@@ -180,7 +172,7 @@ gpuvec = function(card, size=0, type="double")
 #   if (isTRUE(copy))
 #     ret$from_robj(x)
 #   else
-#     ret$set(x)
+#     ret$inherit(x)
 # 
 #   ret
 # }

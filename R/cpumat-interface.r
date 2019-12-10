@@ -32,9 +32,9 @@ cpumatR6 = R6::R6Class("cpumat",
     #' Set the data in the cpumat object to point to the array in 'data'. See
     #' also \code{?as_cpumat}.
     #' @param data R matrix.
-    set = function(data)
+    inherit = function(data)
     {
-      cpumat_set(private$x_ptr, data)
+      cpumat_inherit(private$x_ptr, data)
       invisible(self)
     },
     
@@ -60,14 +60,6 @@ cpumatR6 = R6::R6Class("cpumat",
     fill_zero = function()
     {
       cpumat_fill_zero(private$x_ptr)
-      invisible(self)
-    },
-    
-    #' @details
-    #' Fill all entries with one.
-    fill_one = function()
-    {
-      cpumat_fill_one(private$x_ptr)
       invisible(self)
     },
     
@@ -218,7 +210,7 @@ as_cpumat = function(x, copy=TRUE)
   if (isTRUE(copy))
     ret$from_robj(x)
   else
-    ret$set(x)
+    ret$inherit(x)
   
   ret
 }

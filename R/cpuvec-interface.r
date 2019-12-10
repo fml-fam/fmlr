@@ -32,9 +32,9 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' Set the data in the cpuvec object to point to the array in 'data'. See
     #' also \code{?as_cpuvec}.
     #' @param data R vector.
-    set = function(data)
+    inherit = function(data)
     {
-      cpuvec_set(private$x_ptr, data)
+      cpuvec_inherit(private$x_ptr, data)
       invisible(self)
     },
     
@@ -60,14 +60,6 @@ cpuvecR6 = R6::R6Class("cpuvec",
     fill_zero = function()
     {
       cpuvec_fill_zero(private$x_ptr)
-      invisible(self)
-    },
-    
-    #' @details
-    #' Fill all entries with one.
-    fill_one = function()
-    {
-      cpuvec_fill_one(private$x_ptr)
       invisible(self)
     },
     
@@ -173,7 +165,7 @@ as_cpuvec = function(x, copy=TRUE)
   if (isTRUE(copy))
     ret$from_robj(x)
   else
-    ret$set(x)
+    ret$inherit(x)
   
   ret
 }

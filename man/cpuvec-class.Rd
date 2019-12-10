@@ -15,11 +15,10 @@ Data is held in an external pointer.
 \itemize{
 \item \href{#method-new}{\code{cpuvecR6$new()}}
 \item \href{#method-resize}{\code{cpuvecR6$resize()}}
-\item \href{#method-set}{\code{cpuvecR6$set()}}
+\item \href{#method-inherit}{\code{cpuvecR6$inherit()}}
 \item \href{#method-info}{\code{cpuvecR6$info()}}
 \item \href{#method-print}{\code{cpuvecR6$print()}}
 \item \href{#method-fill_zero}{\code{cpuvecR6$fill_zero()}}
-\item \href{#method-fill_one}{\code{cpuvecR6$fill_one()}}
 \item \href{#method-fill_val}{\code{cpuvecR6$fill_val()}}
 \item \href{#method-fill_linspace}{\code{cpuvecR6$fill_linspace()}}
 \item \href{#method-scale}{\code{cpuvecR6$scale()}}
@@ -72,10 +71,10 @@ Change the length of the vector object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set"></a>}}
-\subsection{Method \code{set()}}{
+\if{html}{\out{<a id="method-inherit"></a>}}
+\subsection{Method \code{inherit()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$set(data)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$inherit(data)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -131,18 +130,6 @@ Print the data.
 
 \subsection{Details}{
 Fill all entries with zero.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fill_one"></a>}}
-\subsection{Method \code{fill_one()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$fill_one()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Fill all entries with one.
 }
 
 }
