@@ -112,16 +112,6 @@ cpumat_init = function(m, n, type)
   .Call(R_cpumat_init, m, n)
 }
 
-cpumat_nrows = function(x_ptr)
-{
-  cpumat_dim(x_ptr)[1]
-}
-
-cpumat_ncols = function(x_ptr)
-{
-  cpumat_dim(x_ptr)[2]
-}
-
 #' @useDynLib fmlr R_cpumat_dim
 cpumat_dim = function(x_ptr)
 {

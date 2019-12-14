@@ -139,11 +139,11 @@ gpumatR6 = R6::R6Class("gpumat",
     
     #' @details
     #' Returns number of rows of the matrix.
-    nrows = function() gpumat_nrows(private$x_ptr),
+    nrows = function() gpumat_dim(private$x_ptr)[1],
     
     #' @details
     #' Returns number of columns of the matrix.
-    ncols = function() gpumat_ncols(private$x_ptr),
+    ncols = function() gpumat_dim(private$x_ptr)[2],
     
     #' @details
     #' Returns number of rows and columns of the matrix.

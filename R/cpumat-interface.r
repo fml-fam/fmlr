@@ -137,11 +137,11 @@ cpumatR6 = R6::R6Class("cpumat",
     
     #' @details
     #' Returns number of rows of the matrix.
-    nrows = function() cpumat_nrows(private$x_ptr),
+    nrows = function() cpumat_dim(private$x_ptr)[1],
     
     #' @details
     #' Returns number of columns of the matrix.
-    ncols = function() cpumat_ncols(private$x_ptr),
+    ncols = function() cpumat_dim(private$x_ptr)[2],
     
     #' @details
     #' Returns number of rows and columns of the matrix.

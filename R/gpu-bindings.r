@@ -152,16 +152,6 @@ gpumat_init = function(card, m, n, type)
   .Call(R_gpumat_init, card, m, n)
 }
 
-gpumat_nrows = function(x_ptr)
-{
-  gpumat_dim(x_ptr)[1]
-}
-
-gpumat_ncols = function(x_ptr)
-{
-  gpumat_dim(x_ptr)[2]
-}
-
 #' @useDynLib fmlr R_gpumat_dim
 gpumat_dim = function(x_ptr)
 {
