@@ -1,6 +1,8 @@
 *~
 *.swp
 
+R/02-features.r
+
 src/Makevars
 src/*.o
 src/*.so

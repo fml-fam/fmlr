@@ -1,0 +1,21 @@
+#' features
+#' 
+#' Tests for different features i.e. backend support.
+#' 
+#' @name features
+#' @rdname features
+NULL
+
+
+
+#' @rdname features
+#' @export
+fml_cpu = function() TRUE
+
+#' @rdname features
+#' @export
+fml_gpu = function() @USE_GPU@ == "TRUE"
+
+#' @rdname features
+#' @export
+fml_mpi = function() TRUE
