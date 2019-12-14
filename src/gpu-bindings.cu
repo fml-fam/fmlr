@@ -224,6 +224,7 @@ extern "C" SEXP R_gpumat_dim(SEXP x_robj)
   INTEGER(ret)[0] = x->nrows();
   INTEGER(ret)[1] = x->ncols();
   
+  UNPROTECT(1);
   return ret;
 }
 

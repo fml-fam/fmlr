@@ -2,6 +2,7 @@
 # type globals
 # -----------------------------------------------------------------------------
 
+# type globals
 TYPES_STR_NUMERIC = c("double", "float")
 TYPES_STR_INTEGER = "int"
 TYPES_STR = c(TYPES_STR_NUMERIC, TYPES_STR_INTEGER)
@@ -11,3 +12,10 @@ names(TYPES_INT) = TYPES_STR
 
 type_int2str = function(type) TYPES_STR[type]
 type_str2int = function(type) TYPES_INT[[type]]
+
+
+
+# grid globals
+PROC_GRID_SQUARE = 0L
+PROC_GRID_WIDE = 1L
+PROC_GRID_TALL = 2L

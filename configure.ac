@@ -22,6 +22,16 @@ FLOAT_INCL=`${R_SCMD} "float:::cppflags()"`
 SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS','"${R_ARCH}"')"`
 SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
 
+# ScaLAPACK flags
+EXT_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('EXT_LDFLAGS','"${R_ARCH}"','pbdSLAP')"`
+R_SLAP=`${R_SCMD} "source('./R/conf/get_lib.r');get.lib('R_SLAP','"${R_ARCH}"')"`
+if test -f "$R_SLAP"; then
+  SLAP_LDFLAGS="$R_SLAP \$(LAPACK_LIBS) \$(BLAS_LIBS)"
+else
+  SLAP_LDFLAGS="$EXT_LDFLAGS"
+fi
+
+
 # GPU flags
 AC_ARG_ENABLE(gpu,
   AC_HELP_STRING(
@@ -60,6 +70,7 @@ fi
 echo "* MPI report:"
 echo "    >> SPMD_CPPFLAGS = ${SPMD_CPPFLAGS}"
 echo "    >> SPMD_LDFLAGS = ${SPMD_LDFLAGS}"
+echo "    >> SLAP_LDFLAGS = ${SLAP_LDFLAGS}"
 echo "*************************************************************************"
 echo " "
 
@@ -71,6 +82,7 @@ AC_SUBST(FLOAT_INCL)
 
 AC_SUBST(SPMD_CPPFLAGS)
 AC_SUBST(SPMD_LDFLAGS)
+AC_SUBST(SLAP_LDFLAGS)
 
 AC_SUBST(USE_GPU)
 AC_SUBST(NVCC)

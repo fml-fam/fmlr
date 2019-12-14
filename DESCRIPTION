@@ -7,7 +7,8 @@ License: BSL-1.0
 SystemRequirements: C++14, GNU make
 Depends:
     R (>= 3.6.0),
-    pbdMPI (>= 0.3-0)
+    pbdMPI (>= 0.3-0),
+    pbdSLAP
 Imports:
     R6,
     float (>= 0.2-0)

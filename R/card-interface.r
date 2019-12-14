@@ -27,7 +27,7 @@ cardR6 = R6::R6Class("card",
     },
     
     #' @details
-    #' Print one-line information about the matrix.
+    #' Print one-line information about the object.
     info = function()
     {
       card_info(private$c_ptr)
@@ -35,9 +35,8 @@ cardR6 = R6::R6Class("card",
     },
     
     #' @details
-    #' Print the data.
-    #' @param ndigits Number of decimal digits to print.
-    print = function(ndigits=4)
+    #' Print one-line information about the object.
+    print = function()
     {
       card_info(private$c_ptr)
       invisible(self)
