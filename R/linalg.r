@@ -22,9 +22,9 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   if (inherits(x, "cpumat"))
   {
     if (is.null(ret))
-      ret = cpumat(n, n)
+      ret = cpumat(n, n, type=x$get_type_str())
     
-    .Call(R_cpumat_linalg_crossprod, xpose, alpha, x$data_ptr(), ret$data_ptr())
+    .Call(R_cpumat_linalg_crossprod, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   else if (inherits(x, "gpumat"))
   {

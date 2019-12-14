@@ -1,4 +1,6 @@
 #include "extptr.h"
+#include "types.h"
+
 #include "fml/src/cpu/cpumat.hh"
 #include "fml/src/cpu/linalg.hh"
 
@@ -7,18 +9,38 @@
 // cpumat class methods
 // -----------------------------------------------------------------------------
 
-extern "C" SEXP R_cpumat_init(SEXP m_, SEXP n_)
+extern "C" SEXP R_cpumat_init(SEXP type, SEXP m_, SEXP n_)
 {
   SEXP ret;
   
   int m = INTEGER(m_)[0];
   int n = INTEGER(n_)[0];
   
-  cpumat<double> *x = new cpumat<double>();
-  if (m > 0 && n > 0)
-    x->resize(m, n);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    cpumat<double> *x = new cpumat<double>();
+    if (m > 0 && n > 0)
+      x->resize(m, n);
+    
+    newRptr(x, ret, fml_object_finalizer<cpumat<double>>);
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    cpumat<float> *x = new cpumat<float>();
+    if (m > 0 && n > 0)
+      x->resize(m, n);
+    
+    newRptr(x, ret, fml_object_finalizer<cpumat<float>>);
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    cpumat<int> *x = new cpumat<int>();
+    if (m > 0 && n > 0)
+      x->resize(m, n);
+    
+    newRptr(x, ret, fml_object_finalizer<cpumat<int>>);
+  }
   
-  newRptr(x, ret, fml_object_finalizer<cpumat<double>>);
   UNPROTECT(1);
   return ret;
 }
@@ -48,64 +70,57 @@ extern "C" SEXP R_cpumat_inherit(SEXP x_robj, SEXP data)
 
 
 
-extern "C" SEXP R_cpumat_resize(SEXP x_robj, SEXP m, SEXP n)
+extern "C" SEXP R_cpumat_resize(SEXP type, SEXP x_robj, SEXP m, SEXP n)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->resize(INTEGER(m)[0], INTEGER(n)[0]);
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, resize, INTEGER(m)[0], INTEGER(n)[0]);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_print(SEXP x_robj, SEXP ndigits)
+extern "C" SEXP R_cpumat_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->print(INTEGER(ndigits)[0]);
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, print, INTEGER(ndigits)[0]);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_info(SEXP x_robj)
+extern "C" SEXP R_cpumat_info(SEXP type, SEXP x_robj)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->info();
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, info);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_fill_zero(SEXP x_robj)
+extern "C" SEXP R_cpumat_fill_zero(SEXP type, SEXP x_robj)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->fill_zero();
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, fill_zero);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_fill_val(SEXP x_robj, SEXP v)
+extern "C" SEXP R_cpumat_fill_val(SEXP type, SEXP x_robj, SEXP v)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->fill_val(REAL(v)[0]);
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, fill_val, DBL(v));
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
+extern "C" SEXP R_cpumat_fill_linspace(SEXP type, SEXP x_robj, SEXP start, SEXP stop)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->fill_linspace(REAL(start)[0], REAL(stop)[0]);
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, fill_linspace, DBL(start), DBL(stop));
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_fill_eye(SEXP x_robj)
+extern "C" SEXP R_cpumat_fill_eye(SEXP type, SEXP x_robj)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->fill_eye();
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, fill_eye);
   return R_NilValue;
 }
 
@@ -137,28 +152,25 @@ extern "C" SEXP R_cpumat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 
 
 
-extern "C" SEXP R_cpumat_scale(SEXP x_robj, SEXP s)
+extern "C" SEXP R_cpumat_scale(SEXP type, SEXP x_robj, SEXP s)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->scale(REAL(s)[0]);
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, scale, DBL(s));
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_rev_rows(SEXP x_robj)
+extern "C" SEXP R_cpumat_rev_rows(SEXP type, SEXP x_robj)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->rev_rows();
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, rev_rows);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_rev_cols(SEXP x_robj)
+extern "C" SEXP R_cpumat_rev_cols(SEXP type, SEXP x_robj)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  x->rev_cols();
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, rev_cols);
   return R_NilValue;
 }
 
@@ -218,15 +230,22 @@ extern "C" SEXP R_cpumat_from_robj(SEXP x_robj, SEXP robj)
 // linalg namespace
 // -----------------------------------------------------------------------------
 
-extern "C" SEXP R_cpumat_linalg_crossprod(SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
+template <typename REAL>
+static inline void crossprod(bool xpose, REAL alpha, void *x, void *ret)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  cpumat<double> *ret = (cpumat<double>*) getRptr(ret_robj);
-  
-  if (LOGICAL(xpose)[0])
-    linalg::tcrossprod(REAL(alpha)[0], *x, *ret);
+  CAST_MAT(cpumat, REAL, x_cast, x);
+  CAST_MAT(cpumat, REAL, ret_cast, ret);
+  if (xpose)
+    linalg::tcrossprod(alpha, *x_cast, *ret_cast);
   else
-    linalg::crossprod(REAL(alpha)[0], *x, *ret);
+    linalg::crossprod(alpha, *x_cast, *ret_cast);
+}
+
+extern "C" SEXP R_cpumat_linalg_crossprod(SEXP type, SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
+{
+  void *x = getRptr(x_robj);
+  void *ret = getRptr(ret_robj);
+  APPLY_TEMPLATED_FUNCTION(type, crossprod, LGL(xpose), DBL(alpha), x, ret);
   
   return R_NilValue;
 }

@@ -16,11 +16,14 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_init
     initialize = function(nrows=0, ncols=0, type="double")
     {
+      type = match.arg(tolower(type), TYPES_STR)
+      
       nrows = as.integer(nrows)
       ncols = as.integer(ncols)
       
-      private$x_ptr = .Call(R_cpumat_init, nrows, ncols)
-      private$type = type
+      private$type_str = type
+      private$type = type_str2int(type)
+      private$x_ptr = .Call(R_cpumat_init, private$type, nrows, ncols)
     },
     
     
@@ -34,7 +37,7 @@ cpumatR6 = R6::R6Class("cpumat",
       nrows = as.integer(nrows)
       ncols = as.integer(ncols)
       
-      .Call(R_cpumat_resize, private$x_ptr, nrows, ncols)
+      .Call(R_cpumat_resize, private$type, private$x_ptr, nrows, ncols)
       invisible(self)
     },
     
@@ -61,7 +64,7 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_info
     info = function()
     {
-      .Call(R_cpumat_info, private$x_ptr)
+      .Call(R_cpumat_info, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -75,7 +78,7 @@ cpumatR6 = R6::R6Class("cpumat",
     {
       ndigits = min(as.integer(ndigits), 15L)
       
-      .Call(R_cpumat_print, private$x_ptr, ndigits)
+      .Call(R_cpumat_print, private$type, private$x_ptr, ndigits)
       invisible(self)
     },
     
@@ -86,7 +89,7 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_fill_zero
     fill_zero = function()
     {
-      .Call(R_cpumat_fill_zero, private$x_ptr)
+      .Call(R_cpumat_fill_zero, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -100,7 +103,7 @@ cpumatR6 = R6::R6Class("cpumat",
     {
       v = as.double(v)
       
-      .Call(R_cpumat_fill_val, private$x_ptr, v)
+      .Call(R_cpumat_fill_val, private$type, private$x_ptr, v)
       invisible(self)
     },
     
@@ -115,7 +118,7 @@ cpumatR6 = R6::R6Class("cpumat",
       start = as.double(start)
       stop = as.double(stop)
       
-      .Call(R_cpumat_fill_linspace, private$x_ptr, start, stop)
+      .Call(R_cpumat_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
     },
     
@@ -126,7 +129,7 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_fill_eye
     fill_eye = function()
     {
-      .Call(R_cpumat_fill_eye, private$x_ptr)
+      .Call(R_cpumat_fill_eye, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -182,7 +185,7 @@ cpumatR6 = R6::R6Class("cpumat",
     {
       s = as.double(s)
       
-      .Call(R_cpumat_scale, private$x_ptr, s)
+      .Call(R_cpumat_scale, private$type, private$x_ptr, s)
       invisible(self)
     },
     
@@ -193,7 +196,7 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_rev_rows
     rev_rows = function()
     {
-      .Call(R_cpumat_rev_rows, private$x_ptr)
+      .Call(R_cpumat_rev_rows, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -204,7 +207,7 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_rev_cols
     rev_cols = function()
     {
-      .Call(R_cpumat_rev_cols, private$x_ptr)
+      .Call(R_cpumat_rev_cols, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -228,6 +231,14 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @details
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
+    
+    #' @details
+    #' Returns the integer code for the underlying storage type. For developers only.
+    get_type = function() private$type,
+    
+    #' @details
+    #' Returns the string code for the underlying storage type. For developers only.
+    get_type_str = function() private$type_str,
     
     
     
@@ -257,7 +268,8 @@ cpumatR6 = R6::R6Class("cpumat",
   
   private = list(
     x_ptr = NULL,
-    type = ""
+    type = -1L,
+    type_str = ""
   )
 )
 

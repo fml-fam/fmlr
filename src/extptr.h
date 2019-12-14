@@ -1,5 +1,6 @@
 #ifndef FMLR_EXTPTR_H
 #define FMLR_EXTPTR_H
+#pragma once
 
 
 #include <Rinternals.h>
