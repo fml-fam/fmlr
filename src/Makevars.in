@@ -35,12 +35,12 @@ PKG_CXXFLAGS = $(PKG_CXXFLAGS_MPI) $(SHLIB_OPENMP_CXXFLAGS)
 
 
 # libs and objects
-CPU_OBJS = cpu-bindings.o
-MPI_OBJS = mpi-bindings.o
+CPU_OBJS = cpumat.o cpuvec.o
+MPI_OBJS = grid.o mpimat.o
 
 ifeq "$(USE_GPU)" "TRUE"
 PKG_LIBS = $(PKG_LIBS_MPI) $(PKG_LIBS_CPU) $(PKG_LIBS_GPU)
-OBJECTS = $(CPU_OBJS) $(MPI_OBJS) gpu-bindings.o
+OBJECTS = $(CPU_OBJS) $(MPI_OBJS) card.o gpumat.o gpuvec.o
 else
 PKG_LIBS = $(PKG_LIBS_MPI) $(PKG_LIBS_CPU)
 OBJECTS = $(CPU_OBJS) $(MPI_OBJS) gpu-dummy-bindings.o

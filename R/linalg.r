@@ -1,5 +1,11 @@
+#' @useDynLib fmlr R_cpumat_linalg_crossprod
+#' @useDynLib fmlr R_gpumat_linalg_crossprod
+#' @useDynLib fmlr R_mpimat_linalg_crossprod
 linalg_crossprods = function(x, ret, alpha, xpose)
 {
+  xpose = as.logical(xpose)
+  alpha = as.double(alpha)
+  
   if (!is.null(ret))
   {
     check_class_consistency(x, ret)
@@ -18,14 +24,14 @@ linalg_crossprods = function(x, ret, alpha, xpose)
     if (is.null(ret))
       ret = cpumat(n, n)
     
-    cpumat_linalg_crossprod(xpose, alpha, x$data_ptr(), ret$data_ptr())
+    .Call(R_cpumat_linalg_crossprod, xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   else if (inherits(x, "gpumat"))
   {
     if (is.null(ret))
       ret = gpumat(x$get_card(), n, n)
     
-    gpumat_linalg_crossprod(xpose, alpha, x$data_ptr(), ret$data_ptr())
+    .Call(R_gpumat_linalg_crossprod, xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   else if (inherits(x, "mpimat"))
   {
@@ -35,7 +41,7 @@ linalg_crossprods = function(x, ret, alpha, xpose)
       ret = mpimat(x$get_grid(), n, n, bfdim[1], bfdim[2])
     }
     
-    mpimat_linalg_crossprod(xpose, alpha, x$data_ptr(), ret$data_ptr())
+    .Call(R_mpimat_linalg_crossprod, xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   
   if (invisiret)

@@ -5,159 +5,6 @@
 #include "fml/src/mpi/mpihelpers.hh"
 #include "fml/src/mpi/mpimat.hh"
 
-#define GET_R_STRING(x,i) ((char*)CHAR(STRING_ELT(x,i)))
-#define GET_R_CHAR(x,i) ((GET_R_STRING(x,i))[0])
-
-
-// -----------------------------------------------------------------------------
-// grid bindings
-// -----------------------------------------------------------------------------
-
-extern "C" SEXP R_grid_init(SEXP gridtype)
-{
-  SEXP ret;
-  
-  grid *g = new grid((gridshape) INTEGER(gridtype)[0]);
-  
-  newRptr(g, ret, fml_object_finalizer<grid>);
-  UNPROTECT(1);
-  return ret;
-}
-
-extern "C" SEXP R_grid_set(SEXP g_robj, SEXP blacs_context)
-{
-  grid *g = (grid*) getRptr(g_robj);
-  g->set(INTEGER(blacs_context)[0]);
-  
-  return R_NilValue;
-}
-
-extern "C" SEXP R_grid_exit(SEXP g_robj)
-{
-  grid *g = (grid*) getRptr(g_robj);
-  g->exit();
-  
-  return R_NilValue;
-}
-
-extern "C" SEXP R_grid_finalize(SEXP g_robj, SEXP mpi_continue)
-{
-  grid *g = (grid*) getRptr(g_robj);
-  g->finalize(LOGICAL(mpi_continue)[0]);
-  
-  return R_NilValue;
-}
-
-extern "C" SEXP R_grid_info(SEXP g_robj)
-{
-  grid *g = (grid*) getRptr(g_robj);
-  g->info();
-  
-  return R_NilValue;
-}
-
-extern "C" SEXP R_grid_rank0(SEXP g_robj)
-{
-  grid *g = (grid*) getRptr(g_robj);
-  g->rank0();
-  
-  return R_NilValue;
-}
-
-extern "C" SEXP R_grid_ingrid(SEXP g_robj)
-{
-  grid *g = (grid*) getRptr(g_robj);
-  g->ingrid();
-  
-  return R_NilValue;
-}
-
-extern "C" SEXP R_grid_barrier(SEXP g_robj, SEXP scope)
-{
-  grid *g = (grid*) getRptr(g_robj);
-  g->barrier(GET_R_CHAR(scope, 0));
-  
-  return R_NilValue;
-}
-
-extern "C" SEXP R_grid_ictxt(SEXP g_robj)
-{
-  SEXP ret;
-  PROTECT(ret = allocVector(INTSXP, 1));
-  
-  grid *g = (grid*) getRptr(g_robj);
-  INTEGER(ret)[0] = g->ictxt();
-  UNPROTECT(1);
-  return ret;
-}
-
-extern "C" SEXP R_grid_nprocs(SEXP g_robj)
-{
-  SEXP ret;
-  PROTECT(ret = allocVector(INTSXP, 1));
-  
-  grid *g = (grid*) getRptr(g_robj);
-  INTEGER(ret)[0] = g->nprocs();
-  UNPROTECT(1);
-  return ret;
-}
-
-extern "C" SEXP R_grid_nprow(SEXP g_robj)
-{
-  SEXP ret;
-  PROTECT(ret = allocVector(INTSXP, 1));
-  
-  grid *g = (grid*) getRptr(g_robj);
-  INTEGER(ret)[0] = g->nprow();
-  UNPROTECT(1);
-  return ret;
-}
-
-extern "C" SEXP R_grid_npcol(SEXP g_robj)
-{
-  SEXP ret;
-  PROTECT(ret = allocVector(INTSXP, 1));
-  
-  grid *g = (grid*) getRptr(g_robj);
-  INTEGER(ret)[0] = g->npcol();
-  UNPROTECT(1);
-  return ret;
-}
-
-extern "C" SEXP R_grid_myrow(SEXP g_robj)
-{
-  SEXP ret;
-  PROTECT(ret = allocVector(INTSXP, 1));
-  
-  grid *g = (grid*) getRptr(g_robj);
-  INTEGER(ret)[0] = g->myrow();
-  UNPROTECT(1);
-  return ret;
-}
-
-extern "C" SEXP R_grid_mycol(SEXP g_robj)
-{
-  SEXP ret;
-  PROTECT(ret = allocVector(INTSXP, 1));
-  
-  grid *g = (grid*) getRptr(g_robj);
-  INTEGER(ret)[0] = g->mycol();
-  UNPROTECT(1);
-  return ret;
-}
-
-extern "C" SEXP R_grid_valid_grid(SEXP g_robj)
-{
-  SEXP ret;
-  PROTECT(ret = allocVector(LGLSXP, 1));
-  
-  grid *g = (grid*) getRptr(g_robj);
-  LOGICAL(ret)[0] = g->valid_grid();
-  UNPROTECT(1);
-  return ret;
-}
-
-
 
 // -----------------------------------------------------------------------------
 // mpimat bindings
@@ -180,6 +27,8 @@ extern "C" SEXP R_mpimat_init(SEXP g_robj, SEXP m_, SEXP n_, SEXP mb, SEXP nb)
   return ret;
 }
 
+
+
 extern "C" SEXP R_mpimat_dim(SEXP x_robj)
 {
   SEXP ret;
@@ -192,6 +41,8 @@ extern "C" SEXP R_mpimat_dim(SEXP x_robj)
   UNPROTECT(1);
   return ret;
 }
+
+
 
 extern "C" SEXP R_mpimat_ldim(SEXP x_robj)
 {
@@ -206,6 +57,8 @@ extern "C" SEXP R_mpimat_ldim(SEXP x_robj)
   return ret;
 }
 
+
+
 extern "C" SEXP R_mpimat_bfdim(SEXP x_robj)
 {
   SEXP ret;
@@ -219,6 +72,8 @@ extern "C" SEXP R_mpimat_bfdim(SEXP x_robj)
   return ret;
 }
 
+
+
 extern "C" SEXP R_mpimat_inherit(SEXP x_robj, SEXP data)
 {
   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
@@ -227,12 +82,16 @@ extern "C" SEXP R_mpimat_inherit(SEXP x_robj, SEXP data)
   return R_NilValue;
 }
 
+
+
 extern "C" SEXP R_mpimat_resize(SEXP x_robj, SEXP m, SEXP n)
 {
   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
   x->resize(INTEGER(m)[0], INTEGER(n)[0]);
   return R_NilValue;
 }
+
+
 
 extern "C" SEXP R_mpimat_print(SEXP x_robj, SEXP ndigits)
 {
@@ -241,12 +100,16 @@ extern "C" SEXP R_mpimat_print(SEXP x_robj, SEXP ndigits)
   return R_NilValue;
 }
 
+
+
 extern "C" SEXP R_mpimat_info(SEXP x_robj)
 {
   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
   x->info();
   return R_NilValue;
 }
+
+
 
 extern "C" SEXP R_mpimat_fill_zero(SEXP x_robj)
 {
@@ -255,12 +118,16 @@ extern "C" SEXP R_mpimat_fill_zero(SEXP x_robj)
   return R_NilValue;
 }
 
+
+
 extern "C" SEXP R_mpimat_fill_val(SEXP x_robj, SEXP v)
 {
   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
   x->fill_val(REAL(v)[0]);
   return R_NilValue;
 }
+
+
 
 extern "C" SEXP R_mpimat_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
 {
@@ -269,12 +136,16 @@ extern "C" SEXP R_mpimat_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
   return R_NilValue;
 }
 
+
+
 extern "C" SEXP R_mpimat_fill_eye(SEXP x_robj)
 {
   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
   x->fill_eye();
   return R_NilValue;
 }
+
+
 
 extern "C" SEXP R_mpimat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
@@ -287,6 +158,8 @@ extern "C" SEXP R_mpimat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
   return R_NilValue;
 }
 
+
+
 extern "C" SEXP R_mpimat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
@@ -298,8 +171,7 @@ extern "C" SEXP R_mpimat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
   return R_NilValue;
 }
 
-// TODO diag
-// TODO antidiag
+
 
 extern "C" SEXP R_mpimat_scale(SEXP x_robj, SEXP s)
 {
@@ -308,19 +180,25 @@ extern "C" SEXP R_mpimat_scale(SEXP x_robj, SEXP s)
   return R_NilValue;
 }
 
+
+
 // extern "C" SEXP R_mpimat_rev_rows(SEXP x_robj)
 // {
 //   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
 //   x->rev_rows();
 //   return R_NilValue;
 // }
-// 
-// extern "C" SEXP R_mpimat_rev_cols(SEXP x_robj)
-// {
-//   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-//   x->rev_cols();
-//   return R_NilValue;
-// }
+
+
+
+extern "C" SEXP R_mpimat_rev_cols(SEXP x_robj)
+{
+  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
+  x->rev_cols();
+  return R_NilValue;
+}
+
+
 
 extern "C" SEXP R_mpimat_to_robj(SEXP x_robj)
 {
@@ -337,6 +215,8 @@ extern "C" SEXP R_mpimat_to_robj(SEXP x_robj)
   UNPROTECT(1);
   return ret;
 }
+
+
 
 extern "C" SEXP R_mpimat_from_robj(SEXP x_robj, SEXP robj)
 {
