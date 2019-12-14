@@ -1,18 +1,31 @@
+library(memuse)
 suppressMessages(library(fmlr))
 set.seed(1234)
 
-m = 10000
+m = 100000
 n = 250
+howbig(m, n)
 r = matrix(rnorm(m*n), m, n)
 
-x = cpumat()
-x$from_robj(r)
-x$info()
+x_cpu = cpumat()
+x_cpu$from_robj(r)
 
 system.time({
-  crossprod(r)
+  cp <- crossprod(r)
 })
 
 system.time({
-  linalg_crossprod(x)
+  cp_gpu <- linalg_crossprod(x_cpu)
 })
+
+
+
+if (fml_gpu()){
+  c = card()
+  x_gpu = gpumat(c)
+  x_gpu$from_robj(r)
+  
+  system.time({
+    cp_gpu <- linalg_crossprod(x_gpu)
+  })
+}
