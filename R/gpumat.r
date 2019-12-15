@@ -17,6 +17,8 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_init
     initialize = function(card, nrows=0, ncols=0, type="double")
     {
+      check_is_card(card)
+      
       nrows = as.integer(nrows)
       ncols = as.integer(ncols)
       
@@ -128,7 +130,7 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_fill_eye
     fill_eye = function()
     {
-      Call(R_gpumat_fill_eye, private$x_ptr)
+      .Call(R_gpumat_fill_eye, private$x_ptr)
       invisible(self)
     },
     
