@@ -18,6 +18,8 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_init
     initialize = function(grid, nrows=0, ncols=0, bf_rows=16, bf_cols=16, type="double")
     {
+      check_is_grid(grid)
+      
       nrows = as.integer(nrows)
       ncols = as.integer(ncols)
       

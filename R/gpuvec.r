@@ -17,6 +17,8 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @useDynLib fmlr R_gpuvec_init
     initialize = function(card, size=0, type="double")
     {
+      check_is_card(card)
+      
       size = as.integer(size)
       
       private$card = card
