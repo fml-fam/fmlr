@@ -1,4 +1,5 @@
 #include "extptr.h"
+#include "types.h"
 
 #include "fml/src/mpi/grid.hh"
 #include "fml/src/mpi/linalg.hh"
@@ -10,19 +11,42 @@
 // mpimat bindings
 // -----------------------------------------------------------------------------
 
-extern "C" SEXP R_mpimat_init(SEXP g_robj, SEXP m_, SEXP n_, SEXP mb, SEXP nb)
+extern "C" SEXP R_mpimat_init(SEXP type, SEXP g_robj, SEXP m_, SEXP n_, SEXP mb_, SEXP nb_)
 {
   SEXP ret;
   
   int m = INTEGER(m_)[0];
   int n = INTEGER(n_)[0];
+  int mb = INTEGER(mb_)[0];
+  int nb = INTEGER(nb_)[0];
+  
   grid *g = (grid*) getRptr(g_robj);
   
-  mpimat<double> *x = new mpimat<double>(*g, INTEGER(mb)[0], INTEGER(nb)[0]);
-  if (m > 0 && n > 0)
-    x->resize(m, n);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    mpimat<double> *x = new mpimat<double>(*g, mb, nb);
+    if (m > 0 && n > 0)
+      x->resize(m, n);
+    
+    newRptr(x, ret, fml_object_finalizer<mpimat<double>>);
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    mpimat<float> *x = new mpimat<float>(*g, mb, nb);
+    if (m > 0 && n > 0)
+      x->resize(m, n);
+    
+    newRptr(x, ret, fml_object_finalizer<mpimat<float>>);
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    mpimat<int> *x = new mpimat<int>(*g, mb, nb);
+    if (m > 0 && n > 0)
+      x->resize(m, n);
+    
+    newRptr(x, ret, fml_object_finalizer<mpimat<int>>);
+  }
   
-  newRptr(x, ret, fml_object_finalizer<mpimat<double>>);
   UNPROTECT(1);
   return ret;
 }
@@ -84,64 +108,57 @@ extern "C" SEXP R_mpimat_inherit(SEXP x_robj, SEXP data)
 
 
 
-extern "C" SEXP R_mpimat_resize(SEXP x_robj, SEXP m, SEXP n)
+extern "C" SEXP R_mpimat_resize(SEXP type, SEXP x_robj, SEXP m, SEXP n)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->resize(INTEGER(m)[0], INTEGER(n)[0]);
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, resize, INTEGER(m)[0], INTEGER(n)[0]);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_mpimat_print(SEXP x_robj, SEXP ndigits)
+extern "C" SEXP R_mpimat_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->print(INTEGER(ndigits)[0]);
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, print, INTEGER(ndigits)[0]);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_mpimat_info(SEXP x_robj)
+extern "C" SEXP R_mpimat_info(SEXP type, SEXP x_robj)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->info();
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, info);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_mpimat_fill_zero(SEXP x_robj)
+extern "C" SEXP R_mpimat_fill_zero(SEXP type, SEXP x_robj)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->fill_zero();
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, fill_zero);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_mpimat_fill_val(SEXP x_robj, SEXP v)
+extern "C" SEXP R_mpimat_fill_val(SEXP type, SEXP x_robj, SEXP v)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->fill_val(REAL(v)[0]);
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, fill_val, DBL(v));
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_mpimat_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
+extern "C" SEXP R_mpimat_fill_linspace(SEXP type, SEXP x_robj, SEXP start, SEXP stop)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->fill_linspace(REAL(start)[0], REAL(stop)[0]);
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, fill_linspace, DBL(start), DBL(stop));
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_mpimat_fill_eye(SEXP x_robj)
+extern "C" SEXP R_mpimat_fill_eye(SEXP type, SEXP x_robj)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->fill_eye();
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, fill_eye);
   return R_NilValue;
 }
 
@@ -173,28 +190,25 @@ extern "C" SEXP R_mpimat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 
 
 
-extern "C" SEXP R_mpimat_scale(SEXP x_robj, SEXP s)
+extern "C" SEXP R_mpimat_scale(SEXP type, SEXP x_robj, SEXP s)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->scale(REAL(s)[0]);
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, scale, DBL(s));
   return R_NilValue;
 }
 
 
 
-// extern "C" SEXP R_mpimat_rev_rows(SEXP x_robj)
+// extern "C" SEXP R_mpimat_rev_rows(SEXP type, SEXP x_robj)
 // {
-//   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-//   x->rev_rows();
+//   APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, rev_rows);
 //   return R_NilValue;
 // }
 
 
 
-extern "C" SEXP R_mpimat_rev_cols(SEXP x_robj)
+extern "C" SEXP R_mpimat_rev_cols(SEXP type, SEXP x_robj)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  x->rev_cols();
+  APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, rev_cols);
   return R_NilValue;
 }
 
@@ -242,15 +256,22 @@ extern "C" SEXP R_mpimat_from_robj(SEXP x_robj, SEXP robj)
 // linalg namespace
 // -----------------------------------------------------------------------------
 
-extern "C" SEXP R_mpimat_linalg_crossprod(SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
+template <typename REAL>
+static inline void crossprod(bool xpose, REAL alpha, void *x, void *ret)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  mpimat<double> *ret = (mpimat<double>*) getRptr(ret_robj);
-  
-  if (LOGICAL(xpose)[0])
-    linalg::tcrossprod(REAL(alpha)[0], *x, *ret);
+  CAST_MAT(mpimat, REAL, x_cast, x);
+  CAST_MAT(mpimat, REAL, ret_cast, ret);
+  if (xpose)
+    linalg::tcrossprod(alpha, *x_cast, *ret_cast);
   else
-    linalg::crossprod(REAL(alpha)[0], *x, *ret);
+    linalg::crossprod(alpha, *x_cast, *ret_cast);
+}
+
+extern "C" SEXP R_mpimat_linalg_crossprod(SEXP type, SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
+{
+  void *x = getRptr(x_robj);
+  void *ret = getRptr(ret_robj);
+  APPLY_TEMPLATED_FUNCTION(type, crossprod, LGL(xpose), DBL(alpha), x, ret);
   
   return R_NilValue;
 }

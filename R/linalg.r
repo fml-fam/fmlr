@@ -38,10 +38,10 @@ linalg_crossprods = function(x, ret, alpha, xpose)
     if (is.null(ret))
     {
       bfdim = x$bfdim()
-      ret = mpimat(x$get_grid(), n, n, bfdim[1], bfdim[2])
+      ret = mpimat(x$get_grid(), n, n, bfdim[1], bfdim[2], type=x$get_type_str())
     }
     
-    .Call(R_mpimat_linalg_crossprod, xpose, alpha, x$data_ptr(), ret$data_ptr())
+    .Call(R_mpimat_linalg_crossprod, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   
   if (invisiret)

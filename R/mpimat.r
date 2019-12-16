@@ -27,8 +27,9 @@ mpimatR6 = R6::R6Class("mpimat",
       bf_cols = as.integer(bf_cols)
       
       private$grid = grid
-      private$x_ptr = .Call(R_mpimat_init, grid$data_ptr(), nrows, ncols, bf_rows, bf_cols, type)
-      private$type = type
+      private$type_str = type
+      private$type = type_str2int(type)
+      private$x_ptr = .Call(R_mpimat_init, private$type, grid$data_ptr(), nrows, ncols, bf_rows, bf_cols, type)
     },
     
     
@@ -42,7 +43,7 @@ mpimatR6 = R6::R6Class("mpimat",
       nrows = as.integer(nrows)
       ncols = as.integer(ncols)
       
-      .Call(R_mpimat_resize, private$x_ptr, nrows, ncols)
+      .Call(R_mpimat_resize, private$type, private$x_ptr, nrows, ncols)
       invisible(self)
     },
     
@@ -69,7 +70,7 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_info
     info = function()
     {
-      .Call(R_mpimat_info, private$x_ptr)
+      .Call(R_mpimat_info, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -83,7 +84,7 @@ mpimatR6 = R6::R6Class("mpimat",
     {
       ndigits = min(as.integer(ndigits), 15L)
       
-      .Call(R_mpimat_print, private$x_ptr, ndigits)
+      .Call(R_mpimat_print, private$type, private$x_ptr, ndigits)
       invisible(self)
     },
     
@@ -94,7 +95,7 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_fill_zero
     fill_zero = function()
     {
-      .Call(R_mpimat_fill_zero, private$x_ptr)
+      .Call(R_mpimat_fill_zero, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -108,7 +109,7 @@ mpimatR6 = R6::R6Class("mpimat",
     {
       v = as.double(v)
       
-      .Call(R_mpimat_fill_val, private$x_ptr, v)
+      .Call(R_mpimat_fill_val, private$type, private$x_ptr, v)
       invisible(self)
     },
     
@@ -123,7 +124,7 @@ mpimatR6 = R6::R6Class("mpimat",
       start = as.double(start)
       stop = as.double(stop)
       
-      .Call(R_mpimat_fill_linspace, private$x_ptr, start, stop)
+      .Call(R_mpimat_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
     },
     
@@ -134,7 +135,7 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_fill_eye
     fill_eye = function()
     {
-      .Call(R_mpimat_fill_eye, private$x_ptr)
+      .Call(R_mpimat_fill_eye, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -191,7 +192,7 @@ mpimatR6 = R6::R6Class("mpimat",
     {
       s = as.double(s)
       
-      .Call(R_mpimat_scale, private$x_ptr, s)
+      .Call(R_mpimat_scale, private$type, private$x_ptr, s)
       invisible(self)
     },
     
@@ -213,7 +214,7 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_rev_cols
     rev_cols = function()
     {
-      .Call(R_mpimat_rev_cols, private$x_ptr)
+      .Call(R_mpimat_rev_cols, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -278,6 +279,14 @@ mpimatR6 = R6::R6Class("mpimat",
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
     
+    #' @details
+    #' Returns the integer code for the underlying storage type. For developers only.
+    get_type = function() private$type,
+    
+    #' @details
+    #' Returns the string code for the underlying storage type. For developers only.
+    get_type_str = function() private$type_str,
+    
     
     
     #' @details
@@ -307,7 +316,8 @@ mpimatR6 = R6::R6Class("mpimat",
   private = list(
     grid = NULL,
     x_ptr = NULL,
-    type = ""
+    type = -1L,
+    type_str = ""
   )
 )
 
