@@ -1,6 +1,7 @@
 #include "extptr.h"
 #include "types.h"
 
+#include "fml/src/arraytools/src/arraytools.hpp"
 #include "fml/src/cpu/cpumat.hh"
 #include "fml/src/cpu/linalg.hh"
 
@@ -181,19 +182,12 @@ extern "C" SEXP R_cpumat_to_robj(SEXP x_robj)
   SEXP ret;
   
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  
   len_t m = x->nrows();
   len_t n = x->ncols();
-  auto *x_d = x->data_ptr();
   
   PROTECT(ret = allocMatrix(REALSXP, m, n));
-  double *ret_d = REAL(ret);
   
-  for (len_t j=0; j<n; j++)
-  {
-    for (len_t i=0; i<m; i++)
-      ret_d[i + m*j] = (double) x_d[i + m*j];
-  }
+  arraytools::copy(m*n, x->data_ptr(), REAL(ret));
   
   UNPROTECT(1);
   return ret;
@@ -205,7 +199,6 @@ extern "C" SEXP R_cpumat_from_robj(SEXP x_robj, SEXP robj)
 {
   int m = nrows(robj);
   int n = ncols(robj);
-  double *r_d = REAL(robj);
   
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
   len_t m_x = x->nrows();
@@ -214,12 +207,7 @@ extern "C" SEXP R_cpumat_from_robj(SEXP x_robj, SEXP robj)
   if (m_x != m || n_x != n)
     x->resize(m, n);
   
-  auto *x_d = x->data_ptr();
-  for (len_t j=0; j<n; j++)
-  {
-    for (len_t i=0; i<m; i++)
-      x_d[i + m*j] = (double) r_d[i + m*j];
-  }
+  arraytools::copy(m*n, REAL(robj), x->data_ptr());
   
   return R_NilValue;
 }

@@ -1,5 +1,6 @@
 #include "extptr.h"
 
+#include "fml/src/arraytools/src/arraytools.hpp"
 #include "fml/src/cpu/cpuvec.hh"
 
 
@@ -121,13 +122,9 @@ extern "C" SEXP R_cpuvec_to_robj(SEXP x_robj)
   cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
   
   len_t size = x->size();
-  auto *x_d = x->data_ptr();
-  
   PROTECT(ret = allocVector(REALSXP, size));
-  double *ret_d = REAL(ret);
   
-  for (len_t i=0; i<size; i++)
-    ret_d[i] = (double) x_d[i];
+  arraytools::copy(size, x->data_ptr(), REAL(ret));
   
   UNPROTECT(1);
   return ret;
@@ -138,7 +135,6 @@ extern "C" SEXP R_cpuvec_to_robj(SEXP x_robj)
 extern "C" SEXP R_cpuvec_from_robj(SEXP x_robj, SEXP robj)
 {
   int size = LENGTH(robj);
-  double *r_d = REAL(robj);
   
   cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
   len_t size_x = x->size();
@@ -146,9 +142,7 @@ extern "C" SEXP R_cpuvec_from_robj(SEXP x_robj, SEXP robj)
   if (size_x != size)
     x->resize(size);
   
-  auto *x_d = x->data_ptr();
-  for (len_t i=0; i<size; i++)
-    x_d[i] = (double) r_d[i];
+  arraytools::copy(size, REAL(robj), x->data_ptr());
   
   return R_NilValue;
 }
