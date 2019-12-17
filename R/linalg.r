@@ -31,7 +31,7 @@ linalg_crossprods = function(x, ret, alpha, xpose)
     if (is.null(ret))
       ret = gpumat(x$get_card(), n, n)
     
-    .Call(R_gpumat_linalg_crossprod, xpose, alpha, x$data_ptr(), ret$data_ptr())
+    .Call(R_gpumat_linalg_crossprod, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   else if (inherits(x, "mpimat"))
   {

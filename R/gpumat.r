@@ -17,13 +17,14 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_init
     initialize = function(card, nrows=0, ncols=0, type="double")
     {
+      type = match.arg(tolower(type), TYPES_STR)
       check_is_card(card)
       
       nrows = as.integer(nrows)
       ncols = as.integer(ncols)
       
       private$card = card
-      private$x_ptr = .Call(R_gpumat_init, card$data_ptr(), nrows, ncols, type)
+      private$x_ptr = .Call(R_gpumat_init, private$type, card$data_ptr(), nrows, ncols, type)
       private$type = type
     },
     
@@ -238,6 +239,14 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @details
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
+    
+    #' @details
+    #' Returns the integer code for the underlying storage type. For developers only.
+    get_type = function() private$type,
+    
+    #' @details
+    #' Returns the string code for the underlying storage type. For developers only.
+    get_type_str = function() private$type_str,
     
     
     

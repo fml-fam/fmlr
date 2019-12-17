@@ -63,81 +63,81 @@ extern "C" SEXP R_card_valid_card(SEXP x_robj)
 // gpuvec bindings
 // -----------------------------------------------------------------------------
 
-extern "C" SEXP R_gpuvec_init(SEXP c_robj, SEXP size_)
+extern "C" SEXP R_gpuvec_init(SEXP type, SEXP c_robj, SEXP size_)
 {
-  unused(c_robj, size_);
+  unused(type, c_robj, size_);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_size(SEXP x_robj)
+extern "C" SEXP R_gpuvec_size(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_inherit(SEXP x_robj, SEXP data)
+extern "C" SEXP R_gpuvec_inherit(SEXP type, SEXP x_robj, SEXP data)
 {
-  unused(x_robj, data);
+  unused(type, x_robj, data);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_resize(SEXP x_robj, SEXP size)
+extern "C" SEXP R_gpuvec_resize(SEXP type, SEXP x_robj, SEXP size)
 {
-  unused(x_robj, size);
+  unused(type, x_robj, size);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_print(SEXP x_robj, SEXP ndigits)
+extern "C" SEXP R_gpuvec_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
-  unused(x_robj, ndigits);
+  unused(type, x_robj, ndigits);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_info(SEXP x_robj)
+extern "C" SEXP R_gpuvec_info(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_fill_zero(SEXP x_robj)
+extern "C" SEXP R_gpuvec_fill_zero(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_fill_val(SEXP x_robj, SEXP v)
+extern "C" SEXP R_gpuvec_fill_val(SEXP type, SEXP x_robj, SEXP v)
 {
-  unused(x_robj, v);
+  unused(type, x_robj, v);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
+extern "C" SEXP R_gpuvec_fill_linspace(SEXP type, SEXP x_robj, SEXP start, SEXP stop)
 {
-  unused(x_robj, start, stop);
+  unused(type, x_robj, start, stop);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_scale(SEXP x_robj, SEXP s)
+extern "C" SEXP R_gpuvec_scale(SEXP type, SEXP x_robj, SEXP s)
 {
-  unused(x_robj, s);
+  unused(type, x_robj, s);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_rev(SEXP x_robj)
+extern "C" SEXP R_gpuvec_rev(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_to_robj(SEXP x_robj)
+extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_from_robj(SEXP x_robj, SEXP robj)
+extern "C" SEXP R_gpuvec_from_robj(SEXP type, SEXP x_robj, SEXP robj)
 {
-  unused(x_robj, robj);
+  unused(type, x_robj, robj);
   WARN_AND_RETURN;
 }
 
@@ -147,107 +147,107 @@ extern "C" SEXP R_gpuvec_from_robj(SEXP x_robj, SEXP robj)
 // gpumat bindings
 // -----------------------------------------------------------------------------
 
-extern "C" SEXP R_gpumat_init(SEXP c_robj, SEXP m_, SEXP n_)
+extern "C" SEXP R_gpumat_init(SEXP type, SEXP c_robj, SEXP m_, SEXP n_)
 {
-  unused(c_robj, m_, n_);
+  unused(type, c_robj, m_, n_);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_dim(SEXP x_robj)
+extern "C" SEXP R_gpumat_dim(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_inherit(SEXP x_robj, SEXP data)
+extern "C" SEXP R_gpumat_inherit(SEXP type, SEXP x_robj, SEXP data)
 {
-  unused(x_robj, data);
+  unused(type, x_robj, data);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_resize(SEXP x_robj, SEXP m, SEXP n)
+extern "C" SEXP R_gpumat_resize(SEXP type, SEXP x_robj, SEXP m, SEXP n)
 {
-  unused(x_robj, m, n);
+  unused(type, x_robj, m, n);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_print(SEXP x_robj, SEXP ndigits)
+extern "C" SEXP R_gpumat_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
-  unused(x_robj, ndigits);
+  unused(type, x_robj, ndigits);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_info(SEXP x_robj)
+extern "C" SEXP R_gpumat_info(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_fill_zero(SEXP x_robj)
+extern "C" SEXP R_gpumat_fill_zero(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_fill_val(SEXP x_robj, SEXP v)
+extern "C" SEXP R_gpumat_fill_val(SEXP type, SEXP x_robj, SEXP v)
 {
-  unused(x_robj, v);
+  unused(type, x_robj, v);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
+extern "C" SEXP R_gpumat_fill_linspace(SEXP type, SEXP x_robj, SEXP start, SEXP stop)
 {
-  unused(x_robj, start, stop);
+  unused(type, x_robj, start, stop);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_fill_eye(SEXP x_robj)
+extern "C" SEXP R_gpumat_fill_eye(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
 // TODO diag
 
-extern "C" SEXP R_gpumat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
+extern "C" SEXP R_gpumat_fill_runif(SEXP type, SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
-  unused(x_robj, seed, min, max);
+  unused(type, x_robj, seed, min, max);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
+extern "C" SEXP R_gpumat_fill_rnorm(SEXP type, SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
-  unused(x_robj, seed, min, max);
+  unused(type, x_robj, seed, min, max);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_scale(SEXP x_robj, SEXP s)
+extern "C" SEXP R_gpumat_scale(SEXP type, SEXP x_robj, SEXP s)
 {
-  unused(x_robj, s);
+  unused(type, x_robj, s);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_rev_rows(SEXP x_robj)
+extern "C" SEXP R_gpumat_rev_rows(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_rev_cols(SEXP x_robj)
+extern "C" SEXP R_gpumat_rev_cols(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_to_robj(SEXP x_robj)
+extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
 {
-  unused(x_robj);
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpumat_from_robj(SEXP x_robj, SEXP robj)
+extern "C" SEXP R_gpumat_from_robj(SEXP type, SEXP x_robj, SEXP robj)
 {
-  unused(x_robj, robj);
+  unused(type, x_robj, robj);
   WARN_AND_RETURN;
 }
 
@@ -257,8 +257,8 @@ extern "C" SEXP R_gpumat_from_robj(SEXP x_robj, SEXP robj)
 // linalg namespace
 // -----------------------------------------------------------------------------
 
-extern "C" SEXP R_gpumat_linalg_crossprod(SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
+extern "C" SEXP R_gpumat_linalg_crossprod(SEXP type, SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
 {
-  unused(xpose, alpha, x_robj, ret_robj);
+  unused(type, xpose, alpha, x_robj, ret_robj);
   WARN_AND_RETURN;
 }
