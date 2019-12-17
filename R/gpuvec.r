@@ -17,13 +17,15 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @useDynLib fmlr R_gpuvec_init
     initialize = function(card, size=0, type="double")
     {
+      type = match.arg(tolower(type), TYPES_STR)
       check_is_card(card)
       
       size = as.integer(size)
       
       private$card = card
-      private$x_ptr = .Call(R_gpuvec_init, card$data_ptr(), size, type)
-      private$type = type
+      private$type_str = type
+      private$type = type_str2int(type)
+      private$x_ptr = .Call(R_gpuvec_init, private$type, card$data_ptr(), size, type)
     },
     
     
@@ -62,7 +64,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @useDynLib fmlr R_gpuvec_info
     info = function()
     {
-      .Call(R_gpuvec_info, private$x_ptr)
+      .Call(R_gpuvec_info, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -76,7 +78,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     {
       ndigits = min(as.integer(ndigits), 15L)
 
-      .Call(R_gpuvec_print, private$x_ptr, ndigits)
+      .Call(R_gpuvec_print, private$type, private$x_ptr, ndigits)
       invisible(self)
     },
     
@@ -87,7 +89,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @useDynLib fmlr R_gpuvec_fill_zero
     fill_zero = function()
     {
-      .Call(R_gpuvec_fill_zero, private$x_ptr)
+      .Call(R_gpuvec_fill_zero, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -101,7 +103,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     {
       v = as.double(v)
       
-      .Call(R_gpuvec_fill_val, private$x_ptr, v)
+      .Call(R_gpuvec_fill_val, private$type, private$x_ptr, v)
       invisible(self)
     },
     
@@ -116,7 +118,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
       start = as.double(start)
       stop = as.double(stop)
 
-      .Call(R_gpuvec_fill_linspace, private$x_ptr, start, stop)
+      .Call(R_gpuvec_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
     },
     
@@ -130,7 +132,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     {
       s = as.double(s)
 
-      .Call(R_gpuvec_scale, private$x_ptr, s)
+      .Call(R_gpuvec_scale, private$type, private$x_ptr, s)
       invisible(self)
     },
     
@@ -141,7 +143,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @useDynLib fmlr R_gpuvec_rev
     rev = function()
     {
-      .Call(R_gpuvec_rev, private$x_ptr)
+      .Call(R_gpuvec_rev, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -163,6 +165,14 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @details
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
+    
+    #' @details
+    #' Returns the integer code for the underlying storage type. For developers only.
+    get_type = function() private$type,
+    
+    #' @details
+    #' Returns the string code for the underlying storage type. For developers only.
+    get_type_str = function() private$type_str,
     
     
     
@@ -193,7 +203,8 @@ gpuvecR6 = R6::R6Class("gpuvec",
   private = list(
     card = NULL,
     x_ptr = NULL,
-    type = ""
+    type = -1L,
+    type_str = ""
   )
 )
 

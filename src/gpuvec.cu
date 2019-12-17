@@ -1,4 +1,5 @@
 #include "extptr.h"
+#include "types.h"
 
 #include "fml/src/cpu/cpuvec.hh"
 
@@ -7,19 +8,38 @@
 #include "fml/src/gpu/gpuvec.hh"
 
 
-extern "C" SEXP R_gpuvec_init(SEXP c_robj, SEXP size_)
+extern "C" SEXP R_gpuvec_init(SEXP type, SEXP c_robj, SEXP size_)
 {
   SEXP ret;
   
   int size = INTEGER(size_)[0];
-  
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
   
-  gpuvec<double> *x = new gpuvec<double>(*c);
-  if (size > 0)
-    x->resize(size);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    gpuvec<double> *x = new gpuvec<double>(*c);
+    if (size > 0)
+      x->resize(size);
+    
+    newRptr(x, ret, fml_object_finalizer<gpuvec<double>>);
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    gpuvec<float> *x = new gpuvec<float>(*c);
+    if (size > 0)
+      x->resize(size);
+    
+    newRptr(x, ret, fml_object_finalizer<gpuvec<float>>);
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    gpuvec<int> *x = new gpuvec<int>(*c);
+    if (size > 0)
+      x->resize(size);
+    
+    newRptr(x, ret, fml_object_finalizer<gpuvec<int>>);
+  }
   
-  newRptr(x, ret, fml_object_finalizer<gpuvec<double>>);
   UNPROTECT(1);
   return ret;
 }
@@ -49,73 +69,65 @@ extern "C" SEXP R_gpuvec_inherit(SEXP x_robj, SEXP data)
 
 
 
-extern "C" SEXP R_gpuvec_resize(SEXP x_robj, SEXP size)
+extern "C" SEXP R_gpuvec_resize(SEXP type, SEXP x_robj, SEXP size)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  x->resize(INTEGER(size)[0]);
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, resize, INTEGER(size)[0]);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_gpuvec_print(SEXP x_robj, SEXP ndigits)
+extern "C" SEXP R_gpuvec_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  x->print(INTEGER(ndigits)[0]);
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, print, INTEGER(ndigits)[0]);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_gpuvec_info(SEXP x_robj)
+extern "C" SEXP R_gpuvec_info(SEXP type, SEXP x_robj)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  x->info();
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, info);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_gpuvec_fill_zero(SEXP x_robj)
+extern "C" SEXP R_gpuvec_fill_zero(SEXP type, SEXP x_robj)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  x->fill_zero();
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, fill_zero);
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_gpuvec_fill_val(SEXP x_robj, SEXP v)
+extern "C" SEXP R_gpuvec_fill_val(SEXP type, SEXP x_robj, SEXP v)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  x->fill_val(REAL(v)[0]);
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, fill_val, DBL(v));
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_gpuvec_fill_linspace(SEXP x_robj, SEXP start, SEXP stop)
+extern "C" SEXP R_gpuvec_fill_linspace(SEXP type, SEXP x_robj, SEXP start, SEXP stop)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  x->fill_linspace(REAL(start)[0], REAL(stop)[0]);
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, fill_linspace, DBL(start), DBL(stop));
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_gpuvec_scale(SEXP x_robj, SEXP s)
+extern "C" SEXP R_gpuvec_scale(SEXP type, SEXP x_robj, SEXP s)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  x->scale(REAL(s)[0]);
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, scale, DBL(s));
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_gpuvec_rev(SEXP x_robj)
+extern "C" SEXP R_gpuvec_rev(SEXP type, SEXP x_robj)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  x->rev();
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, rev);
   return R_NilValue;
 }
 
