@@ -24,8 +24,9 @@ gpumatR6 = R6::R6Class("gpumat",
       ncols = as.integer(ncols)
       
       private$card = card
+      private$type_str = type
+      private$type = type_str2int(type)
       private$x_ptr = .Call(R_gpumat_init, private$type, card$data_ptr(), nrows, ncols, type)
-      private$type = type
     },
     
     
@@ -277,7 +278,8 @@ gpumatR6 = R6::R6Class("gpumat",
   private = list(
     card = NULL,
     x_ptr = NULL,
-    type = ""
+    type = -1L,
+    type_str = ""
   )
 )
 
