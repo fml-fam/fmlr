@@ -47,14 +47,29 @@ extern "C" SEXP R_mpimat_init(SEXP type, SEXP g_robj, SEXP m_, SEXP n_, SEXP mb_
 
 
 
-extern "C" SEXP R_mpimat_dim(SEXP x_robj)
+extern "C" SEXP R_mpimat_dim(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 2));
   
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  INTEGER(ret)[0] = x->nrows();
-  INTEGER(ret)[1] = x->ncols();
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->nrows();
+    INTEGER(ret)[1] = x->ncols();
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    mpimat<float> *x = (mpimat<float>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->nrows();
+    INTEGER(ret)[1] = x->ncols();
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    mpimat<int> *x = (mpimat<int>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->nrows();
+    INTEGER(ret)[1] = x->ncols();
+  }
   
   UNPROTECT(1);
   return ret;

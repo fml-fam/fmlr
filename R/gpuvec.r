@@ -152,7 +152,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @details
     #' Returns length of the vector.
     #' @useDynLib fmlr R_gpuvec_size
-    size = function() .Call(R_gpuvec_size, private$x_ptr),
+    size = function() .Call(R_gpuvec_size, private$type, private$x_ptr),
     
     
     

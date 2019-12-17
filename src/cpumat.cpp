@@ -42,14 +42,30 @@ extern "C" SEXP R_cpumat_init(SEXP type, SEXP m_, SEXP n_)
 
 
 
-extern "C" SEXP R_cpumat_dim(SEXP x_robj)
+extern "C" SEXP R_cpumat_dim(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 2));
   
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  INTEGER(ret)[0] = x->nrows();
-  INTEGER(ret)[1] = x->ncols();
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->nrows();
+    INTEGER(ret)[1] = x->ncols();
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    cpumat<float> *x = (cpumat<float>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->nrows();
+    INTEGER(ret)[1] = x->ncols();
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    cpumat<int> *x = (cpumat<int>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->nrows();
+    INTEGER(ret)[1] = x->ncols();
+  }
+  
   UNPROTECT(1);
   return ret;
 }

@@ -216,7 +216,7 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @details
     #' Returns number of rows and columns of the matrix.
     #' @useDynLib fmlr R_cpumat_dim
-    dim = function() .Call(R_cpumat_dim, private$x_ptr),
+    dim = function() .Call(R_cpumat_dim, private$type, private$x_ptr),
     
     #' @details
     #' Returns number of rows of the matrix.

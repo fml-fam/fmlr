@@ -40,13 +40,27 @@ extern "C" SEXP R_gpuvec_init(SEXP type, SEXP c_robj, SEXP size_)
 
 
 
-extern "C" SEXP R_gpuvec_size(SEXP x_robj)
+extern "C" SEXP R_gpuvec_size(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 1));
   
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  INTEGER(ret)[0] = x->size();
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->size();
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    gpuvec<float> *x = (gpuvec<float>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->size();
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    gpuvec<int> *x = (gpuvec<int>*) getRptr(x_robj);
+    INTEGER(ret)[0] = x->size();
+  }
+  
   UNPROTECT(1);
   return ret;
 }

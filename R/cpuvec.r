@@ -149,7 +149,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @details
     #' Returns length of the vector.
     #' @useDynLib fmlr R_cpuvec_size
-    size = function() .Call(R_cpuvec_size, private$x_ptr),
+    size = function() .Call(R_cpuvec_size, private$type, private$x_ptr),
     
     
     

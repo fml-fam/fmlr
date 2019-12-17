@@ -219,7 +219,7 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @details
     #' Returns number of rows and columns of the matrix.
     #' @useDynLib fmlr R_gpumat_dim
-    dim = function() .Call(R_gpumat_dim, private$x_ptr),
+    dim = function() .Call(R_gpumat_dim, private$type, private$x_ptr),
     
     #' @details
     #' Returns number of rows of the matrix.
