@@ -157,6 +157,14 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' Returns the external pointer data. For developers only.
     data_ptr = function() private$x_ptr,
     
+    #' @details
+    #' Returns the integer code for the underlying storage type. For developers only.
+    get_type = function() private$type,
+    
+    #' @details
+    #' Returns the string code for the underlying storage type. For developers only.
+    get_type_str = function() private$type_str,
+    
     
     
     #' @details
