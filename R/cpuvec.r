@@ -16,10 +16,13 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @useDynLib fmlr R_cpuvec_init
     initialize = function(size=0, type="double")
     {
+      type = match.arg(tolower(type), TYPES_STR)
+      
       size = as.integer(size)
       
-      private$x_ptr = .Call(R_cpuvec_init, size)
-      private$type = type
+      private$type_str = type
+      private$type = type_str2int(type)
+      private$x_ptr = .Call(R_cpuvec_init, private$type, size)
     },
     
     
@@ -31,7 +34,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     resize = function(size)
     {
       size = as.integer(size)
-      .Call(R_cpuvec_resize, private$x_ptr, size)
+      .Call(R_cpuvec_resize, private$type, private$x_ptr, size)
       invisible(self)
     },
     
@@ -58,7 +61,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @useDynLib fmlr R_cpuvec_info
     info = function()
     {
-      .Call(R_cpuvec_info, private$x_ptr)
+      .Call(R_cpuvec_info, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -72,7 +75,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     {
       ndigits = min(as.integer(ndigits), 15L)
       
-      .Call(R_cpuvec_print, private$x_ptr, ndigits)
+      .Call(R_cpuvec_print, private$type, private$x_ptr, ndigits)
       invisible(self)
     },
     
@@ -83,7 +86,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @useDynLib fmlr R_cpuvec_fill_zero
     fill_zero = function()
     {
-      .Call(R_cpuvec_fill_zero, private$x_ptr)
+      .Call(R_cpuvec_fill_zero, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -97,7 +100,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     {
       v = as.double(v)
       
-      .Call(R_cpuvec_fill_val, private$x_ptr, v)
+      .Call(R_cpuvec_fill_val, private$type, private$x_ptr, v)
       invisible(self)
     },
     
@@ -112,7 +115,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
       start = as.double(start)
       stop = as.double(stop)
       
-      .Call(R_cpuvec_fill_linspace, private$x_ptr, start, stop)
+      .Call(R_cpuvec_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
     },
     
@@ -126,7 +129,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     {
       s = as.double(s)
       
-      .Call(R_cpuvec_scale, private$x_ptr, s)
+      .Call(R_cpuvec_scale, private$type, private$x_ptr, s)
       invisible(self)
     },
     
@@ -137,7 +140,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @useDynLib fmlr R_cpuvec_rev
     rev = function()
     {
-      .Call(R_cpuvec_rev, private$x_ptr)
+      .Call(R_cpuvec_rev, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -182,7 +185,8 @@ cpuvecR6 = R6::R6Class("cpuvec",
   
   private = list(
     x_ptr = NULL,
-    type = ""
+    type = -1L,
+    type_str = ""
   )
 )
 
