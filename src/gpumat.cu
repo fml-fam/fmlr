@@ -24,25 +24,19 @@ extern "C" SEXP R_gpumat_init(SEXP type, SEXP c_robj, SEXP m_, SEXP n_)
   if (INT(type) == TYPE_DOUBLE)
   {
     gpumat<double> *x = new gpumat<double>(*c);
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<gpumat<double>>);
   }
   else if (INT(type) == TYPE_FLOAT)
   {
     gpumat<float> *x = new gpumat<float>(*c);
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<gpumat<float>>);
   }
   else //if (INT(type) == TYPE_INT)
   {
     gpumat<int> *x = new gpumat<int>(*c);
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<gpumat<int>>);
   }
   

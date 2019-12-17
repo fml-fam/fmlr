@@ -25,25 +25,19 @@ extern "C" SEXP R_mpimat_init(SEXP type, SEXP g_robj, SEXP m_, SEXP n_, SEXP mb_
   if (INT(type) == TYPE_DOUBLE)
   {
     mpimat<double> *x = new mpimat<double>(*g, mb, nb);
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<mpimat<double>>);
   }
   else if (INT(type) == TYPE_FLOAT)
   {
     mpimat<float> *x = new mpimat<float>(*g, mb, nb);
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<mpimat<float>>);
   }
   else //if (INT(type) == TYPE_INT)
   {
     mpimat<int> *x = new mpimat<int>(*g, mb, nb);
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<mpimat<int>>);
   }
   

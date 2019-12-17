@@ -14,25 +14,19 @@ extern "C" SEXP R_cpuvec_init(SEXP type, SEXP size_)
   if (INT(type) == TYPE_DOUBLE)
   {
     cpuvec<double> *x = new cpuvec<double>();
-    if (size > 0)
-      x->resize(size);
-    
+    x->resize(size);
     newRptr(x, ret, fml_object_finalizer<cpuvec<double>>);
   }
   else if (INT(type) == TYPE_FLOAT)
   {
     cpuvec<float> *x = new cpuvec<float>();
-    if (size > 0)
-      x->resize(size);
-    
+    x->resize(size);
     newRptr(x, ret, fml_object_finalizer<cpuvec<float>>);
   }
   else //if (INT(type) == TYPE_INT)
   {
     cpuvec<int> *x = new cpuvec<int>();
-    if (size > 0)
-      x->resize(size);
-    
+    x->resize(size);
     newRptr(x, ret, fml_object_finalizer<cpuvec<int>>);
   }
   

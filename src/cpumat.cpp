@@ -20,25 +20,19 @@ extern "C" SEXP R_cpumat_init(SEXP type, SEXP m_, SEXP n_)
   if (INT(type) == TYPE_DOUBLE)
   {
     cpumat<double> *x = new cpumat<double>();
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<cpumat<double>>);
   }
   else if (INT(type) == TYPE_FLOAT)
   {
     cpumat<float> *x = new cpumat<float>();
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<cpumat<float>>);
   }
   else //if (INT(type) == TYPE_INT)
   {
     cpumat<int> *x = new cpumat<int>();
-    if (m > 0 && n > 0)
-      x->resize(m, n);
-    
+    x->resize(m, n);
     newRptr(x, ret, fml_object_finalizer<cpumat<int>>);
   }
   

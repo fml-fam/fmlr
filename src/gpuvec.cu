@@ -18,25 +18,19 @@ extern "C" SEXP R_gpuvec_init(SEXP type, SEXP c_robj, SEXP size_)
   if (INT(type) == TYPE_DOUBLE)
   {
     gpuvec<double> *x = new gpuvec<double>(*c);
-    if (size > 0)
-      x->resize(size);
-    
+    x->resize(size);
     newRptr(x, ret, fml_object_finalizer<gpuvec<double>>);
   }
   else if (INT(type) == TYPE_FLOAT)
   {
     gpuvec<float> *x = new gpuvec<float>(*c);
-    if (size > 0)
-      x->resize(size);
-    
+    x->resize(size);
     newRptr(x, ret, fml_object_finalizer<gpuvec<float>>);
   }
   else //if (INT(type) == TYPE_INT)
   {
     gpuvec<int> *x = new gpuvec<int>(*c);
-    if (size > 0)
-      x->resize(size);
-    
+    x->resize(size);
     newRptr(x, ret, fml_object_finalizer<gpuvec<int>>);
   }
   
