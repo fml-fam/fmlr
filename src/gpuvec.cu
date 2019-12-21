@@ -141,16 +141,37 @@ extern "C" SEXP R_gpuvec_rev(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_gpuvec_to_robj(SEXP x_robj)
+extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
 {
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  len_t size = x->size();
-  
   SEXP ret;
-  PROTECT(ret = allocVector(REALSXP, size));
   
-  cpuvec<double> ret_vec(REAL(ret), size, false);
-  gpuhelpers::gpu2cpu(*x, ret_vec);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
+    len_t size = x->size();
+    
+    PROTECT(ret = allocVector(REALSXP, size));
+    cpuvec<double> ret_vec(REAL(ret), size, false);
+    gpuhelpers::gpu2cpu(*x, ret_vec);
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    gpuvec<float> *x = (gpuvec<float>*) getRptr(x_robj);
+    len_t size = x->size();
+    
+    PROTECT(ret = allocVector(INTSXP, size));
+    cpuvec<double> ret_vec((float*) INTEGER(ret), size, false);
+    gpuhelpers::gpu2cpu(*x, ret_vec);
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    gpuvec<int> *x = (gpuvec<int>*) getRptr(x_robj);
+    len_t size = x->size();
+    
+    PROTECT(ret = allocVector(INTSXP, size));
+    cpuvec<int> ret_vec(INTEGER(ret), size, false);
+    gpuhelpers::gpu2cpu(*x, ret_vec);
+  }
   
   UNPROTECT(1);
   return ret;

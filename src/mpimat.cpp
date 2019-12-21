@@ -223,17 +223,40 @@ extern "C" SEXP R_mpimat_rev_cols(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_mpimat_to_robj(SEXP x_robj)
+extern "C" SEXP R_mpimat_to_robj(SEXP type, SEXP x_robj)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  len_t m = x->nrows();
-  len_t n = x->ncols();
-  
   SEXP ret;
-  PROTECT(ret = allocMatrix(REALSXP, m, n));
   
-  cpumat<double> ret_mat(REAL(ret), m, n, false);
-  mpihelpers::mpi2cpu(*x, ret_mat);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(REALSXP, m, n));
+    cpumat<double> ret_mat(REAL(ret), m, n, false);
+    mpihelpers::mpi2cpu(*x, ret_mat);
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    mpimat<float> *x = (mpimat<float>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+    cpumat<float> ret_mat((float*) INTEGER(ret), m, n, false);
+    mpihelpers::mpi2cpu(*x, ret_mat);
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    mpimat<int> *x = (mpimat<int>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+    cpumat<int> ret_mat(INTEGER(ret), m, n, false);
+    mpihelpers::mpi2cpu(*x, ret_mat);
+  }
   
   UNPROTECT(1);
   return ret;

@@ -136,16 +136,34 @@ extern "C" SEXP R_cpuvec_rev(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_cpuvec_to_robj(SEXP x_robj)
+extern "C" SEXP R_cpuvec_to_robj(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   
-  cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
-  
-  len_t size = x->size();
-  PROTECT(ret = allocVector(REALSXP, size));
-  
-  arraytools::copy(size, x->data_ptr(), REAL(ret));
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
+    len_t size = x->size();
+    
+    PROTECT(ret = allocVector(REALSXP, size));
+    arraytools::copy(size, x->data_ptr(), REAL(ret));
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    cpuvec<float> *x = (cpuvec<float>*) getRptr(x_robj);
+    len_t size = x->size();
+    
+    PROTECT(ret = allocVector(INTSXP, size));
+    arraytools::copy(size, x->data_ptr(), (float*) INTEGER(ret));
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    cpuvec<int> *x = (cpuvec<int>*) getRptr(x_robj);
+    len_t size = x->size();
+    
+    PROTECT(ret = allocVector(INTSXP, size));
+    arraytools::copy(size, x->data_ptr(), INTEGER(ret));
+  }
   
   UNPROTECT(1);
   return ret;

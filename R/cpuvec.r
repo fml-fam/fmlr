@@ -170,7 +170,14 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @details
     #' Returns an R vector containing a copy of the class data.
     #' @useDynLib fmlr R_cpuvec_to_robj
-    to_robj = function() .Call(R_cpuvec_to_robj, private$x_ptr),
+    to_robj = function()
+    {
+      ret = .Call(R_cpuvec_to_robj, private$type, private$x_ptr)
+      if (private$type == TYPE_FLOAT)
+        ret = float::float32(ret)
+      
+      ret
+    },
     
     
     

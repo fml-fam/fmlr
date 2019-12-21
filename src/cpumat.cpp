@@ -187,17 +187,37 @@ extern "C" SEXP R_cpumat_rev_cols(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_cpumat_to_robj(SEXP x_robj)
+extern "C" SEXP R_cpumat_to_robj(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  len_t m = x->nrows();
-  len_t n = x->ncols();
-  
-  PROTECT(ret = allocMatrix(REALSXP, m, n));
-  
-  arraytools::copy(m*n, x->data_ptr(), REAL(ret));
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(REALSXP, m, n));
+    arraytools::copy(m*n, x->data_ptr(), REAL(ret));
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    cpumat<float> *x = (cpumat<float>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+    arraytools::copy(m*n, x->data_ptr(), (float*) INTEGER(ret));
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    cpumat<int> *x = (cpumat<int>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+    arraytools::copy(m*n, x->data_ptr(), INTEGER(ret));
+  }
   
   UNPROTECT(1);
   return ret;

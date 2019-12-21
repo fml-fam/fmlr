@@ -194,17 +194,40 @@ extern "C" SEXP R_gpumat_scale(SEXP type, SEXP x_robj, SEXP s)
 
 
 
-extern "C" SEXP R_gpumat_to_robj(SEXP x_robj)
+extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
 {
-  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
-  len_t m = x->nrows();
-  len_t n = x->ncols();
-  
   SEXP ret;
-  PROTECT(ret = allocMatrix(REALSXP, m, n));
   
-  cpumat<double> ret_mat(REAL(ret), m, n, false);
-  gpuhelpers::gpu2cpu(*x, ret_mat);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(REALSXP, m, n));
+    cpumat<double> ret_mat(REAL(ret), m, n, false);
+    gpuhelpers::gpu2cpu(*x, ret_mat);
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    gpumat<float> *x = (gpumat<float>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+    cpumat<float> ret_mat((float*) INTEGER(ret), m, n, false);
+    gpuhelpers::gpu2cpu(*x, ret_mat);
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    gpumat<int> *x = (gpumat<int>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+    cpumat<float> ret_mat(INTEGER(ret), m, n, false);
+    gpuhelpers::gpu2cpu(*x, ret_mat);
+  }
   
   UNPROTECT(1);
   return ret;

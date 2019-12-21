@@ -254,7 +254,14 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @details
     #' Returns an R matrix containing a copy of the class data.
     #' @useDynLib fmlr R_gpumat_to_robj
-    to_robj = function() .Call(R_gpumat_to_robj, private$x_ptr),
+    to_robj = function()
+    {
+      ret = .Call(R_gpumat_to_robj, private$type, private$x_ptr)
+      if (private$type == TYPE_FLOAT)
+        ret = float::float32(ret)
+      
+      ret
+    },
     
     
     

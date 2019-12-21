@@ -3,6 +3,10 @@
 # -----------------------------------------------------------------------------
 
 # type globals
+TYPE_DOUBLE = 1L
+TYPE_FLOAT = 2L
+TYPE_INT = 3L
+
 TYPES_STR_NUMERIC = c("double", "float")
 TYPES_STR_INTEGER = "int"
 TYPES_STR = c(TYPES_STR_NUMERIC, TYPES_STR_INTEGER)
