@@ -37,7 +37,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     resize = function(size)
     {
       size = as.integer(size)
-      .Call(R_gpuvec_resize, private$x_ptr, size)
+      .Call(R_gpuvec_resize, private$type, private$x_ptr, size)
       invisible(self)
     },
     

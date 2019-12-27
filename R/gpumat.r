@@ -40,7 +40,7 @@ gpumatR6 = R6::R6Class("gpumat",
       nrows = as.integer(nrows)
       ncols = as.integer(ncols)
       
-      .Call(R_gpumat_resize, private$x_ptr, nrows, ncols)
+      .Call(R_gpumat_resize, private$type, private$x_ptr, nrows, ncols)
       invisible(self)
     },
     
@@ -56,7 +56,7 @@ gpumatR6 = R6::R6Class("gpumat",
       if (!is.double(data))
         storage.mode(data) = "double"
       
-      .Call(R_gpumat_inherit, private$x_ptr, data)
+      .Call(R_gpumat_inherit, private$type, private$x_ptr, data)
       invisible(self)
     },
     
@@ -67,7 +67,7 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_info
     info = function()
     {
-      .Call(R_gpumat_info, private$x_ptr)
+      .Call(R_gpumat_info, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -81,7 +81,7 @@ gpumatR6 = R6::R6Class("gpumat",
     {
       ndigits = min(as.integer(ndigits), 15L)
       
-      .Call(R_gpumat_print, private$x_ptr, ndigits)
+      .Call(R_gpumat_print, private$type, private$x_ptr, ndigits)
       invisible(self)
     },
     
@@ -92,7 +92,7 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_fill_zero
     fill_zero = function()
     {
-      .Call(R_gpumat_fill_zero, private$x_ptr)
+      .Call(R_gpumat_fill_zero, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -106,7 +106,7 @@ gpumatR6 = R6::R6Class("gpumat",
     {
       v = as.double(v)
       
-      .Call(R_gpumat_fill_val, private$x_ptr, v)
+      .Call(R_gpumat_fill_val, private$type, private$x_ptr, v)
       invisible(self)
     },
     
@@ -121,7 +121,7 @@ gpumatR6 = R6::R6Class("gpumat",
       start = as.double(start)
       stop = as.double(stop)
       
-      .Call(R_gpumat_fill_linspace, private$x_ptr, start, stop)
+      .Call(R_gpumat_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
     },
     
@@ -132,7 +132,7 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_fill_eye
     fill_eye = function()
     {
-      .Call(R_gpumat_fill_eye, private$x_ptr)
+      .Call(R_gpumat_fill_eye, private$type, private$x_ptr)
       invisible(self)
     },
     
@@ -188,7 +188,7 @@ gpumatR6 = R6::R6Class("gpumat",
     {
       s = as.double(s)
       
-      .Call(R_gpumat_scale, private$x_ptr, s)
+      .Call(R_gpumat_scale, private$type, private$x_ptr, s)
       invisible(self)
     },
     
