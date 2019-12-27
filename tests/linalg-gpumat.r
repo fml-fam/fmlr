@@ -1,11 +1,14 @@
 suppressMessages(library(fmlr))
 
+if (fml_gpu()){
+
 cmp = function(x, y) stopifnot(all.equal(x, y))
 
 # initialize objects
 m = 3
 n = 2
-x = cpumat(m, n)
+c = card()
+x = gpumat(c, m, n)
 x$fill_linspace(1, m*n)
 r = x$to_robj()
 
@@ -13,3 +16,6 @@ r = x$to_robj()
 test = linalg_crossprod(x)$to_robj()
 truth = crossprod(r)
 cmp(test[lower.tri(test, diag=TRUE)], truth[lower.tri(truth, diag=TRUE)])
+
+
+} # end if (fml_gpu())
