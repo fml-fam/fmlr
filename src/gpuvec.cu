@@ -160,7 +160,7 @@ extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
     len_t size = x->size();
     
     PROTECT(ret = allocVector(INTSXP, size));
-    cpuvec<double> ret_vec((float*) INTEGER(ret), size, false);
+    cpuvec<float> ret_vec((float*) INTEGER(ret), size, false);
     gpuhelpers::gpu2cpu(*x, ret_vec);
   }
   else //if (INT(type) == TYPE_INT)

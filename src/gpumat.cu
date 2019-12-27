@@ -225,7 +225,7 @@ extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
     len_t n = x->ncols();
     
     PROTECT(ret = allocMatrix(INTSXP, m, n));
-    cpumat<float> ret_mat(INTEGER(ret), m, n, false);
+    cpumat<int> ret_mat(INTEGER(ret), m, n, false);
     gpuhelpers::gpu2cpu(*x, ret_mat);
   }
   
