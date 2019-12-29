@@ -25,11 +25,15 @@ Data is held in an external pointer.
 \item \href{#method-fill_runif}{\code{gpumatR6$fill_runif()}}
 \item \href{#method-fill_rnorm}{\code{gpumatR6$fill_rnorm()}}
 \item \href{#method-scale}{\code{gpumatR6$scale()}}
+\item \href{#method-rev_rows}{\code{gpumatR6$rev_rows()}}
+\item \href{#method-rev_cols}{\code{gpumatR6$rev_cols()}}
 \item \href{#method-dim}{\code{gpumatR6$dim()}}
 \item \href{#method-nrows}{\code{gpumatR6$nrows()}}
 \item \href{#method-ncols}{\code{gpumatR6$ncols()}}
 \item \href{#method-get_card}{\code{gpumatR6$get_card()}}
 \item \href{#method-data_ptr}{\code{gpumatR6$data_ptr()}}
+\item \href{#method-get_type}{\code{gpumatR6$get_type()}}
+\item \href{#method-get_type_str}{\code{gpumatR6$get_type_str()}}
 \item \href{#method-to_robj}{\code{gpumatR6$to_robj()}}
 \item \href{#method-from_robj}{\code{gpumatR6$from_robj()}}
 \item \href{#method-clone}{\code{gpumatR6$clone()}}
@@ -252,6 +256,30 @@ Scale all entries by the supplied value.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-rev_rows"></a>}}
+\subsection{Method \code{rev_rows()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$rev_rows()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Reverse rows.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-rev_cols"></a>}}
+\subsection{Method \code{rev_cols()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$rev_cols()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Reverse columns.
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-dim"></a>}}
 \subsection{Method \code{dim()}}{
 \subsection{Usage}{
@@ -308,6 +336,30 @@ Returns the internal card object.
 
 \subsection{Details}{
 Returns the external pointer data. For developers only.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_type"></a>}}
+\subsection{Method \code{get_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$get_type()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the integer code for the underlying storage type. For developers only.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_type_str"></a>}}
+\subsection{Method \code{get_type_str()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$get_type_str()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the string code for the underlying storage type. For developers only.
 }
 
 }

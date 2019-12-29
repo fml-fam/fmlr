@@ -137,6 +137,32 @@ extern "C" SEXP R_cpumat_fill_eye(SEXP type, SEXP x_robj)
 
 
 
+extern "C" SEXP R_cpumat_fill_diag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+    cpuvec<double> *v = (cpuvec<double>*) getRptr(v_robj);
+    x->fill_diag(*v);
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    cpumat<float> *x = (cpumat<float>*) getRptr(x_robj);
+    cpuvec<float> *v = (cpuvec<float>*) getRptr(v_robj);
+    x->fill_diag(*v);
+  }
+  else //if (INT(type) == TYPE_INT)
+  {
+    cpumat<int> *x = (cpumat<int>*) getRptr(x_robj);
+    cpuvec<int> *v = (cpuvec<int>*) getRptr(v_robj);
+    x->fill_diag(*v);
+  }
+  
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_cpumat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
   cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);

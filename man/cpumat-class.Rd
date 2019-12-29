@@ -22,6 +22,7 @@ Data is held in an external pointer.
 \item \href{#method-fill_val}{\code{cpumatR6$fill_val()}}
 \item \href{#method-fill_linspace}{\code{cpumatR6$fill_linspace()}}
 \item \href{#method-fill_eye}{\code{cpumatR6$fill_eye()}}
+\item \href{#method-fill_diag}{\code{cpumatR6$fill_diag()}}
 \item \href{#method-fill_runif}{\code{cpumatR6$fill_runif()}}
 \item \href{#method-fill_rnorm}{\code{cpumatR6$fill_rnorm()}}
 \item \href{#method-scale}{\code{cpumatR6$scale()}}
@@ -31,6 +32,8 @@ Data is held in an external pointer.
 \item \href{#method-nrows}{\code{cpumatR6$nrows()}}
 \item \href{#method-ncols}{\code{cpumatR6$ncols()}}
 \item \href{#method-data_ptr}{\code{cpumatR6$data_ptr()}}
+\item \href{#method-get_type}{\code{cpumatR6$get_type()}}
+\item \href{#method-get_type_str}{\code{cpumatR6$get_type_str()}}
 \item \href{#method-to_robj}{\code{cpumatR6$to_robj()}}
 \item \href{#method-from_robj}{\code{cpumatR6$from_robj()}}
 \item \href{#method-clone}{\code{cpumatR6$clone()}}
@@ -190,6 +193,27 @@ Fill diagonal values to 1 and non-diagonal values to 0.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fill_diag"></a>}}
+\subsection{Method \code{fill_diag()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cpumatR6$fill_diag(v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{v}}{A cpuvec object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set diagonal entries of the matrix to those in the vector. If the vector
+is smaller than the matrix diagonal, the vector will recycle until the
+matrix diagonal is filled.
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_runif"></a>}}
 \subsection{Method \code{fill_runif()}}{
 \subsection{Usage}{
@@ -319,6 +343,30 @@ Returns number of columns of the matrix.
 
 \subsection{Details}{
 Returns the external pointer data. For developers only.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_type"></a>}}
+\subsection{Method \code{get_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cpumatR6$get_type()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the integer code for the underlying storage type. For developers only.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_type_str"></a>}}
+\subsection{Method \code{get_type_str()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cpumatR6$get_type_str()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the string code for the underlying storage type. For developers only.
 }
 
 }

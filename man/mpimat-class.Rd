@@ -37,6 +37,8 @@ Data is held in an external pointer.
 \item \href{#method-bf_cols}{\code{mpimatR6$bf_cols()}}
 \item \href{#method-get_grid}{\code{mpimatR6$get_grid()}}
 \item \href{#method-data_ptr}{\code{mpimatR6$data_ptr()}}
+\item \href{#method-get_type}{\code{mpimatR6$get_type()}}
+\item \href{#method-get_type_str}{\code{mpimatR6$get_type_str()}}
 \item \href{#method-to_robj}{\code{mpimatR6$to_robj()}}
 \item \href{#method-from_robj}{\code{mpimatR6$from_robj()}}
 \item \href{#method-clone}{\code{mpimatR6$clone()}}
@@ -408,6 +410,30 @@ Returns the internal grid object.
 
 \subsection{Details}{
 Returns the external pointer data. For developers only.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_type"></a>}}
+\subsection{Method \code{get_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$get_type()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the integer code for the underlying storage type. For developers only.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_type_str"></a>}}
+\subsection{Method \code{get_type_str()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$get_type_str()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the string code for the underlying storage type. For developers only.
 }
 
 }
