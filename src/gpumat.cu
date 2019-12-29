@@ -176,21 +176,19 @@ extern "C" SEXP R_gpumat_scale(SEXP type, SEXP x_robj, SEXP s)
 
 
 
-// extern "C" SEXP R_gpumat_rev_rows(SEXP x_robj)
-// {
-//   gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
-//   x->rev_rows();
-//   return R_NilValue;
-// }
+extern "C" SEXP R_gpumat_rev_rows(SEXP type, SEXP x_robj)
+{
+  APPLY_TEMPLATED_METHOD(gpumat, type, x_robj, rev_rows);
+  return R_NilValue;
+}
 
 
 
-// extern "C" SEXP R_gpumat_rev_cols(SEXP x_robj)
-// {
-//   gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
-//   x->rev_cols();
-//   return R_NilValue;
-// }
+extern "C" SEXP R_gpumat_rev_cols(SEXP type, SEXP x_robj)
+{
+  APPLY_TEMPLATED_METHOD(gpumat, type, x_robj, rev_cols);
+  return R_NilValue;
+}
 
 
 

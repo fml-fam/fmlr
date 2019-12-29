@@ -194,25 +194,25 @@ gpumatR6 = R6::R6Class("gpumat",
     
     
     
-    # #' @details
-    # #' Reverse rows.
-    # #' @useDynLib fmlr R_gpumat_rev_rows
-    # rev_rows = function()
-    # {
-    #   .Call(R_gpumat_rev_rows, private$x_ptr)
-    #   invisible(self)
-    # },
+    #' @details
+    #' Reverse rows.
+    #' @useDynLib fmlr R_gpumat_rev_rows
+    rev_rows = function()
+    {
+      .Call(R_gpumat_rev_rows, private$type, private$x_ptr)
+      invisible(self)
+    },
     
     
     
-    # #' @details
-    # #' Reverse columns.
-    # #' @useDynLib fmlr R_gpumat_rev_cols
-    # rev_cols = function()
-    # {
-    #   .Call(R_gpumat_rev_cols, private$x_ptr)
-    #   invisible(self)
-    # },
+    #' @details
+    #' Reverse columns.
+    #' @useDynLib fmlr R_gpumat_rev_cols
+    rev_cols = function()
+    {
+      .Call(R_gpumat_rev_cols, private$type, private$x_ptr)
+      invisible(self)
+    },
     
     
     
