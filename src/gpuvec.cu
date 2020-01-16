@@ -1,11 +1,11 @@
 #include "extptr.h"
 #include "types.h"
 
-#include "fml/src/cpu/cpuvec.hh"
+#include <fml/src/cpu/cpuvec.hh>
 
-#include "fml/src/gpu/card.hh"
-#include "fml/src/gpu/gpuhelpers.hh"
-#include "fml/src/gpu/gpuvec.hh"
+#include <fml/src/gpu/card.hh>
+#include <fml/src/gpu/gpuhelpers.hh>
+#include <fml/src/gpu/gpuvec.hh>
 
 
 extern "C" SEXP R_gpuvec_init(SEXP type, SEXP c_robj, SEXP size_)

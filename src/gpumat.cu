@@ -1,12 +1,12 @@
 #include "extptr.h"
 #include "types.h"
 
-#include "fml/src/cpu/cpuvec.hh"
+#include <fml/src/cpu/cpuvec.hh>
 
-#include "fml/src/gpu/card.hh"
-#include "fml/src/gpu/gpuhelpers.hh"
-#include "fml/src/gpu/gpumat.hh"
-#include "fml/src/gpu/linalg.hh"
+#include <fml/src/gpu/card.hh>
+#include <fml/src/gpu/gpuhelpers.hh>
+#include <fml/src/gpu/gpumat.hh>
+#include <fml/src/gpu/linalg.hh>
 
 
 // -----------------------------------------------------------------------------

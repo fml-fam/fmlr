@@ -1,6 +1,6 @@
 #include "extptr.h"
 
-#include "fml/src/gpu/card.hh"
+#include <fml/src/gpu/card.hh>
 
 
 extern "C" SEXP R_card_init(SEXP id_)

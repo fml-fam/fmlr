@@ -1,8 +1,8 @@
 #include "extptr.h"
 #include "types.h"
 
-#include "fml/src/arraytools/src/arraytools.hpp"
-#include "fml/src/cpu/cpuvec.hh"
+#include <fml/src/arraytools/src/arraytools.hpp>
+#include <fml/src/cpu/cpuvec.hh>
 
 
 extern "C" SEXP R_cpuvec_init(SEXP type, SEXP size_)

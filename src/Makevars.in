@@ -1,5 +1,7 @@
 CXX_STD = CXX14
 
+FML_CPPFLAGS = -I../inst/include
+
 # flags from autoconf
 SPMD_CPPFLAGS = @SPMD_CPPFLAGS@
 SPMD_LDFLAGS = @SPMD_LDFLAGS@
@@ -29,7 +31,7 @@ PKG_LIBS_MPI = $(SLAP_LDFLAGS) $(SPMD_LDFLAGS)
 
 
 # flags
-PKG_CPPFLAGS = $(PKG_CPPFLAGS_MPI)
+PKG_CPPFLAGS = $(FML_CPPFLAGS) $(PKG_CPPFLAGS_MPI)
 PKG_CXXFLAGS = $(PKG_CXXFLAGS_MPI) $(SHLIB_OPENMP_CXXFLAGS)
 
 
@@ -53,7 +55,7 @@ all: $(SHLIB)
 
 ifeq "$(USE_GPU)" "TRUE"
 %.o: %.cu
-	$(NVCC) -DGPU -O2 -x cu -c -arch=sm_61 -Xcompiler "-fPIC $(FLOAT_INCL) $(R_CPPFLAGS) $(SPMD_CPPFLAGS)" $< -o $@
+	$(NVCC) -DGPU -O2 -x cu -c -arch=sm_61 -Xcompiler "-fPIC $(FML_CPPFLAGS) $(FLOAT_INCL) $(R_CPPFLAGS) $(SPMD_CPPFLAGS)" $< -o $@
 else
 $(SHLIB): $(OBJECTS)
 endif

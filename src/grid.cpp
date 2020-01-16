@@ -1,9 +1,9 @@
 #include "extptr.h"
 
-#include "fml/src/mpi/grid.hh"
-#include "fml/src/mpi/linalg.hh"
-#include "fml/src/mpi/mpihelpers.hh"
-#include "fml/src/mpi/mpimat.hh"
+#include <fml/src/mpi/grid.hh>
+#include <fml/src/mpi/linalg.hh>
+#include <fml/src/mpi/mpihelpers.hh>
+#include <fml/src/mpi/mpimat.hh>
 
 #define GET_R_STRING(x,i) ((char*)CHAR(STRING_ELT(x,i)))
 #define GET_R_CHAR(x,i) ((GET_R_STRING(x,i))[0])
