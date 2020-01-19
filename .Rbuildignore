@@ -1,3 +1,5 @@
+containers/
+
 src/fml/.git
 src/fml/.gitignore
 src/fml/benchmarks
