@@ -1,17 +1,18 @@
 #' grid class
 #' 
-#' Storage and methods for GPU grid data.
+#' Storage and methods for MPI grid data.
 #' 
 #' @details
 #' Data is held in an external pointer.
 #' 
-#' @rdname gpu-grid-class
-#' @name gpu-grid-class
+#' @rdname mpi-grid-class
+#' @name mpi-grid-class
 gridR6 = R6::R6Class("grid",
   public = list(
     #' @details
     #' Class initializer.
-    #' @param gridtype Type of processor grid.
+    #' @param gridtype Type of processor grid: `PROC_GRID_SQUARE`,
+    #' `PROC_GRID_WIDE`, or `PROC_GRID_TALL`.
     #' @useDynLib fmlr R_grid_init
     initialize = function(gridtype=PROC_GRID_SQUARE)
     {
@@ -172,12 +173,13 @@ gridR6 = R6::R6Class("grid",
 
 #' grid
 #' 
-#' Constructor for GPU grid objects.
+#' Constructor for MPI grid objects.
 #' 
 #' @details
 #' Data is held in an external pointer.
 #' 
-#' @param id GPU id number.
+#' @param gridtype Type of processor grid: `PROC_GRID_SQUARE`,
+#' `PROC_GRID_WIDE`, or `PROC_GRID_TALL`.
 #' @return A grid class object.
 #' 
 #' @export

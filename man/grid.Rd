@@ -7,13 +7,14 @@
 grid(gridtype = PROC_GRID_SQUARE)
 }
 \arguments{
-\item{id}{GPU id number.}
+\item{gridtype}{Type of processor grid: `PROC_GRID_SQUARE`,
+`PROC_GRID_WIDE`, or `PROC_GRID_TALL`.}
 }
 \value{
 A grid class object.
 }
 \description{
-Constructor for GPU grid objects.
+Constructor for MPI grid objects.
 }
 \details{
 Data is held in an external pointer.
