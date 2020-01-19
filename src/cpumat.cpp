@@ -1,7 +1,7 @@
 #include "extptr.h"
 #include "types.h"
 
-#include <fml/src/arraytools/src/arraytools.hpp>
+#include <fml/src/_internals/arraytools/src/arraytools.hpp>
 #include <fml/src/cpu/cpumat.hh>
 #include <fml/src/cpu/linalg.hh>
 
