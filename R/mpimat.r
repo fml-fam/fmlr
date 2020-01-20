@@ -205,6 +205,42 @@ mpimatR6 = R6::R6Class("mpimat",
     
     
     #' @details
+    #' Get diagonal entries of the matrix.
+    #' @param v A cpuvec object.
+    #' @useDynLib fmlr R_mpimat_diag
+    diag = function(v)
+    {
+      if (!is_cpuvec(v))
+        stop("'v' must be a cpuvec object")
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      .Call(R_mpimat_diag, private$type, private$x_ptr, v$data_ptr())
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
+    #' Get anti-diagonal entries of the matrix.
+    #' @param v A cpuvec object.
+    #' @useDynLib fmlr R_mpimat_antidiag
+    antidiag = function(v)
+    {
+      if (!is_cpuvec(v))
+        stop("'v' must be a cpuvec object")
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      .Call(R_mpimat_antidiag, private$type, private$x_ptr, v$data_ptr())
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
     #' Scale all entries by the supplied value.
     #' @param s Value to scale all entries by.
     #' @useDynLib fmlr R_mpimat_scale

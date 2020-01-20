@@ -246,6 +246,48 @@ extern "C" SEXP R_mpimat_fill_rnorm(SEXP type, SEXP x_robj, SEXP seed, SEXP min,
 
 
 
+extern "C" SEXP R_mpimat_diag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  #define FMLR_TMP_DIAG(type) { \
+    mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
+    cpuvec<type> *v = (cpuvec<type>*) getRptr(v_robj); \
+    x->diag(*v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_DIAG(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_DIAG(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_DIAG(int)
+  
+  #undef FMLR_TMP_DIAG
+  
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_mpimat_antidiag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  #define FMLR_TMP_ANTIDIAG(type) { \
+    mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
+    cpuvec<type> *v = (cpuvec<type>*) getRptr(v_robj); \
+    x->antidiag(*v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_ANTIDIAG(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_ANTIDIAG(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_ANTIDIAG(int)
+  
+  #undef FMLR_TMP_ANTIDIAG
+  
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_mpimat_scale(SEXP type, SEXP x_robj, SEXP s)
 {
   APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, scale, DBL(s));
