@@ -265,21 +265,33 @@ extern "C" SEXP R_cpumat_to_robj(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   
-  #define FMLR_TMP_TO_ROBJ(type) { \
-    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj); \
-    len_t m = x->nrows(); \
-    len_t n = x->ncols(); \
-    PROTECT(ret = allocMatrix(REALSXP, m, n)); \
-    arraytools::copy(m*n, x->data_ptr(), REAL(ret)); }
-  
   if (INT(type) == TYPE_DOUBLE)
-    FMLR_TMP_TO_ROBJ(double)
+  {
+    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(REALSXP, m, n));
+    arraytools::copy(m*n, x->data_ptr(), REAL(ret));
+  }
   else if (INT(type) == TYPE_FLOAT)
-    FMLR_TMP_TO_ROBJ(float)
+  {
+    cpumat<float> *x = (cpumat<float>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+    arraytools::copy(m*n, x->data_ptr(), (float*) INTEGER(ret));
+  }
   else //if (INT(type) == TYPE_INT)
-    FMLR_TMP_TO_ROBJ(int)
-  
-  #undef FMLR_TMP_TO_ROBJ
+  {
+    cpumat<int> *x = (cpumat<int>*) getRptr(x_robj);
+    len_t m = x->nrows();
+    len_t n = x->ncols();
+    
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+    arraytools::copy(m*n, x->data_ptr(), INTEGER(ret));
+  }
   
   UNPROTECT(1);
   return ret;
