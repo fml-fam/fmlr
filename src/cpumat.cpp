@@ -17,24 +17,19 @@ extern "C" SEXP R_cpumat_init(SEXP type, SEXP m_, SEXP n_)
   int m = INTEGER(m_)[0];
   int n = INTEGER(n_)[0];
   
+  #define FMLR_TMP_INIT(type) { \
+    cpumat<type> *x = new cpumat<type>(); \
+    x->resize(m, n); \
+    newRptr(x, ret, fml_object_finalizer<cpumat<type>>); }
+  
   if (INT(type) == TYPE_DOUBLE)
-  {
-    cpumat<double> *x = new cpumat<double>();
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<cpumat<double>>);
-  }
+    FMLR_TMP_INIT(double)
   else if (INT(type) == TYPE_FLOAT)
-  {
-    cpumat<float> *x = new cpumat<float>();
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<cpumat<float>>);
-  }
+    FMLR_TMP_INIT(float)
   else //if (INT(type) == TYPE_INT)
-  {
-    cpumat<int> *x = new cpumat<int>();
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<cpumat<int>>);
-  }
+    FMLR_TMP_INIT(int)
+  
+  #undef FMLR_TMP_INIT
   
   UNPROTECT(1);
   return ret;
@@ -47,24 +42,19 @@ extern "C" SEXP R_cpumat_dim(SEXP type, SEXP x_robj)
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 2));
   
+  #define FMLR_TMP_DIM(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    INTEGER(ret)[0] = x->nrows(); \
+    INTEGER(ret)[1] = x->ncols(); }
+  
   if (INT(type) == TYPE_DOUBLE)
-  {
-    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(double)
   else if (INT(type) == TYPE_FLOAT)
-  {
-    cpumat<float> *x = (cpumat<float>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(float)
   else //if (INT(type) == TYPE_INT)
-  {
-    cpumat<int> *x = (cpumat<int>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(int)
+  
+  #undef FMLR_TMP_DIM
   
   UNPROTECT(1);
   return ret;
@@ -139,24 +129,19 @@ extern "C" SEXP R_cpumat_fill_eye(SEXP type, SEXP x_robj)
 
 extern "C" SEXP R_cpumat_fill_diag(SEXP type, SEXP x_robj, SEXP v_robj)
 {
+  #define FMLR_TMP_FILL_DIAG(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    cpuvec<type> *v = (cpuvec<type>*) getRptr(v_robj); \
+    x->fill_diag(*v); }
+  
   if (INT(type) == TYPE_DOUBLE)
-  {
-    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-    cpuvec<double> *v = (cpuvec<double>*) getRptr(v_robj);
-    x->fill_diag(*v);
-  }
+    FMLR_TMP_FILL_DIAG(double)
   else if (INT(type) == TYPE_FLOAT)
-  {
-    cpumat<float> *x = (cpumat<float>*) getRptr(x_robj);
-    cpuvec<float> *v = (cpuvec<float>*) getRptr(v_robj);
-    x->fill_diag(*v);
-  }
+    FMLR_TMP_FILL_DIAG(float)
   else //if (INT(type) == TYPE_INT)
-  {
-    cpumat<int> *x = (cpumat<int>*) getRptr(x_robj);
-    cpuvec<int> *v = (cpuvec<int>*) getRptr(v_robj);
-    x->fill_diag(*v);
-  }
+    FMLR_TMP_FILL_DIAG(int)
+  
+  #undef FMLR_TMP_FILL_DIAG
   
   return R_NilValue;
 }
@@ -217,33 +202,21 @@ extern "C" SEXP R_cpumat_to_robj(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   
+  #define FMLR_TMP_TO_ROBJ(type) { \
+    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj); \
+    len_t m = x->nrows(); \
+    len_t n = x->ncols(); \
+    PROTECT(ret = allocMatrix(REALSXP, m, n)); \
+    arraytools::copy(m*n, x->data_ptr(), REAL(ret)); }
+  
   if (INT(type) == TYPE_DOUBLE)
-  {
-    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-    len_t m = x->nrows();
-    len_t n = x->ncols();
-    
-    PROTECT(ret = allocMatrix(REALSXP, m, n));
-    arraytools::copy(m*n, x->data_ptr(), REAL(ret));
-  }
+    FMLR_TMP_TO_ROBJ(double)
   else if (INT(type) == TYPE_FLOAT)
-  {
-    cpumat<float> *x = (cpumat<float>*) getRptr(x_robj);
-    len_t m = x->nrows();
-    len_t n = x->ncols();
-    
-    PROTECT(ret = allocMatrix(INTSXP, m, n));
-    arraytools::copy(m*n, x->data_ptr(), (float*) INTEGER(ret));
-  }
+    FMLR_TMP_TO_ROBJ(float)
   else //if (INT(type) == TYPE_INT)
-  {
-    cpumat<int> *x = (cpumat<int>*) getRptr(x_robj);
-    len_t m = x->nrows();
-    len_t n = x->ncols();
-    
-    PROTECT(ret = allocMatrix(INTSXP, m, n));
-    arraytools::copy(m*n, x->data_ptr(), INTEGER(ret));
-  }
+    FMLR_TMP_TO_ROBJ(int)
+  
+  #undef FMLR_TMP_TO_ROBJ
   
   UNPROTECT(1);
   return ret;
