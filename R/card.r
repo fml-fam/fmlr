@@ -49,7 +49,7 @@ cardR6 = R6::R6Class("card",
     #' Print one-line information about the object.
     print = function()
     {
-      card_info(private$c_ptr)
+      self$info()
       invisible(self)
     },
     

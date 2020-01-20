@@ -153,7 +153,7 @@ gpumatR6 = R6::R6Class("gpumat",
       min = as.double(min)
       max = as.double(max)
       
-      .Call(R_gpumat_fill_runif, private$x_ptr, seed, min, max)
+      .Call(R_gpumat_fill_runif, private$type, private$x_ptr, seed, min, max)
       invisible(self)
     },
     
@@ -174,7 +174,7 @@ gpumatR6 = R6::R6Class("gpumat",
       min = as.double(min)
       max = as.double(max)
       
-      .Call(R_gpumat_fill_rnorm, private$x_ptr, seed, min, max)
+      .Call(R_gpumat_fill_rnorm, private$type, private$x_ptr, seed, min, max)
       invisible(self)
     },
     

@@ -21,24 +21,19 @@ extern "C" SEXP R_gpumat_init(SEXP type, SEXP c_robj, SEXP m_, SEXP n_)
   int n = INTEGER(n_)[0];
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
   
+  #define FMLR_TMP_INIT(type) { \
+    gpumat<type> *x = new gpumat<type>(*c); \
+    x->resize(m, n); \
+    newRptr(x, ret, fml_object_finalizer<gpumat<type>>); }
+  
   if (INT(type) == TYPE_DOUBLE)
-  {
-    gpumat<double> *x = new gpumat<double>(*c);
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<gpumat<double>>);
-  }
+    FMLR_TMP_INIT(double)
   else if (INT(type) == TYPE_FLOAT)
-  {
-    gpumat<float> *x = new gpumat<float>(*c);
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<gpumat<float>>);
-  }
+    FMLR_TMP_INIT(float)
   else //if (INT(type) == TYPE_INT)
-  {
-    gpumat<int> *x = new gpumat<int>(*c);
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<gpumat<int>>);
-  }
+    FMLR_TMP_INIT(int)
+  
+  #undef FMLR_TMP_INIT
   
   UNPROTECT(1);
   return ret;
@@ -51,24 +46,19 @@ extern "C" SEXP R_gpumat_dim(SEXP type, SEXP x_robj)
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 2));
   
+  #define FMLR_TMP_DIM(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    INTEGER(ret)[0] = x->nrows(); \
+    INTEGER(ret)[1] = x->ncols(); }
+  
   if (INT(type) == TYPE_DOUBLE)
-  {
-    gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(double)
   else if (INT(type) == TYPE_FLOAT)
-  {
-    gpumat<float> *x = (gpumat<float>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(float)
   else //if (INT(type) == TYPE_INT)
-  {
-    gpumat<int> *x = (gpumat<int>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(int)
+  
+  #undef FMLR_TMP_DIM
   
   UNPROTECT(1);
   return ret;
@@ -142,26 +132,46 @@ extern "C" SEXP R_gpumat_fill_eye(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_gpumat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
+extern "C" SEXP R_gpumat_fill_runif(SEXP type, SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
-  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
-  if (INTEGER(seed)[0] == -1)
-    x->fill_runif(REAL(min)[0], REAL(max)[0]);
+  #define FMLR_TMP_FILL_RUNIF(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    if (INTEGER(seed)[0] == -1) \
+      x->fill_runif((type) REAL(min)[0], (type) REAL(max)[0]); \
+    else \
+      x->fill_runif(INTEGER(seed)[0], (type) REAL(min)[0], (type) REAL(max)[0]); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_FILL_RUNIF(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_FILL_RUNIF(float)
   else
-    x->fill_runif(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]);
+    error("unsupported fundamental type");
+  
+  #undef FMLR_TMP_FILL_RUNIF
   
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_gpumat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
+extern "C" SEXP R_gpumat_fill_rnorm(SEXP type, SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
-  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
-  if (INTEGER(seed)[0] == -1)
-    x->fill_rnorm(REAL(min)[0], REAL(max)[0]);
+  #define FMLR_TMP_FILL_RNORM(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    if (INTEGER(seed)[0] == -1) \
+      x->fill_rnorm((type) REAL(min)[0], (type) REAL(max)[0]); \
+    else \
+      x->fill_rnorm(INTEGER(seed)[0], (type) REAL(min)[0], (type) REAL(max)[0]); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_FILL_RNORM(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_FILL_RNORM(float)
   else
-    x->fill_rnorm(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]);
+    error("unsupported fundamental type");
+  
+  #undef FMLR_TMP_FILL_RNORM
   
   return R_NilValue;
 }

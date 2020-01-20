@@ -22,7 +22,7 @@ CUDA_LDFLAGS = @CUDA_LDFLAGS@
 # set arch flags
 PKG_LIBS_CPU = $(FLOAT_LDFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CXXFLAGS)
 
-PKG_LIBS_GPU = $(CUDA_LDFLAGS) -lcudart -lcublas -lcusolver -lnvidia-ml
+PKG_LIBS_GPU = $(CUDA_LDFLAGS) -lcudart -lcublas -lcusolver -lcurand -lnvidia-ml
 
 PKG_CPPFLAGS_MPI = $(SPMD_CPPFLAGS)
 PKG_CXXFLAGS_MPI = $(SPMD_CPPFLAGS)
