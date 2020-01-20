@@ -76,7 +76,7 @@ gridR6 = R6::R6Class("grid",
     #' Print one-line information about the object.
     print = function()
     {
-      grid_info(private$g_ptr)
+      .Call(R_grid_info, private$g_ptr)
       invisible(self)
     },
     
