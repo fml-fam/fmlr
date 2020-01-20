@@ -139,6 +139,26 @@ gpumatR6 = R6::R6Class("gpumat",
     
     
     #' @details
+    #' Set diagonal entries of the matrix to those in the vector. If the vector
+    #' is smaller than the matrix diagonal, the vector will recycle until the
+    #' matrix diagonal is filled.
+    #' @param v A gpuvec object.
+    #' @useDynLib fmlr R_gpumat_fill_diag
+    fill_diag = function(v)
+    {
+      if (!is_gpuvec(v))
+        v = as_gpuvec(v, copy=FALSE)
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      .Call(R_gpumat_fill_diag, private$type, private$x_ptr, v$data_ptr())
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
     #' Fill the matrix with random unifmorm data.
     #' @param seed Seed for the generator. Can be left blank.
     #' @param min,max Parameters for the generator.
@@ -175,6 +195,42 @@ gpumatR6 = R6::R6Class("gpumat",
       max = as.double(max)
       
       .Call(R_gpumat_fill_rnorm, private$type, private$x_ptr, seed, min, max)
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
+    #' Get diagonal entries of the matrix.
+    #' @param v A gpuvec object.
+    #' @useDynLib fmlr R_gpumat_diag
+    diag = function(v)
+    {
+      if (!is_gpuvec(v))
+        stop("'v' must be a gpuvec object")
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      .Call(R_gpumat_diag, private$type, private$x_ptr, v$data_ptr())
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
+    #' Get anti-diagonal entries of the matrix.
+    #' @param v A gpuvec object.
+    #' @useDynLib fmlr R_gpumat_antidiag
+    antidiag = function(v)
+    {
+      if (!is_gpuvec(v))
+        stop("'v' must be a gpuvec object")
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      .Call(R_gpumat_antidiag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
     },
     

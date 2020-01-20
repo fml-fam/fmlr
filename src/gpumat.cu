@@ -132,6 +132,27 @@ extern "C" SEXP R_gpumat_fill_eye(SEXP type, SEXP x_robj)
 
 
 
+extern "C" SEXP R_gpumat_fill_diag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  #define FMLR_TMP_FILL_DIAG(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    gpuvec<type> *v = (gpuvec<type>*) getRptr(v_robj); \
+    x->fill_diag(*v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_FILL_DIAG(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_FILL_DIAG(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_FILL_DIAG(int)
+  
+  #undef FMLR_TMP_FILL_DIAG
+  
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_gpumat_fill_runif(SEXP type, SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
   #define FMLR_TMP_FILL_RUNIF(type) { \
@@ -172,6 +193,48 @@ extern "C" SEXP R_gpumat_fill_rnorm(SEXP type, SEXP x_robj, SEXP seed, SEXP min,
     error("unsupported fundamental type");
   
   #undef FMLR_TMP_FILL_RNORM
+  
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_gpumat_diag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  #define FMLR_TMP_DIAG(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    gpuvec<type> *v = (gpuvec<type>*) getRptr(v_robj); \
+    x->diag(*v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_DIAG(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_DIAG(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_DIAG(int)
+  
+  #undef FMLR_TMP_DIAG
+  
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_gpumat_antidiag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  #define FMLR_TMP_ANTIDIAG(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    gpuvec<type> *v = (gpuvec<type>*) getRptr(v_robj); \
+    x->antidiag(*v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_ANTIDIAG(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_ANTIDIAG(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_ANTIDIAG(int)
+  
+  #undef FMLR_TMP_ANTIDIAG
   
   return R_NilValue;
 }

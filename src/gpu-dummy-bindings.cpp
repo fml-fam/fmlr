@@ -117,6 +117,18 @@ extern "C" SEXP R_gpuvec_fill_linspace(SEXP type, SEXP x_robj, SEXP start, SEXP 
   WARN_AND_RETURN;
 }
 
+extern "C" SEXP R_gpumat_diag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  unused(type, x_robj, v_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_antidiag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  unused(type, x_robj, v_robj);
+  WARN_AND_RETURN;
+}
+
 extern "C" SEXP R_gpuvec_scale(SEXP type, SEXP x_robj, SEXP s)
 {
   unused(type, x_robj, s);
@@ -207,7 +219,11 @@ extern "C" SEXP R_gpumat_fill_eye(SEXP type, SEXP x_robj)
   WARN_AND_RETURN;
 }
 
-// TODO diag
+extern "C" SEXP R_gpumat_fill_diag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  unused(type, x_robj, v_robj);
+  WARN_AND_RETURN;
+}
 
 extern "C" SEXP R_gpumat_fill_runif(SEXP type, SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {

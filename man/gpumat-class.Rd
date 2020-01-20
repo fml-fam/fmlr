@@ -22,8 +22,11 @@ Data is held in an external pointer.
 \item \href{#method-fill_val}{\code{gpumatR6$fill_val()}}
 \item \href{#method-fill_linspace}{\code{gpumatR6$fill_linspace()}}
 \item \href{#method-fill_eye}{\code{gpumatR6$fill_eye()}}
+\item \href{#method-fill_diag}{\code{gpumatR6$fill_diag()}}
 \item \href{#method-fill_runif}{\code{gpumatR6$fill_runif()}}
 \item \href{#method-fill_rnorm}{\code{gpumatR6$fill_rnorm()}}
+\item \href{#method-diag}{\code{gpumatR6$diag()}}
+\item \href{#method-antidiag}{\code{gpumatR6$antidiag()}}
 \item \href{#method-scale}{\code{gpumatR6$scale()}}
 \item \href{#method-rev_rows}{\code{gpumatR6$rev_rows()}}
 \item \href{#method-rev_cols}{\code{gpumatR6$rev_cols()}}
@@ -195,6 +198,27 @@ Fill diagonal values to 1 and non-diagonal values to 0.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fill_diag"></a>}}
+\subsection{Method \code{fill_diag()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$fill_diag(v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{v}}{A gpuvec object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set diagonal entries of the matrix to those in the vector. If the vector
+is smaller than the matrix diagonal, the vector will recycle until the
+matrix diagonal is filled.
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_runif"></a>}}
 \subsection{Method \code{fill_runif()}}{
 \subsection{Usage}{
@@ -233,6 +257,44 @@ Fill the matrix with random unifmorm data.
 }
 \subsection{Details}{
 Fill the matrix with random normal data.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-diag"></a>}}
+\subsection{Method \code{diag()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$diag(v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{v}}{A gpuvec object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get diagonal entries of the matrix.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-antidiag"></a>}}
+\subsection{Method \code{antidiag()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$antidiag(v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{v}}{A gpuvec object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get anti-diagonal entries of the matrix.
 }
 
 }
