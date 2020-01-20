@@ -237,36 +237,32 @@ mpimatR6 = R6::R6Class("mpimat",
     
     
     #' @details
-    #' Returns number of columns of the matrix.
-    nrows_local = function() mpimat_ldim(private$x_ptr)[1],
-    
-    
-    
-    #' @details
-    #' Returns number of columns of the matrix.
-    ncols_local = function() mpimat_ldim(private$x_ptr)[2],
-    
-    
-    
-    #' @details
     #' Returns number of rows and columns of the matrix.
     #' @useDynLib fmlr R_mpimat_ldim
-    ldim = function() .Call(R_mpimat_ldim, private$x_ptr),
+    ldim = function() .Call(R_mpimat_ldim, private$type, private$x_ptr),
+    
+    #' @details
+    #' Returns number of columns of the matrix.
+    nrows_local = function() self$ldim()[1],
+    
+    #' @details
+    #' Returns number of columns of the matrix.
+    ncols_local = function() self$ldim()[2],
     
     
     
     #' @details
     #' Returns number of rows and columns of the matrix.
     #' @useDynLib fmlr R_mpimat_bfdim
-    bfdim = function() .Call(R_mpimat_bfdim, private$x_ptr),
+    bfdim = function() .Call(R_mpimat_bfdim, private$type, private$x_ptr),
     
     #' @details
     #' Returns number of columns of the matrix.
-    bf_rows = function() bfdim(self)[1],
+    bf_rows = function() self$bfdim()[1],
     
     #' @details
     #' Returns number of columns of the matrix.
-    bf_cols = function() bfdim(self)[2],
+    bf_cols = function() self$bfdim()[2],
     
     
     
