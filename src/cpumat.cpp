@@ -148,26 +148,68 @@ extern "C" SEXP R_cpumat_fill_diag(SEXP type, SEXP x_robj, SEXP v_robj)
 
 
 
-extern "C" SEXP R_cpumat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
+extern "C" SEXP R_cpumat_fill_runif(SEXP type, SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  if (INTEGER(seed)[0] == -1)
-    x->fill_runif(REAL(min)[0], REAL(max)[0]);
+  #define FMLR_TMP_FILL_RUNIF(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    if (INTEGER(seed)[0] == -1) \
+      x->fill_runif((type) REAL(min)[0], (type) REAL(max)[0]); \
+    else \
+      x->fill_runif(INTEGER(seed)[0], (type) REAL(min)[0], (type) REAL(max)[0]); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_FILL_RUNIF(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_FILL_RUNIF(float)
   else
-    x->fill_runif(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]);
+    error("unsupported fundamental type");
+  
+  #undef FMLR_TMP_FILL_RUNIF
   
   return R_NilValue;
 }
 
 
 
-extern "C" SEXP R_cpumat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
+extern "C" SEXP R_cpumat_fill_rnorm(SEXP type, SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  if (INTEGER(seed)[0] == -1)
-    x->fill_rnorm(REAL(min)[0], REAL(max)[0]);
+  #define FMLR_TMP_FILL_RNORM(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    if (INTEGER(seed)[0] == -1) \
+      x->fill_rnorm((type) REAL(min)[0], (type) REAL(max)[0]); \
+    else \
+      x->fill_rnorm(INTEGER(seed)[0], (type) REAL(min)[0], (type) REAL(max)[0]); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_FILL_RNORM(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_FILL_RNORM(float)
   else
-    x->fill_rnorm(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]);
+    error("unsupported fundamental type");
+  
+  #undef FMLR_TMP_FILL_RNORM
+  
+  
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_cpumat_diag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  #define FMLR_TMP_DIAG(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    cpuvec<type> *v = (cpuvec<type>*) getRptr(v_robj); \
+    x->diag(*v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_DIAG(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_DIAG(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_DIAG(int)
+  
+  #undef FMLR_TMP_DIAG
   
   return R_NilValue;
 }

@@ -170,7 +170,7 @@ cpumatR6 = R6::R6Class("cpumat",
       min = as.double(min)
       max = as.double(max)
       
-      .Call(R_cpumat_fill_runif, private$x_ptr, seed, min, max)
+      .Call(R_cpumat_fill_runif, private$type, private$x_ptr, seed, min, max)
       invisible(self)
     },
     
@@ -188,10 +188,28 @@ cpumatR6 = R6::R6Class("cpumat",
       else
         seed = as.integer(seed)
       
-      min = as.double(min)
-      max = as.double(max)
+      mean = as.double(mean)
+      sd = as.double(sd)
       
-      .Call(R_cpumat_fill_rnorm, private$x_ptr, seed, min, max)
+      .Call(R_cpumat_fill_rnorm, private$type, private$x_ptr, seed, mean, sd)
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
+    #' Get diagonal entries of the matrix.
+    #' @param v A cpuvec object.
+    #' @useDynLib fmlr R_cpumat_diag
+    diag = function(v)
+    {
+      if (!is_cpuvec(v))
+        stop("'v' must be a cpuvec object")
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      .Call(R_cpumat_diag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
     },
     
