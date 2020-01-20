@@ -26,6 +26,7 @@ Data is held in an external pointer.
 \item \href{#method-fill_runif}{\code{cpumatR6$fill_runif()}}
 \item \href{#method-fill_rnorm}{\code{cpumatR6$fill_rnorm()}}
 \item \href{#method-diag}{\code{cpumatR6$diag()}}
+\item \href{#method-antidiag}{\code{cpumatR6$antidiag()}}
 \item \href{#method-scale}{\code{cpumatR6$scale()}}
 \item \href{#method-rev_rows}{\code{cpumatR6$rev_rows()}}
 \item \href{#method-rev_cols}{\code{cpumatR6$rev_cols()}}
@@ -272,6 +273,25 @@ Fill the matrix with random normal data.
 }
 \subsection{Details}{
 Get diagonal entries of the matrix.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-antidiag"></a>}}
+\subsection{Method \code{antidiag()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cpumatR6$antidiag(v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{v}}{A cpuvec object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get anti-diagonal entries of the matrix.
 }
 
 }

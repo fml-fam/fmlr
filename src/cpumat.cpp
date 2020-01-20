@@ -216,6 +216,27 @@ extern "C" SEXP R_cpumat_diag(SEXP type, SEXP x_robj, SEXP v_robj)
 
 
 
+extern "C" SEXP R_cpumat_antidiag(SEXP type, SEXP x_robj, SEXP v_robj)
+{
+  #define FMLR_TMP_ANTIDIAG(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    cpuvec<type> *v = (cpuvec<type>*) getRptr(v_robj); \
+    x->antidiag(*v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_ANTIDIAG(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_ANTIDIAG(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_ANTIDIAG(int)
+  
+  #undef FMLR_TMP_ANTIDIAG
+  
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_cpumat_scale(SEXP type, SEXP x_robj, SEXP s)
 {
   APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, scale, DBL(s));
