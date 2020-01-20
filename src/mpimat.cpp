@@ -22,24 +22,19 @@ extern "C" SEXP R_mpimat_init(SEXP type, SEXP g_robj, SEXP m_, SEXP n_, SEXP mb_
   
   grid *g = (grid*) getRptr(g_robj);
   
+  #define FMLR_TMP_INIT(type) { \
+    mpimat<type> *x = new mpimat<type>(*g, mb, nb); \
+    x->resize(m, n); \
+    newRptr(x, ret, fml_object_finalizer<mpimat<type>>); }
+  
   if (INT(type) == TYPE_DOUBLE)
-  {
-    mpimat<double> *x = new mpimat<double>(*g, mb, nb);
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<mpimat<double>>);
-  }
+    FMLR_TMP_INIT(double)
   else if (INT(type) == TYPE_FLOAT)
-  {
-    mpimat<float> *x = new mpimat<float>(*g, mb, nb);
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<mpimat<float>>);
-  }
+    FMLR_TMP_INIT(float)
   else //if (INT(type) == TYPE_INT)
-  {
-    mpimat<int> *x = new mpimat<int>(*g, mb, nb);
-    x->resize(m, n);
-    newRptr(x, ret, fml_object_finalizer<mpimat<int>>);
-  }
+    FMLR_TMP_INIT(int)
+  
+  #undef FMLR_TMP_INIT
   
   UNPROTECT(1);
   return ret;
@@ -52,24 +47,19 @@ extern "C" SEXP R_mpimat_dim(SEXP type, SEXP x_robj)
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 2));
   
+  #define FMLR_TMP_DIM(type) { \
+    mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
+    INTEGER(ret)[0] = x->nrows(); \
+    INTEGER(ret)[1] = x->ncols(); }
+  
   if (INT(type) == TYPE_DOUBLE)
-  {
-    mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(double)
   else if (INT(type) == TYPE_FLOAT)
-  {
-    mpimat<float> *x = (mpimat<float>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(float)
   else //if (INT(type) == TYPE_INT)
-  {
-    mpimat<int> *x = (mpimat<int>*) getRptr(x_robj);
-    INTEGER(ret)[0] = x->nrows();
-    INTEGER(ret)[1] = x->ncols();
-  }
+    FMLR_TMP_DIM(int)
+  
+  #undef FMLR_TMP_DIM
   
   UNPROTECT(1);
   return ret;
@@ -77,14 +67,24 @@ extern "C" SEXP R_mpimat_dim(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_mpimat_ldim(SEXP x_robj)
+extern "C" SEXP R_mpimat_ldim(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 2));
   
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  INTEGER(ret)[0] = x->nrows_local();
-  INTEGER(ret)[1] = x->ncols_local();
+  #define FMLR_TMP_LDIM(type) { \
+    mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
+    INTEGER(ret)[0] = x->nrows_local(); \
+    INTEGER(ret)[1] = x->ncols_local(); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_LDIM(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_LDIM(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_LDIM(int)
+  
+  #undef FMLR_TMP_LDIM
   
   UNPROTECT(1);
   return ret;
@@ -92,14 +92,24 @@ extern "C" SEXP R_mpimat_ldim(SEXP x_robj)
 
 
 
-extern "C" SEXP R_mpimat_bfdim(SEXP x_robj)
+extern "C" SEXP R_mpimat_bfdim(SEXP type, SEXP x_robj)
 {
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 2));
   
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  INTEGER(ret)[0] = x->bf_rows();
-  INTEGER(ret)[1] = x->bf_cols();
+  #define FMLR_TMP_BFDIM(type) { \
+    mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
+    INTEGER(ret)[0] = x->bf_rows(); \
+    INTEGER(ret)[1] = x->bf_cols(); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_BFDIM(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_BFDIM(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_BFDIM(int)
+  
+  #undef FMLR_TMP_BFDIM
   
   UNPROTECT(1);
   return ret;
@@ -175,11 +185,19 @@ extern "C" SEXP R_mpimat_fill_eye(SEXP type, SEXP x_robj)
 
 extern "C" SEXP R_mpimat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  if (INTEGER(seed)[0] == -1)
-    x->fill_runif(REAL(min)[0], REAL(max)[0]);
-  else
-    x->fill_runif(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]);
+  #define FMLR_TMP_FILL_RUNIF(type) { \
+    mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
+    if (INTEGER(seed)[0] == -1) \
+      x->fill_runif(REAL(min)[0], REAL(max)[0]); \
+    else \
+      x->fill_runif(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_FILL_RUNIF(double)
+  else // if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_FILL_RUNIF(float)
+  
+  #undef FMLR_TMP_FILL_RUNIF
   
   return R_NilValue;
 }
@@ -188,11 +206,19 @@ extern "C" SEXP R_mpimat_fill_runif(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 
 extern "C" SEXP R_mpimat_fill_rnorm(SEXP x_robj, SEXP seed, SEXP min, SEXP max)
 {
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  if (INTEGER(seed)[0] == -1)
-    x->fill_rnorm(REAL(min)[0], REAL(max)[0]);
-  else
-    x->fill_rnorm(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]);
+  #define FMLR_TMP_FILL_RNORM(type) { \
+    mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
+    if (INTEGER(seed)[0] == -1) \
+      x->fill_rnorm(REAL(min)[0], REAL(max)[0]); \
+    else \
+      x->fill_rnorm(INTEGER(seed)[0], REAL(min)[0], REAL(max)[0]); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_FILL_RNORM(double)
+  else // if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_FILL_RNORM(float)
+  
+  #undef FMLR_TMP_FILL_RNORM
   
   return R_NilValue;
 }
