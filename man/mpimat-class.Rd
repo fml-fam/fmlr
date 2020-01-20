@@ -22,6 +22,7 @@ Data is held in an external pointer.
 \item \href{#method-fill_val}{\code{mpimatR6$fill_val()}}
 \item \href{#method-fill_linspace}{\code{mpimatR6$fill_linspace()}}
 \item \href{#method-fill_eye}{\code{mpimatR6$fill_eye()}}
+\item \href{#method-fill_diag}{\code{mpimatR6$fill_diag()}}
 \item \href{#method-fill_runif}{\code{mpimatR6$fill_runif()}}
 \item \href{#method-fill_rnorm}{\code{mpimatR6$fill_rnorm()}}
 \item \href{#method-scale}{\code{mpimatR6$scale()}}
@@ -29,9 +30,9 @@ Data is held in an external pointer.
 \item \href{#method-dim}{\code{mpimatR6$dim()}}
 \item \href{#method-nrows}{\code{mpimatR6$nrows()}}
 \item \href{#method-ncols}{\code{mpimatR6$ncols()}}
+\item \href{#method-ldim}{\code{mpimatR6$ldim()}}
 \item \href{#method-nrows_local}{\code{mpimatR6$nrows_local()}}
 \item \href{#method-ncols_local}{\code{mpimatR6$ncols_local()}}
-\item \href{#method-ldim}{\code{mpimatR6$ldim()}}
 \item \href{#method-bfdim}{\code{mpimatR6$bfdim()}}
 \item \href{#method-bf_rows}{\code{mpimatR6$bf_rows()}}
 \item \href{#method-bf_cols}{\code{mpimatR6$bf_cols()}}
@@ -209,6 +210,27 @@ Fill diagonal values to 1 and non-diagonal values to 0.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fill_diag"></a>}}
+\subsection{Method \code{fill_diag()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$fill_diag(v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{v}}{A cpuvec object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set diagonal entries of the matrix to those in the vector. If the vector
+is smaller than the matrix diagonal, the vector will recycle until the
+matrix diagonal is filled.
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_runif"></a>}}
 \subsection{Method \code{fill_runif()}}{
 \subsection{Usage}{
@@ -318,6 +340,18 @@ Returns number of columns of the matrix.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ldim"></a>}}
+\subsection{Method \code{ldim()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$ldim()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns number of rows and columns of the matrix.
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-nrows_local"></a>}}
 \subsection{Method \code{nrows_local()}}{
 \subsection{Usage}{
@@ -338,18 +372,6 @@ Returns number of columns of the matrix.
 
 \subsection{Details}{
 Returns number of columns of the matrix.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ldim"></a>}}
-\subsection{Method \code{ldim()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$ldim()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Returns number of rows and columns of the matrix.
 }
 
 }

@@ -142,7 +142,26 @@ mpimatR6 = R6::R6Class("mpimat",
     
     
     
-    # TODO diag
+    #' @details
+    #' Set diagonal entries of the matrix to those in the vector. If the vector
+    #' is smaller than the matrix diagonal, the vector will recycle until the
+    #' matrix diagonal is filled.
+    #' @param v A cpuvec object.
+    #' @useDynLib fmlr R_mpimat_fill_diag
+    fill_diag = function(v)
+    {
+      if (!is_cpuvec(v))
+        v = as_cpuvec(v, copy=FALSE)
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      .Call(R_mpimat_fill_diag, private$type, private$x_ptr, v$data_ptr())
+      invisible(self)
+    },
+    
+    
+    
     #' @details
     #' Fill the matrix with random unifmorm data.
     #' @param seed Seed for the generator. Can be left blank.
@@ -158,7 +177,7 @@ mpimatR6 = R6::R6Class("mpimat",
       min = as.double(min)
       max = as.double(max)
       
-      .Call(R_mpimat_fill_runif, private$x_ptr, seed, min, max)
+      .Call(R_mpimat_fill_runif, private$type, private$x_ptr, seed, min, max)
       invisible(self)
     },
     
@@ -179,7 +198,7 @@ mpimatR6 = R6::R6Class("mpimat",
       min = as.double(min)
       max = as.double(max)
       
-      .Call(R_mpimat_fill_rnorm, private$x_ptr, seed, min, max)
+      .Call(R_mpimat_fill_rnorm, private$type, private$x_ptr, seed, min, max)
       invisible(self)
     },
     
