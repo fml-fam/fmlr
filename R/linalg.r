@@ -1,3 +1,23 @@
+check_inputs = function(ret, ...)
+{
+  if (!is.null(ret))
+  {
+    check_class_consistency(ret, ...)
+    check_type_consistency(ret, ...)
+    invisiret = TRUE
+  }
+  else
+  {
+    check_class_consistency(...)
+    check_type_consistency(...)
+    invisiret = FALSE
+  }
+  
+  invisiret
+}
+
+
+
 #' add
 #' 
 #' Add two matrices: `ret = alpha*x + beta*y`.
@@ -24,16 +44,7 @@ linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=
   alpha = as.double(alpha)
   beta = as.double(beta)
   
-  if (!is.null(ret))
-  {
-    check_class_consistency(x, y, ret)
-    invisiret = TRUE
-  }
-  else
-  {
-    check_class_consistency(x, y)
-    invisiret = FALSE
-  }
+  invisiret = check_inputs(ret, x, y)
   
   if (isTRUE(transx))
   {
@@ -87,13 +98,7 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   xpose = as.logical(xpose)
   alpha = as.double(alpha)
   
-  if (!is.null(ret))
-  {
-    check_class_consistency(x, ret)
-    invisiret = TRUE
-  }
-  else
-    invisiret = FALSE
+  invisiret = check_inputs(ret, x)
   
   if (isTRUE(xpose))
     n = x$nrows()
