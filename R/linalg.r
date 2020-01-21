@@ -59,28 +59,27 @@ linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=
   
   if (is_cpumat(x))
   {
+    CFUN = R_cpumat_linalg_add
     if (is.null(ret))
       ret = cpumat(m, n, type=x$get_type_str())
-    
-    .Call(R_cpumat_linalg_add, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   }
   else if (is_gpumat(x))
   {
+    CFUN = R_gpumat_linalg_add
     if (is.null(ret))
       ret = gpumat(x$get_card(), m, n)
-  
-    .Call(R_gpumat_linalg_add, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   }
   else if (is_mpimat(x))
   {
+    CFUN = R_mpimat_linalg_add
     if (is.null(ret))
     {
       bfdim = x$bfdim()
       ret = mpimat(x$get_grid(), m, n, bfdim[1], bfdim[2], type=x$get_type_str())
     }
-  
-    .Call(R_mpimat_linalg_add, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   }
+  
+  .Call(CFUN, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
     invisible(ret)
@@ -107,36 +106,33 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   
   if (is_cpumat(x))
   {
+    CFUN = R_cpumat_linalg_crossprod
     if (is.null(ret))
       ret = cpumat(n, n, type=x$get_type_str())
-    
-    .Call(R_cpumat_linalg_crossprod, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   else if (is_gpumat(x))
   {
+    CFUN = R_gpumat_linalg_crossprod
     if (is.null(ret))
       ret = gpumat(x$get_card(), n, n)
-    
-    .Call(R_gpumat_linalg_crossprod, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
   else if (is_mpimat(x))
   {
+    CFUN = R_mpimat_linalg_crossprod
     if (is.null(ret))
     {
       bfdim = x$bfdim()
       ret = mpimat(x$get_grid(), n, n, bfdim[1], bfdim[2], type=x$get_type_str())
     }
-    
-    .Call(R_mpimat_linalg_crossprod, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
+  
+  .Call(CFUN, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   
   if (invisiret)
     invisible(ret)
   else
     ret
 }
-
-
 
 #' crossprod
 #' 
