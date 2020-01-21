@@ -1,3 +1,4 @@
+#include "apply.hpp"
 #include "extptr.h"
 
 #include <fml/src/gpu/card.hh>
