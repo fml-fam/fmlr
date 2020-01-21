@@ -89,6 +89,75 @@ linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=
 
 
 
+#' matmult
+#' 
+#' Multiply two matrices: `ret = alpha*x*y`.
+#' 
+#' @param transx,transy Should x/y be transposed?
+#' @param x,y Input data.
+#' @param ret Either \code{NULL} or an already allocated fml matrix of the same
+#' class and type as \code{x}.
+#' @param alpha Scalar.
+#' @return Returns the matrix product.
+#' 
+#' @rdname linalg-matmult
+#' @name add
+#' 
+#' @useDynLib fmlr R_cpumat_linalg_matmult
+#' @useDynLib fmlr R_gpumat_linalg_matmult
+#' @useDynLib fmlr R_mpimat_linalg_matmult
+#' @export
+linalg_matmult = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1)
+{
+  transx = as.logical(transx)
+  transy = as.logical(transy)
+  
+  alpha = as.double(alpha)
+  
+  invisiret = check_inputs(ret, x, y)
+  
+  if (!isTRUE(transx))
+    m = x$nrows()
+  else
+    m = x$ncols()
+  
+  if (!isTRUE(transy))
+    n = y$ncols()
+  else
+    n = y$nrows()
+  
+  if (is_cpumat(x))
+  {
+    CFUN = R_cpumat_linalg_matmult
+    if (is.null(ret))
+      ret = cpumat(m, n, type=x$get_type_str())
+  }
+  else if (is_gpumat(x))
+  {
+    CFUN = R_gpumat_linalg_matmult
+    if (is.null(ret))
+      ret = gpumat(x$get_card(), m, n)
+  }
+  else if (is_mpimat(x))
+  {
+    CFUN = R_mpimat_linalg_matmult
+    if (is.null(ret))
+    {
+      bfdim = x$bfdim()
+      ret = mpimat(x$get_grid(), m, n, bfdim[1], bfdim[2], type=x$get_type_str())
+    }
+  }
+  
+  .Call(CFUN, x$get_type(), transx, transy, alpha, x$data_ptr(), y$data_ptr(), ret$data_ptr())
+  
+  if (invisiret)
+    invisible(ret)
+  else
+    ret
+}
+
+
+
 #' @useDynLib fmlr R_cpumat_linalg_crossprod
 #' @useDynLib fmlr R_gpumat_linalg_crossprod
 #' @useDynLib fmlr R_mpimat_linalg_crossprod

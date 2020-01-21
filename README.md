@@ -87,6 +87,7 @@ Linear algebra API
 | Function | Use |
 |----------|-----|
 | `linalg_add` | Adds two matrices of the same type/backend. |
+| `linalg_matmult` | Multiplies two matrices of the same type/backend. |
 | `linalg_crossprod` | Computes `t(x) %*% x` |
 | `linalg_tcrossprod` | Computes `x %*% t(x)` |
 
