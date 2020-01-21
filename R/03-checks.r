@@ -1,6 +1,8 @@
 check_class_consistency = function(...)
 {
   l = list(...)
+  if (length(l) < 2)
+    return(invisible(TRUE))
   
   for (fun in fmlr_is_funs)
   {
@@ -10,9 +12,26 @@ check_class_consistency = function(...)
       if (all(test))
         return(invisible(TRUE))
       else
-        stop("inconsistent object usage")
+        stop("inconsistent object usage: can not mix backends")
     }
   }
+}
+
+
+
+check_type_consistency = function(...)
+{
+  l = list(...)
+  if (length(l) < 2)
+    return(invisible(TRUE))
+  
+  gt = function(x) x$get_type()
+  test = sapply(l, gt)
+  
+  if (sum(diff(test)) == 0)
+    return(invisible(TRUE))
+  else
+    stop("inconsistent type usage: can not mix fundamental types")
 }
 
 
