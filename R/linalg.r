@@ -18,6 +18,38 @@ check_inputs = function(ret, ...)
 
 
 
+get_cfun = function(cfun_post, x)
+{
+  if (is_cpumat(x))
+    cfun_pre = "R_cpumat_linalg_"
+  else if (is_gpumat(x))
+    cfun_pre = "R_gpumat_linalg_"
+  else if (is_mpimat(x))
+    cfun_pre = "R_mpimat_linalg_"
+  
+  CFUN = eval(parse(text=paste0(cfun_pre, cfun_post)))
+  CFUN
+}
+
+
+
+setret = function(m, n, x)
+{
+  if (is_cpumat(x))
+    ret = cpumat(m, n, type=x$get_type_str())
+  else if (is_gpumat(x))
+    ret = gpumat(x$get_card(), m, n)
+  else if (is_mpimat(x))
+  {
+    bfdim = x$bfdim()
+    ret = mpimat(x$get_grid(), m, n, bfdim[1], bfdim[2], type=x$get_type_str())
+  }
+  
+  ret
+}
+
+
+
 #' add
 #' 
 #' Add two matrices: `ret = alpha*x + beta*y`.
@@ -35,6 +67,7 @@ check_inputs = function(ret, ...)
 #' @useDynLib fmlr R_cpumat_linalg_add
 #' @useDynLib fmlr R_gpumat_linalg_add
 #' @useDynLib fmlr R_mpimat_linalg_add
+#' 
 #' @export
 linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=1)
 {
@@ -57,28 +90,9 @@ linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=
     n = x$ncols()
   }
   
-  if (is_cpumat(x))
-  {
-    CFUN = R_cpumat_linalg_add
-    if (is.null(ret))
-      ret = cpumat(m, n, type=x$get_type_str())
-  }
-  else if (is_gpumat(x))
-  {
-    CFUN = R_gpumat_linalg_add
-    if (is.null(ret))
-      ret = gpumat(x$get_card(), m, n)
-  }
-  else if (is_mpimat(x))
-  {
-    CFUN = R_mpimat_linalg_add
-    if (is.null(ret))
-    {
-      bfdim = x$bfdim()
-      ret = mpimat(x$get_grid(), m, n, bfdim[1], bfdim[2], type=x$get_type_str())
-    }
-  }
-  
+  CFUN = get_cfun("add", x)
+  if (is.null(ret))
+    ret = setret(m, n, x)
   .Call(CFUN, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
@@ -106,6 +120,7 @@ linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=
 #' @useDynLib fmlr R_cpumat_linalg_matmult
 #' @useDynLib fmlr R_gpumat_linalg_matmult
 #' @useDynLib fmlr R_mpimat_linalg_matmult
+#' 
 #' @export
 linalg_matmult = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1)
 {
@@ -126,28 +141,9 @@ linalg_matmult = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1)
   else
     n = y$nrows()
   
-  if (is_cpumat(x))
-  {
-    CFUN = R_cpumat_linalg_matmult
-    if (is.null(ret))
-      ret = cpumat(m, n, type=x$get_type_str())
-  }
-  else if (is_gpumat(x))
-  {
-    CFUN = R_gpumat_linalg_matmult
-    if (is.null(ret))
-      ret = gpumat(x$get_card(), m, n)
-  }
-  else if (is_mpimat(x))
-  {
-    CFUN = R_mpimat_linalg_matmult
-    if (is.null(ret))
-    {
-      bfdim = x$bfdim()
-      ret = mpimat(x$get_grid(), m, n, bfdim[1], bfdim[2], type=x$get_type_str())
-    }
-  }
-  
+  CFUN = get_cfun("matmult", x)
+  if (is.null(ret))
+    ret = setret(m, n, x)
   .Call(CFUN, x$get_type(), transx, transy, alpha, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
@@ -173,28 +169,9 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   else
     n = x$ncols()
   
-  if (is_cpumat(x))
-  {
-    CFUN = R_cpumat_linalg_crossprod
-    if (is.null(ret))
-      ret = cpumat(n, n, type=x$get_type_str())
-  }
-  else if (is_gpumat(x))
-  {
-    CFUN = R_gpumat_linalg_crossprod
-    if (is.null(ret))
-      ret = gpumat(x$get_card(), n, n)
-  }
-  else if (is_mpimat(x))
-  {
-    CFUN = R_mpimat_linalg_crossprod
-    if (is.null(ret))
-    {
-      bfdim = x$bfdim()
-      ret = mpimat(x$get_grid(), n, n, bfdim[1], bfdim[2], type=x$get_type_str())
-    }
-  }
-  
+  CFUN = get_cfun("crossprod", x)
+  if (is.null(ret))
+    ret = setret(m, n, x)
   .Call(CFUN, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   
   if (invisiret)
