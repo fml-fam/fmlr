@@ -11,22 +11,3 @@ is_grid = function(x) inherits(x, "grid")
 is_mpimat = function(x) inherits(x, "mpimat")
 
 fmlr_is_funs = c(is_cpumat, is_cpuvec, is_gpuvec, is_gpumat)
-
-
-check_class_consistency = function(...)
-{
-  l = list(...)
-  
-  
-  for (fun in fmlr_is_funs)
-  {
-    test = sapply(l, fun)
-    if (any(fun))
-    {
-      if (all(fun))
-        return(invisible(TRUE))
-      else
-        stop("inconsistent object usage")
-    }
-  }
-}
