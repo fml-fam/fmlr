@@ -4,25 +4,38 @@
 * **License:** [BSL-1.0](http://opensource.org/licenses/BSL-1.0)
 * **Project home**: https://github.com/wrathematics/fmlr
 * **Bug reports**: https://github.com/wrathematics/fmlr/issues
+* **Documentation**: TODO
 
 
 Interface to the [fml library](https://github.com/wrathematics/fml). fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.
 
+The fmlr interface largely tracks with the core fml interface, and the package version will match the fml release version used. We use R6 so that generally an R code can be translated to C++ by changing `$` to `.`. There are some R-specific enhancements which should be avoided if you plan to eventually convert to C++.
+
 Differences between fmlr and other matrix interfaces (including the core R interface):
 
 * Single interface supporting multiple fundamental types (`__half`, `float`, `double`) and backends (CPU, GPU, MPI).
-* Data is always held externally to R.
+* Data is always held externally to R (although CPU objects can inherit R data without a copy).
+* Operations modifying data occur in-place (make your own copy if you don't want the data modified).
 
 
 ## Installation
 
-The development version is maintained on GitHub:
+You will need to install some dependencies. Make sure you have a system installation of MPI, e.g. [OpenMPI](https://www.open-mpi.org/), [MPICH](https://www.mpich.org/), or [MSMPI](https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi). Then install:
+
+```r
+install.packages("pbdMPI")
+remotes::install_github("snoweye/pbdSLAP", ref="single")
+```
+
+If you run into any issues, see the [pbdMPI package vignette](https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf).
+
+The development version of fml is maintained on GitHub:
 
 ```r
 remotes::install_github("wrathematics/fmlr")
 ```
 
-If you have CUDA installed, then you can build the package with GPU support via:
+If you have [NVIDIA® CUDA™](https://developer.nvidia.com/cuda-downloads) installed, then you can build the package with GPU support via:
 
 ```r
 remotes::install_github("wrathematics/fmlr", configure.args="--enable-gpu")
@@ -100,6 +113,11 @@ cp$info()
 cp
 ## 14.0000 0.0000 
 ## 32.0000 77.0000 
+
+cp$to_robj()
+##      [,1] [,2]
+## [1,]   14    0
+## [2,]   32   77
 ```
 
 
