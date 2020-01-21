@@ -207,3 +207,39 @@ linalg_tcrossprod = function(x, ret=NULL, alpha=1)
 {
   linalg_crossprods(x, ret, alpha, xpose=TRUE)
 }
+
+
+
+#' xpose
+#' 
+#' Matrix transpose.
+#' 
+#' @param x Input data.
+#' @param ret Either \code{NULL} or an already allocated fml matrix of the same
+#' class and type as \code{x}.
+#' @return Returns the xpose.
+#' 
+#' @rdname linalg-xpose
+#' @name xpose
+#' @useDynLib fmlr R_cpumat_linalg_xpose
+#' @useDynLib fmlr R_gpumat_linalg_xpose
+#' @useDynLib fmlr R_mpimat_linalg_xpose
+#' 
+#' @export
+linalg_xpose = function(x, ret=NULL)
+{
+  invisiret = check_inputs(ret, x)
+  
+  m = x$ncols()
+  n = x$nrows()
+  
+  CFUN = get_cfun("xpose", x)
+  if (is.null(ret))
+    ret = setret(m, n, x)
+  .Call(CFUN, x$get_type(), x$data_ptr(), ret$data_ptr())
+  
+  if (invisiret)
+    invisible(ret)
+  else
+    ret
+}

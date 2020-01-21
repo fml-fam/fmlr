@@ -290,3 +290,9 @@ extern "C" SEXP R_gpumat_linalg_crossprod(SEXP type, SEXP xpose, SEXP alpha, SEX
   unused(type, xpose, alpha, x_robj, ret_robj);
   WARN_AND_RETURN;
 }
+
+extern "C" SEXP R_gpumat_linalg_xpose(SEXP type, SEXP x_robj, SEXP ret_robj)
+{
+  unused(type, x_robj, ret_robj);
+  WARN_AND_RETURN;
+}

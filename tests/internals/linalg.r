@@ -24,3 +24,10 @@ cmp(test, truth)
 test = linalg_crossprod(x)$to_robj()
 truth = crossprod(xr)
 cmp(test[lower.tri(test, diag=TRUE)], truth[lower.tri(truth, diag=TRUE)])
+
+
+
+# xpose
+test = linalg_xpose(x)$to_robj()
+truth = t(xr)
+cmp(test, truth)

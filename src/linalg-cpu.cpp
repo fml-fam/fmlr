@@ -67,3 +67,22 @@ extern "C" SEXP R_cpumat_linalg_crossprod(SEXP type, SEXP xpose, SEXP alpha, SEX
   
   return R_NilValue;
 }
+
+
+
+template <typename REAL>
+static inline void xpose(void *x, void *ret)
+{
+  CAST_MAT(cpumat, REAL, x_cast, x);
+  CAST_MAT(cpumat, REAL, ret_cast, ret);
+  linalg::xpose(*x_cast, *ret_cast);
+}
+
+extern "C" SEXP R_cpumat_linalg_xpose(SEXP type, SEXP x_robj, SEXP ret_robj)
+{
+  void *x = getRptr(x_robj);
+  void *ret = getRptr(ret_robj);
+  APPLY_TEMPLATED_FUNCTION(type, xpose, x, ret);
+  
+  return R_NilValue;
+}
