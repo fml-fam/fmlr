@@ -19,4 +19,4 @@ Authors@R: c(
     person("Drew", "Schmidt", role=c("aut", "cre"), email="wrathematics@gmail.com")
     )
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2

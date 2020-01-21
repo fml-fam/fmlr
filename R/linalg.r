@@ -1,3 +1,84 @@
+#' add
+#' 
+#' Add two matrices: `ret = alpha*x + beta*y`.
+#' 
+#' @param transx,transy Should x/y be transposed?
+#' @param x,y Input data.
+#' @param ret Either \code{NULL} or an already allocated fml matrix of the same
+#' class and type as \code{x}.
+#' @param alpha,beta Scalars.
+#' @return Returns the matrix sum.
+#' 
+#' @rdname linalg-add
+#' @name add
+#' 
+#' @useDynLib fmlr R_cpumat_linalg_add
+#' @useDynLib fmlr R_gpumat_linalg_add
+#' @useDynLib fmlr R_mpimat_linalg_add
+#' @export
+linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=1)
+{
+  transx = as.logical(transx)
+  transy = as.logical(transy)
+  
+  alpha = as.double(alpha)
+  beta = as.double(beta)
+  
+  if (!is.null(ret))
+  {
+    check_class_consistency(x, y, ret)
+    invisiret = TRUE
+  }
+  else
+  {
+    check_class_consistency(x, y)
+    invisiret = FALSE
+  }
+  
+  if (isTRUE(transx))
+  {
+    m = x$ncols()
+    n = x$nrows()
+  }
+  else
+  {
+    m = x$nrows()
+    n = x$ncols()
+  }
+  
+  if (is_cpumat(x))
+  {
+    if (is.null(ret))
+      ret = cpumat(m, n, type=x$get_type_str())
+    
+    .Call(R_cpumat_linalg_add, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
+  }
+  else if (is_gpumat(x))
+  {
+    if (is.null(ret))
+      ret = gpumat(x$get_card(), m, n)
+  
+    .Call(R_gpumat_linalg_add, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
+  }
+  else if (is_mpimat(x))
+  {
+    if (is.null(ret))
+    {
+      bfdim = x$bfdim()
+      ret = mpimat(x$get_grid(), m, n, bfdim[1], bfdim[2], type=x$get_type_str())
+    }
+  
+    .Call(R_mpimat_linalg_add, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
+  }
+  
+  if (invisiret)
+    invisible(ret)
+  else
+    ret
+}
+
+
+
 #' @useDynLib fmlr R_cpumat_linalg_crossprod
 #' @useDynLib fmlr R_gpumat_linalg_crossprod
 #' @useDynLib fmlr R_mpimat_linalg_crossprod
@@ -19,21 +100,21 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   else
     n = x$ncols()
   
-  if (inherits(x, "cpumat"))
+  if (is_cpumat(x))
   {
     if (is.null(ret))
       ret = cpumat(n, n, type=x$get_type_str())
     
     .Call(R_cpumat_linalg_crossprod, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
-  else if (inherits(x, "gpumat"))
+  else if (is_gpumat(x))
   {
     if (is.null(ret))
       ret = gpumat(x$get_card(), n, n)
     
     .Call(R_gpumat_linalg_crossprod, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   }
-  else if (inherits(x, "mpimat"))
+  else if (is_mpimat(x))
   {
     if (is.null(ret))
     {
