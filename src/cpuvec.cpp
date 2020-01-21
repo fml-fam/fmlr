@@ -91,7 +91,7 @@ extern "C" SEXP R_cpuvec_print(SEXP type, SEXP x_robj, SEXP ndigits)
 
 extern "C" SEXP R_cpuvec_info(SEXP type, SEXP x_robj)
 {
-  APPLY_TEMPLATED_METHOD(cpuvec, type, x_robj, info);
+  APPLY_TEMPLATED_METHOD_0(cpuvec, type, x_robj, info);
   return R_NilValue;
 }
 
@@ -99,7 +99,7 @@ extern "C" SEXP R_cpuvec_info(SEXP type, SEXP x_robj)
 
 extern "C" SEXP R_cpuvec_fill_zero(SEXP type, SEXP x_robj)
 {
-  APPLY_TEMPLATED_METHOD(cpuvec, type, x_robj, fill_zero);
+  APPLY_TEMPLATED_METHOD_0(cpuvec, type, x_robj, fill_zero);
   return R_NilValue;
 }
 
@@ -131,7 +131,7 @@ extern "C" SEXP R_cpuvec_scale(SEXP type, SEXP x_robj, SEXP s)
 
 extern "C" SEXP R_cpuvec_rev(SEXP type, SEXP x_robj)
 {
-  APPLY_TEMPLATED_METHOD(cpuvec, type, x_robj, rev);
+  APPLY_TEMPLATED_METHOD_0(cpuvec, type, x_robj, rev);
   return R_NilValue;
 }
 

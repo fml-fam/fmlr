@@ -90,7 +90,7 @@ extern "C" SEXP R_cpumat_print(SEXP type, SEXP x_robj, SEXP ndigits)
 
 extern "C" SEXP R_cpumat_info(SEXP type, SEXP x_robj)
 {
-  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, info);
+  APPLY_TEMPLATED_METHOD_0(cpumat, type, x_robj, info);
   return R_NilValue;
 }
 
@@ -98,7 +98,7 @@ extern "C" SEXP R_cpumat_info(SEXP type, SEXP x_robj)
 
 extern "C" SEXP R_cpumat_fill_zero(SEXP type, SEXP x_robj)
 {
-  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, fill_zero);
+  APPLY_TEMPLATED_METHOD_0(cpumat, type, x_robj, fill_zero);
   return R_NilValue;
 }
 
@@ -122,7 +122,7 @@ extern "C" SEXP R_cpumat_fill_linspace(SEXP type, SEXP x_robj, SEXP start, SEXP 
 
 extern "C" SEXP R_cpumat_fill_eye(SEXP type, SEXP x_robj)
 {
-  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, fill_eye);
+  APPLY_TEMPLATED_METHOD_0(cpumat, type, x_robj, fill_eye);
   return R_NilValue;
 }
 
@@ -248,7 +248,7 @@ extern "C" SEXP R_cpumat_scale(SEXP type, SEXP x_robj, SEXP s)
 
 extern "C" SEXP R_cpumat_rev_rows(SEXP type, SEXP x_robj)
 {
-  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, rev_rows);
+  APPLY_TEMPLATED_METHOD_0(cpumat, type, x_robj, rev_rows);
   return R_NilValue;
 }
 
@@ -256,7 +256,7 @@ extern "C" SEXP R_cpumat_rev_rows(SEXP type, SEXP x_robj)
 
 extern "C" SEXP R_cpumat_rev_cols(SEXP type, SEXP x_robj)
 {
-  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, rev_cols);
+  APPLY_TEMPLATED_METHOD_0(cpumat, type, x_robj, rev_cols);
   return R_NilValue;
 }
 

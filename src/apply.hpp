@@ -13,6 +13,18 @@
 // apply templated functions/methods
 // -----------------------------------------------------------------------------
 
+#define APPLY_TEMPLATED_METHOD_0(MAT, data_type, x_robj, FUN) \
+  if (INT(data_type) == TYPE_DOUBLE){ \
+    MAT<double> *x = (MAT<double>*) getRptr(x_robj); \
+    x->FUN(); \
+  } else if (INT(data_type) == TYPE_FLOAT){ \
+    MAT<float> *x = (MAT<float>*) getRptr(x_robj); \
+    x->FUN(); \
+  } else if (INT(data_type) == TYPE_INT){ \
+    MAT<int> *x = (MAT<int>*) getRptr(x_robj); \
+    x->FUN(); \
+  }
+
 #define APPLY_TEMPLATED_METHOD(MAT, data_type, x_robj, FUN, ...) \
   if (INT(data_type) == TYPE_DOUBLE){ \
     MAT<double> *x = (MAT<double>*) getRptr(x_robj); \
