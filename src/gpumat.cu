@@ -85,10 +85,10 @@ extern "C" SEXP R_gpumat_dupe(SEXP type, SEXP x_robj)
   SEXP ret;
   
   #define FMLR_TMP_DUPE(type) { \
-    gpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
     gpumat<type> *y = new gpumat<type>(x->get_card()); \
     gpuhelpers::gpu2gpu(*x, *y); \
-    newRptr(y, ret, fml_object_finalizer<cpumat<type>>); }
+    newRptr(y, ret, fml_object_finalizer<gpumat<type>>); }
   
   if (INT(type) == TYPE_DOUBLE)
     FMLR_TMP_DUPE(double)
