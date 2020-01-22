@@ -169,7 +169,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @details
     #' Get element from the vector.
     #' @param i Index (0-based).
-    #' @useDynLib fmlr R_cpuvec_get
+    #' @useDynLib fmlr R_gpuvec_get
     get = function(i)
     {
       i = as.integer(i)
@@ -185,7 +185,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' Set element of the vector.
     #' @param i Index (0-based).
     #' @param v Value.
-    #' @useDynLib fmlr R_cpuvec_set
+    #' @useDynLib fmlr R_gpuvec_set
     set = function(i, v)
     {
       i = as.integer(i)
