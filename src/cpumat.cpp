@@ -14,7 +14,7 @@ extern "C" SEXP R_cpumat_init(SEXP type, SEXP m_, SEXP n_)
   int n = INTEGER(n_)[0];
   
   #define FMLR_TMP_INIT(type) { \
-    cpumat<type> *x = new cpumat<type>(); \
+    cpumat<type> *x = new cpumat<type>; \
     x->resize(m, n); \
     newRptr(x, ret, fml_object_finalizer<cpumat<type>>); }
   
@@ -71,6 +71,31 @@ extern "C" SEXP R_cpumat_resize(SEXP type, SEXP x_robj, SEXP m, SEXP n)
 {
   APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, resize, INTEGER(m)[0], INTEGER(n)[0]);
   return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_cpumat_dupe(SEXP type, SEXP x_robj)
+{
+  SEXP ret;
+  
+  #define FMLR_TMP_DUPE(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    cpumat<type> *y = new cpumat<type>(x->nrows(), x->ncols()); \
+    arraytools::copy(x->nrows(), x->ncols(), x->data_ptr(), y->data_ptr()); \
+    newRptr(y, ret, fml_object_finalizer<cpumat<type>>); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_DUPE(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_DUPE(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_DUPE(int)
+  
+  #undef FMLR_TMP_DUPE
+  
+  UNPROTECT(1);
+  return ret;
 }
 
 

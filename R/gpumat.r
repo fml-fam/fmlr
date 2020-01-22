@@ -74,6 +74,23 @@ gpumatR6 = R6::R6Class("gpumat",
     
     
     #' @details
+    #' Duplicate the matrix in a deep copy.
+    #' @useDynLib fmlr R_gpumat_dupe
+    dupe = function()
+    {
+      ret_ptr = .Call(R_gpumat_dupe, private$type, private$x_ptr)
+      
+      tmp = private$x_ptr
+      private$x_ptr = ret_ptr
+      ret = self$clone()
+      private$x_ptr = tmp
+      
+      ret
+    },
+    
+    
+    
+    #' @details
     #' Print the data.
     #' @param ndigits Number of decimal digits to print.
     #' @useDynLib fmlr R_gpumat_print

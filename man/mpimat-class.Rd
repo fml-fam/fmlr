@@ -16,6 +16,7 @@ Data is held in an external pointer.
 \item \href{#method-new}{\code{mpimatR6$new()}}
 \item \href{#method-resize}{\code{mpimatR6$resize()}}
 \item \href{#method-inherit}{\code{mpimatR6$inherit()}}
+\item \href{#method-dupe}{\code{mpimatR6$dupe()}}
 \item \href{#method-info}{\code{mpimatR6$info()}}
 \item \href{#method-print}{\code{mpimatR6$print()}}
 \item \href{#method-fill_zero}{\code{mpimatR6$fill_zero()}}
@@ -115,6 +116,18 @@ Change the dimension of the matrix object.
 \subsection{Details}{
 Set the data in the mpimat object to point to the array in 'data'. See
 also \code{?as_mpimat}.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-dupe"></a>}}
+\subsection{Method \code{dupe()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$dupe()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Duplicate the matrix in a deep copy.
 }
 
 }

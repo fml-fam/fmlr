@@ -17,6 +17,7 @@ Data is held in an external pointer.
 \item \href{#method-resize}{\code{gpumatR6$resize()}}
 \item \href{#method-inherit}{\code{gpumatR6$inherit()}}
 \item \href{#method-info}{\code{gpumatR6$info()}}
+\item \href{#method-dupe}{\code{gpumatR6$dupe()}}
 \item \href{#method-print}{\code{gpumatR6$print()}}
 \item \href{#method-fill_zero}{\code{gpumatR6$fill_zero()}}
 \item \href{#method-fill_val}{\code{gpumatR6$fill_val()}}
@@ -113,6 +114,18 @@ also \code{?as_gpumat}.
 
 \subsection{Details}{
 Print one-line information about the matrix.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-dupe"></a>}}
+\subsection{Method \code{dupe()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$dupe()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Duplicate the matrix in a deep copy.
 }
 
 }

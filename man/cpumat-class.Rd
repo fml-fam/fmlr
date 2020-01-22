@@ -16,6 +16,7 @@ Data is held in an external pointer.
 \item \href{#method-new}{\code{cpumatR6$new()}}
 \item \href{#method-resize}{\code{cpumatR6$resize()}}
 \item \href{#method-inherit}{\code{cpumatR6$inherit()}}
+\item \href{#method-dupe}{\code{cpumatR6$dupe()}}
 \item \href{#method-info}{\code{cpumatR6$info()}}
 \item \href{#method-print}{\code{cpumatR6$print()}}
 \item \href{#method-fill_zero}{\code{cpumatR6$fill_zero()}}
@@ -98,6 +99,18 @@ Change the dimension of the matrix object.
 \subsection{Details}{
 Set the data in the cpumat object to point to the array in 'data'. See
 also \code{?as_cpumat}.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-dupe"></a>}}
+\subsection{Method \code{dupe()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cpumatR6$dupe()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Duplicate the matrix in a deep copy.
 }
 
 }

@@ -131,6 +131,31 @@ extern "C" SEXP R_mpimat_resize(SEXP type, SEXP x_robj, SEXP m, SEXP n)
 
 
 
+extern "C" SEXP R_mpimat_dupe(SEXP type, SEXP x_robj)
+{
+  SEXP ret;
+  
+  #define FMLR_TMP_DUPE(type) { \
+    mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
+    mpimat<type> *y = new mpimat<type>(x->get_grid(), x->bf_rows(), x->bf_cols()); \
+    mpihelpers::mpi2mpi(*x, *y); \
+    newRptr(y, ret, fml_object_finalizer<mpimat<type>>); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_DUPE(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_DUPE(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_DUPE(int)
+  
+  #undef FMLR_TMP_DUPE
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
 extern "C" SEXP R_mpimat_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
   APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, print, INTEGER(ndigits)[0]);

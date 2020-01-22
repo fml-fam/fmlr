@@ -60,6 +60,23 @@ cpumatR6 = R6::R6Class("cpumat",
     
     
     #' @details
+    #' Duplicate the matrix in a deep copy.
+    #' @useDynLib fmlr R_cpumat_dupe
+    dupe = function()
+    {
+      ret_ptr = .Call(R_cpumat_dupe, private$type, private$x_ptr)
+      
+      tmp = private$x_ptr
+      private$x_ptr = ret_ptr
+      ret = self$clone()
+      private$x_ptr = tmp
+      
+      ret
+    },
+    
+    
+    
+    #' @details
     #' Print one-line information about the matrix.
     #' @useDynLib fmlr R_cpumat_info
     info = function()
