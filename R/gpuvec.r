@@ -60,6 +60,23 @@ gpuvecR6 = R6::R6Class("gpuvec",
     
     
     #' @details
+    #' Duplicate the vector in a deep copy.
+    #' @useDynLib fmlr R_gpuvec_dupe
+    dupe = function()
+    {
+      ret_ptr = .Call(R_gpuvec_dupe, private$type, private$x_ptr)
+      
+      tmp = private$x_ptr
+      private$x_ptr = ret_ptr
+      ret = self$clone()
+      private$x_ptr = tmp
+      
+      ret
+    },
+    
+    
+    
+    #' @details
     #' Print one-line information about the vector.
     #' @useDynLib fmlr R_gpuvec_info
     info = function()

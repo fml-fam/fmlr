@@ -87,6 +87,12 @@ extern "C" SEXP R_gpuvec_resize(SEXP type, SEXP x_robj, SEXP size)
   WARN_AND_RETURN;
 }
 
+extern "C" SEXP R_gpuvec_dupe(SEXP type, SEXP x_robj)
+{
+  unused(type, x_robj);
+  WARN_AND_RETURN;
+}
+
 extern "C" SEXP R_gpuvec_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
   unused(type, x_robj, ndigits);

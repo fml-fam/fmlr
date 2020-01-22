@@ -81,6 +81,31 @@ extern "C" SEXP R_cpuvec_resize(SEXP type, SEXP x_robj, SEXP size)
 
 
 
+extern "C" SEXP R_cpuvec_dupe(SEXP type, SEXP x_robj)
+{
+  SEXP ret;
+  
+  #define FMLR_TMP_DUPE(type) { \
+    cpuvec<type> *x = (cpuvec<type>*) getRptr(x_robj); \
+    cpuvec<type> *y = new cpuvec<type>(x->size()); \
+    arraytools::copy(x->size(), x->data_ptr(), y->data_ptr()); \
+    newRptr(y, ret, fml_object_finalizer<cpuvec<type>>); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_DUPE(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_DUPE(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_DUPE(int)
+  
+  #undef FMLR_TMP_DUPE
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
 extern "C" SEXP R_cpuvec_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
   APPLY_TEMPLATED_METHOD(cpuvec, type, x_robj, print, INTEGER(ndigits)[0]);

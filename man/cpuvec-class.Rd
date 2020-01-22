@@ -16,6 +16,7 @@ Data is held in an external pointer.
 \item \href{#method-new}{\code{cpuvecR6$new()}}
 \item \href{#method-resize}{\code{cpuvecR6$resize()}}
 \item \href{#method-inherit}{\code{cpuvecR6$inherit()}}
+\item \href{#method-dupe}{\code{cpuvecR6$dupe()}}
 \item \href{#method-info}{\code{cpuvecR6$info()}}
 \item \href{#method-print}{\code{cpuvecR6$print()}}
 \item \href{#method-fill_zero}{\code{cpuvecR6$fill_zero()}}
@@ -89,6 +90,18 @@ Change the length of the vector object.
 \subsection{Details}{
 Set the data in the cpuvec object to point to the array in 'data'. See
 also \code{?as_cpuvec}.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-dupe"></a>}}
+\subsection{Method \code{dupe()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$dupe()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Duplicate the vector in a deep copy.
 }
 
 }

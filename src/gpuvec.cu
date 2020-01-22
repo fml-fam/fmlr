@@ -86,6 +86,31 @@ extern "C" SEXP R_gpuvec_resize(SEXP type, SEXP x_robj, SEXP size)
 
 
 
+extern "C" SEXP R_gpuvec_dupe(SEXP type, SEXP x_robj)
+{
+  SEXP ret;
+  
+  #define FMLR_TMP_DUPE(type) { \
+    gpuvec<type> *x = (gpuvec<type>*) getRptr(x_robj); \
+    gpuvec<type> *y = new gpuvec<type>(x->get_card()); \
+    gpuhelpers::gpu2gpu(*x, *y); \
+    newRptr(y, ret, fml_object_finalizer<gpuvec<type>>); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_DUPE(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_DUPE(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_DUPE(int)
+  
+  #undef FMLR_TMP_DUPE
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
 extern "C" SEXP R_gpuvec_print(SEXP type, SEXP x_robj, SEXP ndigits)
 {
   APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, print, INTEGER(ndigits)[0]);
