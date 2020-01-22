@@ -168,6 +168,92 @@ z
 ```
 
 
+## Managing Backends
+
+Generally, codes should be easy to port between different backends (CPU, GPU, MPI). The difficulty/differences generally come in object creation. To better understand this process, let's take a very simple example. We'll create a 3x3 diagonal matrix with diagonal elements 1, 2, 3, and we'll create it by using a vector and the `fill_diag()` method.
+
+We'll start with the CPU backend because these are the simplest to work with.
+
+```r
+library(fmlr)
+
+v = cpuvec(3)
+v$set(0, 1)$set(1, 2)$set(2, 3)
+v
+## 1.0000 2.0000 3.0000 
+
+x = cpumat(3, 3)
+x$fill_diag(v)
+x
+## 1.0000 0.0000 0.0000 
+## 0.0000 2.0000 0.0000 
+## 0.0000 0.0000 3.0000 
+```
+
+For GPU objects, we need to first have a `card` object. This manages some internal data. It is tied to a specific GPU (by ordinal ID), and you only need one object per GPU (not per GPU matrix/vector). You will need to pass this object to the `gpuvec()` and `gpumat()` constructors.
+
+```r
+library(fmlr)
+
+c = card()
+c
+## GPU 0 (GeForce GTX 1070 Ti) 821/8116 MB - CUDA 10.1
+
+v = gpuvec(c, 3)
+v$set(0, 1)$set(1, 2)$set(2, 3)
+v
+## 1.0000 2.0000 3.0000 
+
+x = gpumat(c, 3, 3)
+x$fill_diag(v)
+x
+## 1.0000 0.0000 0.0000 
+## 0.0000 2.0000 0.0000 
+## 0.0000 0.0000 3.0000 
+```
+
+Using MPI objects is a little different from the others. We can't use them interactively and get parallelism at the same time. If you want to better understand this programming model, called SPMD, then I recommend [this tutorial](https://github.com/RBigData/tutorials/blob/master/content/pbdR/mpi.md).
+
+Like with GPU objects, we have something extra to carry around. Here, it's a special MPI grid. You can have different grids, but this is pretty advanced, so we won't cover that here. We'll just use one grid with the default arguments. We also have to specify a blocking factor. Choosing good values for this is beyond the scope of this example. We use a 1x1 blocking to make sure that all processes own some of the data.
+
+```r
+suppressMessages(library(fmlr))
+
+g = grid()
+g
+
+v = cpuvec(3)
+v$set(0, 1)$set(1, 2)$set(2, 3)
+if (g$rank0()) v
+
+x = mpimat(g, 3, 3, 1, 1)
+x$fill_diag(v)
+x
+```
+
+Note two other differences from the previous objects. First, there is no `mpivec()` object. There's usually no point in distributing a vector. Consider that if you have a 100,000x100,000 matrix (of doubles), then that matrix would take up ~75 GiB of memory. Whereas a 100,000 length vector would use less than 1 MiB. The other difference is in how we print a non-distributed object. We only want to print it on one rank, and typically rank 0 is chosen.
+
+We'll take our script and save it as `mpi.r`, and launch it via:
+
+```bash
+mpirun -np 2 Rscript mpi.r
+```
+
+And this is the output we see:
+
+```
+## Grid 0 2x1
+
+1.0000 2.0000 3.0000 
+
+1.0000 0.0000 0.0000 
+0.0000 2.0000 0.0000 
+0.0000 0.0000 3.0000 
+```
+
+We should see the same output if we run the script with one rank via `Rscript mpi.r` (no parallelism) or with say 4 ranks via `mpirun -np 4 Rscript mpi.r`.
+
+
 
 ## fml from C++
 
