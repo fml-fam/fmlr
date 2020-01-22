@@ -147,6 +147,18 @@ extern "C" SEXP R_gpuvec_rev(SEXP type, SEXP x_robj)
   WARN_AND_RETURN;
 }
 
+extern "C" SEXP R_gpuvec_get(SEXP type, SEXP x_robj, SEXP i)
+{
+  unused(type, x_robj, i);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpuvec_set(SEXP type, SEXP x_robj, SEXP i, SEXP v)
+{
+  unused(type, x_robj, i, v);
+  WARN_AND_RETURN;
+}
+
 extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
 {
   unused(type, x_robj);

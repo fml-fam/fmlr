@@ -167,6 +167,39 @@ gpuvecR6 = R6::R6Class("gpuvec",
     
     
     #' @details
+    #' Get element from the vector.
+    #' @param i Index (0-based).
+    #' @useDynLib fmlr R_cpuvec_get
+    get = function(i)
+    {
+      i = as.integer(i)
+      if (i < 0 || i >= self$size())
+        error("index out of bounds")
+      
+      .Call(R_gpuvec_get, private$type, private$x_ptr, i)
+    },
+    
+    
+    
+    #' @details
+    #' Set element of the vector.
+    #' @param i Index (0-based).
+    #' @param v Value.
+    #' @useDynLib fmlr R_cpuvec_set
+    set = function(i, v)
+    {
+      i = as.integer(i)
+      v = as.double(v)
+      if (i < 0 || i >= self$size())
+        error("index out of bounds")
+      
+      .Call(R_gpuvec_set, private$type, private$x_ptr, i, v)
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
     #' Returns length of the vector.
     #' @useDynLib fmlr R_gpuvec_size
     size = function() .Call(R_gpuvec_size, private$type, private$x_ptr),

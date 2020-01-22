@@ -24,6 +24,8 @@ Data is held in an external pointer.
 \item \href{#method-fill_linspace}{\code{cpuvecR6$fill_linspace()}}
 \item \href{#method-scale}{\code{cpuvecR6$scale()}}
 \item \href{#method-rev}{\code{cpuvecR6$rev()}}
+\item \href{#method-get}{\code{cpuvecR6$get()}}
+\item \href{#method-set}{\code{cpuvecR6$set()}}
 \item \href{#method-size}{\code{cpuvecR6$size()}}
 \item \href{#method-data_ptr}{\code{cpuvecR6$data_ptr()}}
 \item \href{#method-get_type}{\code{cpuvecR6$get_type()}}
@@ -214,6 +216,46 @@ Scale all entries by the supplied value.
 
 \subsection{Details}{
 Reverse rows.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get"></a>}}
+\subsection{Method \code{get()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$get(i)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{i}}{Index (0-based).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get element from the vector.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set"></a>}}
+\subsection{Method \code{set()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$set(i, v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{i}}{Index (0-based).}
+
+\item{\code{v}}{Value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set element of the vector.
 }
 
 }

@@ -162,6 +162,38 @@ extern "C" SEXP R_cpuvec_rev(SEXP type, SEXP x_robj)
 
 
 
+extern "C" SEXP R_cpuvec_get(SEXP type, SEXP x_robj, SEXP i)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_GET(type) { \
+    cpuvec<type> *x = (cpuvec<type>*) getRptr(x_robj); \
+    DBL(ret) = (double) x->get(INT(i)); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_GET(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_GET(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_GET(int)
+  
+  #undef FMLR_TMP_GET
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
+extern "C" SEXP R_cpuvec_set(SEXP type, SEXP x_robj, SEXP i, SEXP v)
+{
+  APPLY_TEMPLATED_METHOD(cpuvec, type, x_robj, set, INT(i), DBL(v));
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_cpuvec_to_robj(SEXP type, SEXP x_robj)
 {
   SEXP ret;
