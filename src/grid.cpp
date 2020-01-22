@@ -1,9 +1,7 @@
 #include "extptr.h"
+#include "rutils.h"
 
 #include <fml/src/mpi/grid.hh>
-#include <fml/src/mpi/linalg.hh>
-#include <fml/src/mpi/mpihelpers.hh>
-#include <fml/src/mpi/mpimat.hh>
 
 #define GET_R_STRING(x,i) ((char*)CHAR(STRING_ELT(x,i)))
 #define GET_R_CHAR(x,i) ((GET_R_STRING(x,i))[0])
@@ -64,20 +62,28 @@ extern "C" SEXP R_grid_info(SEXP g_robj)
 
 extern "C" SEXP R_grid_rank0(SEXP g_robj)
 {
-  grid *g = (grid*) getRptr(g_robj);
-  g->rank0();
+  SEXP ret;
+  PROTECT(ret = allocVector(LGLSXP, 1));
   
-  return R_NilValue;
+  grid *g = (grid*) getRptr(g_robj);
+  LGL(ret) = g->rank0();
+  
+  UNPROTECT(1);
+  return ret;
 }
 
 
 
 extern "C" SEXP R_grid_ingrid(SEXP g_robj)
 {
-  grid *g = (grid*) getRptr(g_robj);
-  g->ingrid();
+  SEXP ret;
+  PROTECT(ret = allocVector(LGLSXP, 1));
   
-  return R_NilValue;
+  grid *g = (grid*) getRptr(g_robj);
+  LGL(ret) = g->ingrid();
+  
+  UNPROTECT(1);
+  return ret;
 }
 
 
