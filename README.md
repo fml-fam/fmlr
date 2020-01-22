@@ -9,7 +9,7 @@
 
 Interface to the [fml library](https://github.com/wrathematics/fml). fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.
 
-The fmlr interface largely tracks with the core fml interface, and the package version will match the fml release version used. We use R6 so that generally an R code can be translated to C++ by changing `$` to `.`. There are some R-specific enhancements which should be avoided if you plan to eventually convert to C++.
+The fmlr interface largely tracks with the core fml interface, and the package version will match the fml release version used. We use R6 so that generally an R code can be translated to C++ by changing `$` to `.` (and a `_` to `::` for `linalg` functions). There are some R-specific enhancements which should be avoided if you plan to eventually convert to C++.
 
 Differences between fmlr and other matrix interfaces (including the core R interface):
 
@@ -95,6 +95,8 @@ Linear algebra API
 
 ## Example
 
+Most operations occur via side effects. Some of the linear algebra functions can return objects as a matter of convenience, but generally you will need to initialize an object and apply functions/methods to it. This has performance advantages, but is very different from how things normally work in R.
+
 ```r
 suppressMessages(library(fmlr))
 
@@ -120,6 +122,49 @@ cp$to_robj()
 ##      [,1] [,2]
 ## [1,]   14    0
 ## [2,]   32   77
+```
+
+
+
+## Copying Objects
+
+Assignment via `<-` or `=` (or `->` for the weirdos) will only produce a "shallow copy". It will not duplicate the data in memory:
+
+```r
+x = cpumat(2, 3)
+x$fill_linspace(1, 2)
+x
+## 1.0000 1.4000 1.8000 
+## 1.2000 1.6000 2.0000 
+
+y = x
+y$fill_val(pi)
+y
+## 3.1416 3.1416 3.1416 
+## 3.1416 3.1416 3.1416 
+
+x
+## 3.1416 3.1416 3.1416 
+## 3.1416 3.1416 3.1416 
+```
+
+Instead, if we need a duplicate then we need to create a "deep copy":
+
+```r
+z = x$dupe()
+x$fill_zero()
+
+x
+## 0.0000 0.0000 0.0000 
+## 0.0000 0.0000 0.0000 
+
+y
+## 0.0000 0.0000 0.0000 
+## 0.0000 0.0000 0.0000 
+
+z
+## 3.1416 3.1416 3.1416 
+## 3.1416 3.1416 3.1416 
 ```
 
 
