@@ -49,3 +49,16 @@ check_is_grid = function(x)
   if (!is_grid(x) || !isTRUE(x$valid_grid()))
     stop("invalid grid object")
 }
+
+
+
+check_indices = function(i, j, m, n)
+{
+  if (length(i) != 1 || length(j) != 1 || is.na(i) || is.na(j))
+    stop("bad indices - should be a single integer")
+  
+  if (i < 0 || i >= m || j < 0 || j >=n)
+    stop("index out of bounds")
+  
+  invisible(TRUE)
+}

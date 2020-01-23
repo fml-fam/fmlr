@@ -282,6 +282,38 @@ extern "C" SEXP R_cpumat_rev_cols(SEXP type, SEXP x_robj)
 
 
 
+extern "C" SEXP R_cpumat_get(SEXP type, SEXP x_robj, SEXP i, SEXP j)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_GET(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    DBL(ret) = (double) x->get(INT(i), INT(j)); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_GET(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_GET(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_GET(int)
+  
+  #undef FMLR_TMP_GET
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
+extern "C" SEXP R_cpumat_set(SEXP type, SEXP x_robj, SEXP i, SEXP j, SEXP v)
+{
+  APPLY_TEMPLATED_METHOD(cpumat, type, x_robj, set, INT(i), INT(j), DBL(v));
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_cpumat_to_robj(SEXP type, SEXP x_robj)
 {
   SEXP ret;

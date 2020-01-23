@@ -5,17 +5,17 @@
 \alias{linalg_matmult}
 \title{matmult}
 \usage{
-linalg_matmult(transx = FALSE, transy = FALSE, x, y, ret = NULL, alpha = 1)
+linalg_matmult(transx = FALSE, transy = FALSE, alpha = 1, x, y, ret = NULL)
 }
 \arguments{
 \item{transx, transy}{Should x/y be transposed?}
+
+\item{alpha}{Scalar.}
 
 \item{x, y}{Input data.}
 
 \item{ret}{Either \code{NULL} or an already allocated fml matrix of the same
 class and type as \code{x}.}
-
-\item{alpha}{Scalar.}
 }
 \value{
 Returns the matrix product.

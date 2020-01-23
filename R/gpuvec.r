@@ -173,8 +173,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     get = function(i)
     {
       i = as.integer(i)
-      if (i < 0 || i >= self$size())
-        error("index out of bounds")
+      check_indices(i, 0, self$size(), 1)
       
       .Call(R_gpuvec_get, private$type, private$x_ptr, i)
     },
@@ -190,8 +189,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     {
       i = as.integer(i)
       v = as.double(v)
-      if (i < 0 || i >= self$size())
-        error("index out of bounds")
+      check_indices(i, 0, self$size(), 1)
       
       .Call(R_gpuvec_set, private$type, private$x_ptr, i, v)
       invisible(self)

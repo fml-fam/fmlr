@@ -279,6 +279,18 @@ extern "C" SEXP R_gpumat_rev_cols(SEXP type, SEXP x_robj)
   WARN_AND_RETURN;
 }
 
+extern "C" SEXP R_gpumat_get(SEXP type, SEXP x_robj, SEXP i, SEXP j)
+{
+  unused(type, x_robj, i, j);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_set(SEXP type, SEXP x_robj, SEXP i, SEXP j, SEXP v)
+{
+  unused(type, x_robj, i, j, v);
+  WARN_AND_RETURN;
+}
+
 extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
 {
   unused(type, x_robj);
@@ -318,5 +330,11 @@ extern "C" SEXP R_gpumat_linalg_crossprod(SEXP type, SEXP xpose, SEXP alpha, SEX
 extern "C" SEXP R_gpumat_linalg_xpose(SEXP type, SEXP x_robj, SEXP ret_robj)
 {
   unused(type, x_robj, ret_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_linalg_lu(SEXP type, SEXP x_robj)
+{
+  unused(type, x_robj);
   WARN_AND_RETURN;
 }

@@ -31,6 +31,8 @@ Data is held in an external pointer.
 \item \href{#method-scale}{\code{gpumatR6$scale()}}
 \item \href{#method-rev_rows}{\code{gpumatR6$rev_rows()}}
 \item \href{#method-rev_cols}{\code{gpumatR6$rev_cols()}}
+\item \href{#method-get}{\code{gpumatR6$get()}}
+\item \href{#method-set}{\code{gpumatR6$set()}}
 \item \href{#method-dim}{\code{gpumatR6$dim()}}
 \item \href{#method-nrows}{\code{gpumatR6$nrows()}}
 \item \href{#method-ncols}{\code{gpumatR6$ncols()}}
@@ -351,6 +353,46 @@ Reverse rows.
 
 \subsection{Details}{
 Reverse columns.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get"></a>}}
+\subsection{Method \code{get()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$get(i, j)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{i, j}}{Indices (0-based).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get element from the matrix.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set"></a>}}
+\subsection{Method \code{set()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$set(i, j, v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{i, j}}{Indices (0-based).}
+
+\item{\code{v}}{Value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set element of the matrix.
 }
 
 }

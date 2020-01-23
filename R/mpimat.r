@@ -294,6 +294,39 @@ mpimatR6 = R6::R6Class("mpimat",
     
     
     #' @details
+    #' Get element from the matrix.
+    #' @param i,j Indices (0-based).
+    #' @useDynLib fmlr R_mpimat_get
+    get = function(i, j)
+    {
+      i = as.integer(i)
+      j = as.integer(j)
+      check_indices(i, j, self$nrows(), self$ncols())
+      
+      .Call(R_mpimat_get, private$type, private$x_ptr, i, j)
+    },
+    
+    
+    
+    #' @details
+    #' Set element of the matrix.
+    #' @param i,j Indices (0-based).
+    #' @param v Value.
+    #' @useDynLib fmlr R_mpimat_set
+    set = function(i, j, v)
+    {
+      i = as.integer(i)
+      j = as.integer(j)
+      v = as.double(v)
+      check_indices(i, j, self$nrows(), self$ncols())
+      
+      .Call(R_mpimat_set, private$type, private$x_ptr, i, j, v)
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
     #' Returns number of rows and columns of the matrix.
     #' @useDynLib fmlr R_mpimat_dim
     dim = function() .Call(R_mpimat_dim, private$type, private$x_ptr),

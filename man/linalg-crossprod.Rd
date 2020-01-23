@@ -6,17 +6,17 @@
 \alias{linalg_tcrossprod}
 \title{crossprod}
 \usage{
-linalg_crossprod(x, ret = NULL, alpha = 1)
+linalg_crossprod(alpha = 1, x, ret = NULL)
 
-linalg_tcrossprod(x, ret = NULL, alpha = 1)
+linalg_tcrossprod(alpha = 1, x, ret = NULL)
 }
 \arguments{
+\item{alpha}{Number to scale the crossproduct by.}
+
 \item{x}{Input data.}
 
 \item{ret}{Either \code{NULL} or an already allocated fml matrix of the same
 class and type as \code{x}.}
-
-\item{alpha}{Number to scale the crossproduct by.}
 }
 \value{
 Returns the crossproduct.
