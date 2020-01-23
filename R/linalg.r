@@ -55,10 +55,10 @@ setret = function(m, n, x)
 #' Add two matrices: `ret = alpha*x + beta*y`.
 #' 
 #' @param transx,transy Should x/y be transposed?
+#' @param alpha,beta Scalars.
 #' @param x,y Input data.
 #' @param ret Either \code{NULL} or an already allocated fml matrix of the same
 #' class and type as \code{x}.
-#' @param alpha,beta Scalars.
 #' @return Returns the matrix sum.
 #' 
 #' @rdname linalg-add
@@ -69,7 +69,7 @@ setret = function(m, n, x)
 #' @useDynLib fmlr R_mpimat_linalg_add
 #' 
 #' @export
-linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=1)
+linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NULL)
 {
   transx = as.logical(transx)
   transy = as.logical(transy)
@@ -108,10 +108,10 @@ linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=
 #' Multiply two matrices: `ret = alpha*x*y`.
 #' 
 #' @param transx,transy Should x/y be transposed?
+#' @param alpha Scalar.
 #' @param x,y Input data.
 #' @param ret Either \code{NULL} or an already allocated fml matrix of the same
 #' class and type as \code{x}.
-#' @param alpha Scalar.
 #' @return Returns the matrix product.
 #' 
 #' @rdname linalg-matmult
@@ -122,7 +122,7 @@ linalg_add = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1, beta=
 #' @useDynLib fmlr R_mpimat_linalg_matmult
 #' 
 #' @export
-linalg_matmult = function(transx=FALSE, transy=FALSE, x, y, ret=NULL, alpha=1)
+linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
 {
   transx = as.logical(transx)
   transy = as.logical(transy)
@@ -184,10 +184,10 @@ linalg_crossprods = function(x, ret, alpha, xpose)
 #' 
 #' Compute crossproducts.
 #' 
+#' @param alpha Number to scale the crossproduct by.
 #' @param x Input data.
 #' @param ret Either \code{NULL} or an already allocated fml matrix of the same
 #' class and type as \code{x}.
-#' @param alpha Number to scale the crossproduct by.
 #' @return Returns the crossproduct.
 #' 
 #' @rdname linalg-crossprod
@@ -196,14 +196,14 @@ NULL
 
 #' @rdname linalg-crossprod
 #' @export
-linalg_crossprod = function(x, ret=NULL, alpha=1)
+linalg_crossprod = function(alpha=1, x, ret=NULL)
 {
   linalg_crossprods(x, ret, alpha, xpose=FALSE)
 }
 
 #' @rdname linalg-crossprod
 #' @export
-linalg_tcrossprod = function(x, ret=NULL, alpha=1)
+linalg_tcrossprod = function(alpha=1, x, ret=NULL)
 {
   linalg_crossprods(x, ret, alpha, xpose=TRUE)
 }
