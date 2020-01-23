@@ -243,3 +243,26 @@ linalg_xpose = function(x, ret=NULL)
   else
     ret
 }
+
+
+
+#' lu
+#' 
+#' LU factorization. The factorization occurs in-place.
+#' 
+#' @param x Input data.
+#' @return Returns `NULL`.
+#' 
+#' @rdname linalg-lu
+#' @name lu
+#' @useDynLib fmlr R_cpumat_linalg_lu
+#' @useDynLib fmlr R_gpumat_linalg_lu
+#' @useDynLib fmlr R_mpimat_linalg_lu
+#' 
+#' @export
+linalg_lu = function(x)
+{
+  CFUN = get_cfun("lu", x)
+  .Call(CFUN, x$get_type(), x$data_ptr())
+  invisible(NULL)
+}
