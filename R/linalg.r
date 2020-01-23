@@ -288,3 +288,52 @@ linalg_trace = function(x)
   CFUN = get_cfun("trace", x)
   .Call(CFUN, x$get_type(), x$data_ptr())
 }
+
+
+
+#' svd
+#' 
+#' Computes the singular value decomposition.
+#' 
+#' @details
+#' You will need to initialize the return objects `s` and/or `u` and `vt`
+#' manually. See the example.
+#' 
+#' @param x Input data. The input values are overwritten.
+#' @param s Singular values.
+#' @param u,vt The left/right singular vectors. Should both be `NULL` or
+#' matrices of the same backend and fundamental type as `x`.
+#' 
+#' @examples
+#' suppressMessages(library(fmlr))
+#' x = cpumat(3, 2)
+#' x$fill_linspace(1, 6)
+#' 
+#' s = cpuvec()
+#' linalg_svd(x, s)
+#' s$info()
+#' s$print()
+#' 
+#' @rdname linalg-svd
+#' @name trace
+#' @useDynLib fmlr R_cpumat_linalg_svd
+#' @useDynLib fmlr R_gpumat_linalg_svd
+#' @useDynLib fmlr R_mpimat_linalg_svd
+#' 
+#' @export
+linalg_svd = function(x, s, u=NULL, vt=NULL)
+{
+  check_type_consistency(x, s)
+  if (!is.null(u) && !is.null(vt))
+    check_inputs(x, u, vt)
+  else if (!is.null(u) || !is.null(vt))
+    stop("must pass neither u and vt or both u and vt")
+  
+  CFUN = get_cfun("svd", x)
+  if (is.null(u))
+    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
+  else
+    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+  
+  invisible(NULL)
+}

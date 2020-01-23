@@ -129,3 +129,31 @@ extern "C" SEXP R_gpumat_linalg_trace(SEXP type, SEXP x_robj)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+extern "C" SEXP R_gpumat_linalg_svd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_SVD(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    gpuvec<type> *s = (gpuvec<type>*) getRptr(s_robj); \
+    if (u_robj == R_NilValue) \
+      linalg::svd(*x, *s); \
+    else { \
+      gpumat<type> *u = (gpumat<type>*) getRptr(u_robj); \
+      gpumat<type> *vt = (gpumat<type>*) getRptr(vt_robj); \
+      linalg::svd(*x, *s, *u, *vt); } }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_SVD(double)
+  else //if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_SVD(float)
+  
+  #undef FMLR_TMP_SVD
+  
+  UNPROTECT(1);
+  return ret;
+}
