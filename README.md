@@ -90,8 +90,13 @@ Linear algebra API
 |----------|-----|
 | `linalg_add` | Adds two matrices of the same type/backend. |
 | `linalg_matmult` | Multiplies two matrices of the same type/backend. |
-| `linalg_crossprod` | Computes `t(x) %*% x` |
-| `linalg_tcrossprod` | Computes `x %*% t(x)` |
+| `linalg_crossprod` | Computes `t(x) %*% x`. |
+| `linalg_tcrossprod` | Computes `x %*% t(x)`. |
+| `linalg_xpose` | Computes the matrix transpose. |
+| `linalg_lu` | Computes the LU factorization. |
+| `linalg_trace` | Computes the sum of the diagonal. |
+| `linalg_svd` | Computes the SVD. |
+| `linalg_eigen_sym` | Computes the eigenvalues/eigenvectors. |
 
 
 
@@ -103,28 +108,28 @@ Most operations occur via side effects. Some of the linear algebra functions can
 suppressMessages(library(fmlr))
 
 x = cpumat(3, 2)
+x$fill_linspace(1, 6)
 x$info()
 ## # cpumat 3x2 type=d
-
-x$fill_linspace(1, 6)
 x
 ## 1.0000 4.0000 
 ## 2.0000 5.0000 
 ## 3.0000 6.0000 
 
-cp = linalg_crossprod(x)
-cp$info()
-## # cpumat 2x2 type=d
+s = cpuvec()
+linalg_svd(x, s)
 
-cp
-## 14.0000 0.0000 
-## 32.0000 77.0000 
+s$info()
+## # cpuvec 2 type=d
 
-cp$to_robj()
-##      [,1] [,2]
-## [1,]   14    0
-## [2,]   32   77
+s
+## 9.5080 0.7729 
+
+s$to_robj()
+## [1] 9.5080320 0.7728696
 ```
+
+Notice that we had to initialize the return before passing it to the svd function. Also the data in the input `x` is destroyed on exit. If you want to preserve it, you would need to manually copy it.
 
 
 

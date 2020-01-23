@@ -132,9 +132,6 @@ extern "C" SEXP R_cpumat_linalg_trace(SEXP type, SEXP x_robj)
 
 extern "C" SEXP R_cpumat_linalg_svd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
 {
-  SEXP ret;
-  PROTECT(ret = allocVector(REALSXP, 1));
-  
   #define FMLR_TMP_SVD(type) { \
     cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
     cpuvec<type> *s = (cpuvec<type>*) getRptr(s_robj); \
@@ -147,11 +144,37 @@ extern "C" SEXP R_cpumat_linalg_svd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_
   
   if (INT(type) == TYPE_DOUBLE)
     FMLR_TMP_SVD(double)
-  else //if (INT(type) == TYPE_FLOAT)
+  else if (INT(type) == TYPE_FLOAT)
     FMLR_TMP_SVD(float)
+  else
+    error(TYPE_ERR);
   
   #undef FMLR_TMP_SVD
   
-  UNPROTECT(1);
-  return ret;
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_cpumat_linalg_eigen_sym(SEXP type, SEXP x_robj, SEXP values_robj, SEXP vectors_robj)
+{
+  #define FMLR_TMP_EIGEN_SYM(type) { \
+    cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+    cpuvec<type> *values = (cpuvec<type>*) getRptr(values_robj); \
+    if (vectors_robj == R_NilValue) \
+      linalg::eigen_sym(*x, *values); \
+    else { \
+      cpumat<type> *vectors = (cpumat<type>*) getRptr(vectors_robj); \
+      linalg::eigen_sym(*x, *values, *vectors); } }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_EIGEN_SYM(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_EIGEN_SYM(float)
+  else
+    error(TYPE_ERR);
+  
+  #undef FMLR_TMP_EIGEN_SYM
+  
+  return R_NilValue;
 }

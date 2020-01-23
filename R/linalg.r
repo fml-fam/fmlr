@@ -315,7 +315,7 @@ linalg_trace = function(x)
 #' s$print()
 #' 
 #' @rdname linalg-svd
-#' @name trace
+#' @name svd
 #' @useDynLib fmlr R_cpumat_linalg_svd
 #' @useDynLib fmlr R_gpumat_linalg_svd
 #' @useDynLib fmlr R_mpimat_linalg_svd
@@ -334,6 +334,46 @@ linalg_svd = function(x, s, u=NULL, vt=NULL)
     .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
   else
     .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+  
+  invisible(NULL)
+}
+
+
+
+#' eigen
+#' 
+#' Computes the eigenvalues and/or eigenvectors
+#' 
+#' @details
+#' You will need to initialize the return objects `values` and/or `vectors`
+#' manually. See the example.
+#' 
+#' @param x Input data. The input values are overwritten.
+#' @param values The eigenvalues.
+#' @param vectors The eigenvectors.
+#' 
+#' @rdname linalg-eigen
+#' @name eigen
+#' @useDynLib fmlr R_cpumat_linalg_eigen_sym
+#' @useDynLib fmlr R_gpumat_linalg_eigen_sym
+#' @useDynLib fmlr R_mpimat_linalg_eigen_sym
+#' 
+#' @export
+linalg_eigen_sym = function(x, values, vectors=NULL)
+{
+  d = x$dim()
+  if (d[1] != d[2])
+    stop("'x' must be square")
+  
+  check_type_consistency(x, values)
+  if (!is.null(vectors))
+    check_inputs(x, vectors)
+  
+  CFUN = get_cfun("eigen_sym", x)
+  if (is.null(vectors))
+    .Call(CFUN, x$get_type(), x$data_ptr(), values$data_ptr(), NULL)
+  else
+    .Call(CFUN, x$get_type(), x$data_ptr(), values$data_ptr(), vectors$data_ptr())
   
   invisible(NULL)
 }
