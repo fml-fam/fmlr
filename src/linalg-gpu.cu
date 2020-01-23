@@ -105,3 +105,27 @@ extern "C" SEXP R_gpumat_linalg_lu(SEXP type, SEXP x_robj)
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_gpumat_linalg_trace(SEXP type, SEXP x_robj)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_TRACE(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    DBL(ret) = linalg::trace(*x); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_TRACE(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_TRACE(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_TRACE(int)
+  
+  #undef FMLR_TMP_TRACE
+  
+  UNPROTECT(1);
+  return ret;
+}

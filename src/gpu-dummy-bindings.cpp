@@ -338,3 +338,9 @@ extern "C" SEXP R_gpumat_linalg_lu(SEXP type, SEXP x_robj)
   unused(type, x_robj);
   WARN_AND_RETURN;
 }
+
+extern "C" SEXP R_gpumat_linalg_trace(SEXP type, SEXP x_robj)
+{
+  unused(type, x_robj);
+  WARN_AND_RETURN;
+}

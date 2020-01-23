@@ -266,3 +266,25 @@ linalg_lu = function(x)
   .Call(CFUN, x$get_type(), x$data_ptr())
   invisible(NULL)
 }
+
+
+
+#' trace
+#' 
+#' Matrix trace, i.e. theh sum of the diagonal elements.
+#' 
+#' @param x Input data.
+#' @return Returns the trace.
+#' 
+#' @rdname linalg-trace
+#' @name trace
+#' @useDynLib fmlr R_cpumat_linalg_trace
+#' @useDynLib fmlr R_gpumat_linalg_trace
+#' @useDynLib fmlr R_mpimat_linalg_trace
+#' 
+#' @export
+linalg_trace = function(x)
+{
+  CFUN = get_cfun("trace", x)
+  .Call(CFUN, x$get_type(), x$data_ptr())
+}
