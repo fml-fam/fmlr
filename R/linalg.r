@@ -33,16 +33,16 @@ get_cfun = function(cfun_post, x)
 
 
 
-setret = function(m, n, x)
+setret = function(x)
 {
   if (is_cpumat(x))
-    ret = cpumat(m, n, type=x$get_type_str())
+    ret = cpumat(type=x$get_type_str())
   else if (is_gpumat(x))
-    ret = gpumat(x$get_card(), m, n)
+    ret = gpumat(x$get_card(), type=x$get_type_str())
   else if (is_mpimat(x))
   {
     bfdim = x$bfdim()
-    ret = mpimat(x$get_grid(), m, n, bfdim[1], bfdim[2], type=x$get_type_str())
+    ret = mpimat(x$get_grid(), bf_rows=bfdim[1], bf_cols=bfdim[2], type=x$get_type_str())
   }
   
   ret
@@ -79,20 +79,9 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
   
   invisiret = check_inputs(ret, x, y)
   
-  if (isTRUE(transx))
-  {
-    m = x$ncols()
-    n = x$nrows()
-  }
-  else
-  {
-    m = x$nrows()
-    n = x$ncols()
-  }
-  
   CFUN = get_cfun("add", x)
   if (is.null(ret))
-    ret = setret(m, n, x)
+    ret = setret(x)
   .Call(CFUN, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
@@ -131,19 +120,9 @@ linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
   
   invisiret = check_inputs(ret, x, y)
   
-  if (!isTRUE(transx))
-    m = x$nrows()
-  else
-    m = x$ncols()
-  
-  if (!isTRUE(transy))
-    n = y$ncols()
-  else
-    n = y$nrows()
-  
   CFUN = get_cfun("matmult", x)
   if (is.null(ret))
-    ret = setret(m, n, x)
+    ret = setret(x)
   .Call(CFUN, x$get_type(), transx, transy, alpha, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
@@ -164,14 +143,9 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   
   invisiret = check_inputs(ret, x)
   
-  if (isTRUE(xpose))
-    n = x$nrows()
-  else
-    n = x$ncols()
-  
   CFUN = get_cfun("crossprod", x)
   if (is.null(ret))
-    ret = setret(m, n, x)
+    ret = setret(x)
   .Call(CFUN, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   
   if (invisiret)
@@ -230,12 +204,9 @@ linalg_xpose = function(x, ret=NULL)
 {
   invisiret = check_inputs(ret, x)
   
-  m = x$ncols()
-  n = x$nrows()
-  
   CFUN = get_cfun("xpose", x)
   if (is.null(ret))
-    ret = setret(m, n, x)
+    ret = setret(x)
   .Call(CFUN, x$get_type(), x$data_ptr(), ret$data_ptr())
   
   if (invisiret)
