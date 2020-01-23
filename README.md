@@ -9,13 +9,15 @@
 
 Interface to the [fml library](https://github.com/wrathematics/fml). fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.
 
-The fmlr interface largely tracks with the core fml interface, and the package version will match the fml release version used. We use R6 so that generally an R code can be translated to C++ by changing `$` to `.` (and a `_` to `::` for `linalg` functions). There are some R-specific enhancements which should be avoided if you plan to eventually convert to C++.
+fmlr is a "medium-level" interface to computational linear algebra. It is higher-level than directly working with, for example, the BLAS. But it is lower-level than a high-level interface like R or Armadillo.
 
 Differences between fmlr and other matrix interfaces (including the core R interface):
 
 * Single interface supporting multiple fundamental types (`__half`, `float`, `double`) and backends (CPU, GPU, MPI).
 * Data is always held externally to R (although CPU objects can inherit R data without a copy).
 * Operations modifying data occur in-place (make your own copy if you don't want the data modified).
+
+The fmlr interface largely tracks with the core fml interface, and the package version will match the fml release version used. We use R6 so that generally an R code can be translated to C++ by changing `$` to `.` (and a `_` to `::` for `linalg` functions). There are some R-specific enhancements which should be avoided if you plan to eventually convert to C++.
 
 
 ## Installation
@@ -24,7 +26,7 @@ You will need to install some dependencies. Make sure you have a system installa
 
 ```r
 install.packages("pbdMPI")
-remotes::install_github("snoweye/pbdSLAP", ref="single")
+remotes::install_github("wrathematics/pbdSLAP")
 ```
 
 If you run into any issues, see the [pbdMPI package vignette](https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf).
