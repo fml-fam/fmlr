@@ -239,7 +239,7 @@ extern "C" SEXP R_mpimat_fill_runif(SEXP type, SEXP x_robj, SEXP seed, SEXP min,
   else if (INT(type) == TYPE_FLOAT)
     FMLR_TMP_FILL_RUNIF(float)
   else
-    error("unsupported fundamental type");
+    error(TYPE_ERR);
   
   #undef FMLR_TMP_FILL_RUNIF
   
@@ -262,7 +262,7 @@ extern "C" SEXP R_mpimat_fill_rnorm(SEXP type, SEXP x_robj, SEXP seed, SEXP min,
   else if (INT(type) == TYPE_FLOAT)
     FMLR_TMP_FILL_RNORM(float)
   else
-    error("unsupported fundamental type");
+    error(TYPE_ERR);
   
   
   #undef FMLR_TMP_FILL_RNORM

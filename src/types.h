@@ -11,5 +11,7 @@
 #define TYPE_FLOAT 2
 #define TYPE_INT 3
 
+#define TYPE_ERR "unsupported fundamental type"
+
 
 #endif

@@ -46,6 +46,8 @@
     FUN<double>(__VA_ARGS__); \
   } else if (INT(data_type) == TYPE_FLOAT){ \
     FUN<float>(__VA_ARGS__); \
+  } else { \
+    error(TYPE_ERR); \
   }
 
 
