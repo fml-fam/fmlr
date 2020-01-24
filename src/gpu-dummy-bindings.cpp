@@ -317,6 +317,50 @@ extern "C" SEXP R_gpumat_from_robj(SEXP type, SEXP x_robj, SEXP robj)
 
 
 
+
+// -----------------------------------------------------------------------------
+// gpuhelpers namespace
+// -----------------------------------------------------------------------------
+
+extern "C" SEXP R_gpuvec_gpu2cpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP out_robj)
+{
+  unused(type_in, type_out, in_robj, out_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_gpu2cpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP out_robj)
+{
+  unused(type_in, type_out, in_robj, out_robj);
+  WARN_AND_RETURN;
+}
+
+
+extern "C" SEXP R_gpuvec_cpu2gpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP out_robj)
+{
+  unused(type_in, type_out, in_robj, out_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_cpu2gpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP out_robj)
+{
+  unused(type_in, type_out, in_robj, out_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpuvec_gpu2gpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP out_robj)
+{
+  unused(type_in, type_out, in_robj, out_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_gpu2gpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP out_robj)
+{
+  unused(type_in, type_out, in_robj, out_robj);
+  WARN_AND_RETURN;
+}
+
+
+
 // -----------------------------------------------------------------------------
 // linalg namespace
 // -----------------------------------------------------------------------------

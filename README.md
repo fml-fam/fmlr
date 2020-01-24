@@ -99,6 +99,16 @@ Linear algebra API
 | `linalg_eigen_sym` | Computes the eigenvalues/eigenvectors. |
 | `linalg_invert` | Computes the matrix inverse. |
 
+Helper/converter functions
+
+Function | Use |
+|----------|-----|
+| `cpu2cpu` | Copy a CPU vector/matrix to another. Fundamental types can differ. |
+| `gpu2cpu` | Copy a GPU vector/matrix to CPU one. Fundamental types can differ. |
+| `cpu2gpu` | Copy a CPU vector/matrix to GPU one. Fundamental types can differ. |
+| `gpu2gpu` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
+| `mpi2cpu` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
+| `mpi2mpi` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
 
 
 
