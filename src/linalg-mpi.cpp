@@ -179,3 +179,20 @@ extern "C" SEXP R_mpimat_linalg_eigen_sym(SEXP type, SEXP x_robj, SEXP values_ro
   
   return R_NilValue;
 }
+
+
+
+template <typename REAL>
+static inline void invert(void *x)
+{
+  CAST_MAT(mpimat, REAL, x_cast, x);
+  linalg::invert(*x_cast);
+}
+
+extern "C" SEXP R_mpimat_linalg_invert(SEXP type, SEXP x_robj)
+{
+  void *x = getRptr(x_robj);
+  APPLY_TEMPLATED_FUNCTION(type, invert, x);
+  
+  return R_NilValue;
+}

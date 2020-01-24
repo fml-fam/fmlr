@@ -221,7 +221,7 @@ linalg_xpose = function(x, ret=NULL)
 #' 
 #' LU factorization. The factorization occurs in-place.
 #' 
-#' @param x Input data.
+#' @param x Input data, overwritten by its LU factorization.
 #' @return Returns `NULL`.
 #' 
 #' @rdname linalg-lu
@@ -346,5 +346,32 @@ linalg_eigen_sym = function(x, values, vectors=NULL)
   else
     .Call(CFUN, x$get_type(), x$data_ptr(), values$data_ptr(), vectors$data_ptr())
   
+  invisible(NULL)
+}
+
+
+
+#' invert
+#' 
+#' Invert a matrix.
+#' 
+#' @param x Input data, overwritten by the inverse.
+#' @return Returns `NULL`.
+#' 
+#' @rdname linalg-invert
+#' @name invert
+#' @useDynLib fmlr R_cpumat_linalg_invert
+#' @useDynLib fmlr R_gpumat_linalg_invert
+#' @useDynLib fmlr R_mpimat_linalg_invert
+#' 
+#' @export
+linalg_invert = function(x)
+{
+  d = x$dim()
+  if (d[1] != d[2])
+    stop("'x' must be square")
+  
+  CFUN = get_cfun("invert", x)
+  .Call(CFUN, x$get_type(), x$data_ptr())
   invisible(NULL)
 }

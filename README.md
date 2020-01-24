@@ -97,6 +97,8 @@ Linear algebra API
 | `linalg_trace` | Computes the sum of the diagonal. |
 | `linalg_svd` | Computes the SVD. |
 | `linalg_eigen_sym` | Computes the eigenvalues/eigenvectors. |
+| `linalg_invert` | Computes the matrix inverse. |
+
 
 
 
