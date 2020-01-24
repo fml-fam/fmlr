@@ -8,7 +8,7 @@
 linalg_lu(x)
 }
 \arguments{
-\item{x}{Input data.}
+\item{x}{Input data, overwritten by its LU factorization.}
 }
 \value{
 Returns `NULL`.

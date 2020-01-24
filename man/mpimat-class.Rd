@@ -32,6 +32,8 @@ Data is held in an external pointer.
 \item \href{#method-rev_cols}{\code{mpimatR6$rev_cols()}}
 \item \href{#method-get}{\code{mpimatR6$get()}}
 \item \href{#method-set}{\code{mpimatR6$set()}}
+\item \href{#method-get_row}{\code{mpimatR6$get_row()}}
+\item \href{#method-get_col}{\code{mpimatR6$get_col()}}
 \item \href{#method-dim}{\code{mpimatR6$dim()}}
 \item \href{#method-nrows}{\code{mpimatR6$nrows()}}
 \item \href{#method-ncols}{\code{mpimatR6$ncols()}}
@@ -395,6 +397,48 @@ Get element from the matrix.
 }
 \subsection{Details}{
 Set element of the matrix.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_row"></a>}}
+\subsection{Method \code{get_row()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$get_row(i, v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{i}}{Index (0-based).}
+
+\item{\code{v}}{A cpuvec object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get the specified row.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_col"></a>}}
+\subsection{Method \code{get_col()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$get_col(j, v)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{j}}{Index (0-based).}
+
+\item{\code{v}}{A cpuvec object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get the specified column.
 }
 
 }
