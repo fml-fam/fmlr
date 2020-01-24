@@ -55,9 +55,7 @@ If you build the package without GPU support, then the various GPU functions won
 
 ## API
 
-The API does not try to integrate into the existing R matrix API
-
-CPU types
+CPU types and constructors
 
 | Function | Use |
 |----------|-----|
@@ -66,7 +64,7 @@ CPU types
 | `cpuvec` | CPU vector constructor. |
 | `cpuvecR6` | The R6 class. Contains the method documentation via `?cpuvecR6`. |
 
-GPU types
+GPU types and constructors
 
 | Function | Use |
 |----------|-----|
@@ -76,7 +74,7 @@ GPU types
 | `gpuvec` | GPU vector constructor. |
 | `gpuvecR6` | The R6 class. Contains the method documentation via `?gpuvecR6`. |
 
-MPI types
+MPI types and constructors
 
 | Function | Use |
 |----------|-----|
@@ -112,9 +110,11 @@ Function | Use |
 
 
 
-## Example
+## Example and Basic Usage
 
-Most operations occur via side effects. Some of the linear algebra functions can return objects as a matter of convenience, but generally you will need to initialize an object and apply functions/methods to it. This has performance advantages, but is very different from how things normally work in R.
+Most operations occur via side effects. Some of the linear algebra functions can return objects as a matter of convenience, but generally you will need to initialize an object and apply functions/methods to it. This can have performance advantages (primarily in avoiding copies), but is very different from how things normally work in R.
+
+Here's how we might compute the singular values of a matrix, for example:
 
 ```r
 suppressMessages(library(fmlr))
@@ -141,11 +141,7 @@ s$to_robj()
 ## [1] 9.5080320 0.7728696
 ```
 
-Notice that we had to initialize the return before passing it to the svd function. Also the data in the input `x` is destroyed on exit. If you want to preserve it, you would need to manually copy it.
-
-
-
-## Copying Objects
+Notice that we had to initialize the return before passing it to the svd function. Also the data in the input `x` is overwritten. If you want to preserve it, you would need to manually copy it before calling `linalg_svd()`.
 
 Assignment via `<-` or `=` (or `->` for the weirdos) will only produce a "shallow copy". It will not duplicate the data in memory:
 
@@ -209,7 +205,7 @@ x
 ## 0.0000 0.0000 3.0000 
 ```
 
-For GPU objects, we need to first have a `card` object. This manages some internal data. It is tied to a specific GPU (by ordinal ID), and you only need one object per GPU (not per GPU matrix/vector). You will need to pass this object to the `gpuvec()` and `gpumat()` constructors.
+For GPU objects, we need to first have a `card` object. This manages some internal GPU data. It is tied to a specific GPU (by ordinal ID), and you only need one object per GPU (not per GPU matrix/vector). You will need to pass this object to the `gpuvec()` and `gpumat()` constructors.
 
 ```r
 library(fmlr)
@@ -231,7 +227,7 @@ x
 ## 0.0000 0.0000 3.0000 
 ```
 
-Using MPI objects is a little different from the others. We can't use them interactively and get parallelism at the same time. If you want to better understand this programming model, called SPMD, then I recommend [this tutorial](https://github.com/RBigData/tutorials/blob/master/content/pbdR/mpi.md).
+Using MPI objects is a little different from the others. We can't use them interactively and get parallelism at the same time. If you want to better understand this programming model, called SPMD, then I recommend reading [this tutorial](https://github.com/RBigData/tutorials/blob/master/content/pbdR/mpi.md).
 
 Like with GPU objects, we have something extra to carry around. Here, it's a special MPI grid. You can have different grids, but this is pretty advanced, so we won't cover that here. We'll just use one grid with the default arguments. We also have to specify a blocking factor. Choosing good values for this is beyond the scope of this example. We use a 1x1 blocking to make sure that all processes own some of the data.
 
