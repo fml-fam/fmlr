@@ -270,6 +270,75 @@ We should see the same output if we run the script with one rank via `Rscript mp
 
 
 
+## Using R Data with fmlr
+
+You can use matrix data from R with fmlr with relative ease. Here's a basic example:
+
+```r
+library(fmlr)
+
+set.seed(1234)
+x = matrix(rnorm(6), 3, 2)
+x
+##             [,1]       [,2]
+## [1,] -0.03265408 -1.3353305
+## [2,]  0.18148978  0.1630308
+## [3,] -1.49135409 -0.0402416
+
+x_cpu = as_cpumat(x, copy=FALSE)
+x_cpu$info()
+## # cpumat 3x2 type=d
+
+c = card()
+x_gpu = gpumat(c)
+x_gpu = gpumat(c, type="float")
+cpu2gpu(x_cpu, x_gpu)
+x_gpu$info()
+## # gpumat 3x2 type=f 
+x_gpu
+## -0.0327 -1.3353 
+## 0.1815 0.1630 
+## -1.4914 -0.0402 
+```
+
+This is fairly straightforward, but it is worth unpacking it in detail. First, we create an fmlr-compatible version of the input data with `as_cpumat()`. However, using it with `copy=FALSE` does not produce a copy the data. The class object merely inherits the same pointer that R is using. Be careful doing this because it can produce surprising results if you are not careful:
+
+```r
+x_cpu$fill_zero()
+x
+##      [,1] [,2]
+## [1,]    0    0
+## [2,]    0    0
+## [3,]    0    0
+```
+
+Next we initialize a skeleton for a GPU matrix by first initializing the card and then calling the constructor `gpumat()`. This only initializes the object and does not yet allocate any data on the GPU. The object is automatically resized in `cpu2gpu()`.
+
+Note that the objects are actually of different fundamental type. The data we inherit from R is `double`, while the data on the GPU is `float`.
+
+We can then perform some operations on the GPU data with the fmlr interface. For a real problem, you would probably want one of the linalg functions, but for simplicity we'll just call a simple filler and convert back to CPU:
+
+```r
+x_gpu$fill_eye()
+
+gpu2cpu(x_gpu, x_cpu)
+x
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
+## [3,]    0    0
+```
+
+If `x` and `x_cpu` had used different memory, we could have copied back via:
+
+```r
+x = x_cpu$to_robj()
+```
+
+
+
 ## fml from C++
 
 A copy of the core fml library is included in `inst/include/fml` of the package source, which will be in `include/fml` of the installed package. If you wish to link with fml, you can add `LinkingTo: fml` to your package DESCRIPTION file.
+
+Before you write your own C++ code using fml, you should check the [fml API stability](https://github.com/wrathematics/fml#api-stability) progress, as some things may be subject to change.
