@@ -291,6 +291,18 @@ extern "C" SEXP R_gpumat_set(SEXP type, SEXP x_robj, SEXP i, SEXP j, SEXP v)
   WARN_AND_RETURN;
 }
 
+extern "C" SEXP R_gpumat_get_row(SEXP type, SEXP x_robj, SEXP i, SEXP v_robj)
+{
+  unused(type, x_robj, i, v_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_get_col(SEXP type, SEXP x_robj, SEXP j, SEXP v_robj)
+{
+  unused(type, x_robj, j, v_robj);
+  WARN_AND_RETURN;
+}
+
 extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
 {
   unused(type, x_robj);

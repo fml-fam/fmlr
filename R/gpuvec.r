@@ -173,7 +173,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     get = function(i)
     {
       i = as.integer(i)
-      check_indices(i, 0, self$size(), 1)
+      check_index(i, self$size())
       
       .Call(R_gpuvec_get, private$type, private$x_ptr, i)
     },
@@ -189,7 +189,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     {
       i = as.integer(i)
       v = as.double(v)
-      check_indices(i, 0, self$size(), 1)
+      check_index(i, self$size())
       
       .Call(R_gpuvec_set, private$type, private$x_ptr, i, v)
       invisible(self)

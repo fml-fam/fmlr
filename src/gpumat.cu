@@ -318,6 +318,48 @@ extern "C" SEXP R_gpumat_set(SEXP type, SEXP x_robj, SEXP i, SEXP j, SEXP v)
 
 
 
+extern "C" SEXP R_gpumat_get_row(SEXP type, SEXP x_robj, SEXP i, SEXP v_robj)
+{
+  #define FMLR_TMP_GET_ROW(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    gpuvec<type> *v = (gpuvec<type>*) getRptr(v_robj); \
+    x->get_row(INT(i), *v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_GET_ROW(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_GET_ROW(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_GET_ROW(int)
+  
+  #undef FMLR_TMP_GET_ROW
+  
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_gpumat_get_col(SEXP type, SEXP x_robj, SEXP j, SEXP v_robj)
+{
+  #define FMLR_TMP_GET_COL(type) { \
+    gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+    gpuvec<type> *v = (gpuvec<type>*) getRptr(v_robj); \
+    x->get_col(INT(j), *v); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_GET_COL(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_GET_COL(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_GET_COL(int)
+  
+  #undef FMLR_TMP_GET_COL
+  
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
 {
   SEXP ret;

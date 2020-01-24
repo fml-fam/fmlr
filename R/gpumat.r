@@ -323,6 +323,50 @@ gpumatR6 = R6::R6Class("gpumat",
     
     
     #' @details
+    #' Get the specified row.
+    #' @param i Index (0-based).
+    #' @param v A gpuvec object.
+    #' @useDynLib fmlr R_gpumat_get_row
+    get_row = function(i, v)
+    {
+      if (!is_gpuvec(v))
+        stop("'v' must be a gpuvec object")
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      i = as.integer(i)
+      check_index(i, self$nrows())
+      
+      .Call(R_gpumat_get_row, private$type, private$x_ptr, i, v$data_ptr())
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
+    #' Get the specified column.
+    #' @param j Index (0-based).
+    #' @param v A gpuvec object.
+    #' @useDynLib fmlr R_gpumat_get_col
+    get_col = function(j, v)
+    {
+      if (!is_cpuvec(v))
+        stop("'v' must be a gpuvec object")
+      
+      if (private$type != v$get_type())
+        stop("type mis-match between matrix and vector")
+      
+      j = as.integer(j)
+      check_index(j, self$ncols())
+      
+      .Call(R_gpumat_get_col, private$type, private$x_ptr, j, v$data_ptr())
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
     #' Returns number of rows and columns of the matrix.
     #' @useDynLib fmlr R_gpumat_dim
     dim = function() .Call(R_gpumat_dim, private$type, private$x_ptr),

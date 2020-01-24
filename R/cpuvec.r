@@ -170,7 +170,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     get = function(i)
     {
       i = as.integer(i)
-      check_indices(i, 0, self$size(), 1)
+      check_index(i, self$size())
       
       .Call(R_cpuvec_get, private$type, private$x_ptr, i)
     },
@@ -186,7 +186,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
     {
       i = as.integer(i)
       v = as.double(v)
-      check_indices(i, 0, self$size(), 1)
+      check_index(i, self$size())
       
       .Call(R_cpuvec_set, private$type, private$x_ptr, i, v)
       invisible(self)
