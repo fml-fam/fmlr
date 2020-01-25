@@ -18,8 +18,8 @@ cpumatR6 = R6::R6Class("cpumat",
     {
       type = match.arg(tolower(type), TYPES_STR)
       
-      nrows = as.integer(nrows)
-      ncols = as.integer(ncols)
+      nrows = check_is_natnum(nrows)
+      ncols = check_is_natnum(ncols)
       
       private$type_str = type
       private$type = type_str2int(type)
@@ -34,8 +34,8 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_resize
     resize = function(nrows, ncols)
     {
-      nrows = as.integer(nrows)
-      ncols = as.integer(ncols)
+      nrows = check_is_natnum(nrows)
+      ncols = check_is_natnum(ncols)
       
       .Call(R_cpumat_resize, private$type, private$x_ptr, nrows, ncols)
       invisible(self)
@@ -118,7 +118,7 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_fill_val
     fill_val = function(v)
     {
-      v = as.double(v)
+      v = check_is_number(v)
       
       .Call(R_cpumat_fill_val, private$type, private$x_ptr, v)
       invisible(self)
@@ -132,8 +132,8 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_fill_linspace
     fill_linspace = function(start, stop)
     {
-      start = as.double(start)
-      stop = as.double(stop)
+      start = check_is_number(start)
+      stop = check_is_number(stop)
       
       .Call(R_cpumat_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
@@ -163,8 +163,7 @@ cpumatR6 = R6::R6Class("cpumat",
       if (!is_cpuvec(v))
         v = as_cpuvec(v, copy=FALSE)
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_cpumat_fill_diag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -181,11 +180,10 @@ cpumatR6 = R6::R6Class("cpumat",
     {
       if (missing(seed))
         seed = -1L
-      else
-        seed = as.integer(seed)
       
-      min = as.double(min)
-      max = as.double(max)
+      seed = check_is_integer(seed)
+      min = check_is_number(min)
+      max = check_is_number(max)
       
       .Call(R_cpumat_fill_runif, private$type, private$x_ptr, seed, min, max)
       invisible(self)
@@ -202,11 +200,10 @@ cpumatR6 = R6::R6Class("cpumat",
     {
       if (missing(seed))
         seed = -1L
-      else
-        seed = as.integer(seed)
       
-      mean = as.double(mean)
-      sd = as.double(sd)
+      seed = check_is_integer(seed)
+      mean = check_is_number(mean)
+      sd = check_is_number(sd)
       
       .Call(R_cpumat_fill_rnorm, private$type, private$x_ptr, seed, mean, sd)
       invisible(self)
@@ -223,8 +220,7 @@ cpumatR6 = R6::R6Class("cpumat",
       if (!is_cpuvec(v))
         stop("'v' must be a cpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_cpumat_diag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -241,8 +237,7 @@ cpumatR6 = R6::R6Class("cpumat",
       if (!is_cpuvec(v))
         stop("'v' must be a cpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_cpumat_antidiag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -256,7 +251,7 @@ cpumatR6 = R6::R6Class("cpumat",
     #' @useDynLib fmlr R_cpumat_scale
     scale = function(s)
     {
-      s = as.double(s)
+      s = check_is_number(s)
       
       .Call(R_cpumat_scale, private$type, private$x_ptr, s)
       invisible(self)
@@ -329,8 +324,7 @@ cpumatR6 = R6::R6Class("cpumat",
       if (!is_cpuvec(v))
         stop("'v' must be a cpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       i = as.integer(i)
       check_index(i, self$nrows())
@@ -351,8 +345,7 @@ cpumatR6 = R6::R6Class("cpumat",
       if (!is_cpuvec(v))
         stop("'v' must be a cpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       j = as.integer(j)
       check_index(j, self$ncols())

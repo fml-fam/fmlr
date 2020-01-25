@@ -21,8 +21,8 @@ mpimatR6 = R6::R6Class("mpimat",
       type = match.arg(tolower(type), TYPES_STR)
       check_is_grid(grid)
       
-      nrows = as.integer(nrows)
-      ncols = as.integer(ncols)
+      nrows = check_is_natnum(nrows)
+      ncols = check_is_natnum(ncols)
       
       bf_rows = as.integer(bf_rows)
       bf_cols = as.integer(bf_cols)
@@ -41,8 +41,8 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_resize
     resize = function(nrows, ncols)
     {
-      nrows = as.integer(nrows)
-      ncols = as.integer(ncols)
+      nrows = check_is_natnum(nrows)
+      ncols = check_is_natnum(ncols)
       
       .Call(R_mpimat_resize, private$type, private$x_ptr, nrows, ncols)
       invisible(self)
@@ -125,7 +125,7 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_fill_val
     fill_val = function(v)
     {
-      v = as.double(v)
+      v = check_is_number(v)
       
       .Call(R_mpimat_fill_val, private$type, private$x_ptr, v)
       invisible(self)
@@ -139,8 +139,8 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_fill_linspace
     fill_linspace = function(start, stop)
     {
-      start = as.double(start)
-      stop = as.double(stop)
+      start = check_is_number(start)
+      stop = check_is_number(stop)
       
       .Call(R_mpimat_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
@@ -170,8 +170,7 @@ mpimatR6 = R6::R6Class("mpimat",
       if (!is_cpuvec(v))
         v = as_cpuvec(v, copy=FALSE)
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_mpimat_fill_diag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -188,11 +187,10 @@ mpimatR6 = R6::R6Class("mpimat",
     {
       if (missing(seed))
         seed = -1L
-      else
-        seed = as.integer(seed)
       
-      min = as.double(min)
-      max = as.double(max)
+      seed = check_is_integer(seed)
+      min = check_is_number(min)
+      max = check_is_number(max)
       
       .Call(R_mpimat_fill_runif, private$type, private$x_ptr, seed, min, max)
       invisible(self)
@@ -209,13 +207,12 @@ mpimatR6 = R6::R6Class("mpimat",
     {
       if (missing(seed))
         seed = -1L
-      else
-        seed = as.integer(seed)
       
-      min = as.double(min)
-      max = as.double(max)
+      seed = check_is_integer(seed)
+      mean = check_is_number(mean)
+      sd = check_is_number(sd)
       
-      .Call(R_mpimat_fill_rnorm, private$type, private$x_ptr, seed, min, max)
+      .Call(R_mpimat_fill_rnorm, private$type, private$x_ptr, seed, mean, sd)
       invisible(self)
     },
     
@@ -230,8 +227,7 @@ mpimatR6 = R6::R6Class("mpimat",
       if (!is_cpuvec(v))
         stop("'v' must be a cpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_mpimat_diag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -248,8 +244,7 @@ mpimatR6 = R6::R6Class("mpimat",
       if (!is_cpuvec(v))
         stop("'v' must be a cpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_mpimat_antidiag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -263,7 +258,7 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_scale
     scale = function(s)
     {
-      s = as.double(s)
+      s = check_is_number(s)
       
       .Call(R_mpimat_scale, private$type, private$x_ptr, s)
       invisible(self)
@@ -336,8 +331,7 @@ mpimatR6 = R6::R6Class("mpimat",
       if (!is_cpuvec(v))
         stop("'v' must be a cpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       i = as.integer(i)
       check_index(i, self$nrows())
@@ -358,8 +352,7 @@ mpimatR6 = R6::R6Class("mpimat",
       if (!is_cpuvec(v))
         stop("'v' must be a cpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       j = as.integer(j)
       check_index(j, self$ncols())

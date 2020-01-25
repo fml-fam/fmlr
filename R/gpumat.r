@@ -20,8 +20,8 @@ gpumatR6 = R6::R6Class("gpumat",
       type = match.arg(tolower(type), TYPES_STR)
       check_is_card(card)
       
-      nrows = as.integer(nrows)
-      ncols = as.integer(ncols)
+      nrows = check_is_natnum(nrows)
+      ncols = check_is_natnum(ncols)
       
       private$card = card
       private$type_str = type
@@ -37,8 +37,8 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_resize
     resize = function(nrows, ncols)
     {
-      nrows = as.integer(nrows)
-      ncols = as.integer(ncols)
+      nrows = check_is_natnum(nrows)
+      ncols = check_is_natnum(ncols)
       
       .Call(R_gpumat_resize, private$type, private$x_ptr, nrows, ncols)
       invisible(self)
@@ -121,7 +121,7 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_fill_val
     fill_val = function(v)
     {
-      v = as.double(v)
+      v = check_is_number(v)
       
       .Call(R_gpumat_fill_val, private$type, private$x_ptr, v)
       invisible(self)
@@ -135,8 +135,8 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_fill_linspace
     fill_linspace = function(start, stop)
     {
-      start = as.double(start)
-      stop = as.double(stop)
+      start = check_is_number(start)
+      stop = check_is_number(stop)
       
       .Call(R_gpumat_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
@@ -166,8 +166,7 @@ gpumatR6 = R6::R6Class("gpumat",
       if (!is_gpuvec(v))
         v = as_gpuvec(v, copy=FALSE)
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_gpumat_fill_diag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -184,11 +183,10 @@ gpumatR6 = R6::R6Class("gpumat",
     {
       if (missing(seed))
         seed = -1L
-      else
-        seed = as.integer(seed)
       
-      min = as.double(min)
-      max = as.double(max)
+      seed = check_is_integer(seed)
+      min = check_is_number(min)
+      max = check_is_number(max)
       
       .Call(R_gpumat_fill_runif, private$type, private$x_ptr, seed, min, max)
       invisible(self)
@@ -205,13 +203,12 @@ gpumatR6 = R6::R6Class("gpumat",
     {
       if (missing(seed))
         seed = -1L
-      else
-        seed = as.integer(seed)
       
-      min = as.double(min)
-      max = as.double(max)
+      seed = check_is_integer(seed)
+      mean = check_is_number(mean)
+      sd = check_is_number(sd)
       
-      .Call(R_gpumat_fill_rnorm, private$type, private$x_ptr, seed, min, max)
+      .Call(R_gpumat_fill_rnorm, private$type, private$x_ptr, seed, mean, sd)
       invisible(self)
     },
     
@@ -226,8 +223,7 @@ gpumatR6 = R6::R6Class("gpumat",
       if (!is_gpuvec(v))
         stop("'v' must be a gpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_gpumat_diag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -244,8 +240,7 @@ gpumatR6 = R6::R6Class("gpumat",
       if (!is_gpuvec(v))
         stop("'v' must be a gpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       .Call(R_gpumat_antidiag, private$type, private$x_ptr, v$data_ptr())
       invisible(self)
@@ -259,7 +254,7 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_scale
     scale = function(s)
     {
-      s = as.double(s)
+      s = check_is_number(s)
       
       .Call(R_gpumat_scale, private$type, private$x_ptr, s)
       invisible(self)
@@ -332,8 +327,7 @@ gpumatR6 = R6::R6Class("gpumat",
       if (!is_gpuvec(v))
         stop("'v' must be a gpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       i = as.integer(i)
       check_index(i, self$nrows())
@@ -354,8 +348,7 @@ gpumatR6 = R6::R6Class("gpumat",
       if (!is_cpuvec(v))
         stop("'v' must be a gpuvec object")
       
-      if (private$type != v$get_type())
-        stop("type mis-match between matrix and vector")
+      check_type_consistency(self, v)
       
       j = as.integer(j)
       check_index(j, self$ncols())
