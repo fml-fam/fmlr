@@ -7,6 +7,8 @@
 gpuvec(card, size = 0, type = "double")
 }
 \arguments{
+\item{card}{A GPU card object; the return of \code{card()}. See \code{?card}.}
+
 \item{size}{Length of the vector.}
 
 \item{type}{Storage type for the vector. Should be one of 'int', 'float', or 'double'.}

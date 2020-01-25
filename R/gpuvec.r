@@ -283,6 +283,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
 #' @details
 #' Data is held in an external pointer.
 #' 
+#' @param card A GPU card object; the return of \code{card()}. See \code{?card}.
 #' @param size Length of the vector.
 #' @param type Storage type for the vector. Should be one of 'int', 'float', or 'double'.
 #' @return A gpuvec class object.

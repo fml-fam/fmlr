@@ -104,7 +104,7 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
 #' @return Returns the matrix product.
 #' 
 #' @rdname linalg-matmult
-#' @name add
+#' @name matmult
 #' 
 #' @useDynLib fmlr R_cpumat_linalg_matmult
 #' @useDynLib fmlr R_gpumat_linalg_matmult

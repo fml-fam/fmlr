@@ -492,6 +492,7 @@ mpimat = function(grid, nrows=0, ncols=0, bf_rows=16, bf_cols=16, type="double")
 #' 
 #' Convert an R matrix to a mpimat object.
 #' 
+#' @param grid An MPI grid object; the return of \code{grid()}. See \code{?grid}.
 #' @param x R matrix.
 #' @param copy Should the R data be copied? If \code{FALSE}, be careful!
 #' @return A mpimat object.

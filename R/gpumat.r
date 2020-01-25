@@ -457,6 +457,7 @@ gpumat = function(card, nrows=0, ncols=0, type="double")
 #' 
 #' Convert an R matrix to a gpumat object.
 #' 
+#' @param card A GPU card object; the return of \code{card()}. See \code{?card}.
 #' @param x R matrix.
 #' @param copy Should the R data be copied? If \code{FALSE}, be careful!
 #' @return A gpumat object.

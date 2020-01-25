@@ -7,6 +7,8 @@
 as_mpimat(grid, x, copy = TRUE)
 }
 \arguments{
+\item{grid}{An MPI grid object; the return of \code{grid()}. See \code{?grid}.}
+
 \item{x}{R matrix.}
 
 \item{copy}{Should the R data be copied? If \code{FALSE}, be careful!}

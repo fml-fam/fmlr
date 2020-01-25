@@ -7,6 +7,8 @@
 as_gpumat(card, x, copy = TRUE)
 }
 \arguments{
+\item{card}{A GPU card object; the return of \code{card()}. See \code{?card}.}
+
 \item{x}{R matrix.}
 
 \item{copy}{Should the R data be copied? If \code{FALSE}, be careful!}
