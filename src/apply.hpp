@@ -16,25 +16,25 @@
 #define APPLY_TEMPLATED_METHOD_0(MAT, data_type, x_robj, FUN) \
   if (INT(data_type) == TYPE_DOUBLE){ \
     MAT<double> *x = (MAT<double>*) getRptr(x_robj); \
-    x->FUN(); \
+    TRY_CATCH( x->FUN() ) \
   } else if (INT(data_type) == TYPE_FLOAT){ \
     MAT<float> *x = (MAT<float>*) getRptr(x_robj); \
-    x->FUN(); \
+    TRY_CATCH( x->FUN() ) \
   } else if (INT(data_type) == TYPE_INT){ \
     MAT<int> *x = (MAT<int>*) getRptr(x_robj); \
-    x->FUN(); \
+    TRY_CATCH( x->FUN() ) \
   }
 
 #define APPLY_TEMPLATED_METHOD(MAT, data_type, x_robj, FUN, ...) \
   if (INT(data_type) == TYPE_DOUBLE){ \
     MAT<double> *x = (MAT<double>*) getRptr(x_robj); \
-    x->FUN(__VA_ARGS__); \
+    TRY_CATCH( x->FUN(__VA_ARGS__) ) \
   } else if (INT(data_type) == TYPE_FLOAT){ \
     MAT<float> *x = (MAT<float>*) getRptr(x_robj); \
-    x->FUN(__VA_ARGS__); \
+    TRY_CATCH( x->FUN(__VA_ARGS__) ) \
   } else if (INT(data_type) == TYPE_INT){ \
     MAT<int> *x = (MAT<int>*) getRptr(x_robj); \
-    x->FUN(__VA_ARGS__); \
+    TRY_CATCH( x->FUN(__VA_ARGS__) ) \
   }
 
 
@@ -43,9 +43,9 @@
 
 #define APPLY_TEMPLATED_FUNCTION(data_type, FUN, ...) \
   if (INT(data_type) == TYPE_DOUBLE){ \
-    FUN<double>(__VA_ARGS__); \
+    TRY_CATCH( FUN<double>(__VA_ARGS__) ) \
   } else if (INT(data_type) == TYPE_FLOAT){ \
-    FUN<float>(__VA_ARGS__); \
+    TRY_CATCH( FUN<float>(__VA_ARGS__) ) \
   } else { \
     error(TYPE_ERR); \
   }

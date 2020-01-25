@@ -14,5 +14,7 @@
 #define INTP(x) (INTEGER(x))
 #define DBLP(x) (REAL(x))
 
+#define TRY_CATCH(expr) try { expr; } catch(const std::exception& e) { error(e.what()); }
+
 
 #endif

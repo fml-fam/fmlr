@@ -332,10 +332,6 @@ linalg_svd = function(x, s, u=NULL, vt=NULL)
 #' @export
 linalg_eigen_sym = function(x, values, vectors=NULL)
 {
-  d = x$dim()
-  if (d[1] != d[2])
-    stop("'x' must be square")
-  
   check_type_consistency(x, values)
   if (!is.null(vectors))
     check_inputs(x, vectors)
@@ -367,10 +363,6 @@ linalg_eigen_sym = function(x, values, vectors=NULL)
 #' @export
 linalg_invert = function(x)
 {
-  d = x$dim()
-  if (d[1] != d[2])
-    stop("'x' must be square")
-  
   CFUN = get_cfun("invert", x)
   .Call(CFUN, x$get_type(), x$data_ptr())
   invisible(NULL)

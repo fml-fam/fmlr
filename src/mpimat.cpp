@@ -20,7 +20,7 @@ extern "C" SEXP R_mpimat_init(SEXP type, SEXP g_robj, SEXP m_, SEXP n_, SEXP mb_
   
   #define FMLR_TMP_INIT(type) { \
     mpimat<type> *x = new mpimat<type>(*g, mb, nb); \
-    x->resize(m, n); \
+    TRY_CATCH( x->resize(m, n) ) \
     newRptr(x, ret, fml_object_finalizer<mpimat<type>>); }
   
   if (INT(type) == TYPE_DOUBLE)
@@ -117,7 +117,7 @@ extern "C" SEXP R_mpimat_inherit(SEXP x_robj, SEXP data)
 {
   mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
   // TODO FIXME
-  // x->inherit(REAL(data), LENGTH(data), false);
+  // TRY_CATCH( ->inherit(REAL(data), LENGTH(data), false) )
   return R_NilValue;
 }
 
@@ -345,7 +345,7 @@ extern "C" SEXP R_mpimat_get(SEXP type, SEXP x_robj, SEXP i, SEXP j)
   
   #define FMLR_TMP_GET(type) { \
     mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
-    DBL(ret) = (double) x->get(INT(i), INT(j)); }
+    TRY_CATCH( DBL(ret) = (double) x->get(INT(i), INT(j)) ) }
   
   if (INT(type) == TYPE_DOUBLE)
     FMLR_TMP_GET(double)
@@ -375,7 +375,7 @@ extern "C" SEXP R_mpimat_get_row(SEXP type, SEXP x_robj, SEXP i, SEXP v_robj)
   #define FMLR_TMP_GET_ROW(type) { \
     mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
     cpuvec<type> *v = (cpuvec<type>*) getRptr(v_robj); \
-    x->get_row(INT(i), *v); }
+    TRY_CATCH( x->get_row(INT(i), *v) ) }
   
   if (INT(type) == TYPE_DOUBLE)
     FMLR_TMP_GET_ROW(double)
@@ -396,7 +396,7 @@ extern "C" SEXP R_mpimat_get_col(SEXP type, SEXP x_robj, SEXP j, SEXP v_robj)
   #define FMLR_TMP_GET_COL(type) { \
     mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
     cpuvec<type> *v = (cpuvec<type>*) getRptr(v_robj); \
-    x->get_col(INT(j), *v); }
+    TRY_CATCH( x->get_col(INT(j), *v) ) }
   
   if (INT(type) == TYPE_DOUBLE)
     FMLR_TMP_GET_COL(double)

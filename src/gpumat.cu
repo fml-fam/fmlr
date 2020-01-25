@@ -19,7 +19,7 @@ extern "C" SEXP R_gpumat_init(SEXP type, SEXP c_robj, SEXP m_, SEXP n_)
   
   #define FMLR_TMP_INIT(type) { \
     gpumat<type> *x = new gpumat<type>(*c); \
-    x->resize(m, n); \
+    TRY_CATCH( x->resize(m, n) ) \
     newRptr(x, ret, fml_object_finalizer<gpumat<type>>); }
   
   if (INT(type) == TYPE_DOUBLE)
@@ -66,7 +66,7 @@ extern "C" SEXP R_gpumat_inherit(SEXP x_robj, SEXP data)
 {
   gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
   // TODO FIXME
-  // x->inherit(REAL(data), LENGTH(data), false);
+  // TRY_CATCH( x->inherit(REAL(data), LENGTH(data), false) )
   return R_NilValue;
 }
 
@@ -293,7 +293,7 @@ extern "C" SEXP R_gpumat_get(SEXP type, SEXP x_robj, SEXP i, SEXP j)
   
   #define FMLR_TMP_GET(type) { \
     gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
-    DBL(ret) = (double) x->get(INT(i), INT(j)); }
+    TRY_CATCH( DBL(ret) = (double) x->get(INT(i), INT(j)) ) }
   
   if (INT(type) == TYPE_DOUBLE)
     FMLR_TMP_GET(double)
@@ -323,7 +323,7 @@ extern "C" SEXP R_gpumat_get_row(SEXP type, SEXP x_robj, SEXP i, SEXP v_robj)
   #define FMLR_TMP_GET_ROW(type) { \
     gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
     gpuvec<type> *v = (gpuvec<type>*) getRptr(v_robj); \
-    x->get_row(INT(i), *v); }
+    TRY_CATCH( x->get_row(INT(i), *v) ) }
   
   if (INT(type) == TYPE_DOUBLE)
     FMLR_TMP_GET_ROW(double)
@@ -344,7 +344,7 @@ extern "C" SEXP R_gpumat_get_col(SEXP type, SEXP x_robj, SEXP j, SEXP v_robj)
   #define FMLR_TMP_GET_COL(type) { \
     gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
     gpuvec<type> *v = (gpuvec<type>*) getRptr(v_robj); \
-    x->get_col(INT(j), *v); }
+    TRY_CATCH( x->get_col(INT(j), *v) ) }
   
   if (INT(type) == TYPE_DOUBLE)
     FMLR_TMP_GET_COL(double)
