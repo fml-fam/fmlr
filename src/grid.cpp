@@ -1,3 +1,4 @@
+#define R_USE_C99_IN_CXX
 #define FML_PRINT_R
 
 #include "extptr.h"
