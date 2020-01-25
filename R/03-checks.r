@@ -52,25 +52,6 @@ check_is_grid = function(x)
 
 
 
-check_index = function(i, len)
-{
-  if (length(i) != 1 || is.na(i))
-    stop("bad indices - should be a single integer")
-  
-  if (i < 0 || i >= len)
-    stop("index out of bounds")
-  
-  invisible(TRUE)
-}
-
-check_indices = function(i, j, m, n)
-{
-  check_index(i, m)
-  check_index(j, n)
-}
-
-
-
 # ------------------------------------------------------------------------------
 # reactor
 # ------------------------------------------------------------------------------

@@ -290,9 +290,8 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_get
     get = function(i, j)
     {
-      i = as.integer(i)
-      j = as.integer(j)
-      check_indices(i, j, self$nrows(), self$ncols())
+      i = check_is_natnum(i)
+      j = check_is_natnum(j)
       
       .Call(R_gpumat_get, private$type, private$x_ptr, i, j)
     },
@@ -306,10 +305,9 @@ gpumatR6 = R6::R6Class("gpumat",
     #' @useDynLib fmlr R_gpumat_set
     set = function(i, j, v)
     {
-      i = as.integer(i)
-      j = as.integer(j)
-      v = as.double(v)
-      check_indices(i, j, self$nrows(), self$ncols())
+      i = check_is_natnum(i)
+      j = check_is_natnum(j)
+      v = check_is_number(v)
       
       .Call(R_gpumat_set, private$type, private$x_ptr, i, j, v)
       invisible(self)
@@ -329,8 +327,7 @@ gpumatR6 = R6::R6Class("gpumat",
       
       check_type_consistency(self, v)
       
-      i = as.integer(i)
-      check_index(i, self$nrows())
+      i = check_is_natnum(i)
       
       .Call(R_gpumat_get_row, private$type, private$x_ptr, i, v$data_ptr())
       invisible(self)
@@ -350,8 +347,7 @@ gpumatR6 = R6::R6Class("gpumat",
       
       check_type_consistency(self, v)
       
-      j = as.integer(j)
-      check_index(j, self$ncols())
+      j = check_is_natnum(j)
       
       .Call(R_gpumat_get_col, private$type, private$x_ptr, j, v$data_ptr())
       invisible(self)
