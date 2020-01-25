@@ -167,6 +167,30 @@ extern "C" SEXP R_gpuvec_rev(SEXP type, SEXP x_robj)
 
 
 
+extern "C" SEXP R_gpuvec_sum(SEXP type, SEXP x_robj)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_SUM(type){ \
+    gpuvec<type> *x = (gpuvec<type>*) getRptr(x_robj); \
+    REAL(ret)[0] = (double) x->sum(); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_SUM(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_SUM(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_SUM(int)
+  
+  #undef FMLR_TMP_SUM
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
 extern "C" SEXP R_gpuvec_get(SEXP type, SEXP x_robj, SEXP i)
 {
   SEXP ret;

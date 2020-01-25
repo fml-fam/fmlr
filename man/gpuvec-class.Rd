@@ -24,6 +24,7 @@ Data is held in an external pointer.
 \item \href{#method-fill_linspace}{\code{gpuvecR6$fill_linspace()}}
 \item \href{#method-scale}{\code{gpuvecR6$scale()}}
 \item \href{#method-rev}{\code{gpuvecR6$rev()}}
+\item \href{#method-sum}{\code{gpuvecR6$sum()}}
 \item \href{#method-get}{\code{gpuvecR6$get()}}
 \item \href{#method-set}{\code{gpuvecR6$set()}}
 \item \href{#method-size}{\code{gpuvecR6$size()}}
@@ -221,6 +222,21 @@ Scale all entries by the supplied value.
 Reverse rows.
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-sum"></a>}}
+\subsection{Method \code{sum()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$sum()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Sum the vector.
+}
+
+\subsection{Returns}{
+Returns the sum.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get"></a>}}

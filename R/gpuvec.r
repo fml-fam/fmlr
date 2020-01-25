@@ -167,6 +167,17 @@ gpuvecR6 = R6::R6Class("gpuvec",
     
     
     #' @details
+    #' Sum the vector.
+    #' @return Returns the sum.
+    #' @useDynLib fmlr R_gpuvec_sum
+    sum = function()
+    {
+      .Call(R_gpuvec_sum, private$type, private$x_ptr)
+    },
+    
+    
+    
+    #' @details
     #' Get element from the vector.
     #' @param i Index (0-based).
     #' @useDynLib fmlr R_gpuvec_get

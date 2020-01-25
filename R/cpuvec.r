@@ -164,6 +164,17 @@ cpuvecR6 = R6::R6Class("cpuvec",
     
     
     #' @details
+    #' Sum the vector.
+    #' @return Returns the sum.
+    #' @useDynLib fmlr R_cpuvec_sum
+    sum = function()
+    {
+      .Call(R_cpuvec_sum, private$type, private$x_ptr)
+    },
+    
+    
+    
+    #' @details
     #' Get element from the vector.
     #' @param i Index (0-based).
     #' @useDynLib fmlr R_cpuvec_get
