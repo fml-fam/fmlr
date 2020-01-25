@@ -96,6 +96,7 @@ Linear algebra API
 | `linalg_svd` | Computes the SVD. |
 | `linalg_eigen_sym` | Computes the eigenvalues/eigenvectors. |
 | `linalg_invert` | Computes the matrix inverse. |
+| `linalg_solve` | Solve a system of equations. |
 
 Helper/converter functions
 
@@ -311,6 +312,8 @@ x
 ## [2,]    0    0
 ## [3,]    0    0
 ```
+
+Also, **do not allow a realloc to trigger on the inherited pointer**.
 
 Next we initialize a skeleton for a GPU matrix by first initializing the card and then calling the constructor `gpumat()`. This only initializes the object and does not yet allocate any data on the GPU. The object is automatically resized in `cpu2gpu()`.
 
