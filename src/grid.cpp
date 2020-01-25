@@ -1,3 +1,5 @@
+#define FML_PRINT_R
+
 #include "extptr.h"
 #include "rutils.h"
 

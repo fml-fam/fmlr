@@ -1,3 +1,5 @@
+#define FML_PRINT_R
+
 #include "apply.hpp"
 #include "extptr.h"
 #include "types.h"
