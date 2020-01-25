@@ -3,6 +3,7 @@
 #' Interface to the fml library.
 #' 
 #' @import pbdMPI
+#' @import pbdSLAP
 #' @importFrom float fl
 #' @importFrom R6 R6Class
 #' 
