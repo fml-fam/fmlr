@@ -15,7 +15,6 @@ Data is held in an external pointer.
 \itemize{
 \item \href{#method-new}{\code{mpimatR6$new()}}
 \item \href{#method-resize}{\code{mpimatR6$resize()}}
-\item \href{#method-inherit}{\code{mpimatR6$inherit()}}
 \item \href{#method-dupe}{\code{mpimatR6$dupe()}}
 \item \href{#method-info}{\code{mpimatR6$info()}}
 \item \href{#method-print}{\code{mpimatR6$print()}}
@@ -100,26 +99,6 @@ Class initializer. See also \code{?mpimat}.
 }
 \subsection{Details}{
 Change the dimension of the matrix object.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-inherit"></a>}}
-\subsection{Method \code{inherit()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$inherit(data)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{R matrix.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Set the data in the mpimat object to point to the array in 'data'. See
-also \code{?as_mpimat}.
 }
 
 }

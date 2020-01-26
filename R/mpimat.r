@@ -51,22 +51,6 @@ mpimatR6 = R6::R6Class("mpimat",
     
     
     #' @details
-    #' Set the data in the mpimat object to point to the array in 'data'. See
-    #' also \code{?as_mpimat}.
-    #' @param data R matrix.
-    #' @useDynLib fmlr R_mpimat_inherit
-    inherit = function(data)
-    {
-      if (!is.double(data))
-        storage.mode(data) = "double"
-      
-      .Call(R_mpimat_inherit, private$x_ptr, data)
-      invisible(self)
-    },
-    
-    
-    
-    #' @details
     #' Duplicate the matrix in a deep copy.
     #' @useDynLib fmlr R_mpimat_dupe
     dupe = function()
@@ -490,22 +474,17 @@ mpimat = function(grid, nrows=0, ncols=0, bf_rows=16, bf_cols=16, type="double")
 
 #' as_mpimat
 #' 
-#' Convert an R matrix to a mpimat object.
+#' Convert an R matrix to an mpimat object.
 #' 
 #' @param grid An MPI grid object; the return of \code{grid()}. See \code{?grid}.
 #' @param x R matrix.
-#' @param copy Should the R data be copied? If \code{FALSE}, be careful!
-#' @return A mpimat object.
+#' @param bf_rows,bf_cols The blocking factor.
+#' @return An mpimat object.
 #' 
 #' @export
-as_mpimat = function(grid, x, copy=TRUE)
+as_mpimat = function(grid, x, bf_rows=16, bf_cols=16)
 {
-  ret = mpimat(grid)
-  
-  if (isTRUE(copy))
-    ret$from_robj(x)
-  else
-    ret$inherit(x)
-  
+  ret = mpimat(grid, bf_rows=bf_rows, bf_cols=bf_cols)
+  ret$from_robj(x)
   ret
 }

@@ -83,7 +83,6 @@ extern SEXP R_gpumat_get_row(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_gpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_gpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_info(SEXP, SEXP);
-extern SEXP R_gpumat_inherit(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_init(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -112,7 +111,6 @@ extern SEXP R_gpuvec_get(SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_gpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_gpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_info(SEXP, SEXP);
-extern SEXP R_gpuvec_inherit(SEXP, SEXP);
 extern SEXP R_gpuvec_init(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_print(SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_resize(SEXP, SEXP, SEXP);
@@ -154,7 +152,6 @@ extern SEXP R_mpimat_get(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_get_col(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_get_row(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_info(SEXP, SEXP);
-extern SEXP R_mpimat_inherit(SEXP, SEXP);
 extern SEXP R_mpimat_init(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_ldim(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -255,7 +252,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpumat_gpu2cpu",          (DL_FUNC) &R_gpumat_gpu2cpu,          4},
   {"R_gpumat_gpu2gpu",          (DL_FUNC) &R_gpumat_gpu2gpu,          4},
   {"R_gpumat_info",             (DL_FUNC) &R_gpumat_info,             2},
-  {"R_gpumat_inherit",          (DL_FUNC) &R_gpumat_inherit,          3},
   {"R_gpumat_init",             (DL_FUNC) &R_gpumat_init,             5},
   {"R_gpumat_linalg_add",       (DL_FUNC) &R_gpumat_linalg_add,       8},
   {"R_gpumat_linalg_crossprod", (DL_FUNC) &R_gpumat_linalg_crossprod, 5},
@@ -284,7 +280,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpuvec_gpu2cpu",          (DL_FUNC) &R_gpuvec_gpu2cpu,          4},
   {"R_gpuvec_gpu2gpu",          (DL_FUNC) &R_gpuvec_gpu2gpu,          4},
   {"R_gpuvec_info",             (DL_FUNC) &R_gpuvec_info,             2},
-  {"R_gpuvec_inherit",          (DL_FUNC) &R_gpuvec_inherit,          2},
   {"R_gpuvec_init",             (DL_FUNC) &R_gpuvec_init,             4},
   {"R_gpuvec_print",            (DL_FUNC) &R_gpuvec_print,            3},
   {"R_gpuvec_resize",           (DL_FUNC) &R_gpuvec_resize,           3},
@@ -326,7 +321,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_get_col",          (DL_FUNC) &R_mpimat_get_col,          4},
   {"R_mpimat_get_row",          (DL_FUNC) &R_mpimat_get_row,          4},
   {"R_mpimat_info",             (DL_FUNC) &R_mpimat_info,             2},
-  {"R_mpimat_inherit",          (DL_FUNC) &R_mpimat_inherit,          2},
   {"R_mpimat_init",             (DL_FUNC) &R_mpimat_init,             7},
   {"R_mpimat_ldim",             (DL_FUNC) &R_mpimat_ldim,             2},
   {"R_mpimat_linalg_add",       (DL_FUNC) &R_mpimat_linalg_add,       8},

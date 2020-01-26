@@ -71,16 +71,6 @@ extern "C" SEXP R_gpuvec_size(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_gpuvec_inherit(SEXP x_robj, SEXP data)
-{
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  // TODO FIXME
-  // x->inherit(REAL(data), LENGTH(data), false);
-  return R_NilValue;
-}
-
-
-
 extern "C" SEXP R_gpuvec_resize(SEXP type, SEXP x_robj, SEXP size)
 {
   APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, resize, INTEGER(size)[0]);

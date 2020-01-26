@@ -15,7 +15,6 @@ Data is held in an external pointer.
 \itemize{
 \item \href{#method-new}{\code{gpumatR6$new()}}
 \item \href{#method-resize}{\code{gpumatR6$resize()}}
-\item \href{#method-inherit}{\code{gpumatR6$inherit()}}
 \item \href{#method-info}{\code{gpumatR6$info()}}
 \item \href{#method-dupe}{\code{gpumatR6$dupe()}}
 \item \href{#method-print}{\code{gpumatR6$print()}}
@@ -86,26 +85,6 @@ Class initializer. See also \code{?gpumat}.
 }
 \subsection{Details}{
 Change the dimension of the matrix object.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-inherit"></a>}}
-\subsection{Method \code{inherit()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$inherit(data)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{R matrix.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Set the data in the gpumat object to point to the array in 'data'. See
-also \code{?as_gpumat}.
 }
 
 }

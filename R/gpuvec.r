@@ -44,22 +44,6 @@ gpuvecR6 = R6::R6Class("gpuvec",
     
     
     #' @details
-    #' Set the data in the gpuvec object to point to the array in 'data'. See
-    #' also \code{?as_gpuvec}.
-    #' @param data R vector.
-    #' @useDynLib fmlr R_gpuvec_inherit
-    inherit = function(data)
-    {
-      if (!is.double(data))
-        storage.mode(data) = "double"
-
-      .Call(R_gpuvec_inherit, private$x_ptr, data)
-      invisible(self)
-    },
-    
-    
-    
-    #' @details
     #' Duplicate the vector in a deep copy.
     #' @useDynLib fmlr R_gpuvec_dupe
     dupe = function()
@@ -294,23 +278,18 @@ gpuvec = function(card, size=0, type="double")
 
 
 
-# #' as_gpuvec
-# #' 
-# #' Convert an R vector to a cpumat object.
-# #' 
-# #' @param x R vector.
-# #' @param copy Should the R data be copied? If \code{FALSE}, be careful!
-# #' @return A gpuvec object.
-# #' 
-# #' @export
-# as_gpuvec = function(x, copy=TRUE)
-# {
-#   ret = gpuvec()
-# 
-#   if (isTRUE(copy))
-#     ret$from_robj(x)
-#   else
-#     ret$inherit(x)
-# 
-#   ret
-# }
+#' as_gpuvec
+#' 
+#' Convert an R vector to a gpuvec object.
+#' 
+#' @param card A GPU card object; the return of \code{card()}. See \code{?card}.
+#' @param x R vector.
+#' @return A gpuvec object.
+#' 
+#' @export
+as_gpuvec = function(card, x)
+{
+  ret = gpuvec(card)
+  ret$from_robj(x)
+  ret
+}

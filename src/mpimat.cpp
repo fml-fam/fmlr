@@ -116,16 +116,6 @@ extern "C" SEXP R_mpimat_bfdim(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_mpimat_inherit(SEXP x_robj, SEXP data)
-{
-  mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
-  // TODO FIXME
-  // TRY_CATCH( ->inherit(REAL(data), LENGTH(data), false) )
-  return R_NilValue;
-}
-
-
-
 extern "C" SEXP R_mpimat_resize(SEXP type, SEXP x_robj, SEXP m, SEXP n)
 {
   APPLY_TEMPLATED_METHOD(mpimat, type, x_robj, resize, INTEGER(m)[0], INTEGER(n)[0]);

@@ -47,22 +47,6 @@ gpumatR6 = R6::R6Class("gpumat",
     
     
     #' @details
-    #' Set the data in the gpumat object to point to the array in 'data'. See
-    #' also \code{?as_gpumat}.
-    #' @param data R matrix.
-    #' @useDynLib fmlr R_gpumat_inherit
-    inherit = function(data)
-    {
-      if (!is.double(data))
-        storage.mode(data) = "double"
-      
-      .Call(R_gpumat_inherit, private$type, private$x_ptr, data)
-      invisible(self)
-    },
-    
-    
-    
-    #' @details
     #' Print one-line information about the matrix.
     #' @useDynLib fmlr R_gpumat_info
     info = function()
@@ -459,18 +443,12 @@ gpumat = function(card, nrows=0, ncols=0, type="double")
 #' 
 #' @param card A GPU card object; the return of \code{card()}. See \code{?card}.
 #' @param x R matrix.
-#' @param copy Should the R data be copied? If \code{FALSE}, be careful!
 #' @return A gpumat object.
 #' 
 #' @export
-as_gpumat = function(card, x, copy=TRUE)
+as_gpumat = function(card, x)
 {
   ret = gpumat(card)
-  
-  if (isTRUE(copy))
-    ret$from_robj(x)
-  else
-    ret$inherit(x)
-  
+  ret$from_robj(x)
   ret
 }

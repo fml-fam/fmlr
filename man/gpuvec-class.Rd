@@ -15,7 +15,6 @@ Data is held in an external pointer.
 \itemize{
 \item \href{#method-new}{\code{gpuvecR6$new()}}
 \item \href{#method-resize}{\code{gpuvecR6$resize()}}
-\item \href{#method-inherit}{\code{gpuvecR6$inherit()}}
 \item \href{#method-dupe}{\code{gpuvecR6$dupe()}}
 \item \href{#method-info}{\code{gpuvecR6$info()}}
 \item \href{#method-print}{\code{gpuvecR6$print()}}
@@ -76,26 +75,6 @@ Class initializer. See also \code{?gpuvec}.
 }
 \subsection{Details}{
 Change the length of the vector object.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-inherit"></a>}}
-\subsection{Method \code{inherit()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$inherit(data)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{R vector.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Set the data in the gpuvec object to point to the array in 'data'. See
-also \code{?as_gpuvec}.
 }
 
 }
