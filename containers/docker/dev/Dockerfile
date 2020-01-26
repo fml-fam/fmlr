@@ -13,7 +13,7 @@ RUN apt-get update && \
 
 RUN Rscript -e "install.packages('remotes')"
 RUN Rscript -e "install.packages('pbdMPI')"
-RUN Rscript -e "remotes::install_github('snoweye/pbdSLAP')"
+RUN Rscript -e "install.packages(\"pbdSLAP\", configure.vars=\"EXT_LDFLAGS='-lscalapack-openmpi'\")"
 RUN Rscript -e "remotes::install_github('wrathematics/fmlr')"
 
 RUN ["/bin/bash"]

@@ -28,5 +28,5 @@ From: nvidia/cuda:10.1-devel-ubuntu18.04
 
   Rscript -e "install.packages('remotes')"
   Rscript -e "install.packages('pbdMPI')"
-  Rscript -e "remotes::install_github('snoweye/pbdSLAP')"
+  Rscript -e "install.packages(\"pbdSLAP\", configure.vars=\"EXT_LDFLAGS='-lscalapack-openmpi'\")"
   Rscript -e "remotes::install_github('wrathematics/fmlr')"
