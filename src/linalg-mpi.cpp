@@ -201,6 +201,8 @@ extern "C" SEXP R_mpimat_linalg_invert(SEXP type, SEXP x_robj)
 
 extern "C" SEXP R_mpimat_linalg_solve(SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
 {
+  (void) y_class;
+  
   if (INT(type) == TYPE_DOUBLE)
   {
     mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
