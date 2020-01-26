@@ -196,3 +196,27 @@ extern "C" SEXP R_mpimat_linalg_invert(SEXP type, SEXP x_robj)
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_mpimat_linalg_solve(SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
+{
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    mpimat<double> *x = (mpimat<double>*) getRptr(x_robj);
+    mpimat<double> *y = (mpimat<double>*) getRptr(y_robj);
+    linalg::solve(*x, *y);
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    mpimat<float> *x = (mpimat<float>*) getRptr(x_robj);
+    mpimat<float> *y = (mpimat<float>*) getRptr(y_robj);
+    linalg::solve(*x, *y);
+  }
+  else
+    error(TYPE_ERR);
+  
+  #undef FMLR_TMP_SOLVE
+  
+  return R_NilValue;
+}

@@ -197,3 +197,33 @@ extern "C" SEXP R_gpumat_linalg_invert(SEXP type, SEXP x_robj)
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_gpumat_linalg_solve(SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
+{
+  #define FMLR_TMP_SOLVE(type) \
+    if (INT(y_class) == CLASS_VEC){ \
+      gpuvec<type> *y = (gpuvec<type>*) getRptr(y_robj); \
+      linalg::solve(*x, *y); \
+    } else { \
+      gpumat<type> *y = (gpumat<type>*) getRptr(y_robj); \
+      linalg::solve(*x, *y); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
+    FMLR_TMP_SOLVE(double)
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    gpumat<float> *x = (gpumat<float>*) getRptr(x_robj);
+    FMLR_TMP_SOLVE(float)
+  }
+  else
+    error(TYPE_ERR);
+  
+  #undef FMLR_TMP_SOLVE
+  
+  return R_NilValue;
+}

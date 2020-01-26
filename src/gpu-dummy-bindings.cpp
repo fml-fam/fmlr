@@ -424,3 +424,9 @@ extern "C" SEXP R_gpumat_linalg_invert(SEXP type, SEXP x_robj)
   unused(type, x_robj);
   WARN_AND_RETURN;
 }
+
+extern "C" SEXP R_gpumat_linalg_solve(SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
+{
+  unused(type, x_robj, y_class, y_robj);
+  WARN_AND_RETURN;
+}

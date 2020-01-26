@@ -40,6 +40,8 @@ check_is_card = function(x)
 {
   if (!is_card(x) || !isTRUE(x$valid_card()))
     stop("invalid card object")
+  
+  invisible(TRUE)
 }
 
 
@@ -48,6 +50,34 @@ check_is_grid = function(x)
 {
   if (!is_grid(x) || !isTRUE(x$valid_grid()))
     stop("invalid grid object")
+  
+  invisible(TRUE)
+}
+
+
+
+check_is_mat = function(x)
+{
+  if (!is_mat(x))
+  {
+    nm = deparse(substitute(x))
+    stop(paste0("argument '", nm, "' must be a matrix type"), call.=FALSE)
+  }
+  
+  invisible(TRUE)
+}
+
+
+
+check_is_vec = function(x)
+{
+  if (!is_vec(x))
+  {
+    nm = deparse(substitute(x))
+    stop(paste0("argument '", nm, "' must be a vector type"), call.=FALSE)
+  }
+  
+  invisible(TRUE)
 }
 
 

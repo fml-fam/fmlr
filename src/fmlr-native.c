@@ -35,6 +35,7 @@ extern SEXP R_cpumat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_invert(SEXP, SEXP);
 extern SEXP R_cpumat_linalg_lu(SEXP, SEXP);
 extern SEXP R_cpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_trace(SEXP, SEXP);
 extern SEXP R_cpumat_linalg_xpose(SEXP, SEXP, SEXP);
@@ -90,6 +91,7 @@ extern SEXP R_gpumat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_invert(SEXP, SEXP);
 extern SEXP R_gpumat_linalg_lu(SEXP, SEXP);
 extern SEXP R_gpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_trace(SEXP, SEXP);
 extern SEXP R_gpumat_linalg_xpose(SEXP, SEXP, SEXP);
@@ -161,6 +163,7 @@ extern SEXP R_mpimat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_invert(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_lu(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_trace(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_xpose(SEXP, SEXP, SEXP);
@@ -204,6 +207,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpumat_linalg_invert",    (DL_FUNC) &R_cpumat_linalg_invert,    2},
   {"R_cpumat_linalg_lu",        (DL_FUNC) &R_cpumat_linalg_lu,        2},
   {"R_cpumat_linalg_matmult",   (DL_FUNC) &R_cpumat_linalg_matmult,   7},
+  {"R_cpumat_linalg_solve",     (DL_FUNC) &R_cpumat_linalg_solve,     4},
   {"R_cpumat_linalg_svd",       (DL_FUNC) &R_cpumat_linalg_svd,       5},
   {"R_cpumat_linalg_trace",     (DL_FUNC) &R_cpumat_linalg_trace,     2},
   {"R_cpumat_linalg_xpose",     (DL_FUNC) &R_cpumat_linalg_xpose,     3},
@@ -259,6 +263,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpumat_linalg_invert",    (DL_FUNC) &R_gpumat_linalg_invert,    2},
   {"R_gpumat_linalg_lu",        (DL_FUNC) &R_gpumat_linalg_lu,        2},
   {"R_gpumat_linalg_matmult",   (DL_FUNC) &R_gpumat_linalg_matmult,   7},
+  {"R_gpumat_linalg_solve",     (DL_FUNC) &R_gpumat_linalg_solve,     4},
   {"R_gpumat_linalg_svd",       (DL_FUNC) &R_gpumat_linalg_svd,       5},
   {"R_gpumat_linalg_trace",     (DL_FUNC) &R_gpumat_linalg_trace,     2},
   {"R_gpumat_linalg_xpose",     (DL_FUNC) &R_gpumat_linalg_xpose,     3},
@@ -330,6 +335,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_linalg_invert",    (DL_FUNC) &R_mpimat_linalg_invert,    2},
   {"R_mpimat_linalg_lu",        (DL_FUNC) &R_mpimat_linalg_lu,        2},
   {"R_mpimat_linalg_matmult",   (DL_FUNC) &R_mpimat_linalg_matmult,   7},
+  {"R_mpimat_linalg_solve",     (DL_FUNC) &R_mpimat_linalg_solve,     4},
   {"R_mpimat_linalg_svd",       (DL_FUNC) &R_mpimat_linalg_svd,       5},
   {"R_mpimat_linalg_trace",     (DL_FUNC) &R_mpimat_linalg_trace,     2},
   {"R_mpimat_linalg_xpose",     (DL_FUNC) &R_mpimat_linalg_xpose,     3},

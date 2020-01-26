@@ -2,6 +2,12 @@
 # type globals
 # -----------------------------------------------------------------------------
 
+# class globals
+CLASS_MAT = 1L
+CLASS_VEC = 2L
+
+
+
 # type globals
 TYPE_DOUBLE = 1L
 TYPE_FLOAT = 2L

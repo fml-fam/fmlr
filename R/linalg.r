@@ -71,6 +71,9 @@ setret = function(x)
 #' @export
 linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NULL)
 {
+  check_is_mat(x)
+  check_is_mat(y)
+  
   transx = as.logical(transx)
   transy = as.logical(transy)
   
@@ -113,6 +116,9 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
 #' @export
 linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
 {
+  check_is_mat(x)
+  check_is_mat(y)
+  
   transx = as.logical(transx)
   transy = as.logical(transy)
   
@@ -138,6 +144,8 @@ linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
 #' @useDynLib fmlr R_mpimat_linalg_crossprod
 linalg_crossprods = function(x, ret, alpha, xpose)
 {
+  check_is_mat(x)
+  
   xpose = as.logical(xpose)
   alpha = as.double(alpha)
   
@@ -202,11 +210,13 @@ linalg_tcrossprod = function(alpha=1, x, ret=NULL)
 #' @export
 linalg_xpose = function(x, ret=NULL)
 {
+  check_is_mat(x)
   invisiret = check_inputs(ret, x)
   
   CFUN = get_cfun("xpose", x)
   if (is.null(ret))
     ret = setret(x)
+  
   .Call(CFUN, x$get_type(), x$data_ptr(), ret$data_ptr())
   
   if (invisiret)
@@ -233,6 +243,7 @@ linalg_xpose = function(x, ret=NULL)
 #' @export
 linalg_lu = function(x)
 {
+  check_is_mat(x)
   CFUN = get_cfun("lu", x)
   .Call(CFUN, x$get_type(), x$data_ptr())
   invisible(NULL)
@@ -256,6 +267,7 @@ linalg_lu = function(x)
 #' @export
 linalg_trace = function(x)
 {
+  check_is_mat(x)
   CFUN = get_cfun("trace", x)
   .Call(CFUN, x$get_type(), x$data_ptr())
 }
@@ -294,6 +306,9 @@ linalg_trace = function(x)
 #' @export
 linalg_svd = function(x, s, u=NULL, vt=NULL)
 {
+  check_is_mat(x)
+  check_is_vec(s)
+  
   check_type_consistency(x, s)
   if (!is.null(u) && !is.null(vt))
     check_inputs(x, u, vt)
@@ -332,6 +347,8 @@ linalg_svd = function(x, s, u=NULL, vt=NULL)
 #' @export
 linalg_eigen_sym = function(x, values, vectors=NULL)
 {
+  check_is_mat(x)
+  check_is_vec(values)
   check_type_consistency(x, values)
   if (!is.null(vectors))
     check_inputs(x, vectors)
@@ -363,7 +380,48 @@ linalg_eigen_sym = function(x, values, vectors=NULL)
 #' @export
 linalg_invert = function(x)
 {
+  check_is_mat(x)
   CFUN = get_cfun("invert", x)
   .Call(CFUN, x$get_type(), x$data_ptr())
+  invisible(NULL)
+}
+
+
+
+#' solve
+#' 
+#' Solve a system of equations.
+#' 
+#' @param x Input data. The input values are overwritten.
+#' @param y The RHS, overwritten by the solution.
+#' 
+#' @rdname linalg-solve
+#' @name solve
+#' @useDynLib fmlr R_cpumat_linalg_solve
+#' @useDynLib fmlr R_gpumat_linalg_solve
+#' @useDynLib fmlr R_mpimat_linalg_solve
+#' 
+#' @export
+linalg_solve = function(x, y)
+{
+  check_is_mat(x)
+  check_type_consistency(x, y)
+  
+  if (is_vec(y))
+  {
+    if (is_mpimat(x))
+      stop("can not mix vector with mpimat")
+    
+    class = CLASS_VEC
+  }
+  else
+  {
+    check_class_consistency(x, y)
+    class = CLASS_MAT
+  }
+  
+  CFUN = get_cfun("solve", x)
+  .Call(CFUN, x$get_type(), x$data_ptr(), class, y$data_ptr())
+  
   invisible(NULL)
 }

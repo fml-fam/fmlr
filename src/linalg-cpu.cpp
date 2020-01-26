@@ -195,3 +195,33 @@ extern "C" SEXP R_cpumat_linalg_invert(SEXP type, SEXP x_robj)
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_cpumat_linalg_solve(SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
+{
+  #define FMLR_TMP_SOLVE(type) \
+    if (INT(y_class) == CLASS_VEC){ \
+      cpuvec<type> *y = (cpuvec<type>*) getRptr(y_robj); \
+      linalg::solve(*x, *y); \
+    } else { \
+      cpumat<type> *y = (cpumat<type>*) getRptr(y_robj); \
+      linalg::solve(*x, *y); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
+    FMLR_TMP_SOLVE(double)
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    cpumat<float> *x = (cpumat<float>*) getRptr(x_robj);
+    FMLR_TMP_SOLVE(float)
+  }
+  else
+    error(TYPE_ERR);
+  
+  #undef FMLR_TMP_SOLVE
+  
+  return R_NilValue;
+}
