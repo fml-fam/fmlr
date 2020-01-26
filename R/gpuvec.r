@@ -183,9 +183,7 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @useDynLib fmlr R_gpuvec_get
     get = function(i)
     {
-      i = as.integer(i)
-      check_index(i, self$size())
-      
+      i = check_is_natnum(i)
       .Call(R_gpuvec_get, private$type, private$x_ptr, i)
     },
     
@@ -198,10 +196,8 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @useDynLib fmlr R_gpuvec_set
     set = function(i, v)
     {
-      i = as.integer(i)
-      v = as.double(v)
-      check_index(i, self$size())
-      
+      i = check_is_natnum(i)
+      v = check_is_number(v)
       .Call(R_gpuvec_set, private$type, private$x_ptr, i, v)
       invisible(self)
     },
