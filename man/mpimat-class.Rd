@@ -28,6 +28,7 @@ Data is held in an external pointer.
 \item \href{#method-diag}{\code{mpimatR6$diag()}}
 \item \href{#method-antidiag}{\code{mpimatR6$antidiag()}}
 \item \href{#method-scale}{\code{mpimatR6$scale()}}
+\item \href{#method-rev_rows}{\code{mpimatR6$rev_rows()}}
 \item \href{#method-rev_cols}{\code{mpimatR6$rev_cols()}}
 \item \href{#method-get}{\code{mpimatR6$get()}}
 \item \href{#method-set}{\code{mpimatR6$set()}}
@@ -324,6 +325,18 @@ Get anti-diagonal entries of the matrix.
 }
 \subsection{Details}{
 Scale all entries by the supplied value.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-rev_rows"></a>}}
+\subsection{Method \code{rev_rows()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mpimatR6$rev_rows()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Reverse rows.
 }
 
 }
