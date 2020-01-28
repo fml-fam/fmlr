@@ -315,11 +315,11 @@ extern "C" SEXP R_mpimat_scale(SEXP type, SEXP x_robj, SEXP s)
 
 
 
-// extern "C" SEXP R_mpimat_rev_rows(SEXP type, SEXP x_robj)
-// {
-//   APPLY_TEMPLATED_METHOD_0(mpimat, type, x_robj, rev_rows);
-//   return R_NilValue;
-// }
+extern "C" SEXP R_mpimat_rev_rows(SEXP type, SEXP x_robj)
+{
+  APPLY_TEMPLATED_METHOD_0(mpimat, type, x_robj, rev_rows);
+  return R_NilValue;
+}
 
 
 

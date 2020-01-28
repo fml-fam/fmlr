@@ -250,14 +250,14 @@ mpimatR6 = R6::R6Class("mpimat",
     
     
     
-    # #' @details
-    # #' Reverse rows.
-    # #' @useDynLib fmlr R_mpimat_rev_rows
-    # rev_rows = function()
-    # {
-    #   .Call(R_mpimat_rev_rows, private$x_ptr)
-    #   invisible(self)
-    # },
+    #' @details
+    #' Reverse rows.
+    #' @useDynLib fmlr R_mpimat_rev_rows
+    rev_rows = function()
+    {
+      .Call(R_mpimat_rev_rows, private$type, private$x_ptr)
+      invisible(self)
+    },
     
     
     
