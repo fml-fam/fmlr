@@ -169,6 +169,7 @@ extern SEXP R_mpimat_mpi2mpi(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_print(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_resize(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_rev_cols(SEXP, SEXP);
+extern SEXP R_mpimat_rev_rows(SEXP, SEXP);
 extern SEXP R_mpimat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_to_robj(SEXP, SEXP);
@@ -338,6 +339,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_print",            (DL_FUNC) &R_mpimat_print,            3},
   {"R_mpimat_resize",           (DL_FUNC) &R_mpimat_resize,           4},
   {"R_mpimat_rev_cols",         (DL_FUNC) &R_mpimat_rev_cols,         2},
+  {"R_mpimat_rev_rows",         (DL_FUNC) &R_mpimat_rev_rows,         2},
   {"R_mpimat_scale",            (DL_FUNC) &R_mpimat_scale,            3},
   {"R_mpimat_set",              (DL_FUNC) &R_mpimat_set,              5},
   {"R_mpimat_to_robj",          (DL_FUNC) &R_mpimat_to_robj,          2},

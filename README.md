@@ -345,3 +345,21 @@ x = x_cpu$to_robj()
 A copy of the core fml library is included in `inst/include/fml` of the package source, which will be in `include/fml` of the installed package. If you wish to link with fml, you can add `LinkingTo: fml` to your package DESCRIPTION file.
 
 Before you write your own C++ code using fml, you should check the [fml API stability](https://github.com/wrathematics/fml#api-stability) progress, as some things may be subject to change.
+
+
+
+## Similar Projects
+
+Some similar R projects worth mentioning:
+
+* Martin Maechler's (et al.) [Matrix package](https://cran.r-project.org/web/packages/Matrix/index.html)
+* Charles Determan's [gpuR](https://github.com/cdeterman/gpuR) and [gpuR-related packages](https://github.com/gpuRcore)
+* Norm Matloff's [Rth](https://github.com/Rth-org/Rth)
+
+Some related R packages I have worked on:
+
+* [float](https://github.com/wrathematics/float)
+* [kazaam](https://github.com/RBigData/kazaam)
+* [pbdDMAT](https://github.com/RBigData/pbdDMAT)
+
+For C/C++ projects, see [the fml README](https://github.com/wrathematics/fml#philosophy-and-similar-projects).
