@@ -11,9 +11,14 @@ RUN apt-get update && \
     libopenblas-dev libscalapack-openmpi-dev \
     r-base-dev littler
 
-RUN Rscript -e "install.packages('remotes')"
 RUN Rscript -e "install.packages('pbdMPI')"
 RUN Rscript -e "install.packages(\"pbdSLAP\", configure.vars=\"EXT_LDFLAGS='-lscalapack-openmpi'\")"
-RUN Rscript -e "remotes::install_github('wrathematics/fmlr')"
+RUN Rscript -e "install.packages('R6')"
+
+RUN cd /tmp \
+  && git clone --recurse-submodules https://github.com/wrathematics/fmlr.git \
+  && R CMD INSTALL fmlr --configure-args="--enable-gpu"
+
+RUN rm -rf /tmp/fmlr
 
 RUN ["/bin/bash"]
