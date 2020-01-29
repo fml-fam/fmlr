@@ -4,7 +4,7 @@
 * **License:** [BSL-1.0](http://opensource.org/licenses/BSL-1.0)
 * **Project home**: https://github.com/wrathematics/fmlr
 * **Bug reports**: https://github.com/wrathematics/fmlr/issues
-* **Documentation**: TODO
+* **Documentation**: http://librestats.com/fmlr
 
 
 Interface to the [fml library](https://github.com/wrathematics/fml). fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.
