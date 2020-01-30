@@ -25,25 +25,26 @@ The fmlr interface largely tracks with the core fml interface, and the package v
 You will need to install some dependencies. Make sure you have a system installation of MPI, e.g. [OpenMPI](https://www.open-mpi.org/), [MPICH](https://www.mpich.org/), or [MSMPI](https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi). Then install:
 
 ```r
+### regular deps
+install.packages("R6")
+install.packages("float")
+
+### MPI deps
 install.packages("pbdMPI")
+# if you don't have a system installation of scalapack
 remotes::install_github("wrathematics/pbdSLAP")
+# and if you do (change the link flags as necessary)
+install.packages("pbdSLAP", configure.vars="EXT_LDFLAGS='-lscalapack-openmpi'")
 ```
 
-If you run into any issues, see the [pbdMPI package vignette](https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf).
+The development version of fml is maintained on GitHub. However, because we use git submodules, you can not (to my knowledge) use any of the `install_github()` functions. You can install the package from the command line via:
 
-The development version of fml is maintained on GitHub:
-
-```r
-remotes::install_github("wrathematics/fmlr")
+```bash
+git clone --recurse-submodules https://github.com/wrathematics/fmlr.git
+R CMD INSTALL fmlr/
 ```
 
 If you have [NVIDIA® CUDA™](https://developer.nvidia.com/cuda-downloads) installed, then you can build the package with GPU support via:
-
-```r
-remotes::install_github("wrathematics/fmlr", configure.args="--enable-gpu")
-```
-
-or something like this:
 
 ```bash
 R CMD INSTALL fmlr/ --configure-args="--enable-gpu"
