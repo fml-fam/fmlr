@@ -18,7 +18,6 @@ RUN Rscript -e "install.packages('R6')"
 RUN cd /tmp \
   && git clone --recurse-submodules https://github.com/wrathematics/fmlr.git \
   && R CMD INSTALL fmlr --configure-args="--enable-gpu"
-
 RUN rm -rf /tmp/fmlr
 
 RUN ["/bin/bash"]
