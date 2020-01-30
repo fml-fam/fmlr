@@ -1,3 +1,3 @@
 #!/bin/sh
 
-singularity exec --nv fmlr-dev.simg bash
+singularity exec fmlr-dev-gpu.simg bash

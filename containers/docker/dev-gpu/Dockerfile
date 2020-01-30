@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM nvidia/cuda:10.1-devel-ubuntu18.04
 ENV MAKE="make -j 4"
 
 RUN apt-get update && \
@@ -21,7 +21,7 @@ RUN Rscript -e "install.packages(\"pbdSLAP\", configure.vars=\"EXT_LDFLAGS='-lsc
 
 RUN cd /tmp \
   && git clone --recurse-submodules https://github.com/wrathematics/fmlr.git \
-  && R CMD INSTALL fmlr
+  && R CMD INSTALL fmlr --configure-args="--enable-gpu"
 RUN rm -rf /tmp/fmlr
 
 RUN ["/bin/bash"]

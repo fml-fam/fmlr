@@ -1,4 +1,4 @@
 #!/bin/sh
 
-rm -rf fmlr-dev.simg
-sudo singularity build fmlr-dev.simg Singularity
+rm -rf fmlr-dev-gpu.simg
+sudo singularity build fmlr-dev-gpu.simg Singularity
