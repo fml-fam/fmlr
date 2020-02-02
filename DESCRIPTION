@@ -20,3 +20,4 @@ Authors@R: c(
     )
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
 RoxygenNote: 7.0.2
+HPCRAN: blas, gpu, mpi
