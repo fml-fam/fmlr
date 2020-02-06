@@ -1,13 +1,14 @@
 # fmlr
 
 * **Version:** 0.1-0
+* **Status:** [![Build Status](https://travis-ci.org/fml-fam/fmlr.png)](https://travis-ci.org/fml-fam/fmlr)
 * **License:** [BSL-1.0](http://opensource.org/licenses/BSL-1.0)
-* **Project home**: https://github.com/wrathematics/fmlr
-* **Bug reports**: https://github.com/wrathematics/fmlr/issues
-* **Documentation**: http://librestats.com/fmlr
+* **Project home**: https://github.com/fml-fam/fmlr
+* **Bug reports**: https://github.com/fml-fam/fmlr/issues
+* **Documentation**: https://fml-fam.github.io/fmlr
 
 
-Interface to the [fml library](https://github.com/wrathematics/fml). fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.
+Interface to the [fml library](https://github.com/fml-fam/fml). fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.
 
 fmlr is a "medium-level" interface to computational linear algebra. It is higher-level than directly working with, for example, the BLAS. But it is lower-level than a high-level interface like R or Armadillo.
 
@@ -22,25 +23,25 @@ The fmlr interface largely tracks with the core fml interface, and the package v
 
 ## Installation
 
-You will need to install some dependencies. Make sure you have a system installation of MPI, e.g. [OpenMPI](https://www.open-mpi.org/), [MPICH](https://www.mpich.org/), or [MSMPI](https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi). Then install:
+You will need to install some dependencies. Make sure you have a system installation of MPI, e.g. [OpenMPI](https://www.open-mpi.org/), [MPICH](https://www.mpich.org/), or [MSMPI](https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi).
 
 ```r
-### regular deps
-install.packages("R6")
-install.packages("float")
-
-### MPI deps
-install.packages("pbdMPI")
 # if you don't have a system installation of scalapack
 remotes::install_github("wrathematics/pbdSLAP")
 # and if you do (change the link flags as necessary)
 install.packages("pbdSLAP", configure.vars="EXT_LDFLAGS='-lscalapack-openmpi'")
 ```
 
-The development version of fml is maintained on GitHub. However, because we use git submodules, you can not (to my knowledge) use any of the `install_github()` functions. You can install the package from the command line via:
+Stable releases are published on the [hpcran](https://hpcran.org). You can install them via
+
+```r
+install.packages("fmlr", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
+```
+
+The development version of fmlr is maintained on GitHub. However, because we use git submodules, you can not (to my knowledge) use any of the `install_github()` functions. You can install the package from the command line via:
 
 ```bash
-git clone --recurse-submodules https://github.com/wrathematics/fmlr.git
+git clone --recurse-submodules https://github.com/fml-fam/fmlr.git
 R CMD INSTALL fmlr/
 ```
 
@@ -345,7 +346,7 @@ x = x_cpu$to_robj()
 
 A copy of the core fml library is included in `inst/include/fml` of the package source, which will be in `include/fml` of the installed package. If you wish to link with fml, you can add `LinkingTo: fml` to your package DESCRIPTION file.
 
-Before you write your own C++ code using fml, you should check the [fml API stability](https://github.com/wrathematics/fml#api-stability) progress, as some things may be subject to change.
+Before you write your own C++ code using fml, you should check the [fml API stability](https://github.com/fml-fam/fml#api-stability) progress, as some things may be subject to change.
 
 
 
@@ -363,4 +364,4 @@ Some related R packages I have worked on:
 * [kazaam](https://github.com/RBigData/kazaam)
 * [pbdDMAT](https://github.com/RBigData/pbdDMAT)
 
-For C/C++ projects, see [the fml README](https://github.com/wrathematics/fml#philosophy-and-similar-projects).
+For C/C++ projects, see [the fml README](https://github.com/fml-fam/fml#philosophy-and-similar-projects).

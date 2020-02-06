@@ -66,21 +66,22 @@
 <li>
 <strong>Version:</strong> 0.1-0</li>
 <li>
-<strong>Status:</strong> <a href="https://travis-ci.org/wrathematics/fmlr"><img src="https://travis-ci.org/wrathematics/fmlr.png" alt="Build Status"></a>
+<strong>Status:</strong> <a href="https://travis-ci.org/fml-fam/fmlr"><img src="https://travis-ci.org/fml-fam/fmlr.png" alt="Build Status"></a>
 </li>
 <li>
 <strong>License:</strong> <a href="http://opensource.org/licenses/BSL-1.0">BSL-1.0</a>
 </li>
 <li>
-<strong>Project home</strong>: <a href="https://github.com/wrathematics/fmlr" class="uri">https://github.com/wrathematics/fmlr</a>
+<strong>Project home</strong>: <a href="https://github.com/fml-fam/fmlr" class="uri">https://github.com/fml-fam/fmlr</a>
 </li>
 <li>
-<strong>Bug reports</strong>: <a href="https://github.com/wrathematics/fmlr/issues" class="uri">https://github.com/wrathematics/fmlr/issues</a>
+<strong>Bug reports</strong>: <a href="https://github.com/fml-fam/fmlr/issues" class="uri">https://github.com/fml-fam/fmlr/issues</a>
 </li>
 <li>
-<strong>Documentation</strong>: TODO</li>
+<strong>Documentation</strong>: <a href="https://fml-fam.github.io/fmlr" class="uri">https://fml-fam.github.io/fmlr</a>
+</li>
 </ul>
-<p>Interface to the <a href="https://github.com/wrathematics/fml">fml library</a>. fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.</p>
+<p>Interface to the <a href="https://github.com/fml-fam/fml">fml library</a>. fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.</p>
 <p>fmlr is a “medium-level” interface to computational linear algebra. It is higher-level than directly working with, for example, the BLAS. But it is lower-level than a high-level interface like R or Armadillo.</p>
 <p>Differences between fmlr and other matrix interfaces (including the core R interface):</p>
 <ul>
@@ -92,15 +93,17 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You will need to install some dependencies. Make sure you have a system installation of MPI, e.g. <a href="https://www.open-mpi.org/">OpenMPI</a>, <a href="https://www.mpich.org/">MPICH</a>, or <a href="https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi">MSMPI</a>. Then install:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pbdMPI"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"wrathematics/pbdSLAP"</span>)</a></code></pre></div>
-<p>If you run into any issues, see the <a href="https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf">pbdMPI package vignette</a>.</p>
-<p>The development version of fml is maintained on GitHub:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"wrathematics/fmlr"</span>)</a></code></pre></div>
+<p>You will need to install some dependencies. Make sure you have a system installation of MPI, e.g. <a href="https://www.open-mpi.org/">OpenMPI</a>, <a href="https://www.mpich.org/">MPICH</a>, or <a href="https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi">MSMPI</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># if you don't have a system installation of scalapack</span></a>
+<a class="sourceLine" id="cb1-2" title="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"wrathematics/pbdSLAP"</span>)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co"># and if you do (change the link flags as necessary)</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pbdSLAP"</span>, <span class="dt">configure.vars=</span><span class="st">"EXT_LDFLAGS='-lscalapack-openmpi'"</span>)</a></code></pre></div>
+<p>Stable releases are published on the <a href="https://hpcran.org">hpcran</a>. You can install them via</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"fmlr"</span>, <span class="dt">repos=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://hpcran.org"</span>, <span class="st">"https://cran.rstudio.com"</span>))</a></code></pre></div>
+<p>The development version of fmlr is maintained on GitHub. However, because we use git submodules, you can not (to my knowledge) use any of the <code>install_github()</code> functions. You can install the package from the command line via:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">git</span> clone --recurse-submodules https://github.com/fml-fam/fmlr.git</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="ex">R</span> CMD INSTALL fmlr/</a></code></pre></div>
 <p>If you have <a href="https://developer.nvidia.com/cuda-downloads">NVIDIA® CUDA™</a> installed, then you can build the package with GPU support via:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"wrathematics/fmlr"</span>, <span class="dt">configure.args=</span><span class="st">"--enable-gpu"</span>)</a></code></pre></div>
-<p>or something like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="ex">R</span> CMD INSTALL fmlr/ --configure-args=<span class="st">"--enable-gpu"</span></a></code></pre></div>
 <p>If you build the package without GPU support, then the various GPU functions won’t work (obviously). You can test for GPU support in the installed package via <code><a href="reference/features.html">fmlr::fml_gpu()</a></code>. There are <code><a href="reference/features.html">fml_cpu()</a></code> and <code><a href="reference/features.html">fml_mpi()</a></code> functions which always return <code>TRUE</code>. You can not build the package without MPI support.</p>
 </div>
@@ -450,7 +453,7 @@
 <h2 class="hasAnchor">
 <a href="#fml-from-c" class="anchor"></a>fml from C++</h2>
 <p>A copy of the core fml library is included in <code>inst/include/fml</code> of the package source, which will be in <code>include/fml</code> of the installed package. If you wish to link with fml, you can add <code>LinkingTo: fml</code> to your package DESCRIPTION file.</p>
-<p>Before you write your own C++ code using fml, you should check the <a href="https://github.com/wrathematics/fml#api-stability">fml API stability</a> progress, as some things may be subject to change.</p>
+<p>Before you write your own C++ code using fml, you should check the <a href="https://github.com/fml-fam/fml#api-stability">fml API stability</a> progress, as some things may be subject to change.</p>
 </div>
 <div id="similar-projects" class="section level2">
 <h2 class="hasAnchor">
@@ -470,7 +473,7 @@
 <li><a href="https://github.com/RBigData/kazaam">kazaam</a></li>
 <li><a href="https://github.com/RBigData/pbdDMAT">pbdDMAT</a></li>
 </ul>
-<p>For C/C++ projects, see <a href="https://github.com/wrathematics/fml#philosophy-and-similar-projects">the fml README</a>.</p>
+<p>For C/C++ projects, see <a href="https://github.com/fml-fam/fml#philosophy-and-similar-projects">the fml README</a>.</p>
 </div>
 </div>
   </div>

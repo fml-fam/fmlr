@@ -1,3 +1,3 @@
 [submodule "inst/include/fml"]
 	path = inst/include/fml
-	url = https://github.com/wrathematics/fml
+	url = https://github.com/fml-fam/fml

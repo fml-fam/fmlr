@@ -1,0 +1,29 @@
+os: linux
+sudo: false
+dist: bionic
+
+addons:
+  apt:
+    packages:
+      - libopenblas-dev
+      - libopenmpi-dev
+      - openmpi-bin
+      - libscalapack-openmpi-dev
+
+language: R
+warnings_are_errors: true
+repos:
+  CRAN: https://cloud.r-project.org
+
+before_install:
+  - LD_PRELOAD=/usr/lib/openmpi/lib/libmpi.so
+
+install:
+  - Rscript -e "install.packages(\"R6\")"
+  - Rscript -e "install.packages(\"float\")"
+  - Rscript -e "install.packages(\"pbdMPI\")"
+  - Rscript -e "install.packages(\"pbdSLAP\", configure.vars=\"EXT_LDFLAGS='-lscalapack-openmpi'\")"
+
+notifications:
+  on_success: never
+  on_failure: always
