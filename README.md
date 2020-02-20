@@ -26,7 +26,7 @@ You will need to install some dependencies. Make sure you have a system installa
 
 ```r
 # if you don't have a system installation of scalapack
-remotes::install_github("wrathematics/pbdSLAP")
+remotes::install_github("snoweye/pbdSLAP@single")
 # and if you do (change the link flags as necessary)
 install.packages("pbdSLAP", configure.vars="EXT_LDFLAGS='-lscalapack-openmpi'")
 ```
@@ -34,7 +34,10 @@ install.packages("pbdSLAP", configure.vars="EXT_LDFLAGS='-lscalapack-openmpi'")
 Stable releases are published on the [hpcran](https://hpcran.org). You can install them via
 
 ```r
+# If you don't have CUDA
 install.packages("fmlr", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
+# and if you do
+install.packages("fmlr", configure.args="--enable-gpu", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
 ```
 
 The development version of fmlr is maintained on GitHub. However, because we use git submodules, you can not (to my knowledge) use any of the `install_github()` functions. You can install the package from the command line via:
