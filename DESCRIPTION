@@ -1,8 +1,13 @@
 Package: fmlr
 Type: Package
 Title: Fused Matrix Library
-Version: 0.1-0
-Description: Interface to the 'fml' library.
+Version: 0.1-1
+Description: Interface to the 'fml' library, which defines a single
+    "medium-level" interface for multiple dense matrix types (CPU, GPU, and
+    MPI), each supporting multiple fundamental types (half, float, double). Data
+    is held externally to R and operations that modify data generally occur
+    in-place. The 'fmlr' interface largely tracks with the core 'fml' interface.
+    We use R6 so that generally an R code can be easily translated to C++.
 License: BSL-1.0
 SystemRequirements: C++14, GNU make
 Depends:
@@ -19,5 +24,7 @@ Authors@R: c(
     person("Drew", "Schmidt", role=c("aut", "cre"), email="wrathematics@gmail.com")
     )
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
+URL: https://github.com/fml-fam/fmlr
+BugReports: https://github.com/fml-fam/fmlr/issues
 RoxygenNote: 7.0.2
 HPCRAN: blas, gpu, mpi
