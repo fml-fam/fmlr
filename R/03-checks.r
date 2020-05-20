@@ -69,7 +69,7 @@ check_type_consistency = function(...)
 
 
 
-check_inputs = function(ret, ..., class=FALSE)
+check_inputs = function(ret, ..., class=TRUE)
 {
   if (!is.null(ret))
   {
