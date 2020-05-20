@@ -7,7 +7,7 @@
 
 
 template <typename REAL>
-static inline void matsums(bool row, bool mean, void *x, void *s)
+static inline void matsums(const bool row, const bool mean, void *x, void *s)
 {
   CAST_MAT(cpumat, REAL, x_cast, x);
   CAST_MAT(cpuvec, REAL, s_cast, s);
@@ -33,6 +33,23 @@ extern "C" SEXP R_cpumat_dimops_matsums(SEXP type, SEXP row, SEXP mean, SEXP x_r
   void *x = getRptr(x_robj);
   void *s = getRptr(s_robj);
   APPLY_TEMPLATED_FUNCTION(type, matsums, INT(row), INT(mean), x, s);
+  
+  return R_NilValue;
+}
+
+
+
+template <typename REAL>
+static inline void scale(const bool rm_mean, const bool rm_sd, void *x)
+{
+  CAST_MAT(cpumat, REAL, x_cast, x);
+  dimops::scale(rm_mean, rm_sd, *x_cast);
+}
+
+extern "C" SEXP R_cpumat_dimops_scale(SEXP type, SEXP rm_mean, SEXP rm_sd, SEXP x_robj)
+{
+  void *x = getRptr(x_robj);
+  APPLY_TEMPLATED_FUNCTION(type, scale, INT(rm_mean), INT(rm_sd), x);
   
   return R_NilValue;
 }

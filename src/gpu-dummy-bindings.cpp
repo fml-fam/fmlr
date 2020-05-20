@@ -433,11 +433,17 @@ extern "C" SEXP R_gpumat_linalg_solve(SEXP type, SEXP x_robj, SEXP y_class, SEXP
 
 
 // -----------------------------------------------------------------------------
-// linalg namespace
+// dimops namespace
 // -----------------------------------------------------------------------------
 
 extern "C" SEXP R_gpumat_dimops_matsums(SEXP type, SEXP row, SEXP mean, SEXP x_robj, SEXP s_robj)
 {
   unused(type, row, mean, x_robj, s_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_dimops_scale(SEXP type, SEXP rm_mean, SEXP rm_sd, SEXP x_robj)
+{
+  unused(type, rm_mean, rm_sd, x_robj);
   WARN_AND_RETURN;
 }

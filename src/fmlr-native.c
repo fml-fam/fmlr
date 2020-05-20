@@ -15,6 +15,7 @@ extern SEXP R_cpumat_cpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_diag(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_dim(SEXP, SEXP);
 extern SEXP R_cpumat_dimops_matsums(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_dimops_scale(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_dupe(SEXP, SEXP);
 extern SEXP R_cpumat_fill_diag(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_fill_eye(SEXP, SEXP);
@@ -70,6 +71,7 @@ extern SEXP R_gpumat_cpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_diag(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_dim(SEXP, SEXP);
 extern SEXP R_gpumat_dimops_matsums(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_dimops_scale(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_dupe(SEXP, SEXP);
 extern SEXP R_gpumat_fill_diag(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_fill_eye(SEXP, SEXP);
@@ -142,6 +144,7 @@ extern SEXP R_mpimat_bfdim(SEXP, SEXP);
 extern SEXP R_mpimat_diag(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_dim(SEXP, SEXP);
 extern SEXP R_mpimat_dimops_matsums(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_dimops_scale(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_dupe(SEXP, SEXP);
 extern SEXP R_mpimat_fill_diag(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_fill_eye(SEXP, SEXP);
@@ -188,6 +191,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpumat_diag",             (DL_FUNC) &R_cpumat_diag,             3},
   {"R_cpumat_dim",              (DL_FUNC) &R_cpumat_dim,              2},
   {"R_cpumat_dimops_matsums",   (DL_FUNC) &R_cpumat_dimops_matsums,   5},
+  {"R_cpumat_dimops_scale",     (DL_FUNC) &R_cpumat_dimops_scale,     4},
   {"R_cpumat_dupe",             (DL_FUNC) &R_cpumat_dupe,             2},
   {"R_cpumat_fill_diag",        (DL_FUNC) &R_cpumat_fill_diag,        3},
   {"R_cpumat_fill_eye",         (DL_FUNC) &R_cpumat_fill_eye,         2},
@@ -243,6 +247,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpumat_diag",             (DL_FUNC) &R_gpumat_diag,             3},
   {"R_gpumat_dim",              (DL_FUNC) &R_gpumat_dim,              2},
   {"R_gpumat_dimops_matsums",   (DL_FUNC) &R_gpumat_dimops_matsums,   5},
+  {"R_gpumat_dimops_scale",     (DL_FUNC) &R_gpumat_dimops_scale,     4},
   {"R_gpumat_dupe",             (DL_FUNC) &R_gpumat_dupe,             2},
   {"R_gpumat_fill_diag",        (DL_FUNC) &R_gpumat_fill_diag,        3},
   {"R_gpumat_fill_eye",         (DL_FUNC) &R_gpumat_fill_eye,         2},
@@ -315,6 +320,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_diag",             (DL_FUNC) &R_mpimat_diag,             3},
   {"R_mpimat_dim",              (DL_FUNC) &R_mpimat_dim,              2},
   {"R_mpimat_dimops_matsums",   (DL_FUNC) &R_mpimat_dimops_matsums,   5},
+  {"R_mpimat_dimops_scale",     (DL_FUNC) &R_mpimat_dimops_scale,     4},
   {"R_mpimat_dupe",             (DL_FUNC) &R_mpimat_dupe,             2},
   {"R_mpimat_fill_diag",        (DL_FUNC) &R_mpimat_fill_diag,        3},
   {"R_mpimat_fill_eye",         (DL_FUNC) &R_mpimat_fill_eye,         2},

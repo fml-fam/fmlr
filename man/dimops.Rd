@@ -26,5 +26,5 @@ class and type as \code{x}.}
 Returns the matrix sum.
 }
 \description{
-Compute the sum of rows.
+Compute the sums/means of the rows/columns of a matrix.
 }
