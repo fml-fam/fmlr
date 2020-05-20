@@ -6,7 +6,11 @@ if (fml_gpu()){
   c = card()
   x = gpumat(c, m, n)
   x$fill_linspace(1, m*n)
-  r = x$to_robj()
+  xr = x$to_robj()
+  
+  y = gpumat(c, m, n)
+  y$fill_eye()
+  yr = y$to_robj()
   
   source("internals/common.r")
   source("internals/linalg.r")
