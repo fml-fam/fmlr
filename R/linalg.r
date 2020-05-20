@@ -1,55 +1,3 @@
-check_inputs = function(ret, ...)
-{
-  if (!is.null(ret))
-  {
-    check_class_consistency(ret, ...)
-    check_type_consistency(ret, ...)
-    invisiret = TRUE
-  }
-  else
-  {
-    check_class_consistency(...)
-    check_type_consistency(...)
-    invisiret = FALSE
-  }
-  
-  invisiret
-}
-
-
-
-get_cfun = function(cfun_post, x)
-{
-  if (is_cpumat(x))
-    cfun_pre = "R_cpumat_linalg_"
-  else if (is_gpumat(x))
-    cfun_pre = "R_gpumat_linalg_"
-  else if (is_mpimat(x))
-    cfun_pre = "R_mpimat_linalg_"
-  
-  CFUN = eval(parse(text=paste0(cfun_pre, cfun_post)))
-  CFUN
-}
-
-
-
-setret = function(x)
-{
-  if (is_cpumat(x))
-    ret = cpumat(type=x$get_type_str())
-  else if (is_gpumat(x))
-    ret = gpumat(x$get_card(), type=x$get_type_str())
-  else if (is_mpimat(x))
-  {
-    bfdim = x$bfdim()
-    ret = mpimat(x$get_grid(), bf_rows=bfdim[1], bf_cols=bfdim[2], type=x$get_type_str())
-  }
-  
-  ret
-}
-
-
-
 #' add
 #' 
 #' Add two matrices: `ret = alpha*x + beta*y`.
@@ -82,7 +30,7 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
   
   invisiret = check_inputs(ret, x, y)
   
-  CFUN = get_cfun("add", x)
+  CFUN = get_cfun(x, "linalg", "add")
   if (is.null(ret))
     ret = setret(x)
   .Call(CFUN, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
@@ -126,7 +74,7 @@ linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
   
   invisiret = check_inputs(ret, x, y)
   
-  CFUN = get_cfun("matmult", x)
+  CFUN = get_cfun(x, "linalg", "matmult")
   if (is.null(ret))
     ret = setret(x)
   .Call(CFUN, x$get_type(), transx, transy, alpha, x$data_ptr(), y$data_ptr(), ret$data_ptr())
@@ -151,7 +99,7 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   
   invisiret = check_inputs(ret, x)
   
-  CFUN = get_cfun("crossprod", x)
+  CFUN = get_cfun(x, "linalg", "crossprod")
   if (is.null(ret))
     ret = setret(x)
   .Call(CFUN, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
@@ -213,7 +161,7 @@ linalg_xpose = function(x, ret=NULL)
   check_is_mat(x)
   invisiret = check_inputs(ret, x)
   
-  CFUN = get_cfun("xpose", x)
+  CFUN = get_cfun(x, "linalg", "xpose")
   if (is.null(ret))
     ret = setret(x)
   
@@ -244,7 +192,7 @@ linalg_xpose = function(x, ret=NULL)
 linalg_lu = function(x)
 {
   check_is_mat(x)
-  CFUN = get_cfun("lu", x)
+  CFUN = get_cfun(x, "linalg", "lu")
   .Call(CFUN, x$get_type(), x$data_ptr())
   invisible(NULL)
 }
@@ -268,7 +216,7 @@ linalg_lu = function(x)
 linalg_trace = function(x)
 {
   check_is_mat(x)
-  CFUN = get_cfun("trace", x)
+  CFUN = get_cfun(x, "linalg", "trace")
   .Call(CFUN, x$get_type(), x$data_ptr())
 }
 
@@ -315,7 +263,7 @@ linalg_svd = function(x, s, u=NULL, vt=NULL)
   else if (!is.null(u) || !is.null(vt))
     stop("must pass neither u and vt or both u and vt")
   
-  CFUN = get_cfun("svd", x)
+  CFUN = get_cfun(x, "linalg", "svd")
   if (is.null(u))
     .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
   else
@@ -353,7 +301,7 @@ linalg_eigen_sym = function(x, values, vectors=NULL)
   if (!is.null(vectors))
     check_inputs(x, vectors)
   
-  CFUN = get_cfun("eigen_sym", x)
+  CFUN = get_cfun(x, "linalg", "eigen_sym")
   if (is.null(vectors))
     .Call(CFUN, x$get_type(), x$data_ptr(), values$data_ptr(), NULL)
   else
@@ -381,7 +329,7 @@ linalg_eigen_sym = function(x, values, vectors=NULL)
 linalg_invert = function(x)
 {
   check_is_mat(x)
-  CFUN = get_cfun("invert", x)
+  CFUN = get_cfun(x, "linalg", "invert")
   .Call(CFUN, x$get_type(), x$data_ptr())
   invisible(NULL)
 }
@@ -420,7 +368,7 @@ linalg_solve = function(x, y)
     class = CLASS_MAT
   }
   
-  CFUN = get_cfun("solve", x)
+  CFUN = get_cfun(x, "linalg", "solve")
   .Call(CFUN, x$get_type(), x$data_ptr(), class, y$data_ptr())
   
   invisible(NULL)

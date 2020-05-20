@@ -4,6 +4,7 @@ check_class_consistency = function(...)
   if (length(l) < 2)
     return(invisible(TRUE))
   
+  fmlr_is_funs = c(is_cpumat, is_cpuvec, is_gpuvec, is_gpumat)
   for (fun in fmlr_is_funs)
   {
     test = sapply(l, fun)
@@ -13,6 +14,38 @@ check_class_consistency = function(...)
         return(invisible(TRUE))
       else
         stop("inconsistent object usage: can not mix backends")
+    }
+  }
+}
+
+
+
+check_backend_consistency = function(...)
+{
+  l = list(...)
+  if (length(l) < 2)
+    return(invisible(TRUE))
+  
+  fmlr_backend_funs = c(is_cpu, is_gpu, is_mpi)
+  for (fun in fmlr_backend_funs)
+  {
+    test_fun = sapply(l, fun)
+    if (any(test_fun))
+    {
+      if (all(test_fun))
+        return(invisible(TRUE))
+      else
+      {
+        test_mpimat = sapply(l, is_mpi)
+        test_cpuvec = sapply(l, is_cpuvec)
+        if (any(test_mpimat) && any(test_cpuvec))
+        {
+          if (all(pmax(test_mpimat, test_cpuvec)))
+            return(invisible(TRUE))
+          else
+            stop("inconsistent object usage: can not mix backends")
+        }
+      }
     }
   }
 }
@@ -32,6 +65,34 @@ check_type_consistency = function(...)
     return(invisible(TRUE))
   else
     stop("inconsistent type usage: can not mix fundamental types")
+}
+
+
+
+check_inputs = function(ret, ..., class=FALSE)
+{
+  if (!is.null(ret))
+  {
+    if (class)
+      check_class_consistency(ret, ...)
+    else
+      check_backend_consistency(ret, ...)
+    
+    check_type_consistency(ret, ...)
+    invisiret = TRUE
+  }
+  else
+  {
+    if (class)
+      check_class_consistency(...)
+    else
+      check_backend_consistency(ret, ...)
+    
+    check_type_consistency(...)
+    invisiret = FALSE
+  }
+  
+  invisiret
 }
 
 
