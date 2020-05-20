@@ -25,6 +25,7 @@ Data is held in an external pointer.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cardR6$new(id = 0)}\if{html}{\out{</div>}}
@@ -44,6 +45,7 @@ Class initializer.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set"></a>}}
+\if{latex}{\out{\hypertarget{method-set}{}}}
 \subsection{Method \code{set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cardR6$set(id)}\if{html}{\out{</div>}}
@@ -63,6 +65,7 @@ Set card to a different GPU.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-info"></a>}}
+\if{latex}{\out{\hypertarget{method-info}{}}}
 \subsection{Method \code{info()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cardR6$info()}\if{html}{\out{</div>}}
@@ -75,6 +78,7 @@ Print one-line information about the object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cardR6$print()}\if{html}{\out{</div>}}
@@ -87,6 +91,7 @@ Print one-line information about the object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_id"></a>}}
+\if{latex}{\out{\hypertarget{method-get_id}{}}}
 \subsection{Method \code{get_id()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cardR6$get_id()}\if{html}{\out{</div>}}
@@ -99,6 +104,7 @@ Returns GPU id number.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-valid_card"></a>}}
+\if{latex}{\out{\hypertarget{method-valid_card}{}}}
 \subsection{Method \code{valid_card()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cardR6$valid_card()}\if{html}{\out{</div>}}
@@ -111,6 +117,7 @@ Returns whether or not the card object is valid.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-data_ptr"></a>}}
+\if{latex}{\out{\hypertarget{method-data_ptr}{}}}
 \subsection{Method \code{data_ptr()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cardR6$data_ptr()}\if{html}{\out{</div>}}
@@ -123,6 +130,7 @@ Returns the external pointer data. For developers only.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

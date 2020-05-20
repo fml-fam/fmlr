@@ -48,6 +48,7 @@ Data is held in an external pointer.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$new(nrows = 0, ncols = 0, type = "double")}\if{html}{\out{</div>}}
@@ -69,6 +70,7 @@ Class initializer. See also \code{?cpumat}.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-resize"></a>}}
+\if{latex}{\out{\hypertarget{method-resize}{}}}
 \subsection{Method \code{resize()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$resize(nrows, ncols)}\if{html}{\out{</div>}}
@@ -88,6 +90,7 @@ Change the dimension of the matrix object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-inherit"></a>}}
+\if{latex}{\out{\hypertarget{method-inherit}{}}}
 \subsection{Method \code{inherit()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$inherit(data)}\if{html}{\out{</div>}}
@@ -108,6 +111,7 @@ also \code{?as_cpumat}.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-dupe"></a>}}
+\if{latex}{\out{\hypertarget{method-dupe}{}}}
 \subsection{Method \code{dupe()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$dupe()}\if{html}{\out{</div>}}
@@ -120,6 +124,7 @@ Duplicate the matrix in a deep copy.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-info"></a>}}
+\if{latex}{\out{\hypertarget{method-info}{}}}
 \subsection{Method \code{info()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$info()}\if{html}{\out{</div>}}
@@ -132,6 +137,7 @@ Print one-line information about the matrix.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$print(ndigits = 4)}\if{html}{\out{</div>}}
@@ -151,6 +157,7 @@ Print the data.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_zero"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_zero}{}}}
 \subsection{Method \code{fill_zero()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$fill_zero()}\if{html}{\out{</div>}}
@@ -163,6 +170,7 @@ Fill all entries with zero.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_val"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_val}{}}}
 \subsection{Method \code{fill_val()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$fill_val(v)}\if{html}{\out{</div>}}
@@ -182,6 +190,7 @@ Fill all entries with supplied value.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_linspace"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_linspace}{}}}
 \subsection{Method \code{fill_linspace()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$fill_linspace(start, stop)}\if{html}{\out{</div>}}
@@ -201,6 +210,7 @@ Fill the matrix (column-wise) with linearly-spaced values.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_eye"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_eye}{}}}
 \subsection{Method \code{fill_eye()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$fill_eye()}\if{html}{\out{</div>}}
@@ -213,6 +223,7 @@ Fill diagonal values to 1 and non-diagonal values to 0.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_diag"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_diag}{}}}
 \subsection{Method \code{fill_diag()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$fill_diag(v)}\if{html}{\out{</div>}}
@@ -234,6 +245,7 @@ matrix diagonal is filled.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_runif"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_runif}{}}}
 \subsection{Method \code{fill_runif()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$fill_runif(seed, min = 0, max = 1)}\if{html}{\out{</div>}}
@@ -255,6 +267,7 @@ Fill the matrix with random unifmorm data.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_rnorm"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_rnorm}{}}}
 \subsection{Method \code{fill_rnorm()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$fill_rnorm(seed, mean = 0, sd = 1)}\if{html}{\out{</div>}}
@@ -276,6 +289,7 @@ Fill the matrix with random normal data.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-diag"></a>}}
+\if{latex}{\out{\hypertarget{method-diag}{}}}
 \subsection{Method \code{diag()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$diag(v)}\if{html}{\out{</div>}}
@@ -295,6 +309,7 @@ Get diagonal entries of the matrix.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-antidiag"></a>}}
+\if{latex}{\out{\hypertarget{method-antidiag}{}}}
 \subsection{Method \code{antidiag()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$antidiag(v)}\if{html}{\out{</div>}}
@@ -314,6 +329,7 @@ Get anti-diagonal entries of the matrix.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-scale"></a>}}
+\if{latex}{\out{\hypertarget{method-scale}{}}}
 \subsection{Method \code{scale()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$scale(s)}\if{html}{\out{</div>}}
@@ -333,6 +349,7 @@ Scale all entries by the supplied value.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-rev_rows"></a>}}
+\if{latex}{\out{\hypertarget{method-rev_rows}{}}}
 \subsection{Method \code{rev_rows()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$rev_rows()}\if{html}{\out{</div>}}
@@ -345,6 +362,7 @@ Reverse rows.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-rev_cols"></a>}}
+\if{latex}{\out{\hypertarget{method-rev_cols}{}}}
 \subsection{Method \code{rev_cols()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$rev_cols()}\if{html}{\out{</div>}}
@@ -357,6 +375,7 @@ Reverse columns.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get"></a>}}
+\if{latex}{\out{\hypertarget{method-get}{}}}
 \subsection{Method \code{get()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$get(i, j)}\if{html}{\out{</div>}}
@@ -376,6 +395,7 @@ Get element from the matrix.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set"></a>}}
+\if{latex}{\out{\hypertarget{method-set}{}}}
 \subsection{Method \code{set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$set(i, j, v)}\if{html}{\out{</div>}}
@@ -397,6 +417,7 @@ Set element of the matrix.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_row"></a>}}
+\if{latex}{\out{\hypertarget{method-get_row}{}}}
 \subsection{Method \code{get_row()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$get_row(i, v)}\if{html}{\out{</div>}}
@@ -418,6 +439,7 @@ Get the specified row.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_col"></a>}}
+\if{latex}{\out{\hypertarget{method-get_col}{}}}
 \subsection{Method \code{get_col()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$get_col(j, v)}\if{html}{\out{</div>}}
@@ -439,6 +461,7 @@ Get the specified column.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-dim"></a>}}
+\if{latex}{\out{\hypertarget{method-dim}{}}}
 \subsection{Method \code{dim()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$dim()}\if{html}{\out{</div>}}
@@ -451,6 +474,7 @@ Returns number of rows and columns of the matrix.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-nrows"></a>}}
+\if{latex}{\out{\hypertarget{method-nrows}{}}}
 \subsection{Method \code{nrows()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$nrows()}\if{html}{\out{</div>}}
@@ -463,6 +487,7 @@ Returns number of rows of the matrix.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ncols"></a>}}
+\if{latex}{\out{\hypertarget{method-ncols}{}}}
 \subsection{Method \code{ncols()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$ncols()}\if{html}{\out{</div>}}
@@ -475,6 +500,7 @@ Returns number of columns of the matrix.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-data_ptr"></a>}}
+\if{latex}{\out{\hypertarget{method-data_ptr}{}}}
 \subsection{Method \code{data_ptr()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$data_ptr()}\if{html}{\out{</div>}}
@@ -487,6 +513,7 @@ Returns the external pointer data. For developers only.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_type"></a>}}
+\if{latex}{\out{\hypertarget{method-get_type}{}}}
 \subsection{Method \code{get_type()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$get_type()}\if{html}{\out{</div>}}
@@ -499,6 +526,7 @@ Returns the integer code for the underlying storage type. For developers only.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_type_str"></a>}}
+\if{latex}{\out{\hypertarget{method-get_type_str}{}}}
 \subsection{Method \code{get_type_str()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$get_type_str()}\if{html}{\out{</div>}}
@@ -511,6 +539,7 @@ Returns the string code for the underlying storage type. For developers only.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-to_robj"></a>}}
+\if{latex}{\out{\hypertarget{method-to_robj}{}}}
 \subsection{Method \code{to_robj()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$to_robj()}\if{html}{\out{</div>}}
@@ -523,6 +552,7 @@ Returns an R matrix containing a copy of the class data.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-from_robj"></a>}}
+\if{latex}{\out{\hypertarget{method-from_robj}{}}}
 \subsection{Method \code{from_robj()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpumatR6$from_robj(robj)}\if{html}{\out{</div>}}
@@ -542,6 +572,7 @@ Copies the values of the input to the class data. See also \code{?as_cpumat}.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -38,6 +38,7 @@ Data is held in an external pointer.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$new(size = 0, type = "double")}\if{html}{\out{</div>}}
@@ -59,6 +60,7 @@ Class initializer. See also \code{?cpuvec}.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-resize"></a>}}
+\if{latex}{\out{\hypertarget{method-resize}{}}}
 \subsection{Method \code{resize()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$resize(size)}\if{html}{\out{</div>}}
@@ -78,6 +80,7 @@ Change the length of the vector object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-inherit"></a>}}
+\if{latex}{\out{\hypertarget{method-inherit}{}}}
 \subsection{Method \code{inherit()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$inherit(data)}\if{html}{\out{</div>}}
@@ -98,6 +101,7 @@ also \code{?as_cpuvec}.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-dupe"></a>}}
+\if{latex}{\out{\hypertarget{method-dupe}{}}}
 \subsection{Method \code{dupe()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$dupe()}\if{html}{\out{</div>}}
@@ -110,6 +114,7 @@ Duplicate the vector in a deep copy.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-info"></a>}}
+\if{latex}{\out{\hypertarget{method-info}{}}}
 \subsection{Method \code{info()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$info()}\if{html}{\out{</div>}}
@@ -122,6 +127,7 @@ Print one-line information about the vector.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$print(ndigits = 4)}\if{html}{\out{</div>}}
@@ -141,6 +147,7 @@ Print the data.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_zero"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_zero}{}}}
 \subsection{Method \code{fill_zero()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$fill_zero()}\if{html}{\out{</div>}}
@@ -153,6 +160,7 @@ Fill all entries with zero.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_val"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_val}{}}}
 \subsection{Method \code{fill_val()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$fill_val(v)}\if{html}{\out{</div>}}
@@ -172,6 +180,7 @@ Fill all entries with supplied value.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fill_linspace"></a>}}
+\if{latex}{\out{\hypertarget{method-fill_linspace}{}}}
 \subsection{Method \code{fill_linspace()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$fill_linspace(start, stop)}\if{html}{\out{</div>}}
@@ -191,6 +200,7 @@ Fill the vector (column-wise) with linearly-spaced values.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-scale"></a>}}
+\if{latex}{\out{\hypertarget{method-scale}{}}}
 \subsection{Method \code{scale()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$scale(s)}\if{html}{\out{</div>}}
@@ -210,6 +220,7 @@ Scale all entries by the supplied value.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-rev"></a>}}
+\if{latex}{\out{\hypertarget{method-rev}{}}}
 \subsection{Method \code{rev()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$rev()}\if{html}{\out{</div>}}
@@ -222,6 +233,7 @@ Reverse rows.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-sum"></a>}}
+\if{latex}{\out{\hypertarget{method-sum}{}}}
 \subsection{Method \code{sum()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$sum()}\if{html}{\out{</div>}}
@@ -237,6 +249,7 @@ Returns the sum.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get"></a>}}
+\if{latex}{\out{\hypertarget{method-get}{}}}
 \subsection{Method \code{get()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$get(i)}\if{html}{\out{</div>}}
@@ -256,6 +269,7 @@ Get element from the vector.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set"></a>}}
+\if{latex}{\out{\hypertarget{method-set}{}}}
 \subsection{Method \code{set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$set(i, v)}\if{html}{\out{</div>}}
@@ -277,6 +291,7 @@ Set element of the vector.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-size"></a>}}
+\if{latex}{\out{\hypertarget{method-size}{}}}
 \subsection{Method \code{size()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$size()}\if{html}{\out{</div>}}
@@ -289,6 +304,7 @@ Returns length of the vector.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-data_ptr"></a>}}
+\if{latex}{\out{\hypertarget{method-data_ptr}{}}}
 \subsection{Method \code{data_ptr()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$data_ptr()}\if{html}{\out{</div>}}
@@ -301,6 +317,7 @@ Returns the external pointer data. For developers only.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_type"></a>}}
+\if{latex}{\out{\hypertarget{method-get_type}{}}}
 \subsection{Method \code{get_type()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$get_type()}\if{html}{\out{</div>}}
@@ -313,6 +330,7 @@ Returns the integer code for the underlying storage type. For developers only.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_type_str"></a>}}
+\if{latex}{\out{\hypertarget{method-get_type_str}{}}}
 \subsection{Method \code{get_type_str()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$get_type_str()}\if{html}{\out{</div>}}
@@ -325,6 +343,7 @@ Returns the string code for the underlying storage type. For developers only.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-to_robj"></a>}}
+\if{latex}{\out{\hypertarget{method-to_robj}{}}}
 \subsection{Method \code{to_robj()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$to_robj()}\if{html}{\out{</div>}}
@@ -337,6 +356,7 @@ Returns an R vector containing a copy of the class data.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-from_robj"></a>}}
+\if{latex}{\out{\hypertarget{method-from_robj}{}}}
 \subsection{Method \code{from_robj()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{cpuvecR6$from_robj(robj)}\if{html}{\out{</div>}}
@@ -356,6 +376,7 @@ Copies the values of the input to the class data. See also \code{?as_cpuvec}.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
