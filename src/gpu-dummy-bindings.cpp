@@ -323,7 +323,6 @@ extern "C" SEXP R_gpumat_from_robj(SEXP type, SEXP x_robj, SEXP robj)
 
 
 
-
 // -----------------------------------------------------------------------------
 // gpuhelpers namespace
 // -----------------------------------------------------------------------------
@@ -428,5 +427,17 @@ extern "C" SEXP R_gpumat_linalg_invert(SEXP type, SEXP x_robj)
 extern "C" SEXP R_gpumat_linalg_solve(SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
 {
   unused(type, x_robj, y_class, y_robj);
+  WARN_AND_RETURN;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// linalg namespace
+// -----------------------------------------------------------------------------
+
+extern "C" SEXP R_gpumat_dimops_matsums(SEXP type, SEXP row, SEXP mean, SEXP x_robj, SEXP s_robj)
+{
+  unused(type, row, mean, x_robj, s_robj);
   WARN_AND_RETURN;
 }
