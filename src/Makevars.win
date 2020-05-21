@@ -1,0 +1,64 @@
+CXX_STD = CXX14
+
+R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
+
+FML_CPPFLAGS = -I../inst/include
+
+MPI_INCLUDE = $(shell ${R_SCMD} "library(pbdMPI);get.conf('MPI_INCLUDE','"${R_ARCH}"','pbdMPI')")
+SPMD_CPPFLAGS = -I"$(MPI_INCLUDE)"
+SPMD_LDFLAGS = $(shell ${R_SCMD} "library(pbdMPI);get.conf('MPI_LIB','"${R_ARCH}"','pbdMPI')")
+SLAP_LDFLAGS = $(shell ${R_SCMD} "library(pbdMPI);get.lib('R_SLAP','"${R_ARCH}"','pbdSLAP')")
+
+FLOAT_INCL = $(shell ${R_SCMD} "float:::cppflags()")
+FLOAT_LIBS = $(shell ${R_SCMD} "float:::ldflags()")
+
+R_CPPFLAGS = $(shell ${R_HOME}/bin${R_ARCH_BIN}/R CMD config --cppflags)
+
+# USE_GPU = @USE_GPU@
+# NVCC = @NVCC@
+# CUDA_CFLAGS = @CUDA_CFLAGS@
+# CUDA_LDFLAGS = @CUDA_LDFLAGS@
+
+
+
+# set arch flags
+PKG_LIBS_CPU = $(FLOAT_LDFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CXXFLAGS)
+
+PKG_LIBS_GPU = $(CUDA_LDFLAGS) -lcudart -lcublas -lcusolver -lcurand -lnvidia-ml
+
+PKG_CPPFLAGS_MPI = $(SPMD_CPPFLAGS)
+PKG_CXXFLAGS_MPI = $(SPMD_CPPFLAGS)
+PKG_LIBS_MPI = $(SLAP_LDFLAGS) $(SPMD_LDFLAGS)
+
+
+
+# flags
+PKG_CPPFLAGS = $(FML_CPPFLAGS) $(PKG_CPPFLAGS_MPI)
+PKG_CXXFLAGS = $(PKG_CXXFLAGS_MPI) $(SHLIB_OPENMP_CXXFLAGS)
+
+
+
+# libs and objects
+R_OBJS = fmlr-native.o
+CPU_OBJS = cpumat.o cpuvec.o dimops-cpu.o helpers-cpu.o linalg-cpu.o
+MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o
+
+# ifeq "$(USE_GPU)" "TRUE"
+# PKG_LIBS = $(PKG_LIBS_MPI) $(PKG_LIBS_CPU) $(PKG_LIBS_GPU)
+# OBJECTS = $(R_OBJS) $(CPU_OBJS) $(MPI_OBJS) card.o dimops-gpu.o gpumat.o gpuvec.o helpers-gpu.o linalg-gpu.o
+# else
+PKG_LIBS = $(PKG_LIBS_MPI) $(PKG_LIBS_CPU)
+OBJECTS = $(R_OBJS) $(CPU_OBJS) $(MPI_OBJS) gpu-dummy-bindings.o
+# endif
+
+
+
+# make
+all: $(SHLIB)
+
+# ifeq "$(USE_GPU)" "TRUE"
+# %.o: %.cu
+# 	$(NVCC) -DGPU -O2 -x cu -c -arch=sm_61 -Xcompiler "-fPIC $(FML_CPPFLAGS) $(FLOAT_INCL) $(R_CPPFLAGS) $(SPMD_CPPFLAGS)" $< -o $@
+# else
+$(SHLIB): $(OBJECTS)
+# endif
