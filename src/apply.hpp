@@ -54,9 +54,9 @@
 
 #define APPLY_TEMPLATED_MACRO(MACRO, type_robj) \
   if (INT(type_robj) == TYPE_DOUBLE) \
-    MACRO(double) \
+    TRY_CATCH( MACRO(double) ) \
   else if (INT(type_robj) == TYPE_FLOAT) \
-    MACRO(float) \
+    TRY_CATCH( MACRO(float) ) \
   else \
     error(TYPE_ERR);
 
