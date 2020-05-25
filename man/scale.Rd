@@ -8,11 +8,12 @@
 dimops_scale(rm_mean = TRUE, rm_sd = FALSE, x)
 }
 \arguments{
-\item{x}{Input matrix.}
-}
-\value{
-Returns the matrix sum.
+\item{rm_mean, rm_sd}{Should the data be centered/scaled first?}
+
+\item{x}{Input matrix. The input data is overwritten by the centered/scaled
+data.}
 }
 \description{
-Remove the rows and/or sd of the columns of a matrix.
+Remove the rows and/or sd of the columns of a matrix. The operations occur
+in-place.
 }

@@ -91,10 +91,12 @@ dimops_colmeans = function(x, s=NULL)
 
 #' scale
 #' 
-#' Remove the rows and/or sd of the columns of a matrix.
+#' Remove the rows and/or sd of the columns of a matrix. The operations occur
+#' in-place.
 #' 
-#' @param x Input matrix.
-#' @return Returns the matrix sum.
+#' @param rm_mean,rm_sd Should the data be centered/scaled first?
+#' @param x Input matrix. The input data is overwritten by the centered/scaled
+#' data.
 #' 
 #' @rdname scale
 #' @name scale
