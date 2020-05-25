@@ -432,3 +432,29 @@ linalg_qr_Q = function(QR, qraux, Q, work)
   
   invisible(NULL)
 }
+
+
+
+#' qr_R
+#' 
+#' Computes the R matrix from the compact QR factorization.
+#' 
+#' @param QR The compact QR factorization. The return from \code{qr()}.
+#' @param R The output R matrix.
+#' 
+#' @rdname linalg-qr-R
+#' @name qr_R
+#' @useDynLib fmlr R_cpumat_linalg_qr_R
+#' @useDynLib fmlr R_gpumat_linalg_qr_R
+#' @useDynLib fmlr R_mpimat_linalg_qr_R
+#' 
+#' @export
+linalg_qr_R = function(QR, R)
+{
+  check_inputs(QR, R)
+  
+  CFUN = get_cfun(x, "linalg", "qr_R")
+  .Call(CFUN, QR$get_type(), QR$data_ptr(), R$data_ptr())
+  
+  invisible(NULL)
+}
