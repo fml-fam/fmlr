@@ -71,36 +71,29 @@ extern "C" SEXP R_mpimat_linalg_crossprod(SEXP type, SEXP xpose, SEXP alpha, SEX
 
 
 
-template <typename REAL>
-static inline void xpose(void *x, void *ret)
-{
-  CAST_MAT(mpimat, REAL, x_cast, x);
-  CAST_MAT(mpimat, REAL, ret_cast, ret);
-  linalg::xpose(*x_cast, *ret_cast);
-}
-
 extern "C" SEXP R_mpimat_linalg_xpose(SEXP type, SEXP x_robj, SEXP ret_robj)
 {
-  void *x = getRptr(x_robj);
-  void *ret = getRptr(ret_robj);
-  APPLY_TEMPLATED_FUNCTION(type, xpose, x, ret);
+  #define FMLR_TMP_XPOSE(type) { \
+    CAST_FML(mpimat, type, x, x_robj); \
+    CAST_FML(mpimat, type, ret, ret_robj); \
+    linalg::xpose(*x, *ret); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_XPOSE, type);
+  #undef FMLR_TMP_XPOSE
   
   return R_NilValue;
 }
 
 
 
-template <typename REAL>
-static inline void lu(void *x)
-{
-  CAST_MAT(mpimat, REAL, x_cast, x);
-  linalg::lu(*x_cast);
-}
-
 extern "C" SEXP R_mpimat_linalg_lu(SEXP type, SEXP x_robj)
 {
-  void *x = getRptr(x_robj);
-  APPLY_TEMPLATED_FUNCTION(type, lu, x);
+  #define FMLR_TMP_LU(type) { \
+    CAST_FML(mpimat, type, x, x_robj); \
+    linalg::lu(*x); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_LU, type);
+  #undef FMLR_TMP_LU
   
   return R_NilValue;
 }
@@ -182,17 +175,14 @@ extern "C" SEXP R_mpimat_linalg_eigen_sym(SEXP type, SEXP x_robj, SEXP values_ro
 
 
 
-template <typename REAL>
-static inline void invert(void *x)
-{
-  CAST_MAT(mpimat, REAL, x_cast, x);
-  linalg::invert(*x_cast);
-}
-
 extern "C" SEXP R_mpimat_linalg_invert(SEXP type, SEXP x_robj)
 {
-  void *x = getRptr(x_robj);
-  APPLY_TEMPLATED_FUNCTION(type, invert, x);
+  #define FMLR_TMP_INVERT(type) { \
+    CAST_FML(mpimat, type, x, x_robj); \
+    linalg::invert(*x); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_INVERT, type);
+  #undef FMLR_TMP_INVERT
   
   return R_NilValue;
 }
@@ -233,7 +223,6 @@ extern "C" SEXP R_mpimat_linalg_qr(SEXP type, SEXP x_robj, SEXP qraux_robj)
     linalg::qr(false, *x, *qraux); }
   
   APPLY_TEMPLATED_MACRO(FMLR_TMP_QR, type);
-  
   #undef FMLR_TMP_QR
   
   return R_NilValue;
@@ -251,7 +240,6 @@ extern "C" SEXP R_mpimat_linalg_qr_Q(SEXP type, SEXP QR_robj, SEXP qraux_robj, S
     linalg::qr_Q(*QR, *qraux, *Q, *work); }
   
   APPLY_TEMPLATED_MACRO(FMLR_TMP_QR_Q, type);
-  
   #undef FMLR_TMP_QR_Q
   
   return R_NilValue;
@@ -267,7 +255,6 @@ extern "C" SEXP R_mpimat_linalg_qr_R(SEXP type, SEXP QR_robj, SEXP R_robj)
     linalg::qr_R(*QR, *R); }
   
   APPLY_TEMPLATED_MACRO(FMLR_TMP_QR_R, type);
-  
   #undef FMLR_TMP_QR_R
   
   return R_NilValue;
