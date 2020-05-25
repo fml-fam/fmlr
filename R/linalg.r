@@ -373,3 +373,35 @@ linalg_solve = function(x, y)
   
   invisible(NULL)
 }
+
+
+
+
+
+
+
+#' qr
+#' 
+#' Computes the compact QR factorization.
+#' 
+#' @param x Input data. The input values are overwritten.
+#' @param qraux Auxilliary data for the compact QR.
+#' 
+#' @rdname linalg-qr
+#' @name qr
+#' @useDynLib fmlr R_cpumat_linalg_qr
+#' @useDynLib fmlr R_gpumat_linalg_qr
+#' @useDynLib fmlr R_mpimat_linalg_qr
+#' 
+#' @export
+linalg_qr = function(x, qraux)
+{
+  check_is_mat(x)
+  check_is_vec(qraux)
+  check_type_consistency(x, qraux)
+  
+  CFUN = get_cfun(x, "linalg", "qr")
+  .Call(CFUN, x$get_type(), x$data_ptr(), qraux$data_ptr())
+  
+  invisible(NULL)
+}

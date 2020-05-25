@@ -52,4 +52,14 @@
   }
 
 
+#define APPLY_TEMPLATED_MACRO(MACRO, type_robj) \
+  if (INT(type_robj) == TYPE_DOUBLE) \
+    MACRO(double) \
+  else if (INT(type_robj) == TYPE_FLOAT) \
+    MACRO(float) \
+  else \
+    error(TYPE_ERR);
+
+
+
 #endif

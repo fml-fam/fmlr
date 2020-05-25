@@ -431,6 +431,13 @@ extern "C" SEXP R_gpumat_linalg_solve(SEXP type, SEXP x_robj, SEXP y_class, SEXP
 }
 
 
+extern "C" SEXP R_gpumat_linalg_qr(SEXP type, SEXP x_robj, SEXP qraux_robj)
+{
+  unused(type, x_robj, qraux_robj);
+  WARN_AND_RETURN;
+}
+
+
 
 // -----------------------------------------------------------------------------
 // dimops namespace
