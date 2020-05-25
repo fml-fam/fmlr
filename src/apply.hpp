@@ -40,6 +40,7 @@
 
 
 #define CAST_MAT(MAT, REAL, x_cast, x) MAT<REAL>* x_cast = (MAT<REAL>*) x
+#define CAST_FML(MAT, REAL, x, x_robj) MAT<REAL>* x = (MAT<REAL>*) getRptr(x_robj)
 
 #define APPLY_TEMPLATED_FUNCTION(data_type, FUN, ...) \
   if (INT(data_type) == TYPE_DOUBLE){ \

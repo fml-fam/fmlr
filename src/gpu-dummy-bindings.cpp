@@ -447,3 +447,15 @@ extern "C" SEXP R_gpumat_dimops_scale(SEXP type, SEXP rm_mean, SEXP rm_sd, SEXP 
   unused(type, rm_mean, rm_sd, x_robj);
   WARN_AND_RETURN;
 }
+
+
+
+// -----------------------------------------------------------------------------
+// stats namespace
+// -----------------------------------------------------------------------------
+
+extern "C" SEXP R_gpumat_stats_pca(SEXP type, SEXP rm_mean_, SEXP rm_sd_, SEXP x_robj, SEXP sdev_robj, SEXP rot_robj)
+{
+  unused(type, rm_mean_, rm_sd_, x_robj, sdev_robj, rot_robj);
+  WARN_AND_RETURN;
+}

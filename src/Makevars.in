@@ -38,12 +38,12 @@ PKG_CXXFLAGS = $(PKG_CXXFLAGS_MPI) $(SHLIB_OPENMP_CXXFLAGS)
 
 # libs and objects
 R_OBJS = fmlr-native.o
-CPU_OBJS = cpumat.o cpuvec.o dimops-cpu.o helpers-cpu.o linalg-cpu.o
-MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o
+CPU_OBJS = cpumat.o cpuvec.o dimops-cpu.o helpers-cpu.o linalg-cpu.o stats-cpu.o
+MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o stats-mpi.o
 
 ifeq "$(USE_GPU)" "TRUE"
 PKG_LIBS = $(PKG_LIBS_MPI) $(PKG_LIBS_CPU) $(PKG_LIBS_GPU)
-OBJECTS = $(R_OBJS) $(CPU_OBJS) $(MPI_OBJS) card.o dimops-gpu.o gpumat.o gpuvec.o helpers-gpu.o linalg-gpu.o
+OBJECTS = $(R_OBJS) $(CPU_OBJS) $(MPI_OBJS) card.o dimops-gpu.o gpumat.o gpuvec.o helpers-gpu.o linalg-gpu.o stats-gpu.o
 else
 PKG_LIBS = $(PKG_LIBS_MPI) $(PKG_LIBS_CPU)
 OBJECTS = $(R_OBJS) $(CPU_OBJS) $(MPI_OBJS) gpu-dummy-bindings.o

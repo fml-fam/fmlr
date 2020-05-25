@@ -47,6 +47,7 @@ extern SEXP R_cpumat_rev_cols(SEXP, SEXP);
 extern SEXP R_cpumat_rev_rows(SEXP, SEXP);
 extern SEXP R_cpumat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_stats_pca(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_to_robj(SEXP, SEXP);
 extern SEXP R_cpuvec_cpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_dupe(SEXP, SEXP);
@@ -104,6 +105,7 @@ extern SEXP R_gpumat_rev_cols(SEXP, SEXP);
 extern SEXP R_gpumat_rev_rows(SEXP, SEXP);
 extern SEXP R_gpumat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_stats_pca(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_to_robj(SEXP, SEXP);
 extern SEXP R_gpuvec_cpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_dupe(SEXP, SEXP);
@@ -178,6 +180,7 @@ extern SEXP R_mpimat_rev_cols(SEXP, SEXP);
 extern SEXP R_mpimat_rev_rows(SEXP, SEXP);
 extern SEXP R_mpimat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_stats_pca(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_to_robj(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
@@ -223,6 +226,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpumat_rev_rows",         (DL_FUNC) &R_cpumat_rev_rows,         2},
   {"R_cpumat_scale",            (DL_FUNC) &R_cpumat_scale,            3},
   {"R_cpumat_set",              (DL_FUNC) &R_cpumat_set,              5},
+  {"R_cpumat_stats_pca",        (DL_FUNC) &R_cpumat_stats_pca,        6},
   {"R_cpumat_to_robj",          (DL_FUNC) &R_cpumat_to_robj,          2},
   {"R_cpuvec_cpu2cpu",          (DL_FUNC) &R_cpuvec_cpu2cpu,          4},
   {"R_cpuvec_dupe",             (DL_FUNC) &R_cpuvec_dupe,             2},
@@ -280,6 +284,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpumat_rev_rows",         (DL_FUNC) &R_gpumat_rev_rows,         2},
   {"R_gpumat_scale",            (DL_FUNC) &R_gpumat_scale,            3},
   {"R_gpumat_set",              (DL_FUNC) &R_gpumat_set,              5},
+  {"R_gpumat_stats_pca",        (DL_FUNC) &R_gpumat_stats_pca,        6},
   {"R_gpumat_to_robj",          (DL_FUNC) &R_gpumat_to_robj,          2},
   {"R_gpuvec_cpu2gpu",          (DL_FUNC) &R_gpuvec_cpu2gpu,          4},
   {"R_gpuvec_dupe",             (DL_FUNC) &R_gpuvec_dupe,             2},
@@ -354,6 +359,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_rev_rows",         (DL_FUNC) &R_mpimat_rev_rows,         2},
   {"R_mpimat_scale",            (DL_FUNC) &R_mpimat_scale,            3},
   {"R_mpimat_set",              (DL_FUNC) &R_mpimat_set,              5},
+  {"R_mpimat_stats_pca",        (DL_FUNC) &R_mpimat_stats_pca,        6},
   {"R_mpimat_to_robj",          (DL_FUNC) &R_mpimat_to_robj,          2},
   {NULL, NULL, 0}
 };
