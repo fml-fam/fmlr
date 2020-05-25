@@ -1,5 +1,3 @@
-/* Automatically generated. Do not edit by hand. */
-
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
