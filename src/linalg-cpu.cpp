@@ -241,3 +241,21 @@ extern "C" SEXP R_cpumat_linalg_qr(SEXP type, SEXP x_robj, SEXP qraux_robj)
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_cpumat_linalg_qr_Q(SEXP type, SEXP QR_robj, SEXP qraux_robj, SEXP Q_robj, SEXP work_robj)
+{
+  #define FMLR_TMP_QR_Q(type) { \
+    CAST_FML(cpumat, type, QR, QR_robj); \
+    CAST_FML(cpuvec, type, qraux, qraux_robj); \
+    CAST_FML(cpumat, type, Q, Q_robj); \
+    CAST_FML(cpuvec, type, work, work_robj); \
+    linalg::qr_Q(*QR, *qraux, *Q, *work); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_QR_Q, type);
+  
+  #undef FMLR_TMP_QR_Q
+  
+  return R_NilValue;
+}

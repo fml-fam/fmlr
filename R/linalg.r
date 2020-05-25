@@ -376,10 +376,6 @@ linalg_solve = function(x, y)
 
 
 
-
-
-
-
 #' qr
 #' 
 #' Computes the compact QR factorization.
@@ -402,6 +398,37 @@ linalg_qr = function(x, qraux)
   
   CFUN = get_cfun(x, "linalg", "qr")
   .Call(CFUN, x$get_type(), x$data_ptr(), qraux$data_ptr())
+  
+  invisible(NULL)
+}
+
+
+
+#' qr_Q
+#' 
+#' Computes the Q matrix from the compact QR factorization.
+#' 
+#' @param QR The compact QR factorization. The return from \code{qr()}.
+#' @param qraux Auxilliary data for the compact QR.
+#' @param Q The output Q matrix.
+#' @param work A workspace vector.
+#' 
+#' @rdname linalg-qr-Q
+#' @name qr_Q
+#' @useDynLib fmlr R_cpumat_linalg_qr_Q
+#' @useDynLib fmlr R_gpumat_linalg_qr_Q
+#' @useDynLib fmlr R_mpimat_linalg_qr_Q
+#' 
+#' @export
+linalg_qr_Q = function(QR, qraux, Q, work)
+{
+  check_inputs(QR, Q)
+  check_is_vec(qraux)
+  check_is_vec(work)
+  check_type_consistency(QR, qraux, work)
+  
+  CFUN = get_cfun(x, "linalg", "qr_Q")
+  .Call(CFUN, QR$get_type(), QR$data_ptr(), qraux$data_ptr(), Q$data_ptr(), work$data_ptr())
   
   invisible(NULL)
 }
