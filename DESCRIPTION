@@ -12,13 +12,16 @@ License: BSL-1.0
 SystemRequirements: C++14, GNU make
 Depends:
     R (>= 3.6.0),
-    pbdMPI (>= 0.3-0),
-    pbdSLAP
-Imports:
-    R6,
+    pbdMPI (>= 0.4-0),
+    pbdSLAP (>= 0.3-0),
     float (>= 0.2-0)
+Imports:
+    R6 (>= 2.4.1)
 LinkingTo:
     float (>= 0.2-0)
+Suggests:
+    memuse (>= 4.0-0),
+    merkhet (>= 0.2-0)
 ByteCompile: yes
 Authors@R: c(
     person("Drew", "Schmidt", role=c("aut", "cre"), email="wrathematics@gmail.com")
