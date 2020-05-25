@@ -449,6 +449,25 @@ extern "C" SEXP R_gpumat_linalg_qr_R(SEXP type, SEXP QR_robj, SEXP R_robj)
   WARN_AND_RETURN;
 }
 
+extern "C" SEXP R_gpumat_linalg_lq(SEXP type, SEXP x_robj, SEXP lqaux_robj)
+{
+  unused(type, x_robj, lqaux_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_linalg_lq_L(SEXP type, SEXP LQ_robj, SEXP L_robj)
+{
+  unused(type, LQ_robj, L_robj);
+  WARN_AND_RETURN;
+}
+
+extern "C" SEXP R_gpumat_linalg_lq_Q(SEXP type, SEXP LQ_robj, SEXP lqaux_robj, SEXP Q_robj, SEXP work_robj)
+{
+  unused(type, LQ_robj, lqaux_robj, Q_robj, work_robj);
+  WARN_AND_RETURN;
+}
+
+
 
 
 

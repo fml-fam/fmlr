@@ -259,3 +259,50 @@ extern "C" SEXP R_mpimat_linalg_qr_R(SEXP type, SEXP QR_robj, SEXP R_robj)
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_mpimat_linalg_lq(SEXP type, SEXP x_robj, SEXP lqaux_robj)
+{
+  #define FMLR_TMP_LQ(type) { \
+    CAST_FML(mpimat, type, x, x_robj); \
+    CAST_FML(cpuvec, type, lqaux, lqaux_robj); \
+    linalg::lq(*x, *lqaux); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_LQ, type);
+  #undef FMLR_TMP_LQ
+  
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_mpimat_linalg_lq_L(SEXP type, SEXP LQ_robj, SEXP L_robj)
+{
+  #define FMLR_TMP_LQ_L(type) { \
+    CAST_FML(mpimat, type, LQ, LQ_robj); \
+    CAST_FML(mpimat, type, L, L_robj); \
+    linalg::lq_L(*LQ, *L); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_LQ_L, type);
+  #undef FMLR_TMP_LQ_L
+  
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_mpimat_linalg_lq_Q(SEXP type, SEXP LQ_robj, SEXP lqaux_robj, SEXP Q_robj, SEXP work_robj)
+{
+  #define FMLR_TMP_LQ_Q(type) { \
+    CAST_FML(mpimat, type, LQ, LQ_robj); \
+    CAST_FML(cpuvec, type, lqaux, lqaux_robj); \
+    CAST_FML(mpimat, type, Q, Q_robj); \
+    CAST_FML(cpuvec, type, work, work_robj); \
+    linalg::lq_Q(*LQ, *lqaux, *Q, *work); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_LQ_Q, type);
+  #undef FMLR_TMP_LQ_Q
+  
+  return R_NilValue;
+}

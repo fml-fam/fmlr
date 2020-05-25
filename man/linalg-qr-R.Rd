@@ -3,15 +3,25 @@
 \name{qr_R}
 \alias{qr_R}
 \alias{linalg_qr_R}
+\alias{lq_L}
+\alias{linalg_lq_L}
 \title{qr_R}
 \usage{
 linalg_qr_R(QR, R)
+
+linalg_lq_L(LQ, L)
 }
 \arguments{
 \item{QR}{The compact QR factorization. The return from \code{qr()}.}
 
 \item{R}{The output R matrix.}
+
+\item{LQ}{The compact LQ factorization. The return from \code{lq()}.}
+
+\item{L}{The output L matrix.}
 }
 \description{
 Computes the R matrix from the compact QR factorization.
+
+Computes the L matrix from the compact LQ factorization.
 }

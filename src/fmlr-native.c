@@ -3,6 +3,7 @@
 #include <R_ext/Rdynload.h>
 #include <stdlib.h>
 
+
 extern SEXP R_card_get_id(SEXP);
 extern SEXP R_card_info(SEXP);
 extern SEXP R_card_init(SEXP);
@@ -33,6 +34,9 @@ extern SEXP R_cpumat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_invert(SEXP, SEXP);
+extern SEXP R_cpumat_linalg_lq(SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_linalg_lq_L(SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_lu(SEXP, SEXP);
 extern SEXP R_cpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr(SEXP, SEXP, SEXP);
@@ -94,6 +98,9 @@ extern SEXP R_gpumat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_invert(SEXP, SEXP);
+extern SEXP R_gpumat_linalg_lq(SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_linalg_lq_L(SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_lu(SEXP, SEXP);
 extern SEXP R_gpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr(SEXP, SEXP, SEXP);
@@ -170,6 +177,9 @@ extern SEXP R_mpimat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_invert(SEXP, SEXP);
+extern SEXP R_mpimat_linalg_lq(SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_linalg_lq_L(SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_lu(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr(SEXP, SEXP, SEXP);
@@ -221,6 +231,9 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpumat_linalg_crossprod", (DL_FUNC) &R_cpumat_linalg_crossprod, 5},
   {"R_cpumat_linalg_eigen_sym", (DL_FUNC) &R_cpumat_linalg_eigen_sym, 4},
   {"R_cpumat_linalg_invert",    (DL_FUNC) &R_cpumat_linalg_invert,    2},
+  {"R_cpumat_linalg_lq",        (DL_FUNC) &R_cpumat_linalg_lq,        3},
+  {"R_cpumat_linalg_lq_L",      (DL_FUNC) &R_cpumat_linalg_lq_L,      3},
+  {"R_cpumat_linalg_lq_Q",      (DL_FUNC) &R_cpumat_linalg_lq_Q,      5},
   {"R_cpumat_linalg_lu",        (DL_FUNC) &R_cpumat_linalg_lu,        2},
   {"R_cpumat_linalg_matmult",   (DL_FUNC) &R_cpumat_linalg_matmult,   7},
   {"R_cpumat_linalg_qr",        (DL_FUNC) &R_cpumat_linalg_qr,        3},
@@ -282,6 +295,9 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpumat_linalg_crossprod", (DL_FUNC) &R_gpumat_linalg_crossprod, 5},
   {"R_gpumat_linalg_eigen_sym", (DL_FUNC) &R_gpumat_linalg_eigen_sym, 4},
   {"R_gpumat_linalg_invert",    (DL_FUNC) &R_gpumat_linalg_invert,    2},
+  {"R_gpumat_linalg_lq",        (DL_FUNC) &R_gpumat_linalg_lq,        3},
+  {"R_gpumat_linalg_lq_L",      (DL_FUNC) &R_gpumat_linalg_lq_L,      3},
+  {"R_gpumat_linalg_lq_Q",      (DL_FUNC) &R_gpumat_linalg_lq_Q,      5},
   {"R_gpumat_linalg_lu",        (DL_FUNC) &R_gpumat_linalg_lu,        2},
   {"R_gpumat_linalg_matmult",   (DL_FUNC) &R_gpumat_linalg_matmult,   7},
   {"R_gpumat_linalg_qr",        (DL_FUNC) &R_gpumat_linalg_qr,        3},
@@ -358,6 +374,9 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_linalg_crossprod", (DL_FUNC) &R_mpimat_linalg_crossprod, 5},
   {"R_mpimat_linalg_eigen_sym", (DL_FUNC) &R_mpimat_linalg_eigen_sym, 4},
   {"R_mpimat_linalg_invert",    (DL_FUNC) &R_mpimat_linalg_invert,    2},
+  {"R_mpimat_linalg_lq",        (DL_FUNC) &R_mpimat_linalg_lq,        3},
+  {"R_mpimat_linalg_lq_L",      (DL_FUNC) &R_mpimat_linalg_lq_L,      3},
+  {"R_mpimat_linalg_lq_Q",      (DL_FUNC) &R_mpimat_linalg_lq_Q,      5},
   {"R_mpimat_linalg_lu",        (DL_FUNC) &R_mpimat_linalg_lu,        2},
   {"R_mpimat_linalg_matmult",   (DL_FUNC) &R_mpimat_linalg_matmult,   7},
   {"R_mpimat_linalg_qr",        (DL_FUNC) &R_mpimat_linalg_qr,        3},

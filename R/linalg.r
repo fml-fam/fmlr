@@ -458,3 +458,88 @@ linalg_qr_R = function(QR, R)
   
   invisible(NULL)
 }
+
+
+
+#' lq
+#' 
+#' Computes the compact LQ factorization.
+#' 
+#' @param x Input data. The input values are overwritten.
+#' @param lqaux Auxilliary data for the compact LQ.
+#' 
+#' @rdname linalg-lq
+#' @name lq
+#' @useDynLib fmlr R_cpumat_linalg_lq
+#' @useDynLib fmlr R_gpumat_linalg_lq
+#' @useDynLib fmlr R_mpimat_linalg_lq
+#' 
+#' @export
+linalg_lq = function(x, lqaux)
+{
+  check_is_mat(x)
+  check_is_vec(lqaux)
+  check_type_consistency(x, lqaux)
+  
+  CFUN = get_cfun(x, "linalg", "lq")
+  .Call(CFUN, x$get_type(), x$data_ptr(), lqaux$data_ptr())
+  
+  invisible(NULL)
+}
+
+
+
+#' lq_L
+#' 
+#' Computes the L matrix from the compact LQ factorization.
+#' 
+#' @param LQ The compact LQ factorization. The return from \code{lq()}.
+#' @param L The output L matrix.
+#' 
+#' @rdname linalg-qr-R
+#' @name lq_L
+#' @useDynLib fmlr R_cpumat_linalg_lq_L
+#' @useDynLib fmlr R_gpumat_linalg_lq_L
+#' @useDynLib fmlr R_mpimat_linalg_lq_L
+#' 
+#' @export
+linalg_lq_L = function(LQ, L)
+{
+  check_inputs(LQ, L)
+  
+  CFUN = get_cfun(x, "linalg", "lq_L")
+  .Call(CFUN, LQ$get_type(), LQ$data_ptr(), L$data_ptr())
+  
+  invisible(NULL)
+}
+
+
+
+#' lq_Q
+#' 
+#' Computes the Q matrix from the compact LQ factorization.
+#' 
+#' @param LQ The compact LQ factorization. The return from \code{lq()}.
+#' @param lqaux Auxilliary data for the compact LQ.
+#' @param Q The output Q matrix.
+#' @param work A workspace vector.
+#' 
+#' @rdname linalg-lq-Q
+#' @name lq_Q
+#' @useDynLib fmlr R_cpumat_linalg_lq_Q
+#' @useDynLib fmlr R_gpumat_linalg_lq_Q
+#' @useDynLib fmlr R_mpimat_linalg_lq_Q
+#' 
+#' @export
+linalg_lq_Q = function(LQ, lqaux, Q, work)
+{
+  check_inputs(LQ, Q)
+  check_is_vec(lqaux)
+  check_is_vec(work)
+  check_type_consistency(LQ, lqaux, work)
+  
+  CFUN = get_cfun(x, "linalg", "lq_Q")
+  .Call(CFUN, LQ$get_type(), LQ$data_ptr(), lqaux$data_ptr(), Q$data_ptr(), work$data_ptr())
+  
+  invisible(NULL)
+}
