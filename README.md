@@ -86,7 +86,18 @@ MPI types and constructors
 | `mpimat` | MPI matrix constructor. |
 | `mpimatR6` | The R6 class. Contains the method documentation via `?mpimatR6`. |
 
-Linear algebra API
+Helper/converter functions
+
+| Function | Use |
+|----------|-----|
+| `cpu2cpu` | Copy a CPU vector/matrix to another. Fundamental types can differ. |
+| `gpu2cpu` | Copy a GPU vector/matrix to CPU one. Fundamental types can differ. |
+| `cpu2gpu` | Copy a CPU vector/matrix to GPU one. Fundamental types can differ. |
+| `gpu2gpu` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
+| `mpi2cpu` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
+| `mpi2mpi` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
+
+Linear algebra
 
 | Function | Use |
 |----------|-----|
@@ -101,17 +112,31 @@ Linear algebra API
 | `linalg_eigen_sym` | Computes the eigenvalues/eigenvectors. |
 | `linalg_invert` | Computes the matrix inverse. |
 | `linalg_solve` | Solve a system of equations. |
+| `linalg_qr` | Compute the compact QR. |
+| `linalg_qr_Q` | Compute the Q matrix from a compact QR. |
+| `linalg_qr_R` | Compute the R matrix from a compact QR. |
+| `linalg_lq` | Compute the compact LQ. |
+| `linalg_lq_L` | Compute the L matrix from a compact LQ. |
+| `linalg_lq_Q` | Compute the Q matrix from a compact LQ. |
+| `linalg_tssvd` | Computes the SVD for a tall/skinny matrix. |
+| `linalg_cpsvd` | Computes the SVD approximation via crossproducts. |
+| `linalg_chol` | Computes the lower-triangular Cholesky factor. |
 
-Helper/converter functions
+Dimension operations
 
-Function | Use |
+| Function | Use |
 |----------|-----|
-| `cpu2cpu` | Copy a CPU vector/matrix to another. Fundamental types can differ. |
-| `gpu2cpu` | Copy a GPU vector/matrix to CPU one. Fundamental types can differ. |
-| `cpu2gpu` | Copy a CPU vector/matrix to GPU one. Fundamental types can differ. |
-| `gpu2gpu` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
-| `mpi2cpu` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
-| `mpi2mpi` | Copy a GPU vector/matrix to another. Fundamental types can differ. |
+| `dimops_rowsums` | Compute the sum of the rows of a matrix. |
+| `dimops_rowmeans` | Compute the mean of the rows of a matrix. |
+| `dimops_colsums` | Compute the sum of the cols of a matrix. |
+| `dimops_colmeans` | Compute the mean of the cols of a matrix. |
+| `dimops_scale` | Remove the mean and/or sd of the columns of a matrix. |
+
+Statistical methods
+
+| Function | Use |
+|----------|-----|
+| `stats_pca` | Performs principal components analysis. |
 
 
 
