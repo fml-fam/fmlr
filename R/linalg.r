@@ -543,3 +543,84 @@ linalg_lq_Q = function(LQ, lqaux, Q, work)
   
   invisible(NULL)
 }
+
+
+
+#' tssvd
+#' 
+#' Tall/skinny SVD.
+#' 
+#' @param x Input data. The input values are overwritten.
+#' @param s Singular values.
+#' @param u,vt The left/right singular vectors. Should both be `NULL` or
+#' matrices of the same backend and fundamental type as `x`.
+#' 
+#' @rdname linalg-tssvd
+#' @name tssvd
+#' @useDynLib fmlr R_cpumat_linalg_tssvd
+#' @useDynLib fmlr R_gpumat_linalg_tssvd
+#' @useDynLib fmlr R_mpimat_linalg_tssvd
+#' 
+#' @export
+linalg_tssvd = function(x, s, u=NULL, vt=NULL)
+{
+  check_is_mat(x)
+  check_is_vec(s)
+  
+  check_type_consistency(x, s)
+  if (!is.null(u) && !is.null(vt))
+    check_inputs(x, u, vt)
+  else if (!is.null(u) || !is.null(vt))
+    stop("must pass neither u and vt or both u and vt")
+  
+  CFUN = get_cfun(x, "linalg", "tssvd")
+  if (is.null(u))
+    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
+  else
+    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+  
+  invisible(NULL)
+}
+
+
+
+#' cpsvd
+#' 
+#' "Crossproducts" SVD.
+#' 
+#' @details
+#' Computes the approximate svd via the eigenvalue decomposition of
+#' \code{t(x) %*% x} if the input is tall/skinny and \code{x %*% t(x)}
+#' otherwise.
+#' 
+#' @param x Input data. The input values are overwritten.
+#' @param s Singular values.
+#' @param u,vt The left/right singular vectors. Should both be `NULL` or
+#' matrices of the same backend and fundamental type as `x`.
+#' 
+#' @rdname linalg-cpsvd
+#' @name cpsvd
+#' @useDynLib fmlr R_cpumat_linalg_cpsvd
+#' @useDynLib fmlr R_gpumat_linalg_cpsvd
+#' @useDynLib fmlr R_mpimat_linalg_cpsvd
+#' 
+#' @export
+linalg_cpsvd = function(x, s, u=NULL, vt=NULL)
+{
+  check_is_mat(x)
+  check_is_vec(s)
+  
+  check_type_consistency(x, s)
+  if (!is.null(u) && !is.null(vt))
+    check_inputs(x, u, vt)
+  else if (!is.null(u) || !is.null(vt))
+    stop("must pass neither u and vt or both u and vt")
+  
+  CFUN = get_cfun(x, "linalg", "cpsvd")
+  if (is.null(u))
+    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
+  else
+    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+  
+  invisible(NULL)
+}
