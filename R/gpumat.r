@@ -148,7 +148,7 @@ gpumatR6 = R6::R6Class("gpumat",
     fill_diag = function(v)
     {
       if (!is_gpuvec(v))
-        v = as_gpuvec(v, copy=FALSE)
+        v = as_gpuvec(self$card, v)
       
       check_type_consistency(self, v)
       
