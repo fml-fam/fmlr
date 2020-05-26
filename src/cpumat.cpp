@@ -417,6 +417,8 @@ extern "C" SEXP R_cpumat_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP 
   const int n = ncols(robj);
   
   #define FML_TMP_MATCOPY(type_robj) \
+    if (x->nrows() != m || x->ncols() != n) \
+      x->resize(m, n); \
     if (INT(type_robj) == TYPE_DOUBLE) \
       TRY_CATCH( arraytools::copy(m, n, REAL(robj), x->data_ptr()) ) \
     else if (INT(type_robj) == TYPE_FLOAT) \
@@ -427,25 +429,16 @@ extern "C" SEXP R_cpumat_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP 
   if (INT(type) == TYPE_DOUBLE)
   {
     CAST_FML(cpumat, double, x, x_robj);
-    if (x->nrows() != m || x->ncols() != n)
-      x->resize(m, n);
-    
     FML_TMP_MATCOPY(type_robj)
   }
   else if (INT(type) == TYPE_FLOAT)
   {
     CAST_FML(cpumat, float, x, x_robj);
-    if (x->nrows() != m || x->ncols() != n)
-      x->resize(m, n);
-    
     FML_TMP_MATCOPY(type_robj)
   }
   else if (INT(type) == TYPE_INT)
   {
     CAST_FML(cpumat, int, x, x_robj);
-    if (x->nrows() != m || x->ncols() != n)
-      x->resize(m, n);
-    
     FML_TMP_MATCOPY(type_robj)
   }
   

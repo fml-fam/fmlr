@@ -275,6 +275,9 @@ extern "C" SEXP R_cpuvec_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP 
   const int size = LENGTH(robj);
   
   #define FML_TMP_VECCOPY(type_robj) \
+    const len_t size_x = x->size(); \
+    if (size_x != size) \
+      x->resize(size); \
     if (INT(type_robj) == TYPE_DOUBLE) \
       TRY_CATCH( arraytools::copy(size, REAL(robj), x->data_ptr()) ) \
     else if (INT(type_robj) == TYPE_FLOAT) \
@@ -285,31 +288,16 @@ extern "C" SEXP R_cpuvec_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP 
   if (INT(type) == TYPE_DOUBLE)
   {
     CAST_FML(cpuvec, double, x, x_robj);
-    const len_t size_x = x->size();
-    
-    if (size_x != size)
-      x->resize(size);
-    
     FML_TMP_VECCOPY(type_robj)
   }
   else if (INT(type) == TYPE_FLOAT)
   {
     CAST_FML(cpuvec, float, x, x_robj);
-    const len_t size_x = x->size();
-    
-    if (size_x != size)
-      x->resize(size);
-    
     FML_TMP_VECCOPY(type_robj)
   }
   else if (INT(type) == TYPE_INT)
   {
     CAST_FML(cpuvec, int, x, x_robj);
-    const len_t size_x = x->size();
-    
-    if (size_x != size)
-      x->resize(size);
-    
     FML_TMP_VECCOPY(type_robj)
   }
   
