@@ -1,6 +1,6 @@
 #' add
 #' 
-#' Add two matrices: `ret = alpha*x + beta*y`.
+#' Add two matrices: \code{ret = alpha*x + beta*y}.
 #' 
 #' @param transx,transy Should x/y be transposed?
 #' @param alpha,beta Scalars.
@@ -45,7 +45,7 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
 
 #' matmult
 #' 
-#' Multiply two matrices: `ret = alpha*x*y`.
+#' Multiply two matrices: \code{ret = alpha*x*y}.
 #' 
 #' @param transx,transy Should x/y be transposed?
 #' @param alpha Scalar.
@@ -180,7 +180,7 @@ linalg_xpose = function(x, ret=NULL)
 #' LU factorization. The factorization occurs in-place.
 #' 
 #' @param x Input data, overwritten by its LU factorization.
-#' @return Returns `NULL`.
+#' @return Returns \code{NULL}.
 #' 
 #' @rdname linalg-lu
 #' @name lu
@@ -227,13 +227,14 @@ linalg_trace = function(x)
 #' Computes the singular value decomposition.
 #' 
 #' @details
-#' You will need to initialize the return objects `s` and/or `u` and `vt`
+#' You will need to initialize the return objects \code{s} and/or \code{u} and
+#' \code{vt}.
 #' manually. See the example.
 #' 
 #' @param x Input data. The input values are overwritten.
 #' @param s Singular values.
-#' @param u,vt The left/right singular vectors. Should both be `NULL` or
-#' matrices of the same backend and fundamental type as `x`.
+#' @param u,vt The left/right singular vectors. Should both be \code{NULL} or
+#' matrices of the same backend and fundamental type as \code{x}.
 #' 
 #' @examples
 #' suppressMessages(library(fmlr))
@@ -279,7 +280,8 @@ linalg_svd = function(x, s, u=NULL, vt=NULL)
 #' Computes the eigenvalues and/or eigenvectors
 #' 
 #' @details
-#' You will need to initialize the return objects `values` and/or `vectors`
+#' You will need to initialize the return objects \code{values} and/or
+#' \code{vectors}.
 #' manually. See the example.
 #' 
 #' @param x Input data. The input values are overwritten.
@@ -317,7 +319,7 @@ linalg_eigen_sym = function(x, values, vectors=NULL)
 #' Invert a matrix.
 #' 
 #' @param x Input data, overwritten by the inverse.
-#' @return Returns `NULL`.
+#' @return Returns \code{NULL}.
 #' 
 #' @rdname linalg-invert
 #' @name invert
@@ -552,8 +554,8 @@ linalg_lq_Q = function(LQ, lqaux, Q, work)
 #' 
 #' @param x Input data. The input values are overwritten.
 #' @param s Singular values.
-#' @param u,vt The left/right singular vectors. Should both be `NULL` or
-#' matrices of the same backend and fundamental type as `x`.
+#' @param u,vt The left/right singular vectors. Should both be \code{NULL} or
+#' matrices of the same backend and fundamental type as \code{x}.
 #' 
 #' @rdname linalg-tssvd
 #' @name tssvd
@@ -589,14 +591,14 @@ linalg_tssvd = function(x, s, u=NULL, vt=NULL)
 #' "Crossproducts" SVD.
 #' 
 #' @details
-#' Computes the approximate svd via the eigenvalue decomposition of
-#' \code{t(x) %*% x} if the input is tall/skinny and \code{x %*% t(x)}
+#' Computes the approximate SVD via the eigenvalue decomposition of
+#' \code{crossprod(x)} if the input is tall/skinny and \code{tcrossprod(x)}
 #' otherwise.
 #' 
 #' @param x Input data. The input values are overwritten.
 #' @param s Singular values.
-#' @param u,vt The left/right singular vectors. Should both be `NULL` or
-#' matrices of the same backend and fundamental type as `x`.
+#' @param u,vt The left/right singular vectors. Should both be \code{NULL} or
+#' matrices of the same backend and fundamental type as \code{x}.
 #' 
 #' @rdname linalg-cpsvd
 #' @name cpsvd

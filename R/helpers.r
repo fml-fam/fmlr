@@ -11,7 +11,7 @@
 #' @param cpu_in Input.
 #' @param cpu_out Ouput.
 #' 
-#' @return Returns `NULL`.
+#' @return Returns \code{NULL}.
 #' 
 #' @examples
 #' library(fmlr)
@@ -59,7 +59,7 @@ cpu2cpu = function(cpu_in, cpu_out)
 #' @param gpu_in Input.
 #' @param cpu_out Ouput.
 #' 
-#' @return Returns `NULL`.
+#' @return Returns \code{NULL}.
 #' 
 #' @useDynLib fmlr R_gpuvec_gpu2cpu
 #' @useDynLib fmlr R_gpumat_gpu2cpu
@@ -92,7 +92,7 @@ gpu2cpu = function(gpu_in, cpu_out)
 #' @param cpu_in Input.
 #' @param gpu_out Ouput.
 #' 
-#' @return Returns `NULL`.
+#' @return Returns \code{NULL}.
 #' 
 #' @useDynLib fmlr R_gpuvec_cpu2gpu
 #' @useDynLib fmlr R_gpumat_cpu2gpu
@@ -125,7 +125,7 @@ cpu2gpu = function(cpu_in, gpu_out)
 #' @param gpu_in Input.
 #' @param gpu_out Ouput.
 #' 
-#' @return Returns `NULL`.
+#' @return Returns \code{NULL}.
 #' 
 #' @useDynLib fmlr R_gpuvec_gpu2gpu
 #' @useDynLib fmlr R_gpumat_gpu2gpu
@@ -162,7 +162,7 @@ gpu2gpu = function(gpu_in, gpu_out)
 #' @param cpu_out Ouput.
 #' @param rdest,cdest The row/column index of the receiving process.
 #' 
-#' @return Returns `NULL`.
+#' @return Returns \code{NULL}.
 #' 
 #' @useDynLib fmlr R_mpimat_mpi2cpu
 #' @export
@@ -193,7 +193,7 @@ mpi2cpu = function(mpi_in, cpu_out, rdest=0, cdest=0)
 #' @param mpi_in Input.
 #' @param mpi_out Ouput.
 #' 
-#' @return Returns `NULL`.
+#' @return Returns \code{NULL}.
 #' 
 #' @useDynLib fmlr R_mpimat_mpi2mpi
 #' @export

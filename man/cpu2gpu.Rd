@@ -12,7 +12,7 @@ cpu2gpu(cpu_in, gpu_out)
 \item{gpu_out}{Ouput.}
 }
 \value{
-Returns `NULL`.
+Returns \code{NULL}.
 }
 \description{
 Copy the data in a CPU object to a GPU object. The objects must be of the

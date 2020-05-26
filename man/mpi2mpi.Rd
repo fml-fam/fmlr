@@ -12,7 +12,7 @@ mpi2mpi(mpi_in, mpi_out)
 \item{mpi_out}{Ouput.}
 }
 \value{
-Returns `NULL`.
+Returns \code{NULL}.
 }
 \description{
 Copy the data in one MPI matrix to another. They can be of different

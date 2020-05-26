@@ -12,14 +12,15 @@ linalg_svd(x, s, u = NULL, vt = NULL)
 
 \item{s}{Singular values.}
 
-\item{u, vt}{The left/right singular vectors. Should both be `NULL` or
-matrices of the same backend and fundamental type as `x`.}
+\item{u, vt}{The left/right singular vectors. Should both be \code{NULL} or
+matrices of the same backend and fundamental type as \code{x}.}
 }
 \description{
 Computes the singular value decomposition.
 }
 \details{
-You will need to initialize the return objects `s` and/or `u` and `vt`
+You will need to initialize the return objects \code{s} and/or \code{u} and
+\code{vt}.
 manually. See the example.
 }
 \examples{

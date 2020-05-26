@@ -7,8 +7,8 @@
 grid(gridtype = PROC_GRID_SQUARE)
 }
 \arguments{
-\item{gridtype}{Type of processor grid: `PROC_GRID_SQUARE`,
-`PROC_GRID_WIDE`, or `PROC_GRID_TALL`.}
+\item{gridtype}{Type of processor grid: \code{PROC_GRID_SQUARE},
+\code{PROC_GRID_WIDE}, or \code{PROC_GRID_TALL}.}
 }
 \value{
 A grid class object.

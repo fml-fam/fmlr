@@ -11,7 +11,7 @@ linalg_lu(x)
 \item{x}{Input data, overwritten by its LU factorization.}
 }
 \value{
-Returns `NULL`.
+Returns \code{NULL}.
 }
 \description{
 LU factorization. The factorization occurs in-place.

@@ -21,5 +21,5 @@ class and type as \code{x}.}
 Returns the matrix product.
 }
 \description{
-Multiply two matrices: `ret = alpha*x*y`.
+Multiply two matrices: \code{ret = alpha*x*y}.
 }

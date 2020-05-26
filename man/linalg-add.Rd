@@ -29,5 +29,5 @@ class and type as \code{x}.}
 Returns the matrix sum.
 }
 \description{
-Add two matrices: `ret = alpha*x + beta*y`.
+Add two matrices: \code{ret = alpha*x + beta*y}.
 }

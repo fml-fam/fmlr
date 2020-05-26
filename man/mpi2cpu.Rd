@@ -14,7 +14,7 @@ mpi2cpu(mpi_in, cpu_out, rdest = 0, cdest = 0)
 \item{rdest, cdest}{The row/column index of the receiving process.}
 }
 \value{
-Returns `NULL`.
+Returns \code{NULL}.
 }
 \description{
 Copy the data in an MPI matrix to a CPU matrix. They can be of different

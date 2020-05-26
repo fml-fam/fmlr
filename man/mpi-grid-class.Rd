@@ -44,8 +44,8 @@ Data is held in an external pointer.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{gridtype}}{Type of processor grid: `PROC_GRID_SQUARE`,
-`PROC_GRID_WIDE`, or `PROC_GRID_TALL`.}
+\item{\code{gridtype}}{Type of processor grid: \code{PROC_GRID_SQUARE},
+\code{PROC_GRID_WIDE}, or \code{PROC_GRID_TALL}.}
 }
 \if{html}{\out{</div>}}
 }

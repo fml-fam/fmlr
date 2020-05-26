@@ -12,12 +12,14 @@ linalg_cpsvd(x, s, u = NULL, vt = NULL)
 
 \item{s}{Singular values.}
 
-\item{u, vt}{The left/right singular vectors. Should both be `NULL` or
-matrices of the same backend and fundamental type as `x`.}
+\item{u, vt}{The left/right singular vectors. Should both be \code{NULL} or
+matrices of the same backend and fundamental type as \code{x}.}
 }
 \description{
 "Crossproducts" SVD.
 }
 \details{
-
+Computes the approximate SVD via the eigenvalue decomposition of
+\code{crossprod(x)} if the input is tall/skinny and \code{tcrossprod(x)}
+otherwise.
 }

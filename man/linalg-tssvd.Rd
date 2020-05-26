@@ -12,8 +12,8 @@ linalg_tssvd(x, s, u = NULL, vt = NULL)
 
 \item{s}{Singular values.}
 
-\item{u, vt}{The left/right singular vectors. Should both be `NULL` or
-matrices of the same backend and fundamental type as `x`.}
+\item{u, vt}{The left/right singular vectors. Should both be \code{NULL} or
+matrices of the same backend and fundamental type as \code{x}.}
 }
 \description{
 Tall/skinny SVD.

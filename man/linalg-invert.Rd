@@ -11,7 +11,7 @@ linalg_invert(x)
 \item{x}{Input data, overwritten by the inverse.}
 }
 \value{
-Returns `NULL`.
+Returns \code{NULL}.
 }
 \description{
 Invert a matrix.

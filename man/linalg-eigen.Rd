@@ -18,6 +18,7 @@ linalg_eigen_sym(x, values, vectors = NULL)
 Computes the eigenvalues and/or eigenvectors
 }
 \details{
-You will need to initialize the return objects `values` and/or `vectors`
+You will need to initialize the return objects \code{values} and/or
+\code{vectors}.
 manually. See the example.
 }
