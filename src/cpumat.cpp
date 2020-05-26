@@ -61,10 +61,24 @@ extern "C" SEXP R_cpumat_dim(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_cpumat_inherit(SEXP x_robj, SEXP data)
+extern "C" SEXP R_cpumat_inherit(SEXP type, SEXP x_robj, SEXP data)
 {
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  TRY_CATCH( x->inherit(REAL(data), nrows(data), ncols(data), false) )
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    CAST_FML(cpumat, double, x, x_robj);
+    TRY_CATCH( x->inherit(REAL(data), nrows(data), ncols(data), false); );
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    CAST_FML(cpumat, float, x, x_robj);
+    TRY_CATCH( x->inherit(FLOAT(data), nrows(data), ncols(data), false); );
+  }
+  else if (INT(type) == TYPE_INT)
+  {
+    CAST_FML(cpumat, int, x, x_robj);
+    TRY_CATCH( x->inherit(INTEGER(data), nrows(data), ncols(data), false); );
+  }
+  
   return R_NilValue;
 }
 
@@ -397,19 +411,45 @@ extern "C" SEXP R_cpumat_to_robj(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_cpumat_from_robj(SEXP x_robj, SEXP robj)
+extern "C" SEXP R_cpumat_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP robj)
 {
-  int m = nrows(robj);
-  int n = ncols(robj);
+  const int m = nrows(robj);
+  const int n = ncols(robj);
   
-  cpumat<double> *x = (cpumat<double>*) getRptr(x_robj);
-  len_t m_x = x->nrows();
-  len_t n_x = x->ncols();
+  #define FML_TMP_MATCOPY(type_robj) \
+    if (INT(type_robj) == TYPE_DOUBLE) \
+      TRY_CATCH( arraytools::copy(m, n, REAL(robj), x->data_ptr()) ) \
+    else if (INT(type_robj) == TYPE_FLOAT) \
+      TRY_CATCH( arraytools::copy(m, n, FLOAT(robj), x->data_ptr()) ) \
+    else \
+      TRY_CATCH( arraytools::copy(m, n, INTEGER(robj), x->data_ptr()) )
   
-  if (m_x != m || n_x != n)
-    x->resize(m, n);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    CAST_FML(cpumat, double, x, x_robj);
+    if (x->nrows() != m || x->ncols() != n)
+      x->resize(m, n);
+    
+    FML_TMP_MATCOPY(type_robj)
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    CAST_FML(cpumat, float, x, x_robj);
+    if (x->nrows() != m || x->ncols() != n)
+      x->resize(m, n);
+    
+    FML_TMP_MATCOPY(type_robj)
+  }
+  else if (INT(type) == TYPE_INT)
+  {
+    CAST_FML(cpumat, int, x, x_robj);
+    if (x->nrows() != m || x->ncols() != n)
+      x->resize(m, n);
+    
+    FML_TMP_MATCOPY(type_robj)
+  }
   
-  arraytools::copy(m*n, REAL(robj), x->data_ptr());
+  #undef FML_TMP_MATCOPY
   
   return R_NilValue;
 }

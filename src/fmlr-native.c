@@ -23,12 +23,12 @@ extern SEXP R_cpumat_fill_rnorm(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_fill_runif(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_fill_val(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_fill_zero(SEXP, SEXP);
-extern SEXP R_cpumat_from_robj(SEXP, SEXP);
+extern SEXP R_cpumat_from_robj(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_get(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_get_col(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_get_row(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_info(SEXP, SEXP);
-extern SEXP R_cpumat_inherit(SEXP, SEXP);
+extern SEXP R_cpumat_inherit(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_init(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_chol(SEXP, SEXP);
@@ -232,12 +232,12 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpumat_fill_runif",       (DL_FUNC) &R_cpumat_fill_runif,       5},
   {"R_cpumat_fill_val",         (DL_FUNC) &R_cpumat_fill_val,         3},
   {"R_cpumat_fill_zero",        (DL_FUNC) &R_cpumat_fill_zero,        2},
-  {"R_cpumat_from_robj",        (DL_FUNC) &R_cpumat_from_robj,        2},
+  {"R_cpumat_from_robj",        (DL_FUNC) &R_cpumat_from_robj,        4},
   {"R_cpumat_get",              (DL_FUNC) &R_cpumat_get,              4},
   {"R_cpumat_get_col",          (DL_FUNC) &R_cpumat_get_col,          4},
   {"R_cpumat_get_row",          (DL_FUNC) &R_cpumat_get_row,          4},
   {"R_cpumat_info",             (DL_FUNC) &R_cpumat_info,             2},
-  {"R_cpumat_inherit",          (DL_FUNC) &R_cpumat_inherit,          2},
+  {"R_cpumat_inherit",          (DL_FUNC) &R_cpumat_inherit,          3},
   {"R_cpumat_init",             (DL_FUNC) &R_cpumat_init,             3},
   {"R_cpumat_linalg_add",       (DL_FUNC) &R_cpumat_linalg_add,       8},
   {"R_cpumat_linalg_chol",      (DL_FUNC) &R_cpumat_linalg_chol,      2},
