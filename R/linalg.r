@@ -199,6 +199,30 @@ linalg_lu = function(x)
 
 
 
+#' det
+#' 
+#' Determinant
+#' 
+#' @param x Input data, overwritten by its LU factorization.
+#' 
+#' @return Returns a list containing the modulus and the sign.
+#' 
+#' @rdname linalg-det
+#' @name det
+#' @useDynLib fmlr R_cpumat_linalg_det
+#' @useDynLib fmlr R_gpumat_linalg_det
+#' @useDynLib fmlr R_mpimat_linalg_det
+#' 
+#' @export
+linalg_det = function(x)
+{
+  check_is_mat(x)
+  CFUN = get_cfun(x, "linalg", "det")
+  .Call(CFUN, x$get_type(), x$data_ptr())
+}
+
+
+
 #' trace
 #' 
 #' Matrix trace, i.e. theh sum of the diagonal elements.

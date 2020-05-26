@@ -99,6 +99,38 @@ extern "C" SEXP R_cpumat_linalg_lu(SEXP type, SEXP x_robj)
 
 
 
+extern "C" SEXP R_cpumat_linalg_det(SEXP type, SEXP x_robj)
+{
+  SEXP ret, ret_names;
+  SEXP sign, modulus;
+  
+  PROTECT(ret = allocVector(VECSXP, 2));
+  PROTECT(ret_names = allocVector(STRSXP, 2));
+  
+  PROTECT(sign = allocVector(INTSXP, 1));
+  PROTECT(modulus = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_DET(type) { \
+    type mod; \
+    CAST_FML(cpumat, type, x, x_robj); \
+    linalg::det(*x, INT(sign), mod); \
+    DBL(modulus) = (double) mod; }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_DET, type);
+  #undef FMLR_TMP_DET
+  
+  SET_VECTOR_ELT(ret, 0, sign);
+  SET_VECTOR_ELT(ret, 1, modulus);
+  SET_STRING_ELT(ret_names, 0, mkChar("sign"));
+  SET_STRING_ELT(ret_names, 1, mkChar("modulus"));
+  setAttrib(ret, R_NamesSymbol, ret_names);
+  
+  UNPROTECT(4);
+  return ret;
+}
+
+
+
 extern "C" SEXP R_cpumat_linalg_trace(SEXP type, SEXP x_robj)
 {
   SEXP ret;

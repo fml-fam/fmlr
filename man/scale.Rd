@@ -14,6 +14,6 @@ dimops_scale(rm_mean = TRUE, rm_sd = FALSE, x)
 data.}
 }
 \description{
-Remove the rows and/or sd of the columns of a matrix. The operations occur
+Remove the mean and/or sd of the columns of a matrix. The operations occur
 in-place.
 }
