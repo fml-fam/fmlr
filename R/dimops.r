@@ -91,7 +91,7 @@ dimops_colmeans = function(x, s=NULL)
 
 #' scale
 #' 
-#' Remove the rows and/or sd of the columns of a matrix. The operations occur
+#' Remove the mean and/or sd of the columns of a matrix. The operations occur
 #' in-place.
 #' 
 #' @param rm_mean,rm_sd Should the data be centered/scaled first?
