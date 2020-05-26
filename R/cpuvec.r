@@ -282,6 +282,7 @@ cpuvecR6 = R6::R6Class("cpuvec",
         stop("bad fundamental type")
       
       .Call(R_cpuvec_from_robj, private$type, private$x_ptr, robj_type, rdata)
+      invisible(self)
     }
   ),
   
