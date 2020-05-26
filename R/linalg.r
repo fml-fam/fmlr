@@ -429,7 +429,7 @@ linalg_qr_Q = function(QR, qraux, Q, work)
   check_is_vec(work)
   check_type_consistency(QR, qraux, work)
   
-  CFUN = get_cfun(x, "linalg", "qr_Q")
+  CFUN = get_cfun(QR, "linalg", "qr_Q")
   .Call(CFUN, QR$get_type(), QR$data_ptr(), qraux$data_ptr(), Q$data_ptr(), work$data_ptr())
   
   invisible(NULL)
@@ -455,7 +455,7 @@ linalg_qr_R = function(QR, R)
 {
   check_inputs(QR, R)
   
-  CFUN = get_cfun(x, "linalg", "qr_R")
+  CFUN = get_cfun(QR, "linalg", "qr_R")
   .Call(CFUN, QR$get_type(), QR$data_ptr(), R$data_ptr())
   
   invisible(NULL)
@@ -509,7 +509,7 @@ linalg_lq_L = function(LQ, L)
 {
   check_inputs(LQ, L)
   
-  CFUN = get_cfun(x, "linalg", "lq_L")
+  CFUN = get_cfun(LQ, "linalg", "lq_L")
   .Call(CFUN, LQ$get_type(), LQ$data_ptr(), L$data_ptr())
   
   invisible(NULL)
@@ -540,7 +540,7 @@ linalg_lq_Q = function(LQ, lqaux, Q, work)
   check_is_vec(work)
   check_type_consistency(LQ, lqaux, work)
   
-  CFUN = get_cfun(x, "linalg", "lq_Q")
+  CFUN = get_cfun(LQ, "linalg", "lq_Q")
   .Call(CFUN, LQ$get_type(), LQ$data_ptr(), lqaux$data_ptr(), Q$data_ptr(), work$data_ptr())
   
   invisible(NULL)
