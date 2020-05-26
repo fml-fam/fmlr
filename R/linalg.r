@@ -624,3 +624,27 @@ linalg_cpsvd = function(x, s, u=NULL, vt=NULL)
   
   invisible(NULL)
 }
+
+
+
+#' chol
+#' 
+#' Compute the lower-triangular Cholesky factor.
+#' 
+#' @param x Input data, overwritten by the inverse.
+#' @return Returns \code{NULL}.
+#' 
+#' @rdname linalg-chol
+#' @name chol
+#' @useDynLib fmlr R_cpumat_linalg_chol
+#' @useDynLib fmlr R_gpumat_linalg_chol
+#' @useDynLib fmlr R_mpimat_linalg_chol
+#' 
+#' @export
+linalg_chol = function(x)
+{
+  check_is_mat(x)
+  CFUN = get_cfun(x, "linalg", "chol")
+  .Call(CFUN, x$get_type(), x$data_ptr())
+  invisible(NULL)
+}

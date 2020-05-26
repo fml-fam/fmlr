@@ -344,3 +344,17 @@ extern "C" SEXP R_mpimat_linalg_cpsvd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP 
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_mpimat_linalg_chol(SEXP type, SEXP x_robj)
+{
+  #define FMLR_TMP_CHOL(type) { \
+    CAST_FML(mpimat, type, x, x_robj); \
+    linalg::chol(*x); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_CHOL, type);
+  #undef FMLR_TMP_CHOL
+  
+  return R_NilValue;
+}

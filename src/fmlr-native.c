@@ -31,6 +31,7 @@ extern SEXP R_cpumat_info(SEXP, SEXP);
 extern SEXP R_cpumat_inherit(SEXP, SEXP);
 extern SEXP R_cpumat_init(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_linalg_chol(SEXP, SEXP);
 extern SEXP R_cpumat_linalg_cpsvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
@@ -97,6 +98,7 @@ extern SEXP R_gpumat_gpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_info(SEXP, SEXP);
 extern SEXP R_gpumat_init(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_linalg_chol(SEXP, SEXP);
 extern SEXP R_gpumat_linalg_cpsvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
@@ -178,6 +180,7 @@ extern SEXP R_mpimat_info(SEXP, SEXP);
 extern SEXP R_mpimat_init(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_ldim(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_add(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_linalg_chol(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_cpsvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
@@ -234,6 +237,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpumat_inherit",          (DL_FUNC) &R_cpumat_inherit,          2},
   {"R_cpumat_init",             (DL_FUNC) &R_cpumat_init,             3},
   {"R_cpumat_linalg_add",       (DL_FUNC) &R_cpumat_linalg_add,       8},
+  {"R_cpumat_linalg_chol",      (DL_FUNC) &R_cpumat_linalg_chol,      2},
   {"R_cpumat_linalg_cpsvd",     (DL_FUNC) &R_cpumat_linalg_cpsvd,     5},
   {"R_cpumat_linalg_crossprod", (DL_FUNC) &R_cpumat_linalg_crossprod, 5},
   {"R_cpumat_linalg_eigen_sym", (DL_FUNC) &R_cpumat_linalg_eigen_sym, 4},
@@ -300,6 +304,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpumat_info",             (DL_FUNC) &R_gpumat_info,             2},
   {"R_gpumat_init",             (DL_FUNC) &R_gpumat_init,             5},
   {"R_gpumat_linalg_add",       (DL_FUNC) &R_gpumat_linalg_add,       8},
+  {"R_gpumat_linalg_chol",      (DL_FUNC) &R_gpumat_linalg_chol,      2},
   {"R_gpumat_linalg_cpsvd",     (DL_FUNC) &R_gpumat_linalg_cpsvd,     5},
   {"R_gpumat_linalg_crossprod", (DL_FUNC) &R_gpumat_linalg_crossprod, 5},
   {"R_gpumat_linalg_eigen_sym", (DL_FUNC) &R_gpumat_linalg_eigen_sym, 4},
@@ -381,6 +386,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_init",             (DL_FUNC) &R_mpimat_init,             7},
   {"R_mpimat_ldim",             (DL_FUNC) &R_mpimat_ldim,             2},
   {"R_mpimat_linalg_add",       (DL_FUNC) &R_mpimat_linalg_add,       8},
+  {"R_mpimat_linalg_chol",      (DL_FUNC) &R_mpimat_linalg_chol,      2},
   {"R_mpimat_linalg_cpsvd",     (DL_FUNC) &R_mpimat_linalg_cpsvd,     5},
   {"R_mpimat_linalg_crossprod", (DL_FUNC) &R_mpimat_linalg_crossprod, 5},
   {"R_mpimat_linalg_eigen_sym", (DL_FUNC) &R_mpimat_linalg_eigen_sym, 4},

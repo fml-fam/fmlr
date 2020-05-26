@@ -479,6 +479,12 @@ extern "C" SEXP R_gpumat_linalg_cpsvd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP 
   WARN_AND_RETURN;
 }
 
+extern "C" SEXP R_gpumat_linalg_chol(SEXP type, SEXP x_robj)
+{
+  unused(type, x_robj);
+  WARN_AND_RETURN;
+}
+
 
 
 // -----------------------------------------------------------------------------
