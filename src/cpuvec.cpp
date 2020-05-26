@@ -67,10 +67,24 @@ extern "C" SEXP R_cpuvec_size(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_cpuvec_inherit(SEXP x_robj, SEXP data)
+extern "C" SEXP R_cpuvec_inherit(SEXP type, SEXP x_robj, SEXP data)
 {
-  cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
-  x->inherit(REAL(data), LENGTH(data), false);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    CAST_FML(cpuvec, double, x, x_robj);
+    TRY_CATCH( x->inherit(REAL(data), LENGTH(data), false); );
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    CAST_FML(cpuvec, float, x, x_robj);
+    TRY_CATCH( x->inherit(FLOAT(data), LENGTH(data), false); );
+  }
+  else if (INT(type) == TYPE_INT)
+  {
+    CAST_FML(cpuvec, int, x, x_robj);
+    TRY_CATCH( x->inherit(INTEGER(data), LENGTH(data), false); );
+  }
+  
   return R_NilValue;
 }
 
@@ -256,17 +270,50 @@ extern "C" SEXP R_cpuvec_to_robj(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_cpuvec_from_robj(SEXP x_robj, SEXP robj)
+extern "C" SEXP R_cpuvec_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP robj)
 {
-  int size = LENGTH(robj);
+  const int size = LENGTH(robj);
   
-  cpuvec<double> *x = (cpuvec<double>*) getRptr(x_robj);
-  len_t size_x = x->size();
+  #define FML_TMP_VECCOPY(type_robj) \
+    if (INT(type_robj) == TYPE_DOUBLE) \
+      TRY_CATCH( arraytools::copy(size, REAL(robj), x->data_ptr()) ) \
+    else if (INT(type_robj) == TYPE_FLOAT) \
+      TRY_CATCH( arraytools::copy(size, FLOAT(robj), x->data_ptr()) ) \
+    else \
+      TRY_CATCH( arraytools::copy(size, INTEGER(robj), x->data_ptr()) )
   
-  if (size_x != size)
-    x->resize(size);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    CAST_FML(cpuvec, double, x, x_robj);
+    const len_t size_x = x->size();
+    
+    if (size_x != size)
+      x->resize(size);
+    
+    FML_TMP_VECCOPY(type_robj)
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    CAST_FML(cpuvec, float, x, x_robj);
+    const len_t size_x = x->size();
+    
+    if (size_x != size)
+      x->resize(size);
+    
+    FML_TMP_VECCOPY(type_robj)
+  }
+  else if (INT(type) == TYPE_INT)
+  {
+    CAST_FML(cpuvec, int, x, x_robj);
+    const len_t size_x = x->size();
+    
+    if (size_x != size)
+      x->resize(size);
+    
+    FML_TMP_VECCOPY(type_robj)
+  }
   
-  arraytools::copy(size, REAL(robj), x->data_ptr());
+  #undef FML_TMP_VECCOPY
   
   return R_NilValue;
 }

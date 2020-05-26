@@ -63,10 +63,10 @@ extern SEXP R_cpuvec_dupe(SEXP, SEXP);
 extern SEXP R_cpuvec_fill_linspace(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_fill_val(SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_fill_zero(SEXP, SEXP);
-extern SEXP R_cpuvec_from_robj(SEXP, SEXP);
+extern SEXP R_cpuvec_from_robj(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_get(SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_info(SEXP, SEXP);
-extern SEXP R_cpuvec_inherit(SEXP, SEXP);
+extern SEXP R_cpuvec_inherit(SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_init(SEXP, SEXP);
 extern SEXP R_cpuvec_print(SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_resize(SEXP, SEXP, SEXP);
@@ -272,10 +272,10 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpuvec_fill_linspace",    (DL_FUNC) &R_cpuvec_fill_linspace,    4},
   {"R_cpuvec_fill_val",         (DL_FUNC) &R_cpuvec_fill_val,         3},
   {"R_cpuvec_fill_zero",        (DL_FUNC) &R_cpuvec_fill_zero,        2},
-  {"R_cpuvec_from_robj",        (DL_FUNC) &R_cpuvec_from_robj,        2},
+  {"R_cpuvec_from_robj",        (DL_FUNC) &R_cpuvec_from_robj,        4},
   {"R_cpuvec_get",              (DL_FUNC) &R_cpuvec_get,              3},
   {"R_cpuvec_info",             (DL_FUNC) &R_cpuvec_info,             2},
-  {"R_cpuvec_inherit",          (DL_FUNC) &R_cpuvec_inherit,          2},
+  {"R_cpuvec_inherit",          (DL_FUNC) &R_cpuvec_inherit,          3},
   {"R_cpuvec_init",             (DL_FUNC) &R_cpuvec_init,             2},
   {"R_cpuvec_print",            (DL_FUNC) &R_cpuvec_print,            3},
   {"R_cpuvec_resize",           (DL_FUNC) &R_cpuvec_resize,           3},

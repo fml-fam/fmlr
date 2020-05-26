@@ -47,10 +47,28 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @useDynLib fmlr R_cpuvec_inherit
     inherit = function(data)
     {
-      if (!is.double(data))
-        storage.mode(data) = "double"
+      if (!is.vector(data) && !float::is.float(data))
+        stop("'data' must be a vector")
       
-      .Call(R_cpuvec_inherit, private$x_ptr, data)
+      if (float::is.float(data) && private$type == TYPE_FLOAT)
+      {
+        type = TYPE_FLOAT
+        rdata = data@Data
+      }
+      else if (is.integer(data) && private$type == TYPE_INT)
+      {
+        type = TYPE_INT
+        rdata = data
+      }
+      else if (is.double(data) && private$type == TYPE_DOUBLE)
+      {
+        type = TYPE_DOUBLE
+        rdata = data
+      }
+      else
+        stop("can not mix fundamental types with inherit()")
+      
+      .Call(R_cpuvec_inherit, type, private$x_ptr, rdata)
       invisible(self)
     },
     
@@ -242,12 +260,28 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @useDynLib fmlr R_cpuvec_from_robj
     from_robj = function(robj)
     {
-      # TODO check matrix type of robj
-      if (!is.double(robj))
-        storage.mode(robj) = "double"
+      if (!is.vector(robj) && !float::is.float(robj))
+        stop("'robj' must be a vector")
       
-      .Call(R_cpuvec_from_robj, private$x_ptr, robj)
-      invisible(self)
+      if (float::is.float(robj))
+      {
+        robj_type = TYPE_FLOAT
+        rdata = robj@Data
+      }
+      else if (is.integer(robj))
+      {
+        robj_type = TYPE_INT
+        rdata = robj
+      }
+      else if (is.double(robj))
+      {
+        robj_type = TYPE_DOUBLE
+        rdata = robj
+      }
+      else
+        stop("bad fundamental type")
+      
+      .Call(R_cpuvec_from_robj, private$type, private$x_ptr, robj_type, rdata)
     }
   ),
   
@@ -294,7 +328,8 @@ cpuvec = function(size=0, type="double")
 #' @export
 as_cpuvec = function(x, copy=TRUE)
 {
-  ret = cpuvec()
+  x_type = type_robj2str(x)
+  ret = cpuvec(type=x_type)
   
   if (isTRUE(copy))
     ret$from_robj(x)

@@ -23,6 +23,20 @@ names(TYPES_INT) = TYPES_STR
 type_int2str = function(type) TYPES_STR[type]
 type_str2int = function(type) TYPES_INT[[type]]
 
+type_robj2int = function(robj)
+{
+  if (is.double(robj))
+    TYPE_DOUBLE
+  else if (float::is.float(robj))
+    TYPE_FLOAT
+  else if (is.integer(robj))
+    TYPE_INT
+  else
+    error("bad fundamental type")
+}
+
+type_robj2str = function(robj) type_int2str(type_robj2int(robj))
+
 
 
 # grid globals

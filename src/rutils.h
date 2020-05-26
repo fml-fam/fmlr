@@ -5,6 +5,7 @@
 
 #include <Rinternals.h>
 
+#define FLOAT(x) ((float*)DATAPTR(x))
 
 #define LGL(x) (LOGICAL(x)[0])
 #define INT(x) (INTEGER(x)[0])
