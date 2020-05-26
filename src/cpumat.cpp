@@ -370,7 +370,7 @@ extern "C" SEXP R_cpumat_to_robj(SEXP type, SEXP x_robj)
     len_t n = x->ncols();
     
     PROTECT(ret = allocMatrix(REALSXP, m, n));
-    arraytools::copy(m*n, x->data_ptr(), REAL(ret));
+    arraytools::copy(m, n, x->data_ptr(), REAL(ret));
   }
   else if (INT(type) == TYPE_FLOAT)
   {
@@ -379,7 +379,7 @@ extern "C" SEXP R_cpumat_to_robj(SEXP type, SEXP x_robj)
     len_t n = x->ncols();
     
     PROTECT(ret = allocMatrix(INTSXP, m, n));
-    arraytools::copy(m*n, x->data_ptr(), (float*) INTEGER(ret));
+    arraytools::copy(m, n, x->data_ptr(), (float*) INTEGER(ret));
   }
   else //if (INT(type) == TYPE_INT)
   {
@@ -388,7 +388,7 @@ extern "C" SEXP R_cpumat_to_robj(SEXP type, SEXP x_robj)
     len_t n = x->ncols();
     
     PROTECT(ret = allocMatrix(INTSXP, m, n));
-    arraytools::copy(m*n, x->data_ptr(), INTEGER(ret));
+    arraytools::copy(m, n, x->data_ptr(), INTEGER(ret));
   }
   
   UNPROTECT(1);
