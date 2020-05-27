@@ -254,18 +254,47 @@ extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_gpuvec_from_robj(SEXP x_robj, SEXP robj)
+extern "C" SEXP R_gpuvec_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP robj)
 {
-  int size = LENGTH(robj);
+  const int size = LENGTH(robj);
   
-  gpuvec<double> *x = (gpuvec<double>*) getRptr(x_robj);
-  len_t size_x = x->size();
+  #define FML_TMP_VECCOPY(type_robj) \
+    const len_t size_x = x->size(); \
+    if (size_x != size) \
+      x->resize(size); \
+    if (INT(type_robj) == TYPE_DOUBLE) \
+    { \
+      cpuvec<double> robj_vec(REAL(robj), size, false); \
+      TRY_CATCH( gpuhelpers::cpu2gpu(robj_vec, *x) ) \
+    } \
+    else if (INT(type_robj) == TYPE_FLOAT) \
+    { \
+      cpuvec<float> robj_vec(FLOAT(robj), size, false); \
+      TRY_CATCH( gpuhelpers::cpu2gpu(robj_vec, *x) ) \
+    } \
+    else \
+    { \
+      cpuvec<int> robj_vec(INTEGER(robj), size, false); \
+      TRY_CATCH( gpuhelpers::cpu2gpu(robj_vec, *x) ) \
+    }
   
-  if (size_x != size)
-    x->resize(size);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    CAST_FML(gpuvec, double, x, x_robj);
+    FML_TMP_VECCOPY(type_robj)
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    CAST_FML(gpuvec, float, x, x_robj);
+    FML_TMP_VECCOPY(type_robj)
+  }
+  else if (INT(type) == TYPE_INT)
+  {
+    CAST_FML(gpuvec, int, x, x_robj);
+    FML_TMP_VECCOPY(type_robj)
+  }
   
-  cpuvec<double> robj_vec(REAL(robj), size, false);
-  gpuhelpers::cpu2gpu(robj_vec, *x);
+  #undef FML_TMP_VECCOPY
   
   return R_NilValue;
 }

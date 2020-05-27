@@ -235,11 +235,28 @@ gpuvecR6 = R6::R6Class("gpuvec",
     #' @useDynLib fmlr R_gpuvec_from_robj
     from_robj = function(robj)
     {
-      # TODO check matrix type of robj
-      if (!is.double(robj))
-        storage.mode(robj) = "double"
-
-      .Call(R_gpuvec_from_robj, private$x_ptr, robj)
+      if (!is.vector(robj) && !float::is.float(robj))
+        stop("'robj' must be a vector")
+      
+      if (float::is.float(robj))
+      {
+        robj_type = TYPE_FLOAT
+        rdata = robj@Data
+      }
+      else if (is.integer(robj))
+      {
+        robj_type = TYPE_INT
+        rdata = robj
+      }
+      else if (is.double(robj))
+      {
+        robj_type = TYPE_DOUBLE
+        rdata = robj
+      }
+      else
+        stop("bad fundamental type")
+      
+      .Call(R_gpuvec_from_robj, private$type, private$x_ptr, robj_type, rdata)
       invisible(self)
     }
   ),

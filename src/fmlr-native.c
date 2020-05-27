@@ -131,7 +131,7 @@ extern SEXP R_gpuvec_dupe(SEXP, SEXP);
 extern SEXP R_gpuvec_fill_linspace(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_fill_val(SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_fill_zero(SEXP, SEXP);
-extern SEXP R_gpuvec_from_robj(SEXP, SEXP);
+extern SEXP R_gpuvec_from_robj(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_get(SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_gpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_gpu2gpu(SEXP, SEXP, SEXP, SEXP);
@@ -340,7 +340,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpuvec_fill_linspace",    (DL_FUNC) &R_gpuvec_fill_linspace,    4},
   {"R_gpuvec_fill_val",         (DL_FUNC) &R_gpuvec_fill_val,         3},
   {"R_gpuvec_fill_zero",        (DL_FUNC) &R_gpuvec_fill_zero,        2},
-  {"R_gpuvec_from_robj",        (DL_FUNC) &R_gpuvec_from_robj,        2},
+  {"R_gpuvec_from_robj",        (DL_FUNC) &R_gpuvec_from_robj,        4},
   {"R_gpuvec_get",              (DL_FUNC) &R_gpuvec_get,              3},
   {"R_gpuvec_gpu2cpu",          (DL_FUNC) &R_gpuvec_gpu2cpu,          4},
   {"R_gpuvec_gpu2gpu",          (DL_FUNC) &R_gpuvec_gpu2gpu,          4},

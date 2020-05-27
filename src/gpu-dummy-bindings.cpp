@@ -171,9 +171,9 @@ extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
   WARN_AND_RETURN;
 }
 
-extern "C" SEXP R_gpuvec_from_robj(SEXP type, SEXP x_robj, SEXP robj)
+extern "C" SEXP R_gpuvec_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP robj)
 {
-  unused(type, x_robj, robj);
+  unused(type, x_robj, type_robj, robj);
   WARN_AND_RETURN;
 }
 
