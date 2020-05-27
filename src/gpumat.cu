@@ -394,20 +394,47 @@ extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
 
 
 
-extern "C" SEXP R_gpumat_from_robj(SEXP x_robj, SEXP robj)
+extern "C" SEXP R_gpumat_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP robj)
 {
-  int m = nrows(robj);
-  int n = ncols(robj);
+  const int m = nrows(robj);
+  const int n = ncols(robj);
   
-  gpumat<double> *x = (gpumat<double>*) getRptr(x_robj);
-  len_t m_x = x->nrows();
-  len_t n_x = x->ncols();
+  #define FML_TMP_MATCOPY(type_robj) \
+    if (x->nrows() != m || x->ncols() != n) \
+      x->resize(m, n); \
+    if (INT(type_robj) == TYPE_DOUBLE) \
+    { \
+      cpumat<double> robj_mat(REAL(robj), m, n, false); \
+      TRY_CATCH( gpuhelpers::cpu2gpu(robj_mat, *x) ) \
+    } \
+    else if (INT(type_robj) == TYPE_FLOAT) \
+    { \
+      cpumat<float> robj_mat(FLOAT(robj), m, n, false); \
+      TRY_CATCH( gpuhelpers::cpu2gpu(robj_mat, *x) ) \
+    } \
+    else \
+    { \
+      cpumat<int> robj_mat(INTEGER(robj), m, n, false); \
+      TRY_CATCH( gpuhelpers::cpu2gpu(robj_mat, *x) ) \
+    }
   
-  if (m_x != m || n_x != n)
-    x->resize(m, n);
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    CAST_FML(gpumat, double, x, x_robj);
+    FML_TMP_MATCOPY(type_robj)
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    CAST_FML(gpumat, float, x, x_robj);
+    FML_TMP_MATCOPY(type_robj)
+  }
+  else if (INT(type) == TYPE_INT)
+  {
+    CAST_FML(gpumat, int, x, x_robj);
+    FML_TMP_MATCOPY(type_robj)
+  }
   
-  cpumat<double> robj_mat(REAL(robj), m, n, false);
-  gpuhelpers::cpu2gpu(robj_mat, *x);
+  #undef FML_TMP_MATCOPY
   
   return R_NilValue;
 }
