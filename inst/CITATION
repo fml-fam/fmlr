@@ -1,0 +1,15 @@
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("{R} package version %s", meta$Version)
+
+citHeader("To cite fmlr in a publication, please use:")
+
+citEntry(
+  entry = "Misc",
+  title = "{fmlr}: Fused Matrix Library for R",
+  author = personList(as.person("Drew Schmidt")),
+  year = year,
+  note = note,
+  url = "https://hpcran.org/packages/fmlr/index.html",
+  textVersion = NULL,
+  key = "fmlr_package"
+)
