@@ -1,0 +1,207 @@
+---
+title: "04 - Data Management"
+---
+
+```{css, echo=FALSE}
+pre.r {color: white; background-color: #3f3f3f;}
+
+code, pre {background-color: #dee4ea;} /* output bg */
+code a {color: #0071db;}
+pre a {color: #5daffc;}
+
+.fl      {color: #9090f9;}  /* literal */
+.fu      {color: #FF9800;}  /* function */
+.ch,.st  {color: #4dc100;}  /* string */
+.kw      {color: #FFC107;}  /* keyword */
+.co      {color: #9E9E9E;}  /* comment */
+
+.message { color: #EEEEEE;   font-weight: bolder;}
+.error   { color: #f44336;  font-weight: bolder;}
+.warning { color: #9C27B0; font-weight: bolder;}
+```
+
+## Converting Between fmlr Objects
+
+Converting between fmlr objects is simple to do using the various helper functions. Let's start with a simple matrix on the CPU:
+
+```{r}
+suppressMessages(library(fmlr))
+
+x_cpu = cpumat(2, 2)
+x_cpu$fill_linspace(1, 4)
+```
+
+We can distribute the data to an `mpimat` object using `cpu2mpi()`. 
+
+```{r}
+g = grid()
+x_mpi = mpimat(g)
+cpu2mpi(x_cpu, x_mpi)
+x_mpi
+```
+
+These are completely different kinds of objects, so there is no concept of "shallow copying" here. New storage will be allocated. Also note that running this in one process instead of launching the script with `mpirun` isn't actually that useful (or even properly distributed). We only provide this for demonstration. See the [article on backends](docs/vignettes/03-backends.Rmd) for more information.
+
+Converting between objects works essentially the same as this for the various choices of backends. You just have to pick the right copy function.
+
+* CPU objects
+    - `cpu2cpu()` copy data between CPU objects (more on this in the next section)
+* GPU objects
+    - `cpu2gpu()` copy CPU matrix/vector data to a GPU matrix/vector
+    - `gpu2cpu()` copy GPU matrix/vector data to a CPU matrix/vector
+    - `gpu2gpu()` copy data between GPU objects
+* MPI objects
+    - `cpu2mpi()` distribute CPU matrix to an MPI matrix
+    - `mpi2mpi()` copy data between MPI objects
+
+It's important to note that you have to initialize the object you wish to copy into first. That object can be just a "placeholder" (i.e., it can have 0 rows and columns). Some objects have additional objects they have to maintain (the return of `grid()` for `mpimat` objects and the return of `card()` for `gpumat` and `gpuvec` objects). Since we can't guess these, you have to specify them in the object creation, as in the example above where we called `mpimat(g)`. There was no underlying data allocated to the object until `cpu2mpi()` was called. Of course, if you had already allocated the necessary data, then `cpu2mpi()` would not have done any memory operations beyond the copy.
+
+
+
+## Fundamental Type
+
+When we talk about "fundamental type" of an object, we mean the kind of data the object represents. Right now there are three supported fundamental types for all objects:
+
+* `int` - 32-bit signed integer
+* `float` - single precision
+* `double` - double precision
+
+In the future, we plan to support `__half` for GPU objects, as the C++ fml does.
+
+R supports `int` and `double` in their overloaded `numeric` type. The float package adds some support for `float` data. R also has some skeleton support for `double complex` for computing eigenvalues of non-symmetric matrices. We do not plan to ever support complex types.
+
+In fmlr, all methods support `float` and `double`. Some methods will support `int`, but most will not. This is a major departure from normal R behavior. For example, if you wanted to compute the SVD of an integer matrix, R will automatically promote the `int` data to `double` without asking or telling you, and then perform the SVD on the `double` copy. This is because it doesn't really make any sense to talk about an SVD of integer data most of the time. However, in fmlr, the `linalg_svd()` function will just throw an error:
+
+```{r intsvd, error=TRUE}
+x = cpumat(3, 2, "int")
+x$fill_linspace(1, 6)
+
+s = cpuvec(type="int")
+
+linalg_svd(x, s)
+```
+
+If you really do need to compute on the integer data, then you will need to manually copy it. Fortunately, this is easy. We just use the `cpu2cpu()` helper:
+
+```{r, dependson="intsvd"}
+y = cpumat(type="f")
+cpu2cpu(x, y)
+y$info()
+y
+```
+
+Since `y` has fundamental type `float`, it is using exactly as much memory as its `int` counterpart in `x`. If we had chosen `double` then it would require twice as much memory.
+
+From here, computing the SVD is easy:
+
+```{r}
+s = cpuvec(type="f")
+linalg_svd(y, s)
+s$info()
+s
+```
+
+One other important caveat is that we can't mix fundamental types for most methods. The converters, for example `cpu2cpu()` as seen above, can mix fundamental types. But the compute functions like `linalg_svd()` will throw an error if we try to mix fundamental types.
+
+As a final note, if we convert an fmlr object with fundamental type `float` to a native R object, it will be wrapped as a `float32` object from the float package:
+
+```{r}
+s$to_robj()
+```
+
+
+
+## Converting R Objects Into fmlr Objects
+
+Let's start with a simple R matrix:
+
+```{r}
+set.seed(1234)
+x = matrix(runif(6), 3, 2)
+x
+```
+
+We can convert this into an fmlr matrix using the object's `from_robj()` method. For simplicity, we'll just use a CPU matrix:
+
+```{r}
+x_cpu = cpumat()$from_robj(x)
+x_cpu
+```
+
+This copy is a "deep copy", in that the memory of the R object `x` and the fmlr object `x_cpu` are different. Observe:
+
+```{r}
+x_cpu$fill_zero()
+x_cpu
+x
+```
+
+The `as_cpumat()` offers a shorthand for this operation, so you do not have to manually create the skeleton object:
+
+```{r}
+x_cpu = as_cpumat(x)
+x
+```
+
+However, for CPU matrices/vectors, there is a way to shallow copy. This allows us to create an fmlr object that merely inherits the same pointer that R is using. We can do this via the `inherit()` method, or by setting the argument `copy=FALSE` in `as_cpumat()`. However, care must be exercised when doing this because it can produce surprising results if you are not careful:
+
+```{r}
+x_cpu = as_cpumat(x, copy=FALSE)
+x_cpu$fill_zero()
+x
+```
+
+Also, **do not allow a reallocation to trigger on the inherited pointer** as this will crash your R session.
+
+All of the above is likewise true for numeric R vectors and `cpuvec` objects. Likewise, we can inherit shallow copies from `float32` objects (those from the float package).
+
+For `gpumat` and `gpuvec`, we can not inherit data without a copy - because native R matrices/vectors do not live on GPUs. To copy R matrix data to a GPU, we can use `cpu2gpu()`. But first, we have to have the R data represented as an fmlr object. Using `as_cpumat()` as above:
+
+```r
+set.seed(1234)
+x = matrix(runif(6), 3, 2)
+x_cpu = as_cpumat(x, copy=FALSE)
+
+c = card()
+x_gpu = gpumat(c, type="float")
+cpu2gpu(x_cpu, x_gpu)
+x_gpu$info()
+```
+
+    ## # gpumat 3x2 type=f 
+
+```r
+x_gpu
+```
+
+    ## 0.5975 0.2840 
+    ## 0.9811 0.6356 
+    ## 0.0428 0.9047 
+
+Note that the objects are actually of different fundamental type. The data we inherit from R is `double`, while the data on the GPU is `float`.
+
+
+
+## Converting fmlr Objects Into R Objects
+
+We have already seen several examples of using the `to_robj()` method to copy data back to an R object. This operates via a deep copy. 
+
+For cases like the above where we had a shallow copy of an R object in a `cpumat` object, we can, for example, copy back from GPU memory to CPU memory without a copy. Observe:
+
+```r
+x_gpu$fill_eye()
+gpu2cpu(x_gpu, x_cpu)
+x
+```
+
+    ##      [,1] [,2]
+    ## [1,]    1    0
+    ## [2,]    0    1
+    ## [3,]    0    0
+
+
+If `x` and `x_cpu` had used different memory, we could have copied back via:
+
+```r
+x = x_gpu$to_robj()
+```
