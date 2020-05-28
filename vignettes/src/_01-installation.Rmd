@@ -1,0 +1,160 @@
+---
+title: "01 - Installation Guide"
+---
+
+```{css, echo=FALSE}
+pre.r {color: white; background-color: #3f3f3f;}
+
+code, pre {background-color: #dee4ea;} /* output bg */
+code a {color: #0071db;}
+pre a {color: #5daffc;}
+
+.fl      {color: #9090f9;}  /* literal */
+.fu      {color: #FF9800;}  /* function */
+.ch,.st  {color: #4dc100;}  /* string */
+.kw      {color: #FFC107;}  /* keyword */
+.co      {color: #9E9E9E;}  /* comment */
+
+.message { color: #EEEEEE;   font-weight: bolder;}
+.error   { color: #f44336;  font-weight: bolder;}
+.warning { color: #9C27B0; font-weight: bolder;}
+```
+
+## Basics
+
+Assuming you have the system software dependencies met, then in principle, installation can be as simple as:
+
+```r
+install.packages("fmlr", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
+```
+
+However, before you do, it is strongly advised that you read this document, because there are several important considerations when installing this package.
+
+You may also find the [container recipes](https://github.com/fml-fam/fmlr/tree/master/containers) for Docker and Singularity helpful.
+
+
+
+## System Dependencies
+
+#### TLDR
+
+* R
+* Modern C and C++ compilers
+* MPI
+* Optionally, any of:
+    - OpenBLAS (or MKL or whatever)
+    - ScaLAPACK
+    - CUDA
+
+#### Long version
+
+First, of course, you will need an [installation of R](https://cran.r-project.org/).
+
+Next, you will need to be able to build R packages from source, since we do not provide any binary packages for fmlr. Generally this requires: 
+
+* Windows: [Rtools](http://cran.r-project.org/bin/windows/Rtools/)
+* Mac:
+    - Install XCode from the Mac App Store
+    - Open XCode and choose "Preferences", "Downloads", then "Install Command Line Tools"
+* Linux/FreeBSD: You need C and C++ compilers, which you may well already have installed. Consult your distribution's package manager.
+
+Finally, you will need to have a system installation of [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface), e.g. [OpenMPI](https://www.open-mpi.org/), [MPICH](https://www.mpich.org/), or [MSMPI](https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi). We recommend MSMPI for Windows and OpenMPI for everything else:
+
+* Windows: Install [MS-MPI](https://msdn.microsoft.com/en-us/library/bb524831(v=vs.85).aspx)
+* Mac: Choose any one of the following
+    - Homebrew: `brew install open-mpi`
+    - MacPorts: `port install openmpi`
+    - You can also [build from source](https://www.open-mpi.org/software/ompi/v2.1/)
+* Linux/FreeBSD
+    - deb (Debian, Ubuntu): `apt-get install libopenmpi-dev`
+    - rpm (Fedora, Centos): `yum install openmpi-devel`
+    - FreeBSD: `pkg install openmpi`
+    - You can also [build from source](https://www.open-mpi.org/software/ompi/v2.1/).
+
+It is recommended, but not required, that you use a high-performance BLAS library with R. For example, OpenBLAS. There are numerous resources for how to do this on the internet. Unfortunately, they can be somewhat involved for some platforms, so we do not repeat them here.
+
+In addition to these hard system dependencies, you may also wish to have a system installation of [ScaLAPACK](https://netlib.sandia.gov/scalapack/).
+
+* Windows: Install [MS-MPI](https://msdn.microsoft.com/en-us/library/bb524831(v=vs.85).aspx)
+* Mac: Choose any one of the following
+    - Homebrew: `brew install scalapack`
+    - MacPorts: `port install scalapack +openmpi`
+    - You can also [build from source](https://netlib.sandia.gov/scalapack/#_software)
+* Linux/FreeBSD
+    - deb (Debian, Ubuntu): `apt-get install libscalapack-openmpi-dev`
+    - rpm (Fedora, Centos): `yum install scalapack-openmpi`
+    - FreeBSD: `pkg install scalapack`
+    - You can also [build from source](https://netlib.sandia.gov/scalapack/#_software).
+
+If you have an appropriate GPU, you can also install [NVIDIA® CUDA™](https://developer.nvidia.com/cuda-downloads).
+
+
+
+## R Dependencies
+
+#### TLDR
+
+* R6 (this one shouldn't give any trouble)
+* float
+* pbdMPI
+* pbdSLAP
+
+#### Long version
+
+The R package dependencies should install automatically via R's dependency resolution. However, there are some things that can go wrong.
+
+With float, if you do not have a high-performance BLAS library installed (and you will want one, so if not, go back to the system dependencies section above), then the package will build the reference `float` (as in floating point) BLAS and LAPACK functions. These are slow, and take a long time to compile. When you build float from source, you can see in the configure log which BLAS/LAPACK library it is using. The [float package vignette](https://cran.r-project.org/web/packages/float/vignettes/float.pdf) discusses this somewhat.
+
+Assuming you installed MPI correctly, the pbdMPI should install fine. If you have any issues, you may find the [pbdMPI package vignette](https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf) helpful.
+
+Finally, you will need to install a version of pbdSLAP that contains the `float` symbols. If you didn't do a system installation of ScaLAPACK, then you need to run:
+
+```r
+remotes::install_github("snoweye/pbdSLAP@single")
+```
+
+The advantage to this is that it's easy. The disadvantage is that it takes forever to compile. So if you *did* create a system installation of ScaLAPACK, then you can do something like this:
+
+```r
+install.packages("pbdSLAP", configure.vars="EXT_LDFLAGS='-lscalapack-openmpi'")
+```
+
+where you set the `EXT_LDFLAGS` appropriately. The example provided is for Ubuntu. Yours may look something like `-L/path/to/scalapack -lscalapack`. If you can't figure this out, then use the option above installing from GitHub.
+
+
+
+## Installing fmlr
+
+fmlr can be built with or without GPU support. Right now, "GPU" means CUDA.
+
+If you build the package without GPU support, then the various GPU functions won't work (obviously). You can test for GPU support in the installed package via `fmlr::fml_gpu()`. There are `fml_cpu()` and `fml_mpi()` functions which always return `TRUE`. You can not build the package without MPI support.
+
+#### Without GPU Support
+
+Stable releases are published on the [hpcran](https://hpcran.org). You can install them via
+
+```r
+install.packages("fmlr", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
+```
+
+The development version of fmlr is maintained on GitHub. However, because we use git submodules, you can not use any of the various `install_github()` functions. You can install the package from the command line via:
+
+```bash
+git clone --recurse-submodules https://github.com/fml-fam/fmlr.git
+R CMD INSTALL fmlr/
+```
+
+#### With GPU Support
+
+You can install the stable version of fmlr with GPU support via:
+
+```r
+install.packages("fmlr", configure.args="--enable-gpu", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
+```
+
+To install the development version, you can do something like:
+
+```bash
+git clone --recurse-submodules https://github.com/fml-fam/fmlr.git
+R CMD INSTALL fmlr/ --configure-args="--enable-gpu"
+```
