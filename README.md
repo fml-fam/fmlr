@@ -1,13 +1,13 @@
 # fmlr
 
-* **Version:** 0.2-0
+* **Version:** 0.2-1
 * **License:** [BSL-1.0](http://opensource.org/licenses/BSL-1.0)
 * **Project home**: https://github.com/fml-fam/fmlr
 * **Bug reports**: https://github.com/fml-fam/fmlr/issues
 * **Documentation**: https://fml-fam.github.io/fmlr
 
 
-Interface to the [fml library](https://github.com/fml-fam/fml). fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.
+fmlr is an R interface to the [fml library](https://github.com/fml-fam/fml). It defines a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.
 
 fmlr is a "medium-level" interface to computational linear algebra. It is higher-level than directly working with, for example, the BLAS. But it is lower-level than a high-level interface like R or Armadillo.
 

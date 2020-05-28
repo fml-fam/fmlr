@@ -1,7 +1,7 @@
 Package: fmlr
 Type: Package
-Title: Fused Matrix Library
-Version: 0.2-0
+Title: Fused Matrix Library for R
+Version: 0.2-1
 Description: Interface to the 'fml' library, which defines a single
     "medium-level" interface for multiple dense matrix types (CPU, GPU, and
     MPI), each supporting multiple fundamental types (half, float, double). Data
