@@ -1,0 +1,155 @@
+---
+title: "03 - Managing Backends"
+---
+
+```{css, echo=FALSE}
+pre.r {color: white; background-color: #3f3f3f;}
+
+code, pre {background-color: #dee4ea;} /* output bg */
+code a {color: #0071db;}
+pre a {color: #5daffc;}
+
+.fl      {color: #9090f9;}  /* literal */
+.fu      {color: #FF9800;}  /* function */
+.ch,.st  {color: #4dc100;}  /* string */
+.kw      {color: #FFC107;}  /* keyword */
+.co      {color: #9E9E9E;}  /* comment */
+
+.message { color: #EEEEEE;   font-weight: bolder;}
+.error   { color: #f44336;  font-weight: bolder;}
+.warning { color: #9C27B0; font-weight: bolder;}
+```
+
+## Background
+
+Generally, codes should be easy to port between different backends (CPU, GPU, MPI). The difficulty/differences generally come in object creation. To better understand this process, let's take a very simple example. We'll create a 3x3 diagonal matrix with diagonal elements 1, 2, 3, and we'll create it by using a vector and the `fill_diag()` method.
+
+
+* creation (matrix fill_diag example)
+* skeleton objects (vectors, svd)
+* printing
+
+
+## CPU
+
+We'll start with the CPU backend because these are the simplest to work with.
+
+```{r}
+suppressMessages(library(fmlr))
+
+v = cpuvec(3)
+v$set(0, 1)$set(1, 2)$set(2, 3)
+v
+
+x = cpumat(3, 3)
+x$fill_diag(v)
+x
+```
+
+```{r}
+s = cpuvec()
+s$info()
+
+x = cpumat()
+x$info()
+```
+
+
+
+## GPU
+
+For GPU objects, we need to first have a `card` object. This manages some internal GPU data. It is tied to a specific GPU (by ordinal ID), and you only need one object per GPU (not per GPU matrix/vector). You will need to pass this object to the `gpuvec()` and `gpumat()` constructors.
+
+```r
+c = card()
+c
+```
+
+    ## ## GPU 0 (GeForce GTX 1070 Ti) 821/8116 MB - CUDA 10.1
+
+```r
+v = gpuvec(c, 3)
+v$set(0, 1)$set(1, 2)$set(2, 3)
+v
+```
+
+    ## 1.0000 2.0000 3.0000 
+
+```r
+x = gpumat(c, 3, 3)
+x$fill_diag(v)
+x
+```
+
+    ## 1.0000 0.0000 0.0000 
+    ## 0.0000 2.0000 0.0000 
+    ## 0.0000 0.0000 3.0000 
+
+```r
+s = gpuvec(c)
+s$info()
+```
+
+    ## # gpuvec 0 type=d 
+
+```r
+x = gpumat(c)
+x$info()
+```
+
+    ## # gpumat 0x0 type=d 
+
+
+
+## MPI
+
+Using MPI objects is a little different from the others. We can't use them interactively and get parallelism at the same time. If you want to better understand this programming model, called SPMD, then I recommend reading [this tutorial](https://github.com/RBigData/tutorials/blob/master/content/pbdR/mpi.md).
+
+Like with GPU objects, we have something extra to carry around. Here, it's a special MPI grid. You can have different grids, but this is pretty advanced, so we won't cover that here. We'll just use one grid with the default arguments. We also have to specify a blocking factor. Choosing good values for this is beyond the scope of this example. We use a 1x1 blocking to make sure that all processes own some of the data.
+
+```r
+suppressMessages(library(fmlr))
+
+g = grid()
+g
+
+v = cpuvec(3)
+v$set(0, 1)$set(1, 2)$set(2, 3)
+if (g$rank0()) v
+
+x = mpimat(g, 3, 3, 1, 1)
+x$fill_diag(v)
+x
+```
+
+Note two other differences from the previous objects. First, there is no `mpivec()` object. There's usually no point in distributing a vector. Consider that if you have a 100,000x100,000 numeric matrix (of doubles), then that matrix would take up ~75 GiB of memory. Whereas a 100,000 length vector would use less than 1 MiB.
+
+blocking factors
+
+The other difference is in how we print a non-distributed object. We only want to print it on one rank, and typically rank 0 is chosen.
+
+We'll take our script and save it as `mpi.r`, and launch it via:
+
+```bash
+mpirun -np 2 Rscript mpi.r
+```
+
+And this is the output we see:
+
+    ## ## Grid 0 2x1
+
+    ## 1.0000 2.0000 3.0000 
+
+    ## 1.0000 0.0000 0.0000 
+    ## 0.0000 2.0000 0.0000 
+    ## 0.0000 0.0000 3.0000 
+
+We should see the same output if we run the script with one rank via `Rscript mpi.r` (no parallelism) or with say 4 ranks via `mpirun -np 4 Rscript mpi.r`.
+
+
+```r
+x = mpimat(g)
+x$info()
+```
+
+    ## # mpimat 0x0 with 16x16 blocking on 2x1 grid type=d
