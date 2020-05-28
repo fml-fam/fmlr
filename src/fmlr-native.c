@@ -162,6 +162,7 @@ extern SEXP R_grid_set(SEXP, SEXP);
 extern SEXP R_grid_valid_grid(SEXP);
 extern SEXP R_mpimat_antidiag(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_bfdim(SEXP, SEXP);
+extern SEXP R_mpimat_cpu2mpi(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_diag(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_dim(SEXP, SEXP);
 extern SEXP R_mpimat_dimops_matsums(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -371,6 +372,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_grid_valid_grid",         (DL_FUNC) &R_grid_valid_grid,         1},
   {"R_mpimat_antidiag",         (DL_FUNC) &R_mpimat_antidiag,         3},
   {"R_mpimat_bfdim",            (DL_FUNC) &R_mpimat_bfdim,            2},
+  {"R_mpimat_cpu2mpi",          (DL_FUNC) &R_mpimat_cpu2mpi,          4},
   {"R_mpimat_diag",             (DL_FUNC) &R_mpimat_diag,             3},
   {"R_mpimat_dim",              (DL_FUNC) &R_mpimat_dim,              2},
   {"R_mpimat_dimops_matsums",   (DL_FUNC) &R_mpimat_dimops_matsums,   5},

@@ -164,6 +164,33 @@ gpu2gpu = function(gpu_in, gpu_out)
 #' 
 #' @return Returns \code{NULL}.
 #' 
+#' @useDynLib fmlr R_mpimat_cpu2mpi
+#' @export
+cpu2mpi = function(cpu_in, mpi_out)
+{
+  if (!is_cpumat(cpu_in) || !is_mpimat(mpi_out))
+    stop("one or more arguments of the wrong class")
+  
+  g = mpi_out$get_grid()
+  
+  .Call(R_mpimat_cpu2mpi, cpu_in$get_type(), mpi_out$get_type(), cpu_in$data_ptr(), mpi_out$data_ptr())
+  
+  invisible(NULL)
+}
+
+
+
+#' mpi2cpu
+#' 
+#' Copy the data in an MPI matrix to a CPU matrix. They can be of different
+#' fundamental types (e.g. float/double).
+#' 
+#' @param mpi_in Input.
+#' @param cpu_out Ouput.
+#' @param rdest,cdest The row/column index of the receiving process.
+#' 
+#' @return Returns \code{NULL}.
+#' 
 #' @useDynLib fmlr R_mpimat_mpi2cpu
 #' @export
 mpi2cpu = function(mpi_in, cpu_out, rdest=0, cdest=0)
@@ -177,8 +204,7 @@ mpi2cpu = function(mpi_in, cpu_out, rdest=0, cdest=0)
   if (rdest < 0 || rdest >= g$nprow() || cdest < 0 || cdest >= g$npcol())
     stop("rdest/cdest out of bounds")
   
-  CFUN = R_mpimat_mpi2cpu
-  .Call(CFUN, mpi_in$get_type(), cpu_out$get_type(), mpi_in$data_ptr(), cpu_out$data_ptr(), rdest, cdest)
+  .Call(R_mpimat_mpi2cpu, mpi_in$get_type(), cpu_out$get_type(), mpi_in$data_ptr(), cpu_out$data_ptr(), rdest, cdest)
   
   invisible(NULL)
 }
@@ -202,8 +228,7 @@ mpi2mpi = function(mpi_in, mpi_out)
   if (!is_mpimat(mpi_in) || !is_mpimat(mpi_out))
     stop("one or more arguments of the wrong class")
   
-  CFUN = R_mpimat_mpi2mpi
-  .Call(CFUN, mpi_in$get_type(), mpi_out$get_type(), mpi_in$data_ptr(), mpi_out$data_ptr())
+  .Call(R_mpimat_mpi2mpi, mpi_in$get_type(), mpi_out$get_type(), mpi_in$data_ptr(), mpi_out$data_ptr())
   
   invisible(NULL)
 }
