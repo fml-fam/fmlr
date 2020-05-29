@@ -1,5 +1,15 @@
 pandoc: '2.5'
-pkgdown: 1.4.1
+pkgdown: 1.5.1
 pkgdown_sha: ~
-articles: []
+articles:
+  01-installation: 01-installation.html
+  02-overview: 02-overview.html
+  03-backends: 03-backends.html
+  04-data: 04-data.html
+  _01-installation: src/_01-installation.html
+  _02-overview: src/_02-overview.html
+  _03-backends: src/_03-backends.html
+  _04-data: src/_04-data.html
+  _05-benchmarks: src/_05-benchmarks.html
+last_built: 2020-05-29T23:56Z
 

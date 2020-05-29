@@ -8,23 +8,29 @@
 
 <title>grid class — mpi-grid-class • fmlr</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,10 +38,10 @@
 
 
 
-<meta property="og:title" content="grid class — mpi-grid-class" />
 
+<meta property="og:title" content="grid class — mpi-grid-class" />
 <meta property="og:description" content="Storage and methods for MPI grid data." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2-1</span>
       </span>
     </div>
 
@@ -81,10 +87,38 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/01-installation.html">01 - Installation Guide</a>
+    </li>
+    <li>
+      <a href="../articles/02-overview.html">02 - Overview of fmlr</a>
+    </li>
+    <li>
+      <a href="../articles/03-backends.html">03 - Managing Backends</a>
+    </li>
+    <li>
+      <a href="../articles/04-data.html">04 - Data Management</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/fml-fam/fmlr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -99,21 +133,19 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>grid class</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/fml-fam/fmlr/blob/master/R/grid.r'><code>R/grid.r</code></a></small>
     <div class="hidden name"><code>mpi-grid-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Storage and methods for MPI grid data.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Data is held in an external pointer.</p>
-    
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
@@ -143,12 +175,12 @@
 <a id="method-new"></a></p><h3>Method <code>new()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$new(gridtype = PROC_GRID_SQUARE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>new</span>(<span class='kw'>gridtype</span> <span class='kw'>=</span> <span class='no'>PROC_GRID_SQUARE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
-<dt><code>gridtype</code></dt><dd><p>Type of processor grid: `PROC_GRID_SQUARE`,
-`PROC_GRID_WIDE`, or `PROC_GRID_TALL`.</p></dd>
+<p><div class="arguments"></p><dl'>
+<dt><code>gridtype</code></dt><dd><p>Type of processor grid: <code>PROC_GRID_SQUARE</code>,
+<code>PROC_GRID_WIDE</code>, or <code>PROC_GRID_TALL</code>.</p></dd>
 
 </dl><p></div></p>
 <h3>Details</h3>
@@ -158,10 +190,10 @@
 <a id="method-set"></a></p><h3>Method <code>set()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$set(blacs_context)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>set</span>(<span class='no'>blacs_context</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>blacs_context</code></dt><dd><p>The BLACS integer context number.</p></dd>
 
 </dl><p></div></p>
@@ -172,7 +204,7 @@
 <a id="method-exit"></a></p><h3>Method <code>exit()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$exit()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>exit</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>Exits the BLACS grid, but does not shutdown BLACS/MPI.</p>
@@ -181,10 +213,10 @@
 <a id="method-finalize"></a></p><h3>Method <code>finalize()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$finalize(mpi_continue = FALSE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>finalize</span>(<span class='kw'>mpi_continue</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>mpi_continue</code></dt><dd><p>Should MPI continue, i.e., not be shut down too?</p></dd>
 
 </dl><p></div></p>
@@ -195,7 +227,7 @@
 <a id="method-info"></a></p><h3>Method <code>info()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$info()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>info</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>Print one-line information about the object.</p>
@@ -204,7 +236,7 @@
 <a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$print()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>Print one-line information about the object.</p>
@@ -213,7 +245,7 @@
 <a id="method-rank0"></a></p><h3>Method <code>rank0()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$rank0()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>rank0</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>Is the calling process rank 0, i.e. row 0 and col 0?</p>
@@ -222,7 +254,7 @@
 <a id="method-ingrid"></a></p><h3>Method <code>ingrid()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$ingrid()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>ingrid</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>Is the calling process in the grid, i.e. row and col not -1?</p>
@@ -231,10 +263,10 @@
 <a id="method-barrier"></a></p><h3>Method <code>barrier()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$barrier(scope = "A")</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>barrier</span>(<span class='kw'>scope</span> <span class='kw'>=</span> <span class='st'>"A"</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>scope</code></dt><dd><p>'A' for all, 'R' for row, or 'C' for column.</p></dd>
 
 </dl><p></div></p>
@@ -245,7 +277,7 @@
 <a id="method-ictxt"></a></p><h3>Method <code>ictxt()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$ictxt()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>ictxt</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>The BLACS integer context.</p>
@@ -254,7 +286,7 @@
 <a id="method-nprocs"></a></p><h3>Method <code>nprocs()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$nprocs()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>nprocs</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>The BLACS integer context.</p>
@@ -263,7 +295,7 @@
 <a id="method-nprow"></a></p><h3>Method <code>nprow()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$nprow()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>nprow</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>The BLACS integer context.</p>
@@ -272,7 +304,7 @@
 <a id="method-npcol"></a></p><h3>Method <code>npcol()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$npcol()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>npcol</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>The BLACS integer context.</p>
@@ -281,7 +313,7 @@
 <a id="method-myrow"></a></p><h3>Method <code>myrow()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$myrow()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>myrow</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>The BLACS integer context.</p>
@@ -290,7 +322,7 @@
 <a id="method-mycol"></a></p><h3>Method <code>mycol()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$mycol()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>mycol</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>The BLACS integer context.</p>
@@ -299,7 +331,7 @@
 <a id="method-valid_grid"></a></p><h3>Method <code>valid_grid()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$valid_grid()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>valid_grid</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>Returns whether or not the grid object is valid.</p>
@@ -308,7 +340,7 @@
 <a id="method-data_ptr"></a></p><h3>Method <code>data_ptr()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$data_ptr()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>data_ptr</span>()</pre><p></div></p>
 
 <h3>Details</h3>
 <p>Returns the external pointer data. For developers only.</p>
@@ -316,27 +348,21 @@
 <p><hr>
 <a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>gridR6$clone(deep = FALSE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>gridR6</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
 
 
-    
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#methods">Methods</a></li>
-          </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -347,7 +373,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

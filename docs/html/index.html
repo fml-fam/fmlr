@@ -5,20 +5,25 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fused Matrix Library • fmlr</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Fused Matrix Library">
-<meta property="og:description" content="Interface to the fml library.">
-<meta name="twitter:card" content="summary">
+<title>Fused Matrix Library for R • fmlr</title>
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Fused Matrix Library for R">
+<meta property="og:description" content='fmlr is an R interface to the fml library. It is a
+    "medium-level" interface for multiple dense matrix types, principally CPU,
+    GPU, and MPI. Each supports multiple fundamental types (int, float, double),
+    and data is held externally to R and operations that modify data generally
+    occur in-place. The interface largely tracks with the core fml interface.
+    We use R6 so that generally an R code can be easily translated to C++.'>
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2-1</span>
       </span>
     </div>
 
@@ -46,8 +51,39 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/01-installation.html">01 - Installation Guide</a>
+    </li>
+    <li>
+      <a href="articles/02-overview.html">02 - Overview of fmlr</a>
+    </li>
+    <li>
+      <a href="articles/03-backends.html">03 - Managing Backends</a>
+    </li>
+    <li>
+      <a href="articles/04-data.html">04 - Data Management</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/fml-fam/fmlr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -64,10 +100,7 @@
 <a href="#fmlr" class="anchor"></a>fmlr</h1></div>
 <ul>
 <li>
-<strong>Version:</strong> 0.1-0</li>
-<li>
-<strong>Status:</strong> <a href="https://travis-ci.org/fml-fam/fmlr"><img src="https://travis-ci.org/fml-fam/fmlr.png" alt="Build Status"></a>
-</li>
+<strong>Version:</strong> 0.2-1</li>
 <li>
 <strong>License:</strong> <a href="http://opensource.org/licenses/BSL-1.0">BSL-1.0</a>
 </li>
@@ -81,378 +114,76 @@
 <strong>Documentation</strong>: <a href="https://fml-fam.github.io/fmlr" class="uri">https://fml-fam.github.io/fmlr</a>
 </li>
 </ul>
-<p>Interface to the <a href="https://github.com/fml-fam/fml">fml library</a>. fml is a C++ library defining a single interface for multiple dense matrix types, principally CPU, GPU, and MPI.</p>
-<p>fmlr is a “medium-level” interface to computational linear algebra. It is higher-level than directly working with, for example, the BLAS. But it is lower-level than a high-level interface like R or Armadillo.</p>
+<p>fmlr is an R interface to the <a href="https://github.com/fml-fam/fml">fml library</a>. It is a “medium-level” interface for multiple dense matrix types, principally CPU, GPU, and MPI. Each supports multiple fundamental types (int, float, double), and data is held externally to R and operations that modify data generally occur in-place. The interface largely tracks with the core ‘fml’ interface. We use R6 so that generally an R code can be easily translated to C++.</p>
 <p>Differences between fmlr and other matrix interfaces (including the core R interface):</p>
 <ul>
 <li>Single interface supporting multiple fundamental types (<code>__half</code>, <code>float</code>, <code>double</code>) and backends (CPU, GPU, MPI).</li>
 <li>Data is always held externally to R (although CPU objects can inherit R data without a copy).</li>
 <li>Operations modifying data occur in-place (make your own copy if you don’t want the data modified).</li>
 </ul>
-<p>The fmlr interface largely tracks with the core fml interface, and the package version will match the fml release version used. We use R6 so that generally an R code can be translated to C++ by changing <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> to <code>.</code> (and a <code>_</code> to <code>::</code> for <code>linalg</code> functions). There are some R-specific enhancements which should be avoided if you plan to eventually convert to C++.</p>
+<p>For a high-level interface on top of fmlr, see the <a href="https://github.com/fml-fam/craze">craze package</a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You will need to install some dependencies. Make sure you have a system installation of MPI, e.g. <a href="https://www.open-mpi.org/">OpenMPI</a>, <a href="https://www.mpich.org/">MPICH</a>, or <a href="https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi">MSMPI</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># if you don't have a system installation of scalapack</span></a>
-<a class="sourceLine" id="cb1-2" title="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"wrathematics/pbdSLAP"</span>)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co"># and if you do (change the link flags as necessary)</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pbdSLAP"</span>, <span class="dt">configure.vars=</span><span class="st">"EXT_LDFLAGS='-lscalapack-openmpi'"</span>)</a></code></pre></div>
-<p>Stable releases are published on the <a href="https://hpcran.org">hpcran</a>. You can install them via</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"fmlr"</span>, <span class="dt">repos=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://hpcran.org"</span>, <span class="st">"https://cran.rstudio.com"</span>))</a></code></pre></div>
-<p>The development version of fmlr is maintained on GitHub. However, because we use git submodules, you can not (to my knowledge) use any of the <code>install_github()</code> functions. You can install the package from the command line via:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">git</span> clone --recurse-submodules https://github.com/fml-fam/fmlr.git</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="ex">R</span> CMD INSTALL fmlr/</a></code></pre></div>
-<p>If you have <a href="https://developer.nvidia.com/cuda-downloads">NVIDIA® CUDA™</a> installed, then you can build the package with GPU support via:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="ex">R</span> CMD INSTALL fmlr/ --configure-args=<span class="st">"--enable-gpu"</span></a></code></pre></div>
-<p>If you build the package without GPU support, then the various GPU functions won’t work (obviously). You can test for GPU support in the installed package via <code><a href="reference/features.html">fmlr::fml_gpu()</a></code>. There are <code><a href="reference/features.html">fml_cpu()</a></code> and <code><a href="reference/features.html">fml_mpi()</a></code> functions which always return <code>TRUE</code>. You can not build the package without MPI support.</p>
+<p>Assuming you have the system software dependencies met, then in principle, installation can be as simple as:</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"fmlr"</span>, <span class="kw">repos</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://hpcran.org"</span>, <span class="st">"https://cran.rstudio.com"</span>))</pre></div>
+<p>However, before you do, it is strongly advised that you read the <a href="https://fml-fam.github.io/fmlr/html/articles/01-installation.html">Installation Guide</a>, because there are several important considerations when installing this package.</p>
 </div>
-<div id="api" class="section level2">
+<div id="example-use" class="section level2">
 <h2 class="hasAnchor">
-<a href="#api" class="anchor"></a>API</h2>
-<p>CPU types and constructors</p>
-<table class="table">
-<thead><tr class="header">
-<th>Function</th>
-<th>Use</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>cpumat</code></td>
-<td>CPU matrix constructor.</td>
-</tr>
-<tr class="even">
-<td><code>cpumatR6</code></td>
-<td>The R6 class. Contains the method documentation via <code><a href="reference/cpumat-class.html">?cpumatR6</a></code>.</td>
-</tr>
-<tr class="odd">
-<td><code>cpuvec</code></td>
-<td>CPU vector constructor.</td>
-</tr>
-<tr class="even">
-<td><code>cpuvecR6</code></td>
-<td>The R6 class. Contains the method documentation via <code><a href="reference/cpuvec-class.html">?cpuvecR6</a></code>.</td>
-</tr>
-</tbody>
-</table>
-<p>GPU types and constructors</p>
-<table class="table">
-<thead><tr class="header">
-<th>Function</th>
-<th>Use</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>card</code></td>
-<td>GPU card constructor. Needed for GPU vector/matrix objects.</td>
-</tr>
-<tr class="even">
-<td><code>gpumat</code></td>
-<td>GPU matrix constructor.</td>
-</tr>
-<tr class="odd">
-<td><code>gpumatR6</code></td>
-<td>The R6 class. Contains the method documentation via <code><a href="reference/gpumat-class.html">?gpumatR6</a></code>.</td>
-</tr>
-<tr class="even">
-<td><code>gpuvec</code></td>
-<td>GPU vector constructor.</td>
-</tr>
-<tr class="odd">
-<td><code>gpuvecR6</code></td>
-<td>The R6 class. Contains the method documentation via <code><a href="reference/gpuvec-class.html">?gpuvecR6</a></code>.</td>
-</tr>
-</tbody>
-</table>
-<p>MPI types and constructors</p>
-<table class="table">
-<thead><tr class="header">
-<th>Function</th>
-<th>Use</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>grid</code></td>
-<td>MPI grid constructor. Needed for MPI matrix objects.</td>
-</tr>
-<tr class="even">
-<td><code>mpimat</code></td>
-<td>MPI matrix constructor.</td>
-</tr>
-<tr class="odd">
-<td><code>mpimatR6</code></td>
-<td>The R6 class. Contains the method documentation via <code><a href="reference/mpimat-class.html">?mpimatR6</a></code>.</td>
-</tr>
-</tbody>
-</table>
-<p>Linear algebra API</p>
-<table class="table">
-<thead><tr class="header">
-<th>Function</th>
-<th>Use</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>linalg_add</code></td>
-<td>Adds two matrices of the same type/backend.</td>
-</tr>
-<tr class="even">
-<td><code>linalg_matmult</code></td>
-<td>Multiplies two matrices of the same type/backend.</td>
-</tr>
-<tr class="odd">
-<td><code>linalg_crossprod</code></td>
-<td>Computes <code>t(x) %*% x</code>.</td>
-</tr>
-<tr class="even">
-<td><code>linalg_tcrossprod</code></td>
-<td>Computes <code>x %*% t(x)</code>.</td>
-</tr>
-<tr class="odd">
-<td><code>linalg_xpose</code></td>
-<td>Computes the matrix transpose.</td>
-</tr>
-<tr class="even">
-<td><code>linalg_lu</code></td>
-<td>Computes the LU factorization.</td>
-</tr>
-<tr class="odd">
-<td><code>linalg_trace</code></td>
-<td>Computes the sum of the diagonal.</td>
-</tr>
-<tr class="even">
-<td><code>linalg_svd</code></td>
-<td>Computes the SVD.</td>
-</tr>
-<tr class="odd">
-<td><code>linalg_eigen_sym</code></td>
-<td>Computes the eigenvalues/eigenvectors.</td>
-</tr>
-<tr class="even">
-<td><code>linalg_invert</code></td>
-<td>Computes the matrix inverse.</td>
-</tr>
-<tr class="odd">
-<td><code>linalg_solve</code></td>
-<td>Solve a system of equations.</td>
-</tr>
-</tbody>
-</table>
-<p>Helper/converter functions</p>
-<table class="table">
-<colgroup>
-<col width="66%">
-<col width="33%">
-</colgroup>
-<thead><tr class="header">
-<th>Function</th>
-<th>Use</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>cpu2cpu</code></td>
-<td>Copy a CPU vector/matrix to another. Fundamental types can differ.</td>
-</tr>
-<tr class="even">
-<td><code>gpu2cpu</code></td>
-<td>Copy a GPU vector/matrix to CPU one. Fundamental types can differ.</td>
-</tr>
-<tr class="odd">
-<td><code>cpu2gpu</code></td>
-<td>Copy a CPU vector/matrix to GPU one. Fundamental types can differ.</td>
-</tr>
-<tr class="even">
-<td><code>gpu2gpu</code></td>
-<td>Copy a GPU vector/matrix to another. Fundamental types can differ.</td>
-</tr>
-<tr class="odd">
-<td><code>mpi2cpu</code></td>
-<td>Copy a GPU vector/matrix to another. Fundamental types can differ.</td>
-</tr>
-<tr class="even">
-<td><code>mpi2mpi</code></td>
-<td>Copy a GPU vector/matrix to another. Fundamental types can differ.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="example-and-basic-usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-and-basic-usage" class="anchor"></a>Example and Basic Usage</h2>
-<p>Most operations occur via side effects. Some of the linear algebra functions can return objects as a matter of convenience, but generally you will need to initialize an object and apply functions/methods to it. This can have performance advantages (primarily in avoiding copies), but is very different from how things normally work in R.</p>
-<p>Here’s how we might compute the singular values of a matrix, for example:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(fmlr))</a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3">x =<span class="st"> </span><span class="kw"><a href="reference/cpumat.html">cpumat</a></span>(<span class="dv">3</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb5-4" title="4">x<span class="op">$</span><span class="kw">fill_linspace</span>(<span class="dv">1</span>, <span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb5-5" title="5">x<span class="op">$</span><span class="kw">info</span>()</a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co">## # cpumat 3x2 type=d</span></a>
-<a class="sourceLine" id="cb5-7" title="7">x</a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="co">## 1.0000 4.0000 </span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="co">## 2.0000 5.0000 </span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="co">## 3.0000 6.0000 </span></a>
-<a class="sourceLine" id="cb5-11" title="11"></a>
-<a class="sourceLine" id="cb5-12" title="12">s =<span class="st"> </span><span class="kw"><a href="reference/cpuvec.html">cpuvec</a></span>()</a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="kw"><a href="reference/linalg-svd.html">linalg_svd</a></span>(x, s)</a>
-<a class="sourceLine" id="cb5-14" title="14"></a>
-<a class="sourceLine" id="cb5-15" title="15">s<span class="op">$</span><span class="kw">info</span>()</a>
-<a class="sourceLine" id="cb5-16" title="16"><span class="co">## # cpuvec 2 type=d</span></a>
-<a class="sourceLine" id="cb5-17" title="17"></a>
-<a class="sourceLine" id="cb5-18" title="18">s</a>
-<a class="sourceLine" id="cb5-19" title="19"><span class="co">## 9.5080 0.7729 </span></a>
-<a class="sourceLine" id="cb5-20" title="20"></a>
-<a class="sourceLine" id="cb5-21" title="21">s<span class="op">$</span><span class="kw">to_robj</span>()</a>
-<a class="sourceLine" id="cb5-22" title="22"><span class="co">## [1] 9.5080320 0.7728696</span></a></code></pre></div>
-<p>Notice that we had to initialize the return before passing it to the svd function. Also the data in the input <code>x</code> is overwritten. If you want to preserve it, you would need to manually copy it before calling <code><a href="reference/linalg-svd.html">linalg_svd()</a></code>.</p>
-<p>Assignment via <code>&lt;-</code> or <code>=</code> (or <code>-&gt;</code> for the weirdos) will only produce a “shallow copy”. It will not duplicate the data in memory:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">x =<span class="st"> </span><span class="kw"><a href="reference/cpumat.html">cpumat</a></span>(<span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2">x<span class="op">$</span><span class="kw">fill_linspace</span>(<span class="dv">1</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb6-3" title="3">x</a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="co">## 1.0000 1.4000 1.8000 </span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="co">## 1.2000 1.6000 2.0000 </span></a>
-<a class="sourceLine" id="cb6-6" title="6"></a>
-<a class="sourceLine" id="cb6-7" title="7">y =<span class="st"> </span>x</a>
-<a class="sourceLine" id="cb6-8" title="8">y<span class="op">$</span><span class="kw">fill_val</span>(pi)</a>
-<a class="sourceLine" id="cb6-9" title="9">y</a>
-<a class="sourceLine" id="cb6-10" title="10"><span class="co">## 3.1416 3.1416 3.1416 </span></a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="co">## 3.1416 3.1416 3.1416 </span></a>
-<a class="sourceLine" id="cb6-12" title="12"></a>
-<a class="sourceLine" id="cb6-13" title="13">x</a>
-<a class="sourceLine" id="cb6-14" title="14"><span class="co">## 3.1416 3.1416 3.1416 </span></a>
-<a class="sourceLine" id="cb6-15" title="15"><span class="co">## 3.1416 3.1416 3.1416 </span></a></code></pre></div>
-<p>Instead, if we need a duplicate then we need to create a “deep copy”:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">z =<span class="st"> </span>x<span class="op">$</span><span class="kw">dupe</span>()</a>
-<a class="sourceLine" id="cb7-2" title="2">x<span class="op">$</span><span class="kw">fill_zero</span>()</a>
-<a class="sourceLine" id="cb7-3" title="3"></a>
-<a class="sourceLine" id="cb7-4" title="4">x</a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="co">## 0.0000 0.0000 0.0000 </span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co">## 0.0000 0.0000 0.0000 </span></a>
-<a class="sourceLine" id="cb7-7" title="7"></a>
-<a class="sourceLine" id="cb7-8" title="8">y</a>
-<a class="sourceLine" id="cb7-9" title="9"><span class="co">## 0.0000 0.0000 0.0000 </span></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co">## 0.0000 0.0000 0.0000 </span></a>
-<a class="sourceLine" id="cb7-11" title="11"></a>
-<a class="sourceLine" id="cb7-12" title="12">z</a>
-<a class="sourceLine" id="cb7-13" title="13"><span class="co">## 3.1416 3.1416 3.1416 </span></a>
-<a class="sourceLine" id="cb7-14" title="14"><span class="co">## 3.1416 3.1416 3.1416 </span></a></code></pre></div>
-</div>
-<div id="managing-backends" class="section level2">
-<h2 class="hasAnchor">
-<a href="#managing-backends" class="anchor"></a>Managing Backends</h2>
-<p>Generally, codes should be easy to port between different backends (CPU, GPU, MPI). The difficulty/differences generally come in object creation. To better understand this process, let’s take a very simple example. We’ll create a 3x3 diagonal matrix with diagonal elements 1, 2, 3, and we’ll create it by using a vector and the <code>fill_diag()</code> method.</p>
-<p>We’ll start with the CPU backend because these are the simplest to work with.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(fmlr)</a>
-<a class="sourceLine" id="cb8-2" title="2"></a>
-<a class="sourceLine" id="cb8-3" title="3">v =<span class="st"> </span><span class="kw"><a href="reference/cpuvec.html">cpuvec</a></span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb8-4" title="4">v<span class="op">$</span><span class="kw">set</span>(<span class="dv">0</span>, <span class="dv">1</span>)<span class="op">$</span><span class="kw">set</span>(<span class="dv">1</span>, <span class="dv">2</span>)<span class="op">$</span><span class="kw">set</span>(<span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb8-5" title="5">v</a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="co">## 1.0000 2.0000 3.0000 </span></a>
-<a class="sourceLine" id="cb8-7" title="7"></a>
-<a class="sourceLine" id="cb8-8" title="8">x =<span class="st"> </span><span class="kw"><a href="reference/cpumat.html">cpumat</a></span>(<span class="dv">3</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb8-9" title="9">x<span class="op">$</span><span class="kw">fill_diag</span>(v)</a>
-<a class="sourceLine" id="cb8-10" title="10">x</a>
-<a class="sourceLine" id="cb8-11" title="11"><span class="co">## 1.0000 0.0000 0.0000 </span></a>
-<a class="sourceLine" id="cb8-12" title="12"><span class="co">## 0.0000 2.0000 0.0000 </span></a>
-<a class="sourceLine" id="cb8-13" title="13"><span class="co">## 0.0000 0.0000 3.0000 </span></a></code></pre></div>
-<p>For GPU objects, we need to first have a <code>card</code> object. This manages some internal GPU data. It is tied to a specific GPU (by ordinal ID), and you only need one object per GPU (not per GPU matrix/vector). You will need to pass this object to the <code><a href="reference/gpuvec.html">gpuvec()</a></code> and <code><a href="reference/gpumat.html">gpumat()</a></code> constructors.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(fmlr)</a>
-<a class="sourceLine" id="cb9-2" title="2"></a>
-<a class="sourceLine" id="cb9-3" title="3">c =<span class="st"> </span><span class="kw"><a href="reference/card.html">card</a></span>()</a>
-<a class="sourceLine" id="cb9-4" title="4">c</a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="co">## GPU 0 (GeForce GTX 1070 Ti) 821/8116 MB - CUDA 10.1</span></a>
-<a class="sourceLine" id="cb9-6" title="6"></a>
-<a class="sourceLine" id="cb9-7" title="7">v =<span class="st"> </span><span class="kw"><a href="reference/gpuvec.html">gpuvec</a></span>(c, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb9-8" title="8">v<span class="op">$</span><span class="kw">set</span>(<span class="dv">0</span>, <span class="dv">1</span>)<span class="op">$</span><span class="kw">set</span>(<span class="dv">1</span>, <span class="dv">2</span>)<span class="op">$</span><span class="kw">set</span>(<span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb9-9" title="9">v</a>
-<a class="sourceLine" id="cb9-10" title="10"><span class="co">## 1.0000 2.0000 3.0000 </span></a>
-<a class="sourceLine" id="cb9-11" title="11"></a>
-<a class="sourceLine" id="cb9-12" title="12">x =<span class="st"> </span><span class="kw"><a href="reference/gpumat.html">gpumat</a></span>(c, <span class="dv">3</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb9-13" title="13">x<span class="op">$</span><span class="kw">fill_diag</span>(v)</a>
-<a class="sourceLine" id="cb9-14" title="14">x</a>
-<a class="sourceLine" id="cb9-15" title="15"><span class="co">## 1.0000 0.0000 0.0000 </span></a>
-<a class="sourceLine" id="cb9-16" title="16"><span class="co">## 0.0000 2.0000 0.0000 </span></a>
-<a class="sourceLine" id="cb9-17" title="17"><span class="co">## 0.0000 0.0000 3.0000 </span></a></code></pre></div>
-<p>Using MPI objects is a little different from the others. We can’t use them interactively and get parallelism at the same time. If you want to better understand this programming model, called SPMD, then I recommend reading <a href="https://github.com/RBigData/tutorials/blob/master/content/pbdR/mpi.md">this tutorial</a>.</p>
-<p>Like with GPU objects, we have something extra to carry around. Here, it’s a special MPI grid. You can have different grids, but this is pretty advanced, so we won’t cover that here. We’ll just use one grid with the default arguments. We also have to specify a blocking factor. Choosing good values for this is beyond the scope of this example. We use a 1x1 blocking to make sure that all processes own some of the data.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(fmlr))</a>
-<a class="sourceLine" id="cb10-2" title="2"></a>
-<a class="sourceLine" id="cb10-3" title="3">g =<span class="st"> </span><span class="kw"><a href="reference/grid.html">grid</a></span>()</a>
-<a class="sourceLine" id="cb10-4" title="4">g</a>
-<a class="sourceLine" id="cb10-5" title="5"></a>
-<a class="sourceLine" id="cb10-6" title="6">v =<span class="st"> </span><span class="kw"><a href="reference/cpuvec.html">cpuvec</a></span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb10-7" title="7">v<span class="op">$</span><span class="kw">set</span>(<span class="dv">0</span>, <span class="dv">1</span>)<span class="op">$</span><span class="kw">set</span>(<span class="dv">1</span>, <span class="dv">2</span>)<span class="op">$</span><span class="kw">set</span>(<span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="cf">if</span> (g<span class="op">$</span><span class="kw">rank0</span>()) v</a>
-<a class="sourceLine" id="cb10-9" title="9"></a>
-<a class="sourceLine" id="cb10-10" title="10">x =<span class="st"> </span><span class="kw"><a href="reference/mpimat.html">mpimat</a></span>(g, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb10-11" title="11">x<span class="op">$</span><span class="kw">fill_diag</span>(v)</a>
-<a class="sourceLine" id="cb10-12" title="12">x</a></code></pre></div>
-<p>Note two other differences from the previous objects. First, there is no <code>mpivec()</code> object. There’s usually no point in distributing a vector. Consider that if you have a 100,000x100,000 matrix (of doubles), then that matrix would take up ~75 GiB of memory. Whereas a 100,000 length vector would use less than 1 MiB. The other difference is in how we print a non-distributed object. We only want to print it on one rank, and typically rank 0 is chosen.</p>
-<p>We’ll take our script and save it as <code>mpi.r</code>, and launch it via:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" title="1"><span class="ex">mpirun</span> -np 2 Rscript mpi.r</a></code></pre></div>
-<p>And this is the output we see:</p>
-<pre><code>## Grid 0 2x1
+<a href="#example-use" class="anchor"></a>Example Use</h2>
+<p>Calculating singular values on CPU:</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">fmlr</span>))
+<span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="reference/cpumat.html">cpumat</a></span>(<span class="fl">3</span>, <span class="fl">2</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"float"</span>)
+<span class="no">x</span>$<span class="fu">fill_linspace</span>(<span class="fl">1</span>, <span class="fl">6</span>)
+<span class="no">x</span>$<span class="fu">info</span>()
+<span class="co">## # cpumat 3x2 type=f</span>
+<span class="no">x</span>
+<span class="co">## 1.0000 4.0000 </span>
+<span class="co">## 2.0000 5.0000 </span>
+<span class="co">## 3.0000 6.0000 </span>
 
-1.0000 2.0000 3.0000 
+<span class="no">s</span> <span class="kw">=</span> <span class="fu"><a href="reference/cpuvec.html">cpuvec</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">"float"</span>)
+<span class="fu"><a href="reference/linalg-svd.html">linalg_svd</a></span>(<span class="no">x</span>, <span class="no">s</span>)
 
-1.0000 0.0000 0.0000 
-0.0000 2.0000 0.0000 
-0.0000 0.0000 3.0000 </code></pre>
-<p>We should see the same output if we run the script with one rank via <code>Rscript mpi.r</code> (no parallelism) or with say 4 ranks via <code>mpirun -np 4 Rscript mpi.r</code>.</p>
-</div>
-<div id="using-r-data-with-fmlr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-r-data-with-fmlr" class="anchor"></a>Using R Data with fmlr</h2>
-<p>You can use matrix data from R with fmlr with relative ease. Here’s a basic example:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(fmlr)</a>
-<a class="sourceLine" id="cb13-2" title="2"></a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1234</span>)</a>
-<a class="sourceLine" id="cb13-4" title="4">x =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dv">6</span>), <span class="dv">3</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb13-5" title="5">x</a>
-<a class="sourceLine" id="cb13-6" title="6"><span class="co">##             [,1]       [,2]</span></a>
-<a class="sourceLine" id="cb13-7" title="7"><span class="co">## [1,] -0.03265408 -1.3353305</span></a>
-<a class="sourceLine" id="cb13-8" title="8"><span class="co">## [2,]  0.18148978  0.1630308</span></a>
-<a class="sourceLine" id="cb13-9" title="9"><span class="co">## [3,] -1.49135409 -0.0402416</span></a>
-<a class="sourceLine" id="cb13-10" title="10"></a>
-<a class="sourceLine" id="cb13-11" title="11">x_cpu =<span class="st"> </span><span class="kw"><a href="reference/as_cpumat.html">as_cpumat</a></span>(x, <span class="dt">copy=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb13-12" title="12">x_cpu<span class="op">$</span><span class="kw">info</span>()</a>
-<a class="sourceLine" id="cb13-13" title="13"><span class="co">## # cpumat 3x2 type=d</span></a>
-<a class="sourceLine" id="cb13-14" title="14"></a>
-<a class="sourceLine" id="cb13-15" title="15">c =<span class="st"> </span><span class="kw"><a href="reference/card.html">card</a></span>()</a>
-<a class="sourceLine" id="cb13-16" title="16">x_gpu =<span class="st"> </span><span class="kw"><a href="reference/gpumat.html">gpumat</a></span>(c)</a>
-<a class="sourceLine" id="cb13-17" title="17">x_gpu =<span class="st"> </span><span class="kw"><a href="reference/gpumat.html">gpumat</a></span>(c, <span class="dt">type=</span><span class="st">"float"</span>)</a>
-<a class="sourceLine" id="cb13-18" title="18"><span class="kw"><a href="reference/cpu2gpu.html">cpu2gpu</a></span>(x_cpu, x_gpu)</a>
-<a class="sourceLine" id="cb13-19" title="19">x_gpu<span class="op">$</span><span class="kw">info</span>()</a>
-<a class="sourceLine" id="cb13-20" title="20"><span class="co">## # gpumat 3x2 type=f </span></a>
-<a class="sourceLine" id="cb13-21" title="21">x_gpu</a>
-<a class="sourceLine" id="cb13-22" title="22"><span class="co">## -0.0327 -1.3353 </span></a>
-<a class="sourceLine" id="cb13-23" title="23"><span class="co">## 0.1815 0.1630 </span></a>
-<a class="sourceLine" id="cb13-24" title="24"><span class="co">## -1.4914 -0.0402 </span></a></code></pre></div>
-<p>This is fairly straightforward, but it is worth unpacking it in detail. First, we create an fmlr-compatible version of the input data with <code><a href="reference/as_cpumat.html">as_cpumat()</a></code>. However, using it with <code>copy=FALSE</code> does not produce a copy the data. The class object merely inherits the same pointer that R is using. Be careful doing this because it can produce surprising results if you are not careful:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">x_cpu<span class="op">$</span><span class="kw">fill_zero</span>()</a>
-<a class="sourceLine" id="cb14-2" title="2">x</a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="co">## [1,]    0    0</span></a>
-<a class="sourceLine" id="cb14-5" title="5"><span class="co">## [2,]    0    0</span></a>
-<a class="sourceLine" id="cb14-6" title="6"><span class="co">## [3,]    0    0</span></a></code></pre></div>
-<p>Also, <strong>do not allow a realloc to trigger on the inherited pointer</strong>.</p>
-<p>Next we initialize a skeleton for a GPU matrix by first initializing the card and then calling the constructor <code><a href="reference/gpumat.html">gpumat()</a></code>. This only initializes the object and does not yet allocate any data on the GPU. The object is automatically resized in <code><a href="reference/cpu2gpu.html">cpu2gpu()</a></code>.</p>
-<p>Note that the objects are actually of different fundamental type. The data we inherit from R is <code>double</code>, while the data on the GPU is <code>float</code>.</p>
-<p>We can then perform some operations on the GPU data with the fmlr interface. For a real problem, you would probably want one of the linalg functions, but for simplicity we’ll just call a simple filler and convert back to CPU:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">x_gpu<span class="op">$</span><span class="kw">fill_eye</span>()</a>
-<a class="sourceLine" id="cb15-2" title="2"></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="kw"><a href="reference/gpu2cpu.html">gpu2cpu</a></span>(x_gpu, x_cpu)</a>
-<a class="sourceLine" id="cb15-4" title="4">x</a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb15-6" title="6"><span class="co">## [1,]    1    0</span></a>
-<a class="sourceLine" id="cb15-7" title="7"><span class="co">## [2,]    0    1</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co">## [3,]    0    0</span></a></code></pre></div>
-<p>If <code>x</code> and <code>x_cpu</code> had used different memory, we could have copied back via:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">x =<span class="st"> </span>x_cpu<span class="op">$</span><span class="kw">to_robj</span>()</a></code></pre></div>
+<span class="no">s</span>$<span class="fu">info</span>()
+<span class="co">## # cpuvec 3 type=f</span>
+<span class="no">s</span>
+<span class="co">## 9.5080 0.7729 </span></pre></div>
+<p>and on GPU:</p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="no">c</span> <span class="kw">=</span> <span class="fu"><a href="reference/card.html">card</a></span>()
+<span class="no">c</span>
+<span class="co">## GPU 0 (GeForce GTX 1070 Ti) 1139/8116 MB - CUDA 10.2</span>
+
+<span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="reference/gpumat.html">gpumat</a></span>(<span class="no">c</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"float"</span>)
+<span class="no">x</span>$<span class="fu">fill_linspace</span>(<span class="fl">1</span>, <span class="fl">6</span>)
+<span class="no">x</span>$<span class="fu">info</span>()
+<span class="co">## # gpumat 3x2 type=f </span>
+
+<span class="no">s</span> <span class="kw">=</span> <span class="fu"><a href="reference/gpuvec.html">gpuvec</a></span>(<span class="no">c</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"float"</span>)
+<span class="fu"><a href="reference/linalg-svd.html">linalg_svd</a></span>(<span class="no">x</span>, <span class="no">s</span>)
+
+<span class="no">s</span>$<span class="fu">info</span>()
+<span class="co">## # gpuvec 2 type=f </span>
+<span class="no">s</span>
+<span class="co">## 9.5080 0.7729 </span></pre></div>
+<p>For more information and examples, see:</p>
+<ul>
+<li><a href="https://fml-fam.github.io/fmlr">Package documentation</a></li>
+<li>Articles:
+<ul>
+<li><a href="https://fml-fam.github.io/fmlr/html/articles/01-installation.html">Installation Guide</a></li>
+<li><a href="https://fml-fam.github.io/fmlr/html/articles/02-overview.html">Overview of fmlr</a></li>
+<li><a href="https://fml-fam.github.io/fmlr/html/articles/03-backends.html">Managing Backends</a></li>
+<li><a href="https://fml-fam.github.io/fmlr/html/articles/04-data.html">Data Management</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <div id="fml-from-c" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fml-from-c" class="anchor"></a>fml from C++</h2>
-<p>A copy of the core fml library is included in <code>inst/include/fml</code> of the package source, which will be in <code>include/fml</code> of the installed package. If you wish to link with fml, you can add <code>LinkingTo: fml</code> to your package DESCRIPTION file.</p>
+<p>A copy of the core fml library is included in the fmlr package source in <code>inst/include/fml</code>. If you wish to link with fml to create your own C++ kernels, you can add <code>LinkingTo: fml</code> to your R package DESCRIPTION file.</p>
 <p>Before you write your own C++ code using fml, you should check the <a href="https://github.com/fml-fam/fml#api-stability">fml API stability</a> progress, as some things may be subject to change.</p>
 </div>
 <div id="similar-projects" class="section level2">
@@ -478,11 +209,26 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div class="license">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Browse source code at <br><a href="https://github.com/fml-fam/fmlr/">https://​github.com/​fml-fam/​fmlr/​</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/fml-fam/fmlr/issues">https://​github.com/​fml-fam/​fmlr/​issues</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="http://www.boost.org/LICENSE_1_0.txt">BSL-1.0</a></li>
+</ul>
+</div>
+<div class="citation">
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing fmlr</a></li>
 </ul>
 </div>
 <div class="developers">
@@ -501,7 +247,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
