@@ -1,4 +1,4 @@
-# Release 0.2-0 (5/27/2020)
+# Release 0.2-1 (5/29/2020)
 
 New:
   * Added linalg bindings:
@@ -19,6 +19,8 @@ New:
       - dimops_scale()
   * Added stats bindings:
       - stats_pca()
+  * Added mpihelpers bindings:
+      - cpu2mpi()
 
 API Changes: None
 
@@ -29,7 +31,12 @@ Bug Fixes:
   * `as_*()` functions now choose return type based on the R object input.
 
 Documentation:
-  * Minor corrections; no major changes.
+  * Added vignettes:
+      - installation
+      - basic overview
+      - backend management
+      - data management
+  * Added vignettes to pkgdown docs.
 
 
 
