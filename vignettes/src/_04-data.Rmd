@@ -116,8 +116,7 @@ s$to_robj()
 Let's start with a simple R matrix:
 
 ```{r}
-set.seed(1234)
-x = matrix(runif(6), 3, 2)
+x = matrix(sqrt(1:6), 3, 2)
 x
 ```
 
@@ -136,7 +135,7 @@ x_cpu
 x
 ```
 
-The `as_cpumat()` offers a shorthand for this operation, so you do not have to manually create the skeleton object:
+The `as_cpumat()`function offers a shorthand for this operation, so you do not have to manually create the skeleton object:
 
 ```{r}
 x_cpu = as_cpumat(x)
@@ -158,8 +157,7 @@ All of the above is likewise true for numeric R vectors and `cpuvec` objects. Li
 For `gpumat` and `gpuvec`, we can not inherit data without a copy - because native R matrices/vectors do not live on GPUs. To copy R matrix data to a GPU, we can use `cpu2gpu()`. But first, we have to have the R data represented as an fmlr object. Using `as_cpumat()` as above:
 
 ```r
-set.seed(1234)
-x = matrix(runif(6), 3, 2)
+x = matrix(sqrt(1:6), 3, 2)
 x_cpu = as_cpumat(x, copy=FALSE)
 
 c = card()
@@ -174,9 +172,9 @@ x_gpu$info()
 x_gpu
 ```
 
-    ## 0.5975 0.2840 
-    ## 0.9811 0.6356 
-    ## 0.0428 0.9047 
+    ## 1.0000 2.0000 
+    ## 1.4142 2.2361 
+    ## 1.7321 2.4495
 
 Note that the objects are actually of different fundamental type. The data we inherit from R is `double`, while the data on the GPU is `float`.
 

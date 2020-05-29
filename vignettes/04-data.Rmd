@@ -176,15 +176,14 @@ s$to_robj()
 Let’s start with a simple R matrix:
 
 ``` r
-set.seed(1234)
-x = matrix(runif(6), 3, 2)
+x = matrix(sqrt(1:6), 3, 2)
 x
 ```
 
-    ##           [,1]      [,2]
-    ## [1,] 0.6524642 0.5814884
-    ## [2,] 0.8188188 0.4809762
-    ## [3,] 0.3718168 0.5736178
+    ##          [,1]     [,2]
+    ## [1,] 1.000000 2.000000
+    ## [2,] 1.414214 2.236068
+    ## [3,] 1.732051 2.449490
 
 We can convert this into an fmlr matrix using the object’s `from_robj()`
 method. For simplicity, we’ll just use a CPU matrix:
@@ -194,9 +193,9 @@ x_cpu = cpumat()$from_robj(x)
 x_cpu
 ```
 
-    ## 0.6525 0.5815 
-    ## 0.8188 0.4810 
-    ## 0.3718 0.5736
+    ## 1.0000 2.0000 
+    ## 1.4142 2.2361 
+    ## 1.7321 2.4495
 
 This copy is a “deep copy”, in that the memory of the R object `x` and
 the fmlr object `x_cpu` are different. Observe:
@@ -214,23 +213,23 @@ x_cpu
 x
 ```
 
-    ##           [,1]      [,2]
-    ## [1,] 0.6524642 0.5814884
-    ## [2,] 0.8188188 0.4809762
-    ## [3,] 0.3718168 0.5736178
+    ##          [,1]     [,2]
+    ## [1,] 1.000000 2.000000
+    ## [2,] 1.414214 2.236068
+    ## [3,] 1.732051 2.449490
 
-The `as_cpumat()` offers a shorthand for this operation, so you do not
-have to manually create the skeleton object:
+The `as_cpumat()`function offers a shorthand for this operation, so you
+do not have to manually create the skeleton object:
 
 ``` r
 x_cpu = as_cpumat(x)
 x
 ```
 
-    ##           [,1]      [,2]
-    ## [1,] 0.6524642 0.5814884
-    ## [2,] 0.8188188 0.4809762
-    ## [3,] 0.3718168 0.5736178
+    ##          [,1]     [,2]
+    ## [1,] 1.000000 2.000000
+    ## [2,] 1.414214 2.236068
+    ## [3,] 1.732051 2.449490
 
 However, for CPU matrices/vectors, there is a way to shallow copy. This
 allows us to create an fmlr object that merely inherits the same pointer
@@ -263,8 +262,7 @@ data to a GPU, we can use `cpu2gpu()`. But first, we have to have the R
 data represented as an fmlr object. Using `as_cpumat()` as above:
 
 ``` r
-set.seed(1234)
-x = matrix(runif(6), 3, 2)
+x = matrix(sqrt(1:6), 3, 2)
 x_cpu = as_cpumat(x, copy=FALSE)
 
 c = card()
@@ -279,9 +277,9 @@ x_gpu$info()
 x_gpu
 ```
 
-    ## 0.5975 0.2840 
-    ## 0.9811 0.6356 
-    ## 0.0428 0.9047 
+    ## 1.0000 2.0000 
+    ## 1.4142 2.2361 
+    ## 1.7321 2.4495
 
 Note that the objects are actually of different fundamental type. The
 data we inherit from R is `double`, while the data on the GPU is
