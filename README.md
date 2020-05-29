@@ -15,6 +15,8 @@ Differences between fmlr and other matrix interfaces (including the core R inter
 * Data is always held externally to R (although CPU objects can inherit R data without a copy).
 * Operations modifying data occur in-place (make your own copy if you don't want the data modified).
 
+For a high-level interface on top of fmlr, see the [craze package](https://github.com/fml-fam/craze).
+
 
 
 ## Installation
@@ -31,7 +33,7 @@ However, before you do, it is strongly advised that you read the [Installation G
 
 ## Example Use
 
-SVD on CPU:
+Calculating singular values on CPU:
 
 ```r
 suppressMessages(library(fmlr))
