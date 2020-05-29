@@ -20,13 +20,32 @@ pre a {color: #5daffc;}
 .warning { color: #9C27B0; font-weight: bolder;}
 </style>
 
-## Managing Backends
+## Background
 
 Generally, codes should be easy to port between different backends (CPU,
 GPU, MPI). The difficulty/differences generally come in object creation.
-To better understand this process, let’s take a very simple example.
-We’ll create a 3x3 diagonal matrix with diagonal elements 1, 2, 3, and
-we’ll create it by using a vector and the `fill_diag()` method.
+
+To better understand this process, we’ll take a simple example and
+examine it across the different backends. We’ll create a 3x3 diagonal
+matrix with diagonal elements 1, 2, 3. In R, this would look something
+like:
+
+``` r
+diag(1:3)
+```
+
+    ##      [,1] [,2] [,3]
+    ## [1,]    1    0    0
+    ## [2,]    0    2    0
+    ## [3,]    0    0    3
+
+The fmlr version is going to be more verbose, but I promise you, there
+are many advantages to this approach - some of which will become more
+apparent in the later articles. Basically, with fmlr you get much better
+control over memory (which is very important in constrained
+environemtns, like GPUs).
+
+## CPU
 
 We’ll start with the CPU backend because these are the simplest to work
 with.
@@ -51,42 +70,109 @@ x
     ## 0.0000 2.0000 0.0000 
     ## 0.0000 0.0000 3.0000
 
-For GPU objects, we need to first have a `card` object. This manages
+This looks very different from R’s built-in matrix interface. With fmlr,
+you have to manually create the object you want to work with, and then
+operate on it via side effects.
+
+The skeleton for CPU object creation is:
+
+``` r
+s = cpuvec()
+s$info()
+```
+
+    ## # cpuvec 0 type=d
+
+``` r
+x = cpumat()
+x$info()
+```
+
+    ## # cpumat 0x0 type=d
+
+## GPU
+
+For GPU objects, we need to first create a `card` object. This manages
 some internal GPU data. It is tied to a specific GPU (by ordinal ID),
-and you only need one object per GPU (not per GPU matrix/vector). You
-will need to pass this object to the `gpuvec()` and `gpumat()`
-constructors.
+and you only need one object per GPU. You will need to pass this object
+to the `gpuvec()` and `gpumat()` object constructors.
 
 ``` r
 c = card()
 c
-## GPU 0 (GeForce GTX 1070 Ti) 821/8116 MB - CUDA 10.1
+```
 
+    ## ## GPU 0 (GeForce GTX 1070 Ti) 821/8116 MB - CUDA 10.1
+
+Now that we have our `card` object, things look similar to the CPU
+version, but with the addition of having to pass `c` to our object
+constructors:
+
+``` r
 v = gpuvec(c, 3)
 v$set(0, 1)$set(1, 2)$set(2, 3)
 v
-## 1.0000 2.0000 3.0000 
+```
 
+    ## 1.0000 2.0000 3.0000 
+
+``` r
 x = gpumat(c, 3, 3)
 x$fill_diag(v)
 x
-## 1.0000 0.0000 0.0000 
-## 0.0000 2.0000 0.0000 
-## 0.0000 0.0000 3.0000 
 ```
 
+    ## 1.0000 0.0000 0.0000 
+    ## 0.0000 2.0000 0.0000 
+    ## 0.0000 0.0000 3.0000 
+
+Notice that we don’t have to do anything special to print from the
+device. Also, outside of the constructors, the code is identical to the
+CPU version. That is one of the major goals of fmlr.
+
+The skeleton for GPU object creation is:
+
+``` r
+s = gpuvec(c)
+s$info()
+```
+
+    ## # gpuvec 0 type=d 
+
+``` r
+x = gpumat(c)
+x$info()
+```
+
+    ## # gpumat 0x0 type=d 
+
+## MPI
+
 Using MPI objects is a little different from the others. We can’t use
-them interactively and get parallelism at the same time. If you want to
-better understand this programming model, called SPMD, then I recommend
-reading [this
+them interactively and get parallelism at the same time. Instead, we
+have to write our script and launch it in batch with `mpirun`. If you
+want to better understand this programming model, called SPMD, then I
+recommend reading [this
 tutorial](https://github.com/RBigData/tutorials/blob/master/content/pbdR/mpi.md).
 
-Like with GPU objects, we have something extra to carry around. Here,
-it’s a special MPI grid. You can have different grids, but this is
-pretty advanced, so we won’t cover that here. We’ll just use one grid
-with the default arguments. We also have to specify a blocking factor.
-Choosing good values for this is beyond the scope of this example. We
-use a 1x1 blocking to make sure that all processes own some of the data.
+Like with GPU objects, we have an additional object to create first.
+Here, it’s a special MPI communicator grid. You can have different grids
+in a single program, but this is pretty advanced, so we won’t cover that
+here. We’ll just use one grid with the default arguments. We also have
+to specify a blocking factor. Choosing good values for this is beyond
+the scope of this example. We use a 1x1 blocking to make sure that all
+processes own some of the data. In practice, you would probably want
+blocking factors, say 16x16.
+
+The added complexity here is because these matrix objects use the
+[2-dimensional block-cyclic data
+distribution](https://www.netlib.org/utk/papers/factor/node3.html). This
+is a fairly complicated thing to get used to. Discussions about the
+subtleties of this distribution go beyond the scope of this document.
+But if you are familiar with ScaLAPACK or [pbdR](https://pbdr.org), then
+this should be familiar.
+
+Back to the example, first let’s writ out the script:
 
 ``` r
 suppressMessages(library(fmlr))
@@ -103,30 +189,55 @@ x$fill_diag(v)
 x
 ```
 
-Note two other differences from the previous objects. First, there is no
-`mpivec()` object. There’s usually no point in distributing a vector.
-Consider that if you have a 100,000x100,000 matrix (of doubles), then
-that matrix would take up \~75 GiB of memory. Whereas a 100,000 length
-vector would use less than 1 MiB. The other difference is in how we
-print a non-distributed object. We only want to print it on one rank,
-and typically rank 0 is chosen.
+There are several differences from the previous examples. First, there
+is no `mpivec()` object. There’s usually no point in distributing a
+vector. Consider that if you have a 100,000x100,000 numeric matrix (of
+doubles), then that matrix would take up \~75 GiB of memory. Whereas a
+100,000 length vector would use less than 1 MiB.
 
-We’ll take our script and save it as `mpi.r`, and launch it via:
+Another major difference is in printing. If we print a distributed
+object (`grid` or `mpimat`), then we just print it as normal. It will
+“do the right thing” for us. But if we want to print a non-distributed
+object (e.g., `cpumat`, regular R data, …), then we have to explicitly
+specify that we only want to print it on one rank. Typically, we choose
+rank 0 (or (0, 0) in the grid) to do the printing. That’s what
+`g$rank0()` is checking for us.
+
+Ok, so we’re finally ready to run the script. Remember, we have to run
+it in batch. We can save it as, say, `fmlr_mpi.r`, and launch it via:
 
 ``` bash
-mpirun -np 2 Rscript mpi.r
+mpirun -np 2 Rscript fmlr_mpi.r
 ```
 
 And this is the output we see:
 
-    ## Grid 0 2x1
+    ## ## Grid 0 2x1
     
-    1.0000 2.0000 3.0000 
+    ## 1.0000 2.0000 3.0000 
     
-    1.0000 0.0000 0.0000 
-    0.0000 2.0000 0.0000 
-    0.0000 0.0000 3.0000 
+    ## 1.0000 0.0000 0.0000 
+    ## 0.0000 2.0000 0.0000 
+    ## 0.0000 0.0000 3.0000 
 
 We should see the same output if we run the script with one rank via
 `Rscript mpi.r` (no parallelism) or with say 4 ranks via `mpirun -np 4
 Rscript mpi.r`.
+
+The skeleton for MPI object creation is:
+
+``` r
+x = mpimat(g)
+x$info()
+```
+
+    ## # mpimat 0x0 with 16x16 blocking on 2x1 grid type=d
+
+## Recap
+
+  - Object creation varies a bit across the backends.
+  - Beyond object creation, generally class methods and other functions
+    should work identically across backends.
+  - Printing MPI objects will automatically only print on rank (0, 0) of
+    the grid. Printing non-MPI objects when using multiple ranks
+    requires some care.
