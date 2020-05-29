@@ -1,0 +1,215 @@
+---
+title: "02 - Overview of fmlr"
+---
+
+<style type="text/css">
+pre.r {color: white; background-color: #3f3f3f;}
+
+code, pre {background-color: #dee4ea;} /* output bg */
+code a {color: #0071db;}
+pre a {color: #5daffc;}
+
+.fl      {color: #9090f9;}  /* literal */
+.fu      {color: #FF9800;}  /* function */
+.ch,.st  {color: #4dc100;}  /* string */
+.kw      {color: #FFC107;}  /* keyword */
+.co      {color: #9E9E9E;}  /* comment */
+
+.message { color: #EEEEEE;   font-weight: bolder;}
+.error   { color: #f44336;  font-weight: bolder;}
+.warning { color: #9C27B0; font-weight: bolder;}
+</style>
+
+## Overview
+
+fmlr is an R interface to the [fml
+library](https://github.com/fml-fam/fml), a C++ library for dense matrix
+computing. fmlr is different from other similarly-scoped projects,
+including R itself in some pretty major ways. For one, we define a
+single interface for CPU, GPU, and distributed computing via MPI. This
+single interface also supports multiple types, not just `double` as R
+does. Also, operations occur in-place, which can greatly reduce the
+amount of memory needed for a computation.
+
+The fmlr interface largely tracks with the core C++ fml interface. If
+the fmlr interface feels more like C++ than R, that is by design. While
+it may seem strange, there are numerous advantages to this approach. For
+a high-level interface on top of fmlr, see the [craze
+package](https://github.com/fml-fam/craze).
+
+## Quick Example and Basic Usage
+
+To keep things simple, in this article we will only be dealing with the
+simplest backend: the CPU backend. We also will ignore issues like
+fundamental type. We will discuss these issues in later articles. But
+note that other than object creation, all functions we describe will
+work *without modification* for any other combination of backends and
+fundamental types.
+
+Most *fmlr* operations occur via side effects. Some functions can return
+objects as a matter of convenience, but generally you will need to
+initialize an object and apply functions/methods to it. A typical fmlr
+function may only return `NULL`, so the typical R pattern of forming
+repeated chains of:
+
+``` r
+x = operate_on_data(x)
+```
+
+should be avoided.
+
+This approach has performance advantages, primarily in avoiding copies.
+But it is very different from how things normally work in R.
+
+Anyway, let’s start with a basic 3x2 matrix:
+
+``` r
+suppressMessages(library(fmlr))
+
+x = cpumat(3, 2)
+x$fill_linspace(1, 6)
+x$info()
+```
+
+    ## # cpumat 3x2 type=d
+
+``` r
+x
+```
+
+    ## 1.0000 4.0000 
+    ## 2.0000 5.0000 
+    ## 3.0000 6.0000
+
+A concise R equivalent would look something like `x = matrix(1:6, 3)`.
+Obviously, fmlr is much more verbose. But we can do plenty of things
+that R can’t, but one thing at a time.
+
+Here’s how we compute the singular values with fmlr:
+
+``` r
+s = cpuvec()
+linalg_svd(x, s)
+
+s$info()
+```
+
+    ## # cpuvec 2 type=d
+
+``` r
+s
+```
+
+    ## 9.5080 0.7729
+
+The R equivalent would be something like `s = svd(x, nu=0, nv=0)$d`.
+Concise, but not the prettiest either. In contrast, notice that with
+fmlr, we had to initialize the return before passing it to the
+`linalg_svd()` function.
+
+Also, `s` is an fmlr vector - not an ordinary R vector. If we wanted to
+turn it into an R vector, we can do:
+
+``` r
+s$to_robj()
+```
+
+    ## [1] 9.5080320 0.7728696
+
+Keep in mind that this will create a copy of the data.
+
+Finally, we note that when we call `linalg_svd()`, the data in the input
+`x` is overwritten but the underlying math library (in this case,
+LAPACK):
+
+``` r
+x
+```
+
+    ## -3.7417 -8.5524 
+    ## 0.0000 1.9640 
+    ## 0.6327 0.8598
+
+Destruction of input data is always documented, so be sure to check if
+that matters for your needs. If you need to preserve the input data, you
+would need to manually copy it before computing the SVD. How to do this
+is the subject of the next section.
+
+## Copying Data
+
+Assignment via `<-` or `=` (or `->` for the weirdos) will only produce a
+“shallow copy”. It will not duplicate the data in memory. Observe:
+
+``` r
+x = cpumat(2, 3)
+x$fill_linspace(1, 2)
+x
+```
+
+    ## 1.0000 1.4000 1.8000 
+    ## 1.2000 1.6000 2.0000
+
+``` r
+y = x
+y$fill_val(pi)
+y
+```
+
+    ## 3.1416 3.1416 3.1416 
+    ## 3.1416 3.1416 3.1416
+
+``` r
+x
+```
+
+    ## 3.1416 3.1416 3.1416 
+    ## 3.1416 3.1416 3.1416
+
+Here, there is only one allocation of memory representing a 2x3 matrix.
+That single allocation has two names, `x` and `y`. The data is literally
+exactly the same, so performing an operation on `y` will be witnessed on
+`x` as well.
+
+Instead, if we need an actual duplicate, then we need to create a “deep
+copy”. We can do this via the `dupe()` method:
+
+``` r
+z = x$dupe()
+x$fill_zero()
+
+x
+```
+
+    ## 0.0000 0.0000 0.0000 
+    ## 0.0000 0.0000 0.0000
+
+``` r
+y
+```
+
+    ## 0.0000 0.0000 0.0000 
+    ## 0.0000 0.0000 0.0000
+
+``` r
+z
+```
+
+    ## 3.1416 3.1416 3.1416 
+    ## 3.1416 3.1416 3.1416
+
+## Arbitrary Function Evaluation
+
+Unfortunately, this is not possible without writing custom C++. This is
+because the data is managed externally to R. The objects are all
+“external pointers”, which point to things in memory that R doesn’t
+understand.
+
+A copy of the core fml library is included in the fmlr package source in
+`inst/include/fml`. If you wish to link with fml to create your own C++
+kernels, you can add `LinkingTo: fml` to your R package DESCRIPTION
+file.
+
+If you are unwilling or unable to create C++ kernels, you can move the
+data into R memory via any object’s `to_robj()` method. However, this is
+expensive in terms of both memory and run-time performance, and should
+be avoided if possible.
