@@ -158,9 +158,8 @@ gpu2gpu = function(gpu_in, gpu_out)
 #' Copy the data in an MPI matrix to a CPU matrix. They can be of different
 #' fundamental types (e.g. float/double).
 #' 
-#' @param mpi_in Input.
-#' @param cpu_out Ouput.
-#' @param rdest,cdest The row/column index of the receiving process.
+#' @param cpu_in Input.
+#' @param mpi_out Ouput.
 #' 
 #' @return Returns \code{NULL}.
 #' 

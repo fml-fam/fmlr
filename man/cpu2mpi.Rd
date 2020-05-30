@@ -7,11 +7,9 @@
 cpu2mpi(cpu_in, mpi_out)
 }
 \arguments{
-\item{mpi_in}{Input.}
+\item{cpu_in}{Input.}
 
-\item{cpu_out}{Ouput.}
-
-\item{rdest, cdest}{The row/column index of the receiving process.}
+\item{mpi_out}{Ouput.}
 }
 \value{
 Returns \code{NULL}.
