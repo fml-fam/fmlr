@@ -32,7 +32,7 @@ type_robj2int = function(robj)
   else if (is.integer(robj))
     TYPE_INT
   else
-    error("bad fundamental type")
+    stop("bad fundamental type")
 }
 
 type_robj2str = function(robj) type_int2str(type_robj2int(robj))
