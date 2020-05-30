@@ -18,3 +18,5 @@ inst/include/fml/src/_internals/arraytools/.travis.yml
 inst/include/fml/src/_internals/arraytools/examples/
 inst/include/fml/src/_internals/arraytools/tests/
 inst/include/fml/src/_internals/arraytools/README.md
+
+vignettes/
