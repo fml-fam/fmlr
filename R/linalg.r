@@ -30,6 +30,7 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
   
   if (is.null(ret))
     ret = setret(x)
+  
   .Call(R_linalg_add, get_backend(x), x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
@@ -71,6 +72,7 @@ linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
   
   if (is.null(ret))
     ret = setret(x)
+  
   .Call(R_linalg_matmult, get_backend(x), x$get_type(), transx, transy, alpha, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
@@ -93,6 +95,7 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   
   if (is.null(ret))
     ret = setret(x)
+  
   .Call(R_linalg_crossprod, get_backend(x), x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   
   if (invisiret)

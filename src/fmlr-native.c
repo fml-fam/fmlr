@@ -6,11 +6,14 @@
 #include "types.h"
 
 
+// card
 extern SEXP R_card_get_id(SEXP);
 extern SEXP R_card_info(SEXP);
 extern SEXP R_card_init(SEXP);
 extern SEXP R_card_set(SEXP, SEXP);
 extern SEXP R_card_valid_card(SEXP);
+
+// cpumat
 extern SEXP R_cpumat_antidiag(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_cpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_diag(SEXP, SEXP, SEXP);
@@ -60,6 +63,8 @@ extern SEXP R_cpumat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_stats_pca(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_to_robj(SEXP, SEXP);
+
+// cpuvec
 extern SEXP R_cpuvec_cpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_dupe(SEXP, SEXP);
 extern SEXP R_cpuvec_fill_linspace(SEXP, SEXP, SEXP, SEXP);
@@ -78,6 +83,8 @@ extern SEXP R_cpuvec_set(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_size(SEXP, SEXP);
 extern SEXP R_cpuvec_sum(SEXP, SEXP);
 extern SEXP R_cpuvec_to_robj(SEXP, SEXP);
+
+// gpumat
 extern SEXP R_gpumat_antidiag(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_cpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_diag(SEXP, SEXP, SEXP);
@@ -128,6 +135,8 @@ extern SEXP R_gpumat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_stats_pca(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_to_robj(SEXP, SEXP);
+
+// gpuvec
 extern SEXP R_gpuvec_cpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_dupe(SEXP, SEXP);
 extern SEXP R_gpuvec_fill_linspace(SEXP, SEXP, SEXP, SEXP);
@@ -147,6 +156,8 @@ extern SEXP R_gpuvec_set(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_size(SEXP, SEXP);
 extern SEXP R_gpuvec_sum(SEXP, SEXP);
 extern SEXP R_gpuvec_to_robj(SEXP, SEXP);
+
+// grid
 extern SEXP R_grid_barrier(SEXP, SEXP);
 extern SEXP R_grid_exit(SEXP);
 extern SEXP R_grid_finalize(SEXP, SEXP);
@@ -162,6 +173,8 @@ extern SEXP R_grid_nprow(SEXP);
 extern SEXP R_grid_rank0(SEXP);
 extern SEXP R_grid_set(SEXP, SEXP);
 extern SEXP R_grid_valid_grid(SEXP);
+
+// mpimat
 extern SEXP R_mpimat_antidiag(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_bfdim(SEXP, SEXP);
 extern SEXP R_mpimat_cpu2mpi(SEXP, SEXP, SEXP, SEXP);
@@ -229,6 +242,7 @@ extern SEXP R_mpimat_to_robj(SEXP, SEXP);
   } \
   UNPROTECT(1); \
   return ret;
+
 
 
 // -----------------------------------------------------------------------------
@@ -366,40 +380,13 @@ SEXP R_stats_pca(SEXP backend, SEXP type, SEXP rm_mean, SEXP rm_sd, SEXP x_robj,
 // -----------------------------------------------------------------------------
 
 static const R_CallMethodDef CallEntries[] = {
-  {"R_linalg_add",       (DL_FUNC) &R_linalg_add,       9},
-  {"R_linalg_matmult",   (DL_FUNC) &R_linalg_matmult,   8},
-  {"R_linalg_crossprod", (DL_FUNC) &R_linalg_crossprod, 6},
-  {"R_linalg_xpose",     (DL_FUNC) &R_linalg_xpose,     4},
-  {"R_linalg_lu",     (DL_FUNC) &R_linalg_lu,     3},
-  {"R_linalg_det",     (DL_FUNC) &R_linalg_det,     3},
-  {"R_linalg_trace",     (DL_FUNC) &R_linalg_trace,     3},
-  {"R_linalg_svd",     (DL_FUNC) &R_linalg_svd,     6},
-  {"R_linalg_eigen_sym",     (DL_FUNC) &R_linalg_svd,     5},
-  {"R_linalg_invert",     (DL_FUNC) &R_linalg_invert,     3},
-  {"R_linalg_solve",     (DL_FUNC) &R_linalg_solve,     5},
-  {"R_linalg_qr",     (DL_FUNC) &R_linalg_qr,     4},
-  {"R_linalg_qr_Q",     (DL_FUNC) &R_linalg_qr_Q,     6},
-  {"R_linalg_qr_R",     (DL_FUNC) &R_linalg_qr_R,     4},
-  {"R_linalg_lq",     (DL_FUNC) &R_linalg_lq,     4},
-  {"R_linalg_lq_L",     (DL_FUNC) &R_linalg_lq_L,     4},
-  {"R_linalg_lq_Q",     (DL_FUNC) &R_linalg_lq_Q,     6},
-  {"R_linalg_tssvd",     (DL_FUNC) &R_linalg_tssvd,     6},
-  {"R_linalg_cpsvd",     (DL_FUNC) &R_linalg_cpsvd,     6},
-  {"R_linalg_chol",     (DL_FUNC) &R_linalg_chol,     3},
-  //
-  {"R_dimops_matsums",   (DL_FUNC) &R_dimops_matsums,   6},
-  {"R_dimops_scale",   (DL_FUNC) &R_dimops_scale,   5},
-  //
-  {"R_stats_pca",   (DL_FUNC) &R_stats_pca,   7},
-  //
-  //
-  //
-  //
+  // card
   {"R_card_get_id",             (DL_FUNC) &R_card_get_id,             1},
   {"R_card_info",               (DL_FUNC) &R_card_info,               1},
   {"R_card_init",               (DL_FUNC) &R_card_init,               1},
   {"R_card_set",                (DL_FUNC) &R_card_set,                2},
   {"R_card_valid_card",         (DL_FUNC) &R_card_valid_card,         1},
+  // cpumat 
   {"R_cpumat_antidiag",         (DL_FUNC) &R_cpumat_antidiag,         3},
   {"R_cpumat_cpu2cpu",          (DL_FUNC) &R_cpumat_cpu2cpu,          4},
   {"R_cpumat_diag",             (DL_FUNC) &R_cpumat_diag,             3},
@@ -432,6 +419,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpumat_rev_rows",         (DL_FUNC) &R_cpumat_rev_rows,         2},
   {"R_cpumat_scale",            (DL_FUNC) &R_cpumat_scale,            3},
   {"R_cpumat_set",              (DL_FUNC) &R_cpumat_set,              5},
+  // cpuvec
   {"R_cpumat_to_robj",          (DL_FUNC) &R_cpumat_to_robj,          2},
   {"R_cpuvec_cpu2cpu",          (DL_FUNC) &R_cpuvec_cpu2cpu,          4},
   {"R_cpuvec_dupe",             (DL_FUNC) &R_cpuvec_dupe,             2},
@@ -451,6 +439,10 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpuvec_size",             (DL_FUNC) &R_cpuvec_size,             2},
   {"R_cpuvec_sum",              (DL_FUNC) &R_cpuvec_sum,              2},
   {"R_cpuvec_to_robj",          (DL_FUNC) &R_cpuvec_to_robj,          2},
+  // dimops
+  {"R_dimops_matsums",   (DL_FUNC) &R_dimops_matsums,   6},
+  {"R_dimops_scale",   (DL_FUNC) &R_dimops_scale,   5},
+  // gpumat
   {"R_gpumat_antidiag",         (DL_FUNC) &R_gpumat_antidiag,         3},
   {"R_gpumat_cpu2gpu",          (DL_FUNC) &R_gpumat_cpu2gpu,          4},
   {"R_gpumat_diag",             (DL_FUNC) &R_gpumat_diag,             3},
@@ -485,6 +477,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpumat_scale",            (DL_FUNC) &R_gpumat_scale,            3},
   {"R_gpumat_set",              (DL_FUNC) &R_gpumat_set,              5},
   {"R_gpumat_to_robj",          (DL_FUNC) &R_gpumat_to_robj,          2},
+  // gpuvec
   {"R_gpuvec_cpu2gpu",          (DL_FUNC) &R_gpuvec_cpu2gpu,          4},
   {"R_gpuvec_dupe",             (DL_FUNC) &R_gpuvec_dupe,             2},
   {"R_gpuvec_fill_linspace",    (DL_FUNC) &R_gpuvec_fill_linspace,    4},
@@ -504,6 +497,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpuvec_size",             (DL_FUNC) &R_gpuvec_size,             2},
   {"R_gpuvec_sum",              (DL_FUNC) &R_gpuvec_sum,              2},
   {"R_gpuvec_to_robj",          (DL_FUNC) &R_gpuvec_to_robj,          2},
+  // grid
   {"R_grid_barrier",            (DL_FUNC) &R_grid_barrier,            2},
   {"R_grid_exit",               (DL_FUNC) &R_grid_exit,               1},
   {"R_grid_finalize",           (DL_FUNC) &R_grid_finalize,           2},
@@ -519,6 +513,28 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_grid_rank0",              (DL_FUNC) &R_grid_rank0,              1},
   {"R_grid_set",                (DL_FUNC) &R_grid_set,                2},
   {"R_grid_valid_grid",         (DL_FUNC) &R_grid_valid_grid,         1},
+  // linalg
+  {"R_linalg_add",       (DL_FUNC) &R_linalg_add,       9},
+  {"R_linalg_matmult",   (DL_FUNC) &R_linalg_matmult,   8},
+  {"R_linalg_crossprod", (DL_FUNC) &R_linalg_crossprod, 6},
+  {"R_linalg_xpose",     (DL_FUNC) &R_linalg_xpose,     4},
+  {"R_linalg_lu",     (DL_FUNC) &R_linalg_lu,     3},
+  {"R_linalg_det",     (DL_FUNC) &R_linalg_det,     3},
+  {"R_linalg_trace",     (DL_FUNC) &R_linalg_trace,     3},
+  {"R_linalg_svd",     (DL_FUNC) &R_linalg_svd,     6},
+  {"R_linalg_eigen_sym",     (DL_FUNC) &R_linalg_svd,     5},
+  {"R_linalg_invert",     (DL_FUNC) &R_linalg_invert,     3},
+  {"R_linalg_solve",     (DL_FUNC) &R_linalg_solve,     5},
+  {"R_linalg_qr",     (DL_FUNC) &R_linalg_qr,     4},
+  {"R_linalg_qr_Q",     (DL_FUNC) &R_linalg_qr_Q,     6},
+  {"R_linalg_qr_R",     (DL_FUNC) &R_linalg_qr_R,     4},
+  {"R_linalg_lq",     (DL_FUNC) &R_linalg_lq,     4},
+  {"R_linalg_lq_L",     (DL_FUNC) &R_linalg_lq_L,     4},
+  {"R_linalg_lq_Q",     (DL_FUNC) &R_linalg_lq_Q,     6},
+  {"R_linalg_tssvd",     (DL_FUNC) &R_linalg_tssvd,     6},
+  {"R_linalg_cpsvd",     (DL_FUNC) &R_linalg_cpsvd,     6},
+  {"R_linalg_chol",     (DL_FUNC) &R_linalg_chol,     3},
+  // mpimat
   {"R_mpimat_antidiag",         (DL_FUNC) &R_mpimat_antidiag,         3},
   {"R_mpimat_bfdim",            (DL_FUNC) &R_mpimat_bfdim,            2},
   {"R_mpimat_cpu2mpi",          (DL_FUNC) &R_mpimat_cpu2mpi,          4},
@@ -555,6 +571,9 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_scale",            (DL_FUNC) &R_mpimat_scale,            3},
   {"R_mpimat_set",              (DL_FUNC) &R_mpimat_set,              5},
   {"R_mpimat_to_robj",          (DL_FUNC) &R_mpimat_to_robj,          2},
+  // stats
+  {"R_stats_pca",   (DL_FUNC) &R_stats_pca,   7},
+  // 
   {NULL, NULL, 0}
 };
 
