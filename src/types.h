@@ -10,6 +10,10 @@
 #define CLASS_MAT 1
 #define CLASS_VEC 2
 
+#define BACKEND_CPU 1
+#define BACKEND_GPU 2
+#define BACKEND_MPI 3
+
 #define TYPE_DOUBLE 1
 #define TYPE_FLOAT 2
 #define TYPE_INT 3

@@ -35,11 +35,9 @@ cpu2cpu = function(cpu_in, cpu_out)
   check_class_consistency(cpu_in, cpu_out)
   
   if (is_cpuvec(cpu_in))
-    CFUN = R_cpuvec_cpu2cpu
+    .Call(R_cpuvec_cpu2cpu, cpu_in$get_type(), cpu_out$get_type(), cpu_in$data_ptr(), cpu_out$data_ptr())
   else
-    CFUN = R_cpumat_cpu2cpu
-  
-  .Call(CFUN, cpu_in$get_type(), cpu_out$get_type(), cpu_in$data_ptr(), cpu_out$data_ptr())
+    .Call(R_cpumat_cpu2cpu, cpu_in$get_type(), cpu_out$get_type(), cpu_in$data_ptr(), cpu_out$data_ptr())
   
   invisible(NULL)
 }
@@ -72,11 +70,10 @@ gpu2cpu = function(gpu_in, cpu_out)
     stop("inconsistent object usage")
   
   if (is_gpuvec(gpu_in))
-    CFUN = R_gpuvec_gpu2cpu
+    .Call(R_gpuvec_gpu2cpu, gpu_in$get_type(), cpu_out$get_type(), gpu_in$data_ptr(), cpu_out$data_ptr())
   else
-    CFUN = R_gpumat_gpu2cpu
+    .Call(R_gpumat_gpu2cpu, gpu_in$get_type(), cpu_out$get_type(), gpu_in$data_ptr(), cpu_out$data_ptr())
   
-  .Call(CFUN, gpu_in$get_type(), cpu_out$get_type(), gpu_in$data_ptr(), cpu_out$data_ptr())
   
   invisible(NULL)
 }
@@ -105,11 +102,9 @@ cpu2gpu = function(cpu_in, gpu_out)
     stop("inconsistent object usage")
   
   if (is_cpuvec(cpu_in))
-    CFUN = R_gpuvec_cpu2gpu
+    .Call(R_gpuvec_cpu2gpu, cpu_in$get_type(), gpu_out$get_type(), cpu_in$data_ptr(), gpu_out$data_ptr())
   else
-    CFUN = R_gpumat_cpu2gpu
-  
-  .Call(CFUN, cpu_in$get_type(), gpu_out$get_type(), cpu_in$data_ptr(), gpu_out$data_ptr())
+    .Call(R_gpumat_cpu2gpu, cpu_in$get_type(), gpu_out$get_type(), cpu_in$data_ptr(), gpu_out$data_ptr())
   
   invisible(NULL)
 }
@@ -138,11 +133,9 @@ gpu2gpu = function(gpu_in, gpu_out)
   check_class_consistency(gpu_in, gpu_out)
   
   if (is_gpuvec(gpu_in))
-    CFUN = R_gpuvec_gpu2gpu
+    .Call(R_gpuvec_gpu2gpu, gpu_in$get_type(), gpu_out$get_type(), gpu_in$data_ptr(), gpu_out$data_ptr())
   else
-    CFUN = R_gpumat_gpu2gpu
-  
-  .Call(CFUN, gpu_in$get_type(), gpu_out$get_type(), gpu_in$data_ptr(), gpu_out$data_ptr())
+    .Call(R_gpumat_gpu2gpu, gpu_in$get_type(), gpu_out$get_type(), gpu_in$data_ptr(), gpu_out$data_ptr())
   
   invisible(NULL)
 }

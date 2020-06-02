@@ -6,7 +6,22 @@
 CLASS_MAT = 1L
 CLASS_VEC = 2L
 
+# backend globals
+BACKEND_CPU = 1L
+BACKEND_GPU = 2L
+BACKEND_MPI = 3L
 
+get_backend = function(x)
+{
+  if (is_cpu(x))
+    BACKEND_CPU
+  else if (is_gpu(x))
+    BACKEND_GPU
+  else if (is_mpi(x))
+    BACKEND_MPI
+  else
+    stop("bad backend")
+}
 
 # type globals
 TYPE_DOUBLE = 1L

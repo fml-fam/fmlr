@@ -12,9 +12,7 @@
 #' @rdname linalg-add
 #' @name add
 #' 
-#' @useDynLib fmlr R_cpumat_linalg_add
-#' @useDynLib fmlr R_gpumat_linalg_add
-#' @useDynLib fmlr R_mpimat_linalg_add
+#' @useDynLib fmlr R_linalg_add
 #' 
 #' @export
 linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NULL)
@@ -30,10 +28,9 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
   
   invisiret = check_inputs(ret, x, y)
   
-  CFUN = get_cfun(x, "linalg", "add")
   if (is.null(ret))
     ret = setret(x)
-  .Call(CFUN, x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
+  .Call(R_linalg_add, get_backend(x), x$get_type(), transx, transy, alpha, beta, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
     invisible(ret)
@@ -57,9 +54,7 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
 #' @rdname linalg-matmult
 #' @name matmult
 #' 
-#' @useDynLib fmlr R_cpumat_linalg_matmult
-#' @useDynLib fmlr R_gpumat_linalg_matmult
-#' @useDynLib fmlr R_mpimat_linalg_matmult
+#' @useDynLib fmlr R_linalg_matmult
 #' 
 #' @export
 linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
@@ -74,10 +69,9 @@ linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
   
   invisiret = check_inputs(ret, x, y)
   
-  CFUN = get_cfun(x, "linalg", "matmult")
   if (is.null(ret))
     ret = setret(x)
-  .Call(CFUN, x$get_type(), transx, transy, alpha, x$data_ptr(), y$data_ptr(), ret$data_ptr())
+  .Call(R_linalg_matmult, get_backend(x), x$get_type(), transx, transy, alpha, x$data_ptr(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
     invisible(ret)
@@ -87,9 +81,7 @@ linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
 
 
 
-#' @useDynLib fmlr R_cpumat_linalg_crossprod
-#' @useDynLib fmlr R_gpumat_linalg_crossprod
-#' @useDynLib fmlr R_mpimat_linalg_crossprod
+#' @useDynLib fmlr R_linalg_crossprod
 linalg_crossprods = function(x, ret, alpha, xpose)
 {
   check_is_mat(x)
@@ -99,10 +91,9 @@ linalg_crossprods = function(x, ret, alpha, xpose)
   
   invisiret = check_inputs(ret, x)
   
-  CFUN = get_cfun(x, "linalg", "crossprod")
   if (is.null(ret))
     ret = setret(x)
-  .Call(CFUN, x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
+  .Call(R_linalg_crossprod, get_backend(x), x$get_type(), xpose, alpha, x$data_ptr(), ret$data_ptr())
   
   if (invisiret)
     invisible(ret)
@@ -151,9 +142,7 @@ linalg_tcrossprod = function(alpha=1, x, ret=NULL)
 #' 
 #' @rdname linalg-xpose
 #' @name xpose
-#' @useDynLib fmlr R_cpumat_linalg_xpose
-#' @useDynLib fmlr R_gpumat_linalg_xpose
-#' @useDynLib fmlr R_mpimat_linalg_xpose
+#' @useDynLib fmlr R_linalg_xpose
 #' 
 #' @export
 linalg_xpose = function(x, ret=NULL)
@@ -161,11 +150,10 @@ linalg_xpose = function(x, ret=NULL)
   check_is_mat(x)
   invisiret = check_inputs(ret, x)
   
-  CFUN = get_cfun(x, "linalg", "xpose")
   if (is.null(ret))
     ret = setret(x)
   
-  .Call(CFUN, x$get_type(), x$data_ptr(), ret$data_ptr())
+  .Call(R_linalg_xpose, get_backend(x), x$get_type(), x$data_ptr(), ret$data_ptr())
   
   if (invisiret)
     invisible(ret)
@@ -184,16 +172,13 @@ linalg_xpose = function(x, ret=NULL)
 #' 
 #' @rdname linalg-lu
 #' @name lu
-#' @useDynLib fmlr R_cpumat_linalg_lu
-#' @useDynLib fmlr R_gpumat_linalg_lu
-#' @useDynLib fmlr R_mpimat_linalg_lu
+#' @useDynLib fmlr R_linalg_lu
 #' 
 #' @export
 linalg_lu = function(x)
 {
   check_is_mat(x)
-  CFUN = get_cfun(x, "linalg", "lu")
-  .Call(CFUN, x$get_type(), x$data_ptr())
+  .Call(R_linalg_lu, get_backend(x), x$get_type(), x$data_ptr())
   invisible(NULL)
 }
 
@@ -209,16 +194,13 @@ linalg_lu = function(x)
 #' 
 #' @rdname linalg-det
 #' @name det
-#' @useDynLib fmlr R_cpumat_linalg_det
-#' @useDynLib fmlr R_gpumat_linalg_det
-#' @useDynLib fmlr R_mpimat_linalg_det
+#' @useDynLib fmlr R_linalg_det
 #' 
 #' @export
 linalg_det = function(x)
 {
   check_is_mat(x)
-  CFUN = get_cfun(x, "linalg", "det")
-  .Call(CFUN, x$get_type(), x$data_ptr())
+  .Call(R_linalg_det, get_backend(x), x$get_type(), x$data_ptr())
 }
 
 
@@ -232,16 +214,13 @@ linalg_det = function(x)
 #' 
 #' @rdname linalg-trace
 #' @name trace
-#' @useDynLib fmlr R_cpumat_linalg_trace
-#' @useDynLib fmlr R_gpumat_linalg_trace
-#' @useDynLib fmlr R_mpimat_linalg_trace
+#' @useDynLib fmlr R_linalg_trace
 #' 
 #' @export
 linalg_trace = function(x)
 {
   check_is_mat(x)
-  CFUN = get_cfun(x, "linalg", "trace")
-  .Call(CFUN, x$get_type(), x$data_ptr())
+  .Call(R_linalg_trace, get_backend(x), x$get_type(), x$data_ptr())
 }
 
 
@@ -272,9 +251,7 @@ linalg_trace = function(x)
 #' 
 #' @rdname linalg-svd
 #' @name svd
-#' @useDynLib fmlr R_cpumat_linalg_svd
-#' @useDynLib fmlr R_gpumat_linalg_svd
-#' @useDynLib fmlr R_mpimat_linalg_svd
+#' @useDynLib fmlr R_linalg_svd
 #' 
 #' @export
 linalg_svd = function(x, s, u=NULL, vt=NULL)
@@ -288,11 +265,10 @@ linalg_svd = function(x, s, u=NULL, vt=NULL)
   else if (!is.null(u) || !is.null(vt))
     stop("must pass neither u and vt or both u and vt")
   
-  CFUN = get_cfun(x, "linalg", "svd")
   if (is.null(u))
-    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
+    .Call(R_linalg_svd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
   else
-    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+    .Call(R_linalg_svd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
   
   invisible(NULL)
 }
@@ -314,9 +290,7 @@ linalg_svd = function(x, s, u=NULL, vt=NULL)
 #' 
 #' @rdname linalg-eigen
 #' @name eigen
-#' @useDynLib fmlr R_cpumat_linalg_eigen_sym
-#' @useDynLib fmlr R_gpumat_linalg_eigen_sym
-#' @useDynLib fmlr R_mpimat_linalg_eigen_sym
+#' @useDynLib fmlr R_linalg_eigen_sym
 #' 
 #' @export
 linalg_eigen_sym = function(x, values, vectors=NULL)
@@ -327,11 +301,10 @@ linalg_eigen_sym = function(x, values, vectors=NULL)
   if (!is.null(vectors))
     check_inputs(x, vectors)
   
-  CFUN = get_cfun(x, "linalg", "eigen_sym")
   if (is.null(vectors))
-    .Call(CFUN, x$get_type(), x$data_ptr(), values$data_ptr(), NULL)
+    .Call(R_linalg_eigen_sym, get_backend(x), x$get_type(), x$data_ptr(), values$data_ptr(), NULL)
   else
-    .Call(CFUN, x$get_type(), x$data_ptr(), values$data_ptr(), vectors$data_ptr())
+    .Call(R_linalg_eigen_sym, get_backend(x), x$get_type(), x$data_ptr(), values$data_ptr(), vectors$data_ptr())
   
   invisible(NULL)
 }
@@ -347,16 +320,13 @@ linalg_eigen_sym = function(x, values, vectors=NULL)
 #' 
 #' @rdname linalg-invert
 #' @name invert
-#' @useDynLib fmlr R_cpumat_linalg_invert
-#' @useDynLib fmlr R_gpumat_linalg_invert
-#' @useDynLib fmlr R_mpimat_linalg_invert
+#' @useDynLib fmlr R_linalg_invert
 #' 
 #' @export
 linalg_invert = function(x)
 {
   check_is_mat(x)
-  CFUN = get_cfun(x, "linalg", "invert")
-  .Call(CFUN, x$get_type(), x$data_ptr())
+  .Call(R_linalg_invert, get_backend(x), x$get_type(), x$data_ptr())
   invisible(NULL)
 }
 
@@ -371,9 +341,7 @@ linalg_invert = function(x)
 #' 
 #' @rdname linalg-solve
 #' @name solve
-#' @useDynLib fmlr R_cpumat_linalg_solve
-#' @useDynLib fmlr R_gpumat_linalg_solve
-#' @useDynLib fmlr R_mpimat_linalg_solve
+#' @useDynLib fmlr R_linalg_solve
 #' 
 #' @export
 linalg_solve = function(x, y)
@@ -394,9 +362,7 @@ linalg_solve = function(x, y)
     class = CLASS_MAT
   }
   
-  CFUN = get_cfun(x, "linalg", "solve")
-  .Call(CFUN, x$get_type(), x$data_ptr(), class, y$data_ptr())
-  
+  .Call(R_linalg_solve, get_backend(x), x$get_type(), x$data_ptr(), class, y$data_ptr())
   invisible(NULL)
 }
 
@@ -411,9 +377,7 @@ linalg_solve = function(x, y)
 #' 
 #' @rdname linalg-qr
 #' @name qr
-#' @useDynLib fmlr R_cpumat_linalg_qr
-#' @useDynLib fmlr R_gpumat_linalg_qr
-#' @useDynLib fmlr R_mpimat_linalg_qr
+#' @useDynLib fmlr R_linalg_qr
 #' 
 #' @export
 linalg_qr = function(x, qraux)
@@ -422,9 +386,7 @@ linalg_qr = function(x, qraux)
   check_is_vec(qraux)
   check_type_consistency(x, qraux)
   
-  CFUN = get_cfun(x, "linalg", "qr")
-  .Call(CFUN, x$get_type(), x$data_ptr(), qraux$data_ptr())
-  
+  .Call(R_linalg_qr, get_backend(x), x$get_type(), x$data_ptr(), qraux$data_ptr())
   invisible(NULL)
 }
 
@@ -441,9 +403,7 @@ linalg_qr = function(x, qraux)
 #' 
 #' @rdname linalg-qr-Q
 #' @name qr_Q
-#' @useDynLib fmlr R_cpumat_linalg_qr_Q
-#' @useDynLib fmlr R_gpumat_linalg_qr_Q
-#' @useDynLib fmlr R_mpimat_linalg_qr_Q
+#' @useDynLib fmlr R_linalg_qr_Q
 #' 
 #' @export
 linalg_qr_Q = function(QR, qraux, Q, work)
@@ -453,9 +413,7 @@ linalg_qr_Q = function(QR, qraux, Q, work)
   check_is_vec(work)
   check_type_consistency(QR, qraux, work)
   
-  CFUN = get_cfun(QR, "linalg", "qr_Q")
-  .Call(CFUN, QR$get_type(), QR$data_ptr(), qraux$data_ptr(), Q$data_ptr(), work$data_ptr())
-  
+  .Call(R_linalg_qr_Q, get_backend(QR), QR$get_type(), QR$data_ptr(), qraux$data_ptr(), Q$data_ptr(), work$data_ptr())
   invisible(NULL)
 }
 
@@ -470,18 +428,13 @@ linalg_qr_Q = function(QR, qraux, Q, work)
 #' 
 #' @rdname linalg-qr-R
 #' @name qr_R
-#' @useDynLib fmlr R_cpumat_linalg_qr_R
-#' @useDynLib fmlr R_gpumat_linalg_qr_R
-#' @useDynLib fmlr R_mpimat_linalg_qr_R
+#' @useDynLib fmlr R_linalg_qr_R
 #' 
 #' @export
 linalg_qr_R = function(QR, R)
 {
   check_inputs(QR, R)
-  
-  CFUN = get_cfun(QR, "linalg", "qr_R")
-  .Call(CFUN, QR$get_type(), QR$data_ptr(), R$data_ptr())
-  
+  .Call(R_linalg_qr_R, get_backend(QR), QR$get_type(), QR$data_ptr(), R$data_ptr())
   invisible(NULL)
 }
 
@@ -496,9 +449,7 @@ linalg_qr_R = function(QR, R)
 #' 
 #' @rdname linalg-lq
 #' @name lq
-#' @useDynLib fmlr R_cpumat_linalg_lq
-#' @useDynLib fmlr R_gpumat_linalg_lq
-#' @useDynLib fmlr R_mpimat_linalg_lq
+#' @useDynLib fmlr R_linalg_lq
 #' 
 #' @export
 linalg_lq = function(x, lqaux)
@@ -507,9 +458,7 @@ linalg_lq = function(x, lqaux)
   check_is_vec(lqaux)
   check_type_consistency(x, lqaux)
   
-  CFUN = get_cfun(x, "linalg", "lq")
-  .Call(CFUN, x$get_type(), x$data_ptr(), lqaux$data_ptr())
-  
+  .Call(R_linalg_lq, get_backend(x), x$get_type(), x$data_ptr(), lqaux$data_ptr())
   invisible(NULL)
 }
 
@@ -524,18 +473,13 @@ linalg_lq = function(x, lqaux)
 #' 
 #' @rdname linalg-qr-R
 #' @name lq_L
-#' @useDynLib fmlr R_cpumat_linalg_lq_L
-#' @useDynLib fmlr R_gpumat_linalg_lq_L
-#' @useDynLib fmlr R_mpimat_linalg_lq_L
+#' @useDynLib fmlr R_linalg_lq_L
 #' 
 #' @export
 linalg_lq_L = function(LQ, L)
 {
   check_inputs(LQ, L)
-  
-  CFUN = get_cfun(LQ, "linalg", "lq_L")
-  .Call(CFUN, LQ$get_type(), LQ$data_ptr(), L$data_ptr())
-  
+  .Call(R_linalg_lq_L, get_backend(LQ), LQ$get_type(), LQ$data_ptr(), L$data_ptr())
   invisible(NULL)
 }
 
@@ -552,9 +496,7 @@ linalg_lq_L = function(LQ, L)
 #' 
 #' @rdname linalg-lq-Q
 #' @name lq_Q
-#' @useDynLib fmlr R_cpumat_linalg_lq_Q
-#' @useDynLib fmlr R_gpumat_linalg_lq_Q
-#' @useDynLib fmlr R_mpimat_linalg_lq_Q
+#' @useDynLib fmlr R_linalg_lq_Q
 #' 
 #' @export
 linalg_lq_Q = function(LQ, lqaux, Q, work)
@@ -564,9 +506,7 @@ linalg_lq_Q = function(LQ, lqaux, Q, work)
   check_is_vec(work)
   check_type_consistency(LQ, lqaux, work)
   
-  CFUN = get_cfun(LQ, "linalg", "lq_Q")
-  .Call(CFUN, LQ$get_type(), LQ$data_ptr(), lqaux$data_ptr(), Q$data_ptr(), work$data_ptr())
-  
+  .Call(R_linalg_lq_Q, get_backend(LQ), LQ$get_type(), LQ$data_ptr(), lqaux$data_ptr(), Q$data_ptr(), work$data_ptr())
   invisible(NULL)
 }
 
@@ -583,9 +523,7 @@ linalg_lq_Q = function(LQ, lqaux, Q, work)
 #' 
 #' @rdname linalg-tssvd
 #' @name tssvd
-#' @useDynLib fmlr R_cpumat_linalg_tssvd
-#' @useDynLib fmlr R_gpumat_linalg_tssvd
-#' @useDynLib fmlr R_mpimat_linalg_tssvd
+#' @useDynLib fmlr R_linalg_tssvd
 #' 
 #' @export
 linalg_tssvd = function(x, s, u=NULL, vt=NULL)
@@ -599,11 +537,10 @@ linalg_tssvd = function(x, s, u=NULL, vt=NULL)
   else if (!is.null(u) || !is.null(vt))
     stop("must pass neither u and vt or both u and vt")
   
-  CFUN = get_cfun(x, "linalg", "tssvd")
   if (is.null(u))
-    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
+    .Call(R_linalg_tssvd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
   else
-    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+    .Call(R_linalg_tssvd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
   
   invisible(NULL)
 }
@@ -626,9 +563,7 @@ linalg_tssvd = function(x, s, u=NULL, vt=NULL)
 #' 
 #' @rdname linalg-cpsvd
 #' @name cpsvd
-#' @useDynLib fmlr R_cpumat_linalg_cpsvd
-#' @useDynLib fmlr R_gpumat_linalg_cpsvd
-#' @useDynLib fmlr R_mpimat_linalg_cpsvd
+#' @useDynLib fmlr R_linalg_cpsvd
 #' 
 #' @export
 linalg_cpsvd = function(x, s, u=NULL, vt=NULL)
@@ -642,11 +577,10 @@ linalg_cpsvd = function(x, s, u=NULL, vt=NULL)
   else if (!is.null(u) || !is.null(vt))
     stop("must pass neither u and vt or both u and vt")
   
-  CFUN = get_cfun(x, "linalg", "cpsvd")
   if (is.null(u))
-    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
+    .Call(R_linalg_cpsvd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
   else
-    .Call(CFUN, x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+    .Call(R_linalg_cpsvd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
   
   invisible(NULL)
 }
@@ -662,15 +596,12 @@ linalg_cpsvd = function(x, s, u=NULL, vt=NULL)
 #' 
 #' @rdname linalg-chol
 #' @name chol
-#' @useDynLib fmlr R_cpumat_linalg_chol
-#' @useDynLib fmlr R_gpumat_linalg_chol
-#' @useDynLib fmlr R_mpimat_linalg_chol
+#' @useDynLib fmlr R_linalg_chol
 #' 
 #' @export
 linalg_chol = function(x)
 {
   check_is_mat(x)
-  CFUN = get_cfun(x, "linalg", "chol")
-  .Call(CFUN, x$get_type(), x$data_ptr())
+  .Call(R_linalg_chol, get_backend(x), x$get_type(), x$data_ptr())
   invisible(NULL)
 }

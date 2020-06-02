@@ -22,9 +22,7 @@
 #' @rdname pca
 #' @name pca
 #' 
-#' @useDynLib fmlr R_cpumat_stats_pca
-#' @useDynLib fmlr R_gpumat_stats_pca
-#' @useDynLib fmlr R_mpimat_stats_pca
+#' @useDynLib fmlr R_stats_pca
 #' 
 #' @export
 stats_pca = function(rm_mean=TRUE, rm_sd=FALSE, x, sdev, rot=NULL)
@@ -40,11 +38,10 @@ stats_pca = function(rm_mean=TRUE, rm_sd=FALSE, x, sdev, rot=NULL)
   rm_mean = as.logical(rm_mean)
   rm_sd = as.logical(rm_sd)
   
-  CFUN = get_cfun(x, "stats", "pca")
   if (is.null(rot))
-    .Call(CFUN, x$get_type(), rm_mean, rm_sd, x$data_ptr(), sdev$data_ptr(), NULL)
+    .Call(R_stats_pca, get_backend(x), x$get_type(), rm_mean, rm_sd, x$data_ptr(), sdev$data_ptr(), NULL)
   else
-    .Call(CFUN, x$get_type(), rm_mean, rm_sd, x$data_ptr(), sdev$data_ptr(), rot$data_ptr())
+    .Call(R_stats_pca, get_backend(x), x$get_type(), rm_mean, rm_sd, x$data_ptr(), sdev$data_ptr(), rot$data_ptr())
   
   invisible(NULL)
 }

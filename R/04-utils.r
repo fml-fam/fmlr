@@ -1,18 +1,3 @@
-get_cfun = function(x, namespace, cfun_post)
-{
-  if (is_cpumat(x))
-    cfun_pre = "R_cpumat_"
-  else if (is_gpumat(x))
-    cfun_pre = "R_gpumat_"
-  else if (is_mpimat(x))
-    cfun_pre = "R_mpimat_"
-  
-  CFUN = eval(parse(text=paste0(cfun_pre, namespace, "_", cfun_post)))
-  CFUN
-}
-
-
-
 setret = function(x, vec=FALSE)
 {
   if (is_cpumat(x))

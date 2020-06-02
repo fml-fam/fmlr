@@ -1,12 +1,10 @@
-#' @useDynLib fmlr R_cpumat_dimops_matsums
-#' @useDynLib fmlr R_gpumat_dimops_matsums
-#' @useDynLib fmlr R_mpimat_dimops_matsums
+#' @useDynLib fmlr R_dimops_matsums
 matsums = function(row, mean, x, s)
 {
-  CFUN = get_cfun(x, "dimops", "matsums")
   if (is.null(s))
     s = setret(x, vec=TRUE)
-  .Call(CFUN, x$get_type(), row, mean, x$data_ptr(), s$data_ptr())
+  
+  .Call(R_dimops_matsums, get_backend(x), x$get_type(), row, mean, x$data_ptr(), s$data_ptr())
   s
 }
 
@@ -101,9 +99,7 @@ dimops_colmeans = function(x, s=NULL)
 #' @rdname scale
 #' @name scale
 #' 
-#' @useDynLib fmlr R_cpumat_dimops_scale
-#' @useDynLib fmlr R_gpumat_dimops_scale
-#' @useDynLib fmlr R_mpimat_dimops_scale
+#' @useDynLib fmlr R_dimops_scale
 #' 
 #' @export
 dimops_scale = function(rm_mean=TRUE, rm_sd=FALSE, x)
@@ -113,8 +109,6 @@ dimops_scale = function(rm_mean=TRUE, rm_sd=FALSE, x)
   rm_mean = as.logical(rm_mean)
   rm_sd = as.logical(rm_sd)
   
-  CFUN = get_cfun(x, "dimops", "scale")
-  .Call(CFUN, x$get_type(), rm_mean, rm_sd, x$data_ptr())
-  
+  .Call(R_dimops_scale, get_backend(x), x$get_type(), rm_mean, rm_sd, x$data_ptr())
   invisible(NULL)
 }
