@@ -7,8 +7,6 @@
 #' occur in-place. The interface largely tracks with the core fml interface.
 #' We use R6 so that generally an R code can be easily translated to C++.
 #' 
-#' @import pbdMPI
-#' @import pbdSLAP
 #' @importFrom float is.float
 #' @importFrom R6 R6Class
 #' 

@@ -14,8 +14,8 @@ fml_cpu = function() TRUE
 
 #' @rdname features
 #' @export
-fml_gpu = function() @USE_GPU@ == "TRUE"
+fml_gpu = function() @USE_GPU@
 
 #' @rdname features
 #' @export
-fml_mpi = function() TRUE
+fml_mpi = function() @USE_MPI@
