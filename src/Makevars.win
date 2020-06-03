@@ -10,6 +10,9 @@ CXX_STD = CXX14
 
 R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
 
+# this is exactly what it looks like
+$(shell ${R_SCMD} "cat(paste(sub('@USE_MPI@', '"${USE_MPI}"', sub('@USE_GPU@', '"${USE_GPU}"', readLines('../R/02-features.r.in'))), collapse='\n'), file='../R/02-features.r')")
+
 FML_CPPFLAGS = -I../inst/include
 
 ifeq "$(USE_MPI)" "TRUE"
