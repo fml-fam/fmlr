@@ -1,3 +1,20 @@
+# Release 0.2-1-1 (//)
+
+New:
+  * Building with MPI backend support is now optional, and disabled by default. Enable via `configure-args=--enable-mpi`.
+
+API Changes: None
+
+Bug Fixes:
+  * Safer .NAME usage in .Call() internals.
+
+Documentation:
+  * Clarified some things in the installation guide.
+
+
+
+
+
 # Release 0.2-1 (5/29/2020)
 
 New:
