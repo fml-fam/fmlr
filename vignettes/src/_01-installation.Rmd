@@ -40,10 +40,9 @@ You may also find the [container recipes](https://github.com/fml-fam/fmlr/tree/m
 
 * R
 * Modern C and C++ compilers
-* MPI
 * Optionally, any of:
     - OpenBLAS (or MKL or whatever)
-    - ScaLAPACK
+    - MPI and ScaLAPACK
     - CUDA
 
 #### Long version
@@ -58,7 +57,9 @@ Next, you will need to be able to build R packages from source, since we do not 
     - Open XCode and choose "Preferences", "Downloads", then "Install Command Line Tools"
 * Linux/FreeBSD: You need C and C++ compilers, which you may well already have installed. Consult your distribution's package manager.
 
-Finally, you will need to have a system installation of [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface), e.g. [OpenMPI](https://www.open-mpi.org/), [MPICH](https://www.mpich.org/), or [MSMPI](https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi). We recommend MSMPI for Windows and OpenMPI for everything else:
+It is recommended, but not required, that you use a high-performance BLAS library with R. For example, OpenBLAS. There are numerous resources for how to do this on the internet. Unfortunately, they can be somewhat involved for some platforms, so we do not repeat them here.
+
+If you wish to use the MPI backend, you will need to have a system installation of [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface), e.g. [OpenMPI](https://www.open-mpi.org/), [MPICH](https://www.mpich.org/), or [MSMPI](https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi). We recommend MSMPI for Windows and OpenMPI for everything else:
 
 * Windows: Install [MS-MPI](https://msdn.microsoft.com/en-us/library/bb524831(v=vs.85).aspx)
 * Mac: Choose any one of the following
@@ -71,11 +72,9 @@ Finally, you will need to have a system installation of [MPI](https://en.wikiped
     - FreeBSD: `pkg install openmpi`
     - You can also [build from source](https://www.open-mpi.org/software/ompi/v2.1/).
 
-It is recommended, but not required, that you use a high-performance BLAS library with R. For example, OpenBLAS. There are numerous resources for how to do this on the internet. Unfortunately, they can be somewhat involved for some platforms, so we do not repeat them here.
+If using the MPI backend, you may also wish to have a system installation of [ScaLAPACK](https://netlib.sandia.gov/scalapack/):
 
-In addition to these hard system dependencies, you may also wish to have a system installation of [ScaLAPACK](https://netlib.sandia.gov/scalapack/).
-
-* Windows: Install [MS-MPI](https://msdn.microsoft.com/en-us/library/bb524831(v=vs.85).aspx)
+* Windows: [ScaLAPACK for Windows](http://icl.cs.utk.edu/lapack-for-windows/scalapack/index.html)
 * Mac: Choose any one of the following
     - Homebrew: `brew install scalapack`
     - MacPorts: `port install scalapack +openmpi`
@@ -96,8 +95,8 @@ If you have an appropriate GPU, you can also install [NVIDIA® CUDA™](https://
 
 * R6 (this one shouldn't give any trouble)
 * float
-* pbdMPI
-* pbdSLAP
+* Optionally:
+    * pbdMPI and pbdSLAP
 
 #### Long version
 
@@ -105,9 +104,9 @@ The R package dependencies should install automatically via R's dependency resol
 
 With float, if you do not have a high-performance BLAS library installed (and you will want one, so if not, go back to the system dependencies section above), then the package will build the reference `float` (as in floating point) BLAS and LAPACK functions. These are slow, and take a long time to compile. When you build float from source, you can see in the configure log which BLAS/LAPACK library it is using. The [float package vignette](https://cran.r-project.org/web/packages/float/vignettes/float.pdf) discusses this somewhat.
 
-Assuming you installed MPI correctly, the pbdMPI should install fine. If you have any issues, you may find the [pbdMPI package vignette](https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf) helpful.
+If you want to use the MPI backend, you will need to install both of the pbdMPI and pbdSLAP packages. Assuming you installed MPI correctly, the pbdMPI should install fine. If you have any issues, you may find the [pbdMPI package vignette](https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf) helpful.
 
-Finally, you will need to install a version of pbdSLAP that contains the `float` symbols. If you didn't do a system installation of ScaLAPACK, then you need to run:
+For pbdSLAP, you will need a version that contains the `float` symbols. If you didn't do a system installation of ScaLAPACK, then you need to run:
 
 ```r
 remotes::install_github("snoweye/pbdSLAP@single")
@@ -125,11 +124,17 @@ where you set the `EXT_LDFLAGS` appropriately. The example provided is for Ubunt
 
 ## Installing fmlr
 
-fmlr can be built with or without GPU support. Right now, "GPU" means CUDA.
+fmlr can be built with or without MPI support, and orthogonally with or without GPU support. Right now, "GPU" exclusively means CUDA.
 
-If you build the package without GPU support, then the various GPU functions won't work (obviously). You can test for GPU support in the installed package via `fmlr::fml_gpu()`. There are `fml_cpu()` and `fml_mpi()` functions which always return `TRUE`. You can not build the package without MPI support.
+If you build the package without MPI or GPU support, then the various MPI/GPU functions won't work (obviously). You can test for backend support in the installed package via:
 
-#### Without GPU Support
+* `fmlr::fml_cpu()` - is the CPU backend available? Always returns `TRUE`.
+* `fmlr::fml_gpu()` - is the GPU backend available?
+* `fmlr::fml_mpi()` - is the MPI backend available?
+
+#### Default Installation
+
+This will only make the CPU backend available.
 
 Stable releases are published on the [hpcran](https://hpcran.org). You can install them via
 
@@ -158,3 +163,11 @@ To install the development version, you can do something like:
 git clone --recurse-submodules https://github.com/fml-fam/fmlr.git
 R CMD INSTALL fmlr/ --configure-args="--enable-gpu"
 ```
+
+#### With MPI Support
+
+Same as above, but set the configure args to "--enable-mpi".
+
+#### With GPU and MPI Support
+
+Same as above, but set the configure args to "--enable-gpu --enable-mpi".

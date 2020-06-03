@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2-1-1</span>
       </span>
     </div>
 
@@ -135,11 +135,10 @@ pre a {color: #5daffc;}
 <ul>
 <li>R</li>
 <li>Modern C and C++ compilers</li>
-<li>MPI</li>
 <li>Optionally, any of:
 <ul>
 <li>OpenBLAS (or MKL or whatever)</li>
-<li>ScaLAPACK</li>
+<li>MPI and ScaLAPACK</li>
 <li>CUDA</li>
 </ul>
 </li>
@@ -161,7 +160,8 @@ pre a {color: #5daffc;}
 </li>
 <li>Linux/FreeBSD: You need C and C++ compilers, which you may well already have installed. Consult your distribution’s package manager.</li>
 </ul>
-<p>Finally, you will need to have a system installation of <a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a>, e.g. <a href="https://www.open-mpi.org/">OpenMPI</a>, <a href="https://www.mpich.org/">MPICH</a>, or <a href="https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi">MSMPI</a>. We recommend MSMPI for Windows and OpenMPI for everything else:</p>
+<p>It is recommended, but not required, that you use a high-performance BLAS library with R. For example, OpenBLAS. There are numerous resources for how to do this on the internet. Unfortunately, they can be somewhat involved for some platforms, so we do not repeat them here.</p>
+<p>If you wish to use the MPI backend, you will need to have a system installation of <a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a>, e.g. <a href="https://www.open-mpi.org/">OpenMPI</a>, <a href="https://www.mpich.org/">MPICH</a>, or <a href="https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi">MSMPI</a>. We recommend MSMPI for Windows and OpenMPI for everything else:</p>
 <ul>
 <li>Windows: Install <a href="https://msdn.microsoft.com/en-us/library/bb524831(v=vs.85).aspx">MS-MPI</a>
 </li>
@@ -187,10 +187,9 @@ pre a {color: #5daffc;}
 </ul>
 </li>
 </ul>
-<p>It is recommended, but not required, that you use a high-performance BLAS library with R. For example, OpenBLAS. There are numerous resources for how to do this on the internet. Unfortunately, they can be somewhat involved for some platforms, so we do not repeat them here.</p>
-<p>In addition to these hard system dependencies, you may also wish to have a system installation of <a href="https://netlib.sandia.gov/scalapack/">ScaLAPACK</a>.</p>
+<p>If using the MPI backend, you may also wish to have a system installation of <a href="https://netlib.sandia.gov/scalapack/">ScaLAPACK</a>:</p>
 <ul>
-<li>Windows: Install <a href="https://msdn.microsoft.com/en-us/library/bb524831(v=vs.85).aspx">MS-MPI</a>
+<li>Windows: <a href="http://icl.cs.utk.edu/lapack-for-windows/scalapack/index.html">ScaLAPACK for Windows</a>
 </li>
 <li>Mac: Choose any one of the following
 <ul>
@@ -226,8 +225,11 @@ pre a {color: #5daffc;}
 <ul>
 <li>R6 (this one shouldn’t give any trouble)</li>
 <li>float</li>
-<li>pbdMPI</li>
-<li>pbdSLAP</li>
+<li>Optionally:
+<ul>
+<li>pbdMPI and pbdSLAP</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="long-version-1" class="section level4">
@@ -235,8 +237,8 @@ pre a {color: #5daffc;}
 <a href="#long-version-1" class="anchor"></a>Long version</h4>
 <p>The R package dependencies should install automatically via R’s dependency resolution. However, there are some things that can go wrong.</p>
 <p>With float, if you do not have a high-performance BLAS library installed (and you will want one, so if not, go back to the system dependencies section above), then the package will build the reference <code>float</code> (as in floating point) BLAS and LAPACK functions. These are slow, and take a long time to compile. When you build float from source, you can see in the configure log which BLAS/LAPACK library it is using. The <a href="https://cran.r-project.org/web/packages/float/vignettes/float.pdf">float package vignette</a> discusses this somewhat.</p>
-<p>Assuming you installed MPI correctly, the pbdMPI should install fine. If you have any issues, you may find the <a href="https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf">pbdMPI package vignette</a> helpful.</p>
-<p>Finally, you will need to install a version of pbdSLAP that contains the <code>float</code> symbols. If you didn’t do a system installation of ScaLAPACK, then you need to run:</p>
+<p>If you want to use the MPI backend, you will need to install both of the pbdMPI and pbdSLAP packages. Assuming you installed MPI correctly, the pbdMPI should install fine. If you have any issues, you may find the <a href="https://cran.r-project.org/web/packages/pbdMPI/vignettes/pbdMPI-guide.pdf">pbdMPI package vignette</a> helpful.</p>
+<p>For pbdSLAP, you will need a version that contains the <code>float</code> symbols. If you didn’t do a system installation of ScaLAPACK, then you need to run:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"snoweye/pbdSLAP@single"</span>)</pre></body></html></div>
 <p>The advantage to this is that it’s easy. The disadvantage is that it takes forever to compile. So if you <em>did</em> create a system installation of ScaLAPACK, then you can do something like this:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pbdSLAP"</span>, <span class="kw">configure.vars</span><span class="kw">=</span><span class="st">"EXT_LDFLAGS='-lscalapack-openmpi'"</span>)</pre></body></html></div>
@@ -246,11 +248,20 @@ pre a {color: #5daffc;}
 <div id="installing-fmlr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing-fmlr" class="anchor"></a>Installing fmlr</h2>
-<p>fmlr can be built with or without GPU support. Right now, “GPU” means CUDA.</p>
-<p>If you build the package without GPU support, then the various GPU functions won’t work (obviously). You can test for GPU support in the installed package via <code><a href="../reference/features.html">fmlr::fml_gpu()</a></code>. There are <code><a href="../reference/features.html">fml_cpu()</a></code> and <code><a href="../reference/features.html">fml_mpi()</a></code> functions which always return <code>TRUE</code>. You can not build the package without MPI support.</p>
-<div id="without-gpu-support" class="section level4">
+<p>fmlr can be built with or without MPI support, and orthogonally with or without GPU support. Right now, “GPU” exclusively means CUDA.</p>
+<p>If you build the package without MPI or GPU support, then the various MPI/GPU functions won’t work (obviously). You can test for backend support in the installed package via:</p>
+<ul>
+<li>
+<code><a href="../reference/features.html">fmlr::fml_cpu()</a></code> - is the CPU backend available? Always returns <code>TRUE</code>.</li>
+<li>
+<code><a href="../reference/features.html">fmlr::fml_gpu()</a></code> - is the GPU backend available?</li>
+<li>
+<code><a href="../reference/features.html">fmlr::fml_mpi()</a></code> - is the MPI backend available?</li>
+</ul>
+<div id="default-installation" class="section level4">
 <h4 class="hasAnchor">
-<a href="#without-gpu-support" class="anchor"></a>Without GPU Support</h4>
+<a href="#default-installation" class="anchor"></a>Default Installation</h4>
+<p>This will only make the CPU backend available.</p>
 <p>Stable releases are published on the <a href="https://hpcran.org">hpcran</a>. You can install them via</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"fmlr"</span>, <span class="kw">repos</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://hpcran.org"</span>, <span class="st">"https://cran.rstudio.com"</span>))</pre></body></html></div>
 <p>The development version of fmlr is maintained on GitHub. However, because we use git submodules, you can not use any of the various <code>install_github()</code> functions. You can install the package from the command line via:</p>
@@ -265,6 +276,16 @@ pre a {color: #5daffc;}
 <p>To install the development version, you can do something like:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="fu">git</span> clone --recurse-submodules https://github.com/fml-fam/fmlr.git</a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="ex">R</span> CMD INSTALL fmlr/ --configure-args=<span class="st">"--enable-gpu"</span></a></code></pre></div>
+</div>
+<div id="with-mpi-support" class="section level4">
+<h4 class="hasAnchor">
+<a href="#with-mpi-support" class="anchor"></a>With MPI Support</h4>
+<p>Same as above, but set the configure args to “–enable-mpi”.</p>
+</div>
+<div id="with-gpu-and-mpi-support" class="section level4">
+<h4 class="hasAnchor">
+<a href="#with-gpu-and-mpi-support" class="anchor"></a>With GPU and MPI Support</h4>
+<p>Same as above, but set the configure args to “–enable-gpu –enable-mpi”.</p>
 </div>
 </div>
   </div>

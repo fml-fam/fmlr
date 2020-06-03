@@ -17,7 +17,8 @@
     GPU, and MPI. Each supports multiple fundamental types (int, float, double),
     and data is held externally to R and operations that modify data generally
     occur in-place. The interface largely tracks with the core fml interface.
-    We use R6 so that generally an R code can be easily translated to C++.'>
+    The interface is written such that generally an fmlr R code can be easily
+    translated to an fml C++ code.'>
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -36,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2-1-1</span>
       </span>
     </div>
 
@@ -100,7 +101,7 @@
 <a href="#fmlr" class="anchor"></a>fmlr</h1></div>
 <ul>
 <li>
-<strong>Version:</strong> 0.2-1</li>
+<strong>Version:</strong> 0.2-1-1</li>
 <li>
 <strong>License:</strong> <a href="http://opensource.org/licenses/BSL-1.0">BSL-1.0</a>
 </li>
@@ -114,7 +115,7 @@
 <strong>Documentation</strong>: <a href="https://fml-fam.github.io/fmlr" class="uri">https://fml-fam.github.io/fmlr</a>
 </li>
 </ul>
-<p>fmlr is an R interface to the <a href="https://github.com/fml-fam/fml">fml library</a>. It is a “medium-level” interface for multiple dense matrix types, principally CPU, GPU, and MPI. Each supports multiple fundamental types (int, float, double), and data is held externally to R and operations that modify data generally occur in-place. The interface largely tracks with the core ‘fml’ interface. We use R6 so that generally an R code can be easily translated to C++.</p>
+<p>fmlr is an R interface to the <a href="https://github.com/fml-fam/fml">fml library</a>. It is a “medium-level” interface for multiple dense matrix types, principally CPU, GPU, and MPI. Each supports multiple fundamental types (int, float, double), and data is held externally to R and operations that modify data generally occur in-place. The interface largely tracks with the core ‘fml’ interface. The interface is written such that generally an ‘fmlr’ R code can be easily translated to an ‘fml’ C++ code.</p>
 <p>Differences between fmlr and other matrix interfaces (including the core R interface):</p>
 <ul>
 <li>Single interface supporting multiple fundamental types (<code>__half</code>, <code>float</code>, <code>double</code>) and backends (CPU, GPU, MPI).</li>
@@ -125,9 +126,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Assuming you have the system software dependencies met, then in principle, installation can be as simple as:</p>
+<p>In principle, installation can be as simple as:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"fmlr"</span>, <span class="kw">repos</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://hpcran.org"</span>, <span class="st">"https://cran.rstudio.com"</span>))</pre></div>
-<p>However, before you do, it is strongly advised that you read the <a href="https://fml-fam.github.io/fmlr/html/articles/01-installation.html">Installation Guide</a>, because there are several important considerations when installing this package.</p>
+<p>This will build support for the CPU backend. If you want GPU or MPI support, please see the <a href="https://fml-fam.github.io/fmlr/html/articles/01-installation.html">Installation Guide</a>.</p>
 </div>
 <div id="example-use" class="section level2">
 <h2 class="hasAnchor">

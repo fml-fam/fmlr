@@ -21,13 +21,13 @@ For a high-level interface on top of fmlr, see the [craze package](https://githu
 
 ## Installation
 
-Assuming you have the system software dependencies met, then in principle, installation can be as simple as:
+In principle, installation can be as simple as:
 
 ```r
 install.packages("fmlr", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
 ```
 
-However, before you do, it is strongly advised that you read the [Installation Guide](https://fml-fam.github.io/fmlr/html/articles/01-installation.html), because there are several important considerations when installing this package.
+This will build support for the CPU backend. If you want GPU or MPI support, please see the [Installation Guide](https://fml-fam.github.io/fmlr/html/articles/01-installation.html).
 
 
 
