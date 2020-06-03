@@ -588,6 +588,7 @@ USE_GPU
 SLAP_LDFLAGS
 SPMD_LDFLAGS
 SPMD_CPPFLAGS
+USE_MPI
 FLOAT_INCL
 FLOAT_LIBS
 R_CPPFLAGS
@@ -643,6 +644,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+enable_mpi
 enable_gpu
 with_cuda
 '
@@ -1272,6 +1274,7 @@ Optional Features:
   --disable-option-checking  ignore unrecognized --enable/--with options
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --enable-mpi            Enable MPI bindings.
   --enable-gpu            Enable GPU bindings.
 
 Optional Packages:
@@ -1846,24 +1849,53 @@ fi
 
 R_SCMD="${R_HOME}/bin/Rscript -e"
 
+
+
 # R flags
 R_CPPFLAGS=`"${R_HOME}/bin/R" CMD config --cppflags`
 
 FLOAT_LIBS=`${R_SCMD} "float:::ldflags()"`
 FLOAT_INCL=`${R_SCMD} "float:::cppflags()"`
 
-# MPI flags
-SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS','"${R_ARCH}"')"`
-SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
 
-# ScaLAPACK flags
-EXT_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('EXT_LDFLAGS','"${R_ARCH}"','pbdSLAP')"`
-R_SLAP=`${R_SCMD} "source('./R/conf/get_lib.r');get.lib('R_SLAP','"${R_ARCH}"')"`
-if test -f "$R_SLAP"; then
-  SLAP_LDFLAGS="$R_SLAP \$(LAPACK_LIBS) \$(BLAS_LIBS)"
+
+# MPI flags
+# Check whether --enable-mpi was given.
+if test "${enable_mpi+set}" = set; then :
+  enableval=$enable_mpi; USE_MPI="TRUE"
 else
-  SLAP_LDFLAGS="$EXT_LDFLAGS"
+  USE_MPI="FALSE"
+
 fi
+
+
+if test "X${USE_MPI}" = "XTRUE"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: using MPI" >&5
+$as_echo "$as_me: using MPI" >&6;}
+  HAS_PACKAGES=`${R_SCMD} "cat(all(c('pbdMPI', 'pbdSLAP') %in% installed.packages()))"`
+  if test "X${HAS_PACKAGES}" = "XFALSE"; then
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "pbdMPI and pbdSLAP packages must both be installed when using MPI backend
+See \`config.log' for more details" "$LINENO" 5; }
+  fi
+
+  SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS','"${R_ARCH}"')"`
+  SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
+
+  # ScaLAPACK flags
+  EXT_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('EXT_LDFLAGS','"${R_ARCH}"','pbdSLAP')"`
+  R_SLAP=`${R_SCMD} "source('./R/conf/get_lib.r');get.lib('R_SLAP','"${R_ARCH}"')"`
+  if test -f "$R_SLAP"; then
+    SLAP_LDFLAGS="$R_SLAP \$(LAPACK_LIBS) \$(BLAS_LIBS)"
+  else
+    SLAP_LDFLAGS="$EXT_LDFLAGS"
+  fi
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: not using MPI" >&5
+$as_echo "$as_me: not using MPI" >&6;}
+fi
+
 
 
 # GPU flags
@@ -2818,11 +2850,16 @@ else
   echo "    >> not used"
 fi
 echo "* MPI report:"
-echo "    >> SPMD_CPPFLAGS = ${SPMD_CPPFLAGS}"
-echo "    >> SPMD_LDFLAGS = ${SPMD_LDFLAGS}"
-echo "    >> SLAP_LDFLAGS = ${SLAP_LDFLAGS}"
+if test "X${USE_MPI}" = "XTRUE"; then
+  echo "    >> SPMD_CPPFLAGS = ${SPMD_CPPFLAGS}"
+  echo "    >> SPMD_LDFLAGS = ${SPMD_LDFLAGS}"
+  echo "    >> SLAP_LDFLAGS = ${SLAP_LDFLAGS}"
+else
+  echo "    >> not used"
+fi
 echo "*************************************************************************"
 echo " "
+
 
 
 

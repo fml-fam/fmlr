@@ -12,24 +12,48 @@ fi
 
 R_SCMD="${R_HOME}/bin/Rscript -e"
 
+
+
 # R flags
 R_CPPFLAGS=`"${R_HOME}/bin/R" CMD config --cppflags`
 
 FLOAT_LIBS=`${R_SCMD} "float:::ldflags()"`
 FLOAT_INCL=`${R_SCMD} "float:::cppflags()"`
 
-# MPI flags
-SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS','"${R_ARCH}"')"`
-SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
 
-# ScaLAPACK flags
-EXT_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('EXT_LDFLAGS','"${R_ARCH}"','pbdSLAP')"`
-R_SLAP=`${R_SCMD} "source('./R/conf/get_lib.r');get.lib('R_SLAP','"${R_ARCH}"')"`
-if test -f "$R_SLAP"; then
-  SLAP_LDFLAGS="$R_SLAP \$(LAPACK_LIBS) \$(BLAS_LIBS)"
+
+# MPI flags
+AC_ARG_ENABLE(mpi,
+  AC_HELP_STRING(
+    [--enable-mpi], 
+    [Enable MPI bindings.]
+  ),
+  [USE_MPI="TRUE"],
+  [USE_MPI="FALSE"]
+)
+
+if test "X${USE_MPI}" = "XTRUE"; then
+  AC_MSG_NOTICE([using MPI])
+  HAS_PACKAGES=`${R_SCMD} "cat(all(c('pbdMPI', 'pbdSLAP') %in% installed.packages()))"`
+  if test "X${HAS_PACKAGES}" = "XFALSE"; then
+    AC_MSG_FAILURE([pbdMPI and pbdSLAP packages must both be installed when using MPI backend])
+  fi
+  
+  SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS','"${R_ARCH}"')"`
+  SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
+  
+  # ScaLAPACK flags
+  EXT_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('EXT_LDFLAGS','"${R_ARCH}"','pbdSLAP')"`
+  R_SLAP=`${R_SCMD} "source('./R/conf/get_lib.r');get.lib('R_SLAP','"${R_ARCH}"')"`
+  if test -f "$R_SLAP"; then
+    SLAP_LDFLAGS="$R_SLAP \$(LAPACK_LIBS) \$(BLAS_LIBS)"
+  else
+    SLAP_LDFLAGS="$EXT_LDFLAGS"
+  fi
 else
-  SLAP_LDFLAGS="$EXT_LDFLAGS"
+  AC_MSG_NOTICE([not using MPI])
 fi
+
 
 
 # GPU flags
@@ -68,9 +92,13 @@ else
   echo "    >> not used"
 fi
 echo "* MPI report:"
-echo "    >> SPMD_CPPFLAGS = ${SPMD_CPPFLAGS}"
-echo "    >> SPMD_LDFLAGS = ${SPMD_LDFLAGS}"
-echo "    >> SLAP_LDFLAGS = ${SLAP_LDFLAGS}"
+if test "X${USE_MPI}" = "XTRUE"; then
+  echo "    >> SPMD_CPPFLAGS = ${SPMD_CPPFLAGS}"
+  echo "    >> SPMD_LDFLAGS = ${SPMD_LDFLAGS}"
+  echo "    >> SLAP_LDFLAGS = ${SLAP_LDFLAGS}"
+else
+  echo "    >> not used"
+fi
 echo "*************************************************************************"
 echo " "
 
@@ -80,6 +108,7 @@ AC_SUBST(R_CPPFLAGS)
 AC_SUBST(FLOAT_LIBS)
 AC_SUBST(FLOAT_INCL)
 
+AC_SUBST(USE_MPI)
 AC_SUBST(SPMD_CPPFLAGS)
 AC_SUBST(SPMD_LDFLAGS)
 AC_SUBST(SLAP_LDFLAGS)
