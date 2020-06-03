@@ -7,7 +7,8 @@ Description: 'fmlr' is an R interface to the 'fml' library. It is a
     GPU, and MPI. Each supports multiple fundamental types (int, float, double),
     and data is held externally to R and operations that modify data generally
     occur in-place. The interface largely tracks with the core 'fml' interface.
-    We use R6 so that generally an R code can be easily translated to C++.
+    The interface is written such that generally an 'fmlr' R code can be easily
+    translated to an 'fml' C++ code.
 License: BSL-1.0
 SystemRequirements: C++14, GNU make
 Depends:
