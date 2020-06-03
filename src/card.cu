@@ -22,7 +22,7 @@ extern "C" SEXP R_card_init(SEXP id_)
 extern "C" SEXP R_card_set(SEXP c_robj, SEXP id)
 {
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
-  (*c)->set(INTEGER(id)[0]);
+  TRY_CATCH( (*c)->set(INTEGER(id)[0]) );
   
   return R_NilValue;
 }
@@ -32,7 +32,7 @@ extern "C" SEXP R_card_set(SEXP c_robj, SEXP id)
 extern "C" SEXP R_card_info(SEXP c_robj)
 {
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
-  (*c)->info();
+  TRY_CATCH( (*c)->info() );
   
   return R_NilValue;
 }
@@ -45,7 +45,7 @@ extern "C" SEXP R_card_get_id(SEXP c_robj)
   PROTECT(ret = allocVector(INTSXP, 1));
   
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
-  INTEGER(ret)[0] = (*c)->get_id();
+  TRY_CATCH( INTEGER(ret)[0] = (*c)->get_id() );
   UNPROTECT(1);
   return ret;
 }
@@ -58,7 +58,7 @@ extern "C" SEXP R_card_valid_card(SEXP c_robj)
   PROTECT(ret = allocVector(LGLSXP, 1));
   
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
-  LOGICAL(ret)[0] = (*c)->valid_card();
+  TRY_CATCH( LOGICAL(ret)[0] = (*c)->valid_card() );
   UNPROTECT(1);
   return ret;
 }
