@@ -1,5 +1,5 @@
 USE_GPU = "FALSE"
-CUDA_DIR = "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v10.0"
+CUDA_DIR = "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v10.2"
 
 USE_MPI = "FALSE"
 
@@ -27,9 +27,15 @@ FLOAT_LIBS = $(shell ${R_SCMD} "float:::ldflags()")
 
 R_CPPFLAGS = $(shell ${R_HOME}/bin${R_ARCH_BIN}/R CMD config --cppflags)
 
-NVCC = $(CUDA_DIR)/nvcc
+NVCC = $(CUDA_DIR)/bin/nvcc
 CUDA_CFLAGS = -I$(CUDA_DIR)/include
+ifeq "${R_ARCH}" "x86_64"
 CUDA_LDFLAGS = -L$(CUDA_DIR)/lib/x64
+else ifeq "${R_ARCH}" "i386"
+CUDA_LDFLAGS = -L$(CUDA_DIR)/lib/Win32
+else
+$(error Unknown arch)
+endif
 
 
 
