@@ -15,13 +15,6 @@ $(shell ${R_SCMD} "cat(paste(sub('@USE_MPI@', '"${USE_MPI}"', sub('@USE_GPU@', '
 
 FML_CPPFLAGS = -I../inst/include
 
-ifeq "$(USE_MPI)" "TRUE"
-MPI_INCLUDE = $(shell ${R_SCMD} "library(pbdMPI);get.conf('MPI_INCLUDE','"${R_ARCH}"','pbdMPI')")
-SPMD_CPPFLAGS = -I"$(MPI_INCLUDE)"
-SPMD_LDFLAGS = $(shell ${R_SCMD} "library(pbdMPI);get.conf('MPI_LIB','"${R_ARCH}"','pbdMPI')")
-SLAP_LDFLAGS = $(shell ${R_SCMD} "library(pbdMPI);get.lib('R_SLAP','"${R_ARCH}"','pbdSLAP')")
-endif
-
 FLOAT_INCL = $(shell ${R_SCMD} "float:::cppflags()")
 FLOAT_LIBS = $(shell ${R_SCMD} "float:::ldflags()")
 
@@ -30,9 +23,16 @@ R_CPPFLAGS = $(shell ${R_HOME}/bin${R_ARCH_BIN}/R CMD config --cppflags)
 NVCC = $(CUDA_DIR)/bin/nvcc
 CUDA_CFLAGS = -I"${CUDA_DIR}"/include
 ifeq "$(WIN)" "64"
-CUDA_LDFLAGS = -L"${CUDA_DIR}"/lib/x64
+  CUDA_LDFLAGS = -L"${CUDA_DIR}"/lib/x64
 else
-CUDA_LDFLAGS = -L"${CUDA_DIR}"/lib/Win32
+  CUDA_LDFLAGS = -L"${CUDA_DIR}"/lib/Win32
+endif
+
+ifeq ($(USE_MPI), "TRUE")
+  MPI_INCLUDE = $(shell ${R_SCMD} "library(pbdMPI);get.conf('MPI_INCLUDE','"${R_ARCH}"','pbdMPI')")
+  SPMD_CPPFLAGS = -I"$(MPI_INCLUDE)"
+  SPMD_LDFLAGS = $(shell ${R_SCMD} "library(pbdMPI);get.conf('MPI_LIB','"${R_ARCH}"','pbdMPI')")
+  SLAP_LDFLAGS = $(shell ${R_SCMD} "library(pbdMPI);get.lib('R_SLAP','"${R_ARCH}"','pbdSLAP')")
 endif
 
 
@@ -57,24 +57,23 @@ PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)
 # libs and objects
 R_OBJS = fmlr-native.o
 CPU_OBJS = cpumat.o cpuvec.o dimops-cpu.o helpers-cpu.o linalg-cpu.o stats-cpu.o
-MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o stats-mpi.o
 PKG_LIBS = $(PKG_LIBS_CPU)
 
-ifeq "$(USE_MPI)" "TRUE"
-PKG_CPPFLAGS += $(PKG_CPPFLAGS_MPI)
-PKG_CXXFLAGS += $(PKG_CXXFLAGS_MPI) 
-PKG_LIBS += $(PKG_LIBS_MPI)
-MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o stats-mpi.o
+ifeq ($(USE_GPU), "TRUE")
+  PKG_LIBS += $(PKG_LIBS_GPU)
+  GPU_OBJS = card.o dimops-gpu.o gpumat.o gpuvec.o helpers-gpu.o linalg-gpu.o stats-gpu.o
 else
-MPI_OBJS = mpi-dummy-bindings.o
+  PKG_LIBS = $(PKG_LIBS_MPI) $(PKG_LIBS_CPU)
+  GPU_OBJS = gpu-dummy-bindings.o
 endif
 
-ifeq "$(USE_GPU)" "TRUE"
-PKG_LIBS += $(PKG_LIBS_GPU)
-GPU_OBJS = card.o dimops-gpu.o gpumat.o gpuvec.o helpers-gpu.o linalg-gpu.o stats-gpu.o
+ifeq ($(USE_MPI), "TRUE")
+  PKG_CPPFLAGS += $(PKG_CPPFLAGS_MPI)
+  PKG_CXXFLAGS += $(PKG_CXXFLAGS_MPI) 
+  PKG_LIBS += $(PKG_LIBS_MPI)
+  MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o stats-mpi.o
 else
-PKG_LIBS = $(PKG_LIBS_MPI) $(PKG_LIBS_CPU)
-GPU_OBJS = gpu-dummy-bindings.o
+  MPI_OBJS = mpi-dummy-bindings.o
 endif
 
 OBJECTS = $(R_OBJS) $(CPU_OBJS) $(MPI_OBJS) $(GPU_OBJS)
@@ -84,9 +83,14 @@ OBJECTS = $(R_OBJS) $(CPU_OBJS) $(MPI_OBJS) $(GPU_OBJS)
 # make
 all: $(SHLIB)
 
-ifeq "$(USE_GPU)" "TRUE"
+ifeq ($(USE_GPU), "TRUE")
 %.o: %.cu
 	$(NVCC) -DGPU -O2 -x cu -c -arch=sm_61 -Xcompiler "-fPIC $(FML_CPPFLAGS) $(FLOAT_INCL) $(R_CPPFLAGS) $(SPMD_CPPFLAGS)" $< -o $@
 else
-$(SHLIB): $(OBJECTS)
+  $(SHLIB): $(OBJECTS)
 endif
+
+
+
+clean:
+	@rm -rf *.o *.so *.dll $(SHLIB) $(OBJECTS)

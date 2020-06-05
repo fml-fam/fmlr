@@ -43,19 +43,19 @@ CPU_OBJS = cpumat.o cpuvec.o dimops-cpu.o helpers-cpu.o linalg-cpu.o stats-cpu.o
 PKG_LIBS = $(PKG_LIBS_CPU)
 
 ifeq "$(USE_MPI)" "TRUE"
-PKG_CPPFLAGS += $(PKG_CPPFLAGS_MPI)
-PKG_CXXFLAGS += $(PKG_CXXFLAGS_MPI) 
-PKG_LIBS += $(PKG_LIBS_MPI)
-MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o stats-mpi.o
+  PKG_CPPFLAGS += $(PKG_CPPFLAGS_MPI)
+  PKG_CXXFLAGS += $(PKG_CXXFLAGS_MPI) 
+  PKG_LIBS += $(PKG_LIBS_MPI)
+  MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o stats-mpi.o
 else
-MPI_OBJS = mpi-dummy-bindings.o
+  MPI_OBJS = mpi-dummy-bindings.o
 endif
 
 ifeq "$(USE_GPU)" "TRUE"
-PKG_LIBS += $(PKG_LIBS_GPU)
-GPU_OBJS = card.o dimops-gpu.o gpumat.o gpuvec.o helpers-gpu.o linalg-gpu.o stats-gpu.o
+  PKG_LIBS += $(PKG_LIBS_GPU)
+  GPU_OBJS = card.o dimops-gpu.o gpumat.o gpuvec.o helpers-gpu.o linalg-gpu.o stats-gpu.o
 else
-GPU_OBJS = gpu-dummy-bindings.o
+  GPU_OBJS = gpu-dummy-bindings.o
 endif
 
 OBJECTS = $(R_OBJS) $(CPU_OBJS) $(MPI_OBJS) $(GPU_OBJS)
@@ -69,5 +69,10 @@ ifeq "$(USE_GPU)" "TRUE"
 %.o: %.cu
 	$(NVCC) -DGPU -O2 -x cu -c -arch=sm_61 -Xcompiler "-fPIC $(FML_CPPFLAGS) $(FLOAT_INCL) $(R_CPPFLAGS) $(SPMD_CPPFLAGS)" $< -o $@
 else
-$(SHLIB): $(OBJECTS)
+  $(SHLIB): $(OBJECTS)
 endif
+
+
+
+clean:
+	rm -rf *.o *.so Makevars $(SHLIB) $(OBJECTS)
