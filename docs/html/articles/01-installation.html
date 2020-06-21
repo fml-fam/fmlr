@@ -268,24 +268,25 @@ pre a {color: #5daffc;}
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">git</span> clone --recurse-submodules https://github.com/fml-fam/fmlr.git</a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="ex">R</span> CMD INSTALL fmlr/</a></code></pre></div>
 </div>
-<div id="with-gpu-support" class="section level4">
+<div id="gpu-and-mpi-support-mac-linux" class="section level4">
 <h4 class="hasAnchor">
-<a href="#with-gpu-support" class="anchor"></a>With GPU Support</h4>
+<a href="#gpu-and-mpi-support-mac-linux" class="anchor"></a>GPU and MPI Support: Mac, Linux</h4>
 <p>You can install the stable version of fmlr with GPU support via:</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"fmlr"</span>, <span class="kw">configure.args</span><span class="kw">=</span><span class="st">"--enable-gpu"</span>, <span class="kw">repos</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://hpcran.org"</span>, <span class="st">"https://cran.rstudio.com"</span>))</pre></body></html></div>
 <p>To install the development version, you can do something like:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="fu">git</span> clone --recurse-submodules https://github.com/fml-fam/fmlr.git</a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="ex">R</span> CMD INSTALL fmlr/ --configure-args=<span class="st">"--enable-gpu"</span></a></code></pre></div>
+<p>For MPI, you would do the same as the above, but set the configure args to “–enable-mpi”. For both GPU and MPI support, you would do the same as the above, but set the configure args to “–enable-gpu –enable-mpi”.</p>
 </div>
-<div id="with-mpi-support" class="section level4">
+<div id="gpu-and-mpi-support-windows" class="section level4">
 <h4 class="hasAnchor">
-<a href="#with-mpi-support" class="anchor"></a>With MPI Support</h4>
-<p>Same as above, but set the configure args to “–enable-mpi”.</p>
-</div>
-<div id="with-gpu-and-mpi-support" class="section level4">
-<h4 class="hasAnchor">
-<a href="#with-gpu-and-mpi-support" class="anchor"></a>With GPU and MPI Support</h4>
-<p>Same as above, but set the configure args to “–enable-gpu –enable-mpi”.</p>
+<a href="#gpu-and-mpi-support-windows" class="anchor"></a>GPU and MPI Support: Windows</h4>
+<p><font color="red"><b>Warning:</b></font> I have not successfully tested this, so this may or may not work. If you can help, please <a href="https://github.com/fml-fam/fmlr/issues/2">let me know here</a>.</p>
+<p>First, you will need <a href="https://developer.nvidia.com/cuda-downloads">CUDA</a> and the <a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">Microsoft Visucal C++ compiler</a> since CUDA only supports this compiler on Windows. Then you will need to set <code>CXX14=cl.exe</code> (set the path to <code>cl.exe</code> as necessary) in your <code>~/.R/Makevars.win</code> file.</p>
+<p>You will need to download the package source. You can get the stable version of fmlr from <a href="https://hpcran.org/packages/fmlr/index.html">the hpcran</a>.</p>
+<p>You can get the development version from GitHub:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="fu">git</span> clone --recurse-submodules https://github.com/fml-fam/fmlr.git</a></code></pre></div>
+<p>Once you download the package, you will need to modify the first few lines of the <code>src/Makevars.win</code> file. To enable GPU support, set <code>USE_GPU = "TRUE"</code>, and modify <code>CUDA_DIR</code> as necessary. To enable MPI support, set <code>USE_MPI = "TRUE"</code>.</p>
 </div>
 </div>
   </div>

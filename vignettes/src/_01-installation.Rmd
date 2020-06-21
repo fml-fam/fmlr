@@ -149,7 +149,7 @@ git clone --recurse-submodules https://github.com/fml-fam/fmlr.git
 R CMD INSTALL fmlr/
 ```
 
-#### With GPU Support
+#### GPU and MPI Support: Mac, Linux
 
 You can install the stable version of fmlr with GPU support via:
 
@@ -164,10 +164,20 @@ git clone --recurse-submodules https://github.com/fml-fam/fmlr.git
 R CMD INSTALL fmlr/ --configure-args="--enable-gpu"
 ```
 
-#### With MPI Support
+For MPI, you would do the same as the above, but set the configure args to "--enable-mpi". For both GPU and MPI support, you would do the same as the above, but set the configure args to "--enable-gpu --enable-mpi".
 
-Same as above, but set the configure args to "--enable-mpi".
+#### GPU and MPI Support: Windows
 
-#### With GPU and MPI Support
+<font color="red"><b>Warning:</b></font> I have not successfully tested this, so this may or may not work. If you can help, please [let me know here](https://github.com/fml-fam/fmlr/issues/2).
 
-Same as above, but set the configure args to "--enable-gpu --enable-mpi".
+First, you will need [CUDA](https://developer.nvidia.com/cuda-downloads) and the [Microsoft Visucal C++ compiler](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads) since CUDA only supports this compiler on Windows. Then you will need to set `CXX14=cl.exe` (set the path to `cl.exe` as necessary) in your `~/.R/Makevars.win` file.
+
+You will need to download the package source. You can get the stable version of fmlr from [the hpcran](https://hpcran.org/packages/fmlr/index.html).
+
+You can get the development version from GitHub:
+
+```bash
+git clone --recurse-submodules https://github.com/fml-fam/fmlr.git
+```
+
+Once you download the package, you will need to modify the first few lines of the `src/Makevars.win` file. To enable GPU support, set `USE_GPU = "TRUE"`, and modify `CUDA_DIR` as necessary. To enable MPI support, set `USE_MPI = "TRUE"`.
