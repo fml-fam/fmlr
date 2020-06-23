@@ -4,6 +4,7 @@ New:
   * Building with MPI backend support is now optional, and disabled by default. Enable by adding `--enable-mpi` to the package configure args (Mac, Linux), or modifying Makevars.win appropriately. This is explained in-depth in the installation guide.
   * Fixed installation issues for Windows.
   * GPU backend now available for Windows.
+  * Added more benchmarks (`inst/benchmarks/`).
 
 API Changes: None
 

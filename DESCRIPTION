@@ -21,7 +21,8 @@ LinkingTo:
 Suggests:
     pbdMPI (>= 0.4-0),
     pbdSLAP (>= 0.3-0),
-    memuse (>= 4.0-0)
+    memuse (>= 4.0-0),
+    merkhet (>= 0.3-0)
 ByteCompile: yes
 Authors@R: c(
     person("Drew", "Schmidt", role=c("aut", "cre"), email="wrathematics@gmail.com")

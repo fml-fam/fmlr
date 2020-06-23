@@ -1,31 +1,34 @@
-library(memuse)
+library(merkhet)
 suppressMessages(library(fmlr))
-set.seed(1234)
 
 m = 100000
 n = 250
-howbig(m, n)
-r = matrix(rnorm(m*n), m, n)
-
-x_cpu = cpumat()
-x_cpu$from_robj(r)
-
-system.time({
-  cp <- crossprod(r)
-})
-
-system.time({
-  cp_gpu <- linalg_crossprod(x_cpu)
-})
+seed = 1234
+type = "float"
 
 
 
-if (fml_gpu()){
+# ------------------------------------------------------------------------------
+b = bench()
+
+x_cpu = cpumat(m, n)
+x_cpu$fill_runif(seed)
+x_r = x_cpu$to_robj()
+
+
+b$time({crossprod(x_r)}, name="R")
+
+b$time({linalg_crossprod(x=x_cpu)}, name="fmlr - CPU")
+
+if (fml_gpu())
+{
   c = card()
   x_gpu = gpumat(c)
-  x_gpu$from_robj(r)
+  x_gpu$from_robj(x_r)
   
-  system.time({
-    cp_gpu <- linalg_crossprod(x_gpu)
-  })
+  b$time({linalg_crossprod(x=x_gpu)}, name="fmlr - GPU")
 }
+
+
+
+b$print()
