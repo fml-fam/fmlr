@@ -2,14 +2,14 @@ library(merkhet)
 suppressMessages(library(float))
 suppressMessages(library(fmlr))
 
-n = 5000
+m = n = 8000
 seed = 1234
 type = "float"
 
 
 
 # ------------------------------------------------------------------------------
-b = bench()
+b = bench(sprintf("invert - %dx%d (%s) type=%s", m, n, as.character(howbig(m, n, type=type)), type))
 
 tol = ifelse(type=="double", 1e-8, 1e-4)
 
@@ -28,7 +28,10 @@ if (fml_gpu())
   xg = gpumat(c, type=type)
   cpu2gpu(x, xg)
   
-  b$time({linalg_invert(xg)}, name="fmlr - GPU")
+  b$time({
+    linalg_invert(xg)
+    c$synch()
+  }, name="fmlr - GPU")
 }
 
 

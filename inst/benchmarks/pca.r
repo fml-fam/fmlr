@@ -11,7 +11,7 @@ type = "float"
 
 
 # ------------------------------------------------------------------------------
-b = bench()
+b = bench(sprintf("pca - %dx%d (%s) type=%s", m, n, as.character(howbig(m, n, type=type)), type))
 
 x_cpu = cpumat(m, n, type=type)
 x_cpu$fill_runif(seed)
@@ -22,6 +22,7 @@ b$time(prcomp(x_r, retx=FALSE), name="R")
 b$time({
   sdev_cpu = cpuvec(type=type)
   rot_cpu = cpumat(type=type)
+  
   pca_cpu = stats_pca(TRUE, FALSE, x_cpu, sdev_cpu, rot_cpu)
 }, name="fmlr - CPU")
 
@@ -36,6 +37,7 @@ if (fml_gpu())
     rot_gpu = gpumat(c, type=type)
     
     pca_gpu = stats_pca(TRUE, FALSE, x_gpu, sdev_gpu, rot_gpu)
+    c$synch()
   }, name="fmlr - GPU")
 }
 
