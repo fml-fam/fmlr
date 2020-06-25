@@ -29,6 +29,16 @@ extern "C" SEXP R_card_set(SEXP c_robj, SEXP id)
 
 
 
+extern "C" SEXP R_card_synch(SEXP c_robj)
+{
+  std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);
+  TRY_CATCH( (*c)->synch() );
+  
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_card_info(SEXP c_robj)
 {
   std::shared_ptr<card> *c = (std::shared_ptr<card>*) getRptr(c_robj);

@@ -35,6 +35,18 @@ cardR6 = R6::R6Class("card",
     
     
     #' @details
+    #' Synchronizes the GPU, i.e. blocks further GPU execution until the device
+    #' completes all previously executed kernels.
+    #' @useDynLib fmlr R_card_synch
+    synch = function()
+    {
+      .Call(R_card_synch, private$c_ptr)
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
     #' Print one-line information about the object.
     #' @useDynLib fmlr R_card_info
     info = function()

@@ -15,6 +15,7 @@ Data is held in an external pointer.
 \itemize{
 \item \href{#method-new}{\code{cardR6$new()}}
 \item \href{#method-set}{\code{cardR6$set()}}
+\item \href{#method-synch}{\code{cardR6$synch()}}
 \item \href{#method-info}{\code{cardR6$info()}}
 \item \href{#method-print}{\code{cardR6$print()}}
 \item \href{#method-get_id}{\code{cardR6$get_id()}}
@@ -60,6 +61,20 @@ Class initializer.
 }
 \subsection{Details}{
 Set card to a different GPU.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-synch"></a>}}
+\if{latex}{\out{\hypertarget{method-synch}{}}}
+\subsection{Method \code{synch()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{cardR6$synch()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Synchronizes the GPU, i.e. blocks further GPU execution until the device
+completes all previously executed kernels.
 }
 
 }

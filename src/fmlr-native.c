@@ -11,6 +11,7 @@ extern SEXP R_card_get_id(SEXP);
 extern SEXP R_card_info(SEXP);
 extern SEXP R_card_init(SEXP);
 extern SEXP R_card_set(SEXP, SEXP);
+extern SEXP R_card_synch(SEXP);
 extern SEXP R_card_valid_card(SEXP);
 
 // cpumat
@@ -385,6 +386,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_card_info",               (DL_FUNC) &R_card_info,               1},
   {"R_card_init",               (DL_FUNC) &R_card_init,               1},
   {"R_card_set",                (DL_FUNC) &R_card_set,                2},
+  {"R_card_synch",              (DL_FUNC) &R_card_synch,              1},
   {"R_card_valid_card",         (DL_FUNC) &R_card_valid_card,         1},
   // cpumat 
   {"R_cpumat_antidiag",         (DL_FUNC) &R_cpumat_antidiag,         3},

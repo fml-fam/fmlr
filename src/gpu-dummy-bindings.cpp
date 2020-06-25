@@ -16,6 +16,12 @@ extern "C" SEXP R_card_set(SEXP c_robj, SEXP id)
   WARN_AND_RETURN("GPU");
 }
 
+extern "C" SEXP R_card_synch(SEXP c_robj)
+{
+  unused(c_robj);
+  WARN_AND_RETURN("GPU");
+}
+
 extern "C" SEXP R_card_info(SEXP x_robj)
 {
   unused(x_robj);
