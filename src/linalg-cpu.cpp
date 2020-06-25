@@ -1,5 +1,5 @@
 #include "apply.hpp"
-#include "extptr.h"
+#include "extptr.hpp"
 #include "types.h"
 
 #include <fml/src/cpu/cpumat.hh>

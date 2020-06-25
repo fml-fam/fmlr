@@ -1,7 +1,7 @@
 #define R_USE_C99_IN_CXX
 #define FML_PRINT_R
 
-#include "extptr.h"
+#include "extptr.hpp"
 #include "rutils.h"
 
 #include <fml/src/mpi/grid.hh>

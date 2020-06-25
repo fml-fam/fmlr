@@ -1,5 +1,5 @@
 #include "apply.hpp"
-#include "extptr.h"
+#include "extptr.hpp"
 
 #include <fml/src/gpu/card.hh>
 
