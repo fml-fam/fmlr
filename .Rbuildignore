@@ -20,3 +20,6 @@ inst/include/fml/src/_internals/arraytools/tests/
 inst/include/fml/src/_internals/arraytools/README.md
 
 vignettes/
+
+mk_gpu
+mk_mpi
