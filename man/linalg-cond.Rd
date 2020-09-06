@@ -3,9 +3,15 @@
 \name{cond}
 \alias{cond}
 \alias{linalg_cond_1}
+\alias{linalg_cond_I}
+\alias{linalg_cond_2}
 \title{Condition Number}
 \usage{
 linalg_cond_1(x)
+
+linalg_cond_I(x)
+
+linalg_cond_2(x)
 }
 \arguments{
 \item{x}{Input data. The data is modified in each case.}

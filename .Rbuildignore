@@ -13,11 +13,11 @@ inst/include/fml/examples/
 inst/include/fml/tests/
 inst/include/fml/README.md
 
-inst/include/fml/src/_internals/arraytools/.git
-inst/include/fml/src/_internals/arraytools/.travis.yml
-inst/include/fml/src/_internals/arraytools/examples/
-inst/include/fml/src/_internals/arraytools/tests/
-inst/include/fml/src/_internals/arraytools/README.md
+inst/include/fml/src/fml/_internals/arraytools/.git
+inst/include/fml/src/fml/_internals/arraytools/.travis.yml
+inst/include/fml/src/fml/_internals/arraytools/examples/
+inst/include/fml/src/fml/_internals/arraytools/tests/
+inst/include/fml/src/fml/_internals/arraytools/README.md
 
 vignettes/
 

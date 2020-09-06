@@ -3,9 +3,21 @@
 \name{norm}
 \alias{norm}
 \alias{linalg_norm_1}
+\alias{linalg_norm_I}
+\alias{linalg_norm_F}
+\alias{linalg_norm_M}
+\alias{linalg_norm_2}
 \title{norms}
 \usage{
 linalg_norm_1(x)
+
+linalg_norm_I(x)
+
+linalg_norm_F(x)
+
+linalg_norm_M(x)
+
+linalg_norm_2(x)
 }
 \arguments{
 \item{x}{Input data. The data is un-modified except for \code{norm_2()}.}

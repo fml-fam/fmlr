@@ -623,8 +623,9 @@ linalg_chol = function(x)
 #' @name norm
 #' 
 #' @useDynLib fmlr R_linalg_norm
-#' @export
+NULL
 
+#' @rdname linalg-norm
 #' @export
 linalg_norm_1 = function(x)
 {
@@ -632,6 +633,7 @@ linalg_norm_1 = function(x)
   .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "1")
 }
 
+#' @rdname linalg-norm
 #' @export
 linalg_norm_I = function(x)
 {
@@ -639,6 +641,7 @@ linalg_norm_I = function(x)
   .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "I")
 }
 
+#' @rdname linalg-norm
 #' @export
 linalg_norm_F = function(x)
 {
@@ -646,6 +649,7 @@ linalg_norm_F = function(x)
   .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "F")
 }
 
+#' @rdname linalg-norm
 #' @export
 linalg_norm_M = function(x)
 {
@@ -653,6 +657,7 @@ linalg_norm_M = function(x)
   .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "M")
 }
 
+#' @rdname linalg-norm
 #' @export
 linalg_norm_2 = function(x)
 {
@@ -674,8 +679,9 @@ linalg_norm_2 = function(x)
 #' @name cond
 #' 
 #' @useDynLib fmlr R_linalg_cond
-#' @export
+NULL
 
+#' @rdname linalg-cond
 #' @export
 linalg_cond_1 = function(x)
 {
@@ -683,6 +689,7 @@ linalg_cond_1 = function(x)
   .Call(R_linalg_cond, get_backend(x), x$get_type(), x$data_ptr(), "1")
 }
 
+#' @rdname linalg-cond
 #' @export
 linalg_cond_I = function(x)
 {
@@ -690,6 +697,7 @@ linalg_cond_I = function(x)
   .Call(R_linalg_cond, get_backend(x), x$get_type(), x$data_ptr(), "I")
 }
 
+#' @rdname linalg-cond
 #' @export
 linalg_cond_2 = function(x)
 {
