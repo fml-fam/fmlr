@@ -328,6 +328,12 @@ extern "C" SEXP R_mpimat_linalg_det(SEXP type, SEXP x_robj)
   WARN_AND_RETURN("MPI");
 }
 
+extern "C" SEXP R_mpimat_linalg_dot(SEXP type, SEXP x_robj, SEXP y_robj)
+{
+  unused(type, x_robj, y_robj);
+  WARN_AND_RETURN("MPI");
+}
+
 extern "C" SEXP R_mpimat_linalg_trace(SEXP type, SEXP x_robj)
 {
   unused(type, x_robj);

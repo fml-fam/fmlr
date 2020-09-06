@@ -444,3 +444,13 @@ extern "C" SEXP R_mpimat_linalg_cond(SEXP type, SEXP x_robj, SEXP norm)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+extern "C" SEXP R_mpimat_linalg_dot(SEXP type, SEXP x_robj, SEXP y_robj)
+{
+  (void)type;
+  (void)x_robj;
+  (void)y_robj;
+  return R_NilValue;
+}

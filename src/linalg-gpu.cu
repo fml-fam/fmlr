@@ -448,3 +448,26 @@ extern "C" SEXP R_gpumat_linalg_cond(SEXP type, SEXP x_robj, SEXP norm)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+extern "C" SEXP R_gpumat_linalg_dot(SEXP type, SEXP x_robj, SEXP y_robj)
+{
+  SEXP ret;
+  
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_DOT(type) { \
+    CAST_FML(gpuvec, type, x, x_robj); \
+    if (y_robj == R_NilValue) \
+      DBL(ret) = (double)linalg::dot(*x); \
+    else { \
+      CAST_FML(gpuvec, type, y, y_robj); \
+      DBL(ret) = (double)linalg::dot(*x, *y); } }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_DOT, type);
+  #undef FMLR_TMP_DOT
+  
+  UNPROTECT(1);
+  return ret;
+}

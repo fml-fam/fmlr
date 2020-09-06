@@ -704,3 +704,35 @@ linalg_cond_2 = function(x)
   check_is_mat(x)
   .Call(R_linalg_cond, get_backend(x), x$get_type(), x$data_ptr(), "2")
 }
+
+
+
+#' dot
+#' 
+#' Compute vector dot product i.e. \code{sum(x*y)}.
+#' 
+#' @param x,y Input data.
+#' class and type as \code{x}.
+#' @return Returns the dot product.
+#' 
+#' @rdname linalg-dot
+#' @name dot
+#' 
+#' @useDynLib fmlr R_linalg_dot
+#' 
+#' @export
+linalg_dot = function(x, y=NULL)
+{
+  check_is_vec(x)
+  
+  if (!is.null(y))
+  {
+    check_is_vec(y)
+    check_backend_consistency(x, y)
+    ypass = y$data_ptr()
+  }
+  else
+    ypass = NULL
+  
+  .Call(R_linalg_dot, get_backend(x), x$get_type(), x$data_ptr(), ypass)
+}

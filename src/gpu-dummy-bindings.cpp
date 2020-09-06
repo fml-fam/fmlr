@@ -401,6 +401,12 @@ extern "C" SEXP R_gpumat_linalg_det(SEXP type, SEXP x_robj)
   WARN_AND_RETURN("GPU");
 }
 
+extern "C" SEXP R_gpumat_linalg_dot(SEXP type, SEXP x_robj, SEXP y_robj)
+{
+  unused(type, x_robj, y_robj);
+  WARN_AND_RETURN("GPU");
+}
+
 extern "C" SEXP R_gpumat_linalg_trace(SEXP type, SEXP x_robj)
 {
   unused(type, x_robj);

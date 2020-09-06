@@ -42,6 +42,7 @@ extern SEXP R_cpumat_linalg_cond(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_cpsvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_det(SEXP, SEXP);
+extern SEXP R_cpumat_linalg_dot(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_invert(SEXP, SEXP);
 extern SEXP R_cpumat_linalg_lq(SEXP, SEXP, SEXP);
@@ -118,6 +119,7 @@ extern SEXP R_gpumat_linalg_cond(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_cpsvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_det(SEXP, SEXP);
+extern SEXP R_gpumat_linalg_dot(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_invert(SEXP, SEXP);
 extern SEXP R_gpumat_linalg_lq(SEXP, SEXP, SEXP);
@@ -212,6 +214,7 @@ extern SEXP R_mpimat_linalg_cond(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_cpsvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_crossprod(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_det(SEXP, SEXP);
+extern SEXP R_mpimat_linalg_dot(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_eigen_sym(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_invert(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_lq(SEXP, SEXP, SEXP);
@@ -283,6 +286,11 @@ SEXP R_linalg_cpsvd(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_ro
 SEXP R_linalg_crossprod(SEXP backend, SEXP type, SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
 {
   CALL_RFUN(linalg_crossprod, backend, type, xpose, alpha, x_robj, ret_robj);
+}
+
+SEXP R_linalg_dot(SEXP backend, SEXP type, SEXP x_robj, SEXP y_robj)
+{
+  CALL_RFUN(linalg_dot, backend, type, x_robj, y_robj);
 }
 
 SEXP R_linalg_det(SEXP backend, SEXP type, SEXP x_robj)
@@ -531,6 +539,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_linalg_cpsvd",            (DL_FUNC) &R_linalg_cpsvd,            6},
   {"R_linalg_crossprod",        (DL_FUNC) &R_linalg_crossprod,        6},
   {"R_linalg_det",              (DL_FUNC) &R_linalg_det,              3},
+  {"R_linalg_dot",              (DL_FUNC) &R_linalg_dot,              4},
   {"R_linalg_eigen_sym",        (DL_FUNC) &R_linalg_svd,              5},
   {"R_linalg_invert",           (DL_FUNC) &R_linalg_invert,           3},
   {"R_linalg_lu",               (DL_FUNC) &R_linalg_lu,               3},
