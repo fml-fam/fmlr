@@ -729,12 +729,10 @@ linalg_dot = function(x, y=NULL)
   {
     check_is_vec(y)
     check_backend_consistency(x, y)
-    ypass = y$data_ptr()
+    .Call(R_linalg_dot, get_backend(x), x$get_type(), x$data_ptr(), y$data_ptr())
   }
   else
-    ypass = NULL
-  
-  .Call(R_linalg_dot, get_backend(x), x$get_type(), x$data_ptr(), ypass)
+    .Call(R_linalg_dot, get_backend(x), x$get_type(), x$data_ptr(), NULL)
 }
 
 
