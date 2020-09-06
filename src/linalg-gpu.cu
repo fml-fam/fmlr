@@ -396,3 +396,29 @@ extern "C" SEXP R_gpumat_linalg_chol(SEXP type, SEXP x_robj)
   
   return R_NilValue;
 }
+
+
+
+extern "C" SEXP R_gpumat_linalg_norm(SEXP type, SEXP x_robj, SEXP norm)
+{
+  SEXP ret;
+  
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_NORM(type) { \
+    CAST_FML(cpumat, type, x, x_robj); \
+    if (CHR(norm) == '1') \
+      DBL(ret) = (double)linalg::norm_1(*x); \
+    else if (CHR(norm) == 'I') \
+      DBL(ret) = (double)linalg::norm_I(*x); \
+    else if (CHR(norm) == 'F') \
+      DBL(ret) = (double)linalg::norm_F(*x); \
+    else /*if (CHR(norm) == 'M')*/ \
+      DBL(ret) = (double)linalg::norm_M(*x); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_NORM, type);
+  #undef FMLR_TMP_NORM
+  
+  UNPROTECT(1);
+  return ret;
+}

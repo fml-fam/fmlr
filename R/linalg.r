@@ -608,3 +608,47 @@ linalg_chol = function(x)
   .Call(R_linalg_chol, get_backend(x), x$get_type(), x$data_ptr())
   invisible(NULL)
 }
+
+
+
+#' norms
+#' 
+#' Norms.
+#' 
+#' @param x Input data.
+#' 
+#' @return The requested norm.
+#' 
+#' @rdname linalg-norm
+#' @name det
+#' 
+#' @useDynLib fmlr R_linalg_norm
+#' @export
+
+#' @export
+linalg_norm_1 = function(x)
+{
+  check_is_mat(x)
+  .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "1")
+}
+
+#' @export
+linalg_norm_I = function(x)
+{
+  check_is_mat(x)
+  .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "I")
+}
+
+#' @export
+linalg_norm_F = function(x)
+{
+  check_is_mat(x)
+  .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "F")
+}
+
+#' @export
+linalg_norm_M = function(x)
+{
+  check_is_mat(x)
+  .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "M")
+}

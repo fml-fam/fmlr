@@ -48,6 +48,7 @@ extern SEXP R_cpumat_linalg_lq_L(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_lu(SEXP, SEXP);
 extern SEXP R_cpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr_R(SEXP, SEXP, SEXP);
@@ -122,6 +123,7 @@ extern SEXP R_gpumat_linalg_lq_L(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_lu(SEXP, SEXP);
 extern SEXP R_gpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr_R(SEXP, SEXP, SEXP);
@@ -214,6 +216,7 @@ extern SEXP R_mpimat_linalg_lq_L(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_lu(SEXP, SEXP);
 extern SEXP R_mpimat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr_R(SEXP, SEXP, SEXP);
@@ -259,9 +262,14 @@ SEXP R_linalg_add(SEXP backend, SEXP type, SEXP transx, SEXP transy, SEXP alpha,
   CALL_RFUN(linalg_add, backend, type, transx, transy, alpha, beta, x_robj, y_robj, ret_robj);
 }
 
-SEXP R_linalg_matmult(SEXP backend, SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+SEXP R_linalg_chol(SEXP backend, SEXP type, SEXP x_robj)
 {
-  CALL_RFUN(linalg_matmult, backend, type, transx, transy, alpha, x_robj, y_robj, ret_robj);
+  CALL_RFUN(linalg_chol, backend, type, x_robj);
+}
+
+SEXP R_linalg_cpsvd(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
+{
+  CALL_RFUN(linalg_cpsvd, backend, type, x_robj, s_robj, u_robj, vt_robj);
 }
 
 SEXP R_linalg_crossprod(SEXP backend, SEXP type, SEXP xpose, SEXP alpha, SEXP x_robj, SEXP ret_robj)
@@ -269,29 +277,9 @@ SEXP R_linalg_crossprod(SEXP backend, SEXP type, SEXP xpose, SEXP alpha, SEXP x_
   CALL_RFUN(linalg_crossprod, backend, type, xpose, alpha, x_robj, ret_robj);
 }
 
-SEXP R_linalg_xpose(SEXP backend, SEXP type, SEXP x_robj, SEXP ret_robj)
-{
-  CALL_RFUN(linalg_xpose, backend, type, x_robj, ret_robj);
-}
-
-SEXP R_linalg_lu(SEXP backend, SEXP type, SEXP x_robj)
-{
-  CALL_RFUN(linalg_lu, backend, type, x_robj);
-}
-
 SEXP R_linalg_det(SEXP backend, SEXP type, SEXP x_robj)
 {
   CALL_RFUN(linalg_det, backend, type, x_robj);
-}
-
-SEXP R_linalg_trace(SEXP backend, SEXP type, SEXP x_robj)
-{
-  CALL_RFUN(linalg_trace, backend, type, x_robj);
-}
-
-SEXP R_linalg_svd(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
-{
-  CALL_RFUN(linalg_svd, backend, type, x_robj, s_robj, u_robj, vt_robj);
 }
 
 SEXP R_linalg_eigen_sym(SEXP backend, SEXP type, SEXP x_robj, SEXP values_robj, SEXP vectors_robj)
@@ -302,26 +290,6 @@ SEXP R_linalg_eigen_sym(SEXP backend, SEXP type, SEXP x_robj, SEXP values_robj, 
 SEXP R_linalg_invert(SEXP backend, SEXP type, SEXP x_robj)
 {
   CALL_RFUN(linalg_invert, backend, type, x_robj);
-}
-
-SEXP R_linalg_solve(SEXP backend, SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
-{
-  CALL_RFUN(linalg_solve, backend, type, x_robj, y_class, y_robj);
-}
-
-SEXP R_linalg_qr(SEXP backend, SEXP type, SEXP x_robj, SEXP qraux_robj)
-{
-  CALL_RFUN(linalg_qr, backend, type, x_robj, qraux_robj);
-}
-
-SEXP R_linalg_qr_Q(SEXP backend, SEXP type, SEXP QR_robj, SEXP qraux_robj, SEXP Q_robj, SEXP work_robj)
-{
-  CALL_RFUN(linalg_qr_Q, backend, type, QR_robj, qraux_robj, Q_robj, work_robj);
-}
-
-SEXP R_linalg_qr_R(SEXP backend, SEXP type, SEXP QR_robj, SEXP R_robj)
-{
-  CALL_RFUN(linalg_qr_R, backend, type, QR_robj, R_robj);
 }
 
 SEXP R_linalg_lq(SEXP backend, SEXP type, SEXP x_robj, SEXP qraux_robj)
@@ -339,20 +307,59 @@ SEXP R_linalg_lq_Q(SEXP backend, SEXP type, SEXP QR_robj, SEXP qraux_robj, SEXP 
   CALL_RFUN(linalg_lq_Q, backend, type, QR_robj, qraux_robj, Q_robj, work_robj);
 }
 
+SEXP R_linalg_lu(SEXP backend, SEXP type, SEXP x_robj)
+{
+  CALL_RFUN(linalg_lu, backend, type, x_robj);
+}
+
+SEXP R_linalg_matmult(SEXP backend, SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+{
+  CALL_RFUN(linalg_matmult, backend, type, transx, transy, alpha, x_robj, y_robj, ret_robj);
+}
+
+SEXP R_linalg_norm(SEXP backend, SEXP type, SEXP x_robj, SEXP norm)
+{
+  CALL_RFUN(linalg_norm, backend, type, x_robj, norm);
+}
+
+SEXP R_linalg_qr(SEXP backend, SEXP type, SEXP x_robj, SEXP qraux_robj)
+{
+  CALL_RFUN(linalg_qr, backend, type, x_robj, qraux_robj);
+}
+
+SEXP R_linalg_qr_Q(SEXP backend, SEXP type, SEXP QR_robj, SEXP qraux_robj, SEXP Q_robj, SEXP work_robj)
+{
+  CALL_RFUN(linalg_qr_Q, backend, type, QR_robj, qraux_robj, Q_robj, work_robj);
+}
+
+SEXP R_linalg_qr_R(SEXP backend, SEXP type, SEXP QR_robj, SEXP R_robj)
+{
+  CALL_RFUN(linalg_qr_R, backend, type, QR_robj, R_robj);
+}
+
+SEXP R_linalg_solve(SEXP backend, SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
+{
+  CALL_RFUN(linalg_solve, backend, type, x_robj, y_class, y_robj);
+}
+
+SEXP R_linalg_svd(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
+{
+  CALL_RFUN(linalg_svd, backend, type, x_robj, s_robj, u_robj, vt_robj);
+}
+
+SEXP R_linalg_trace(SEXP backend, SEXP type, SEXP x_robj)
+{
+  CALL_RFUN(linalg_trace, backend, type, x_robj);
+}
+
 SEXP R_linalg_tssvd(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
 {
   CALL_RFUN(linalg_tssvd, backend, type, x_robj, s_robj, u_robj, vt_robj);
 }
 
-
-SEXP R_linalg_cpsvd(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
+SEXP R_linalg_xpose(SEXP backend, SEXP type, SEXP x_robj, SEXP ret_robj)
 {
-  CALL_RFUN(linalg_cpsvd, backend, type, x_robj, s_robj, u_robj, vt_robj);
-}
-
-SEXP R_linalg_chol(SEXP backend, SEXP type, SEXP x_robj)
-{
-  CALL_RFUN(linalg_chol, backend, type, x_robj);
+  CALL_RFUN(linalg_xpose, backend, type, x_robj, ret_robj);
 }
 
 // -----------------------------------------------------------------------------
@@ -524,26 +531,27 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_grid_set",                (DL_FUNC) &R_grid_set,                2},
   {"R_grid_valid_grid",         (DL_FUNC) &R_grid_valid_grid,         1},
   // linalg
-  {"R_linalg_add",       (DL_FUNC) &R_linalg_add,       9},
-  {"R_linalg_matmult",   (DL_FUNC) &R_linalg_matmult,   8},
-  {"R_linalg_crossprod", (DL_FUNC) &R_linalg_crossprod, 6},
-  {"R_linalg_xpose",     (DL_FUNC) &R_linalg_xpose,     4},
-  {"R_linalg_lu",     (DL_FUNC) &R_linalg_lu,     3},
-  {"R_linalg_det",     (DL_FUNC) &R_linalg_det,     3},
-  {"R_linalg_trace",     (DL_FUNC) &R_linalg_trace,     3},
-  {"R_linalg_svd",     (DL_FUNC) &R_linalg_svd,     6},
-  {"R_linalg_eigen_sym",     (DL_FUNC) &R_linalg_svd,     5},
-  {"R_linalg_invert",     (DL_FUNC) &R_linalg_invert,     3},
-  {"R_linalg_solve",     (DL_FUNC) &R_linalg_solve,     5},
-  {"R_linalg_qr",     (DL_FUNC) &R_linalg_qr,     4},
-  {"R_linalg_qr_Q",     (DL_FUNC) &R_linalg_qr_Q,     6},
-  {"R_linalg_qr_R",     (DL_FUNC) &R_linalg_qr_R,     4},
-  {"R_linalg_lq",     (DL_FUNC) &R_linalg_lq,     4},
-  {"R_linalg_lq_L",     (DL_FUNC) &R_linalg_lq_L,     4},
-  {"R_linalg_lq_Q",     (DL_FUNC) &R_linalg_lq_Q,     6},
-  {"R_linalg_tssvd",     (DL_FUNC) &R_linalg_tssvd,     6},
-  {"R_linalg_cpsvd",     (DL_FUNC) &R_linalg_cpsvd,     6},
-  {"R_linalg_chol",     (DL_FUNC) &R_linalg_chol,     3},
+  {"R_linalg_add",              (DL_FUNC) &R_linalg_add,              9},
+  {"R_linalg_chol",             (DL_FUNC) &R_linalg_chol,             3},
+  {"R_linalg_cpsvd",            (DL_FUNC) &R_linalg_cpsvd,            6},
+  {"R_linalg_crossprod",        (DL_FUNC) &R_linalg_crossprod,        6},
+  {"R_linalg_det",              (DL_FUNC) &R_linalg_det,              3},
+  {"R_linalg_eigen_sym",        (DL_FUNC) &R_linalg_svd,              5},
+  {"R_linalg_invert",           (DL_FUNC) &R_linalg_invert,           3},
+  {"R_linalg_lu",               (DL_FUNC) &R_linalg_lu,               3},
+  {"R_linalg_lq",               (DL_FUNC) &R_linalg_lq,               4},
+  {"R_linalg_lq_L",             (DL_FUNC) &R_linalg_lq_L,             4},
+  {"R_linalg_lq_Q",             (DL_FUNC) &R_linalg_lq_Q,             6},
+  {"R_linalg_matmult",          (DL_FUNC) &R_linalg_matmult,          8},
+  {"R_linalg_norm",             (DL_FUNC) &R_linalg_norm,             4},
+  {"R_linalg_qr",               (DL_FUNC) &R_linalg_qr,               4},
+  {"R_linalg_qr_Q",             (DL_FUNC) &R_linalg_qr_Q,             6},
+  {"R_linalg_qr_R",             (DL_FUNC) &R_linalg_qr_R,             4},
+  {"R_linalg_svd",              (DL_FUNC) &R_linalg_svd,              6},
+  {"R_linalg_solve",            (DL_FUNC) &R_linalg_solve,            5},
+  {"R_linalg_trace",            (DL_FUNC) &R_linalg_trace,            3},
+  {"R_linalg_tssvd",            (DL_FUNC) &R_linalg_tssvd,            6},
+  {"R_linalg_xpose",            (DL_FUNC) &R_linalg_xpose,            4},
   // mpimat
   {"R_mpimat_antidiag",         (DL_FUNC) &R_mpimat_antidiag,         3},
   {"R_mpimat_bfdim",            (DL_FUNC) &R_mpimat_bfdim,            2},
