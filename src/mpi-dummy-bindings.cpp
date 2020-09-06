@@ -419,6 +419,12 @@ extern "C" SEXP R_mpimat_linalg_norm(SEXP type, SEXP x_robj, SEXP norm)
   WARN_AND_RETURN("MPI");
 }
 
+extern "C" SEXP R_mpimat_linalg_cond(SEXP type, SEXP x_robj, SEXP norm)
+{
+  unused(type, x_robj, norm);
+  WARN_AND_RETURN("MPI");
+}
+
 
 
 // -----------------------------------------------------------------------------

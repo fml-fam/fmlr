@@ -615,12 +615,12 @@ linalg_chol = function(x)
 #' 
 #' Norms.
 #' 
-#' @param x Input data.
+#' @param x Input data. The data is un-modified except for \code{norm_2()}.
 #' 
 #' @return The requested norm.
 #' 
 #' @rdname linalg-norm
-#' @name det
+#' @name norm
 #' 
 #' @useDynLib fmlr R_linalg_norm
 #' @export
@@ -651,4 +651,48 @@ linalg_norm_M = function(x)
 {
   check_is_mat(x)
   .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "M")
+}
+
+#' @export
+linalg_norm_2 = function(x)
+{
+  check_is_mat(x)
+  .Call(R_linalg_norm, get_backend(x), x$get_type(), x$data_ptr(), "2")
+}
+
+
+
+#' Condition Number
+#' 
+#' Condition numbers.
+#' 
+#' @param x Input data. The data is modified in each case.
+#' 
+#' @return The requested condition number.
+#' 
+#' @rdname linalg-cond
+#' @name cond
+#' 
+#' @useDynLib fmlr R_linalg_cond
+#' @export
+
+#' @export
+linalg_cond_1 = function(x)
+{
+  check_is_mat(x)
+  .Call(R_linalg_cond, get_backend(x), x$get_type(), x$data_ptr(), "1")
+}
+
+#' @export
+linalg_cond_I = function(x)
+{
+  check_is_mat(x)
+  .Call(R_linalg_cond, get_backend(x), x$get_type(), x$data_ptr(), "I")
+}
+
+#' @export
+linalg_cond_2 = function(x)
+{
+  check_is_mat(x)
+  .Call(R_linalg_cond, get_backend(x), x$get_type(), x$data_ptr(), "2")
 }

@@ -413,11 +413,37 @@ extern "C" SEXP R_gpumat_linalg_norm(SEXP type, SEXP x_robj, SEXP norm)
       DBL(ret) = (double)linalg::norm_I(*x); \
     else if (CHR(norm) == 'F') \
       DBL(ret) = (double)linalg::norm_F(*x); \
-    else /*if (CHR(norm) == 'M')*/ \
-      DBL(ret) = (double)linalg::norm_M(*x); }
+    else if (CHR(norm) == 'M') \
+      DBL(ret) = (double)linalg::norm_M(*x); \
+    else /*if (CHR(norm) == '2')*/ \
+      DBL(ret) = (double)linalg::norm_2(*x); }
   
   APPLY_TEMPLATED_MACRO(FMLR_TMP_NORM, type);
   #undef FMLR_TMP_NORM
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
+extern "C" SEXP R_gpumat_linalg_cond(SEXP type, SEXP x_robj, SEXP norm)
+{
+  SEXP ret;
+  
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_COND(type) { \
+    CAST_FML(cpumat, type, x, x_robj); \
+    if (CHR(norm) == '1') \
+      DBL(ret) = (double)linalg::cond_1(*x); \
+    else if (CHR(norm) == 'I') \
+      DBL(ret) = (double)linalg::cond_I(*x); \
+    else /*if (CHR(norm) == '2')*/ \
+      DBL(ret) = (double)linalg::cond_2(*x); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_COND, type);
+  #undef FMLR_TMP_COND
   
   UNPROTECT(1);
   return ret;
