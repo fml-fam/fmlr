@@ -402,7 +402,7 @@ extern "C" SEXP R_mpimat_linalg_norm(SEXP type, SEXP x_robj, SEXP norm)
   PROTECT(ret = allocVector(REALSXP, 1));
   
   #define FMLR_TMP_NORM(type) { \
-    CAST_FML(cpumat, type, x, x_robj); \
+    CAST_FML(mpimat, type, x, x_robj); \
     if (CHR(norm) == '1') \
       DBL(ret) = (double)linalg::norm_1(*x); \
     else if (CHR(norm) == 'I') \
@@ -430,7 +430,7 @@ extern "C" SEXP R_mpimat_linalg_cond(SEXP type, SEXP x_robj, SEXP norm)
   PROTECT(ret = allocVector(REALSXP, 1));
   
   #define FMLR_TMP_COND(type) { \
-    CAST_FML(cpumat, type, x, x_robj); \
+    CAST_FML(mpimat, type, x, x_robj); \
     if (CHR(norm) == '1') \
       DBL(ret) = (double)linalg::cond_1(*x); \
     else if (CHR(norm) == 'I') \
