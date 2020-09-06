@@ -762,3 +762,49 @@ linalg_trinv = function(upper, unit_diag, x)
   .Call(R_linalg_trinv, get_backend(x), x$get_type(), upper, unit_diag, x$data_ptr())
   invisible(NULL)
 }
+
+
+
+#' rsvd
+#' 
+#' SVD approximation via random projections.
+#' 
+#' @param seed Seed for the random generator.
+#' @param k The number of components to estimate. Integer > 0.
+#' @param q Exponent (see paper if you really care). Values of 1 or 2 are good.
+#' @param x Input data. The input values are overwritten.
+#' @param s Singular values.
+#' @param u,vt The left/right singular vectors. Should both be \code{NULL} or
+#' matrices of the same backend and fundamental type as \code{x}.
+#' 
+#' @references Halko, Nathan, Per-Gunnar Martinsson, and Joel A. Tropp. "Finding
+#' structure with randomness: Probabilistic algorithms for constructing
+#' approximate matrix decompositions." SIAM review 53, no. 2 (2011): 217-288.
+#' 
+#' @rdname linalg-rsvd
+#' @name rsvd
+#' @useDynLib fmlr R_linalg_rsvd
+#' 
+#' @export
+linalg_rsvd = function(seed, k, q, x, s, u=NULL, vt=NULL)
+{
+  seed = as.integer(seed)
+  k = as.integer(k)
+  q = as.integer(q)
+  
+  check_is_mat(x)
+  check_is_vec(s)
+  
+  check_type_consistency(x, s)
+  if (!is.null(u) && !is.null(vt))
+    check_inputs(x, u, vt)
+  else if (!is.null(u) || !is.null(vt))
+    stop("must pass neither u and vt or both u and vt")
+  
+  if (is.null(u))
+    .Call(R_linalg_rsvd, get_backend(x), x$get_type(), seed, k, q, x$data_ptr(), s$data_ptr(), NULL, NULL)
+  else
+    .Call(R_linalg_rsvd, get_backend(x), x$get_type(), seed, k, q, x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+  
+  invisible(NULL)
+}

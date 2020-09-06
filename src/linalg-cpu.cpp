@@ -333,6 +333,7 @@ extern "C" SEXP R_cpumat_linalg_lq_Q(SEXP type, SEXP LQ_robj, SEXP lqaux_robj, S
 }
 
 
+
 extern "C" SEXP R_cpumat_linalg_qrsvd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
 {
   #define FMLR_TMP_TSSVD(type) { \
@@ -352,13 +353,14 @@ extern "C" SEXP R_cpumat_linalg_qrsvd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP 
 }
 
 
+
 extern "C" SEXP R_cpumat_linalg_cpsvd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
 {
   #define FMLR_TMP_CPSVD(type) { \
     CAST_FML(cpumat, type, x, x_robj); \
     CAST_FML(cpuvec, type, s, s_robj); \
     if (u_robj == R_NilValue) \
-      linalg::svd(*x, *s); \
+      linalg::cpsvd(*x, *s); \
     else { \
       CAST_FML(cpumat, type, u, u_robj); \
       CAST_FML(cpumat, type, vt, vt_robj); \
@@ -469,6 +471,26 @@ extern "C" SEXP R_cpumat_linalg_trinv(SEXP type, SEXP upper, SEXP unit_diag, SEX
   
   APPLY_TEMPLATED_MACRO(FMLR_TMP_TRINV, type);
   #undef FMLR_TMP_TRINV
+  
+  return R_NilValue;
+}
+
+
+
+extern "C" SEXP R_cpumat_linalg_rsvd(SEXP type, SEXP seed, SEXP k, SEXP q, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
+{
+  #define FMLR_TMP_RSVD(type) { \
+    CAST_FML(cpumat, type, x, x_robj); \
+    CAST_FML(cpuvec, type, s, s_robj); \
+    if (u_robj == R_NilValue) \
+      linalg::rsvd(INT(seed), INT(k), INT(q), *x, *s); \
+    else { \
+      CAST_FML(cpumat, type, u, u_robj); \
+      CAST_FML(cpumat, type, vt, vt_robj); \
+      linalg::rsvd(INT(seed), INT(k), INT(q), *x, *s, *u, *vt); } }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_RSVD, type);
+  #undef FMLR_TMP_RSVD
   
   return R_NilValue;
 }

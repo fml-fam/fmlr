@@ -54,6 +54,7 @@ extern SEXP R_cpumat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr_R(SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_linalg_rsvd(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_trace(SEXP, SEXP);
@@ -132,6 +133,7 @@ extern SEXP R_gpumat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr_R(SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_linalg_rsvd(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_trace(SEXP, SEXP);
@@ -228,6 +230,7 @@ extern SEXP R_mpimat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr_R(SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_linalg_rsvd(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_trace(SEXP, SEXP);
@@ -354,6 +357,11 @@ SEXP R_linalg_qr_Q(SEXP backend, SEXP type, SEXP QR_robj, SEXP qraux_robj, SEXP 
 SEXP R_linalg_qr_R(SEXP backend, SEXP type, SEXP QR_robj, SEXP R_robj)
 {
   CALL_RFUN(linalg_qr_R, backend, type, QR_robj, R_robj);
+}
+
+SEXP R_linalg_rsvd(SEXP backend, SEXP type, SEXP seed, SEXP k, SEXP q, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
+{
+  CALL_RFUN(linalg_rsvd, backend, type, seed, k, q, x_robj, s_robj, u_robj, vt_robj);
 }
 
 SEXP R_linalg_solve(SEXP backend, SEXP type, SEXP x_robj, SEXP y_class, SEXP y_robj)
@@ -559,6 +567,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_linalg_qr",               (DL_FUNC) &R_linalg_qr,               4},
   {"R_linalg_qr_Q",             (DL_FUNC) &R_linalg_qr_Q,             6},
   {"R_linalg_qr_R",             (DL_FUNC) &R_linalg_qr_R,             4},
+  {"R_linalg_rsvd",             (DL_FUNC) &R_linalg_rsvd,             9},
   {"R_linalg_svd",              (DL_FUNC) &R_linalg_svd,              6},
   {"R_linalg_solve",            (DL_FUNC) &R_linalg_solve,            5},
   {"R_linalg_trace",            (DL_FUNC) &R_linalg_trace,            3},

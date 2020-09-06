@@ -437,6 +437,12 @@ extern "C" SEXP R_mpimat_linalg_trinv(SEXP type, SEXP upper, SEXP unit_diag, SEX
   WARN_AND_RETURN("MPI");
 }
 
+extern "C" SEXP R_mpimat_linalg_rsvd(SEXP type, SEXP seed, SEXP k, SEXP q, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
+{
+  unused(type, seed, k, q, x_robj, s_robj, u_robj, vt_robj);
+  WARN_AND_RETURN("MPI");
+}
+
 
 
 // -----------------------------------------------------------------------------
