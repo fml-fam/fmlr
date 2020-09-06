@@ -736,3 +736,31 @@ linalg_dot = function(x, y=NULL)
   
   .Call(R_linalg_dot, get_backend(x), x$get_type(), x$data_ptr(), ypass)
 }
+
+
+
+#' trinv
+#' 
+#' Invert a triangular matrix.
+#' 
+#' @param upper Is the matrix upper triangular? Otherwise only the lower
+#' triangle will be referenced.
+#' @param unit_diag Is the matrix unit diagonal?
+#' @param x Input data, overwritten by the inverse.
+#' @return Returns \code{NULL}.
+#' 
+#' @rdname linalg-trinv
+#' @name trinv
+#' @useDynLib fmlr R_linalg_trinv
+#' 
+#' @export
+linalg_trinv = function(upper, unit_diag, x)
+{
+  check_is_mat(x)
+  
+  upper = as.logical(upper)
+  unit_diag = as.logical(unit_diag)
+  
+  .Call(R_linalg_trinv, get_backend(x), x$get_type(), upper, unit_diag, x$data_ptr())
+  invisible(NULL)
+}

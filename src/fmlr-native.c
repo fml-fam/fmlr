@@ -57,6 +57,7 @@ extern SEXP R_cpumat_linalg_qr_R(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_trace(SEXP, SEXP);
+extern SEXP R_cpumat_linalg_trinv(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_tssvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_xpose(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_print(SEXP, SEXP, SEXP);
@@ -134,6 +135,7 @@ extern SEXP R_gpumat_linalg_qr_R(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_trace(SEXP, SEXP);
+extern SEXP R_gpumat_linalg_trinv(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_tssvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_xpose(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_print(SEXP, SEXP, SEXP);
@@ -229,6 +231,7 @@ extern SEXP R_mpimat_linalg_qr_R(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_solve(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_svd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_trace(SEXP, SEXP);
+extern SEXP R_mpimat_linalg_trinv(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_tssvd(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_xpose(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_mpi2cpu(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -366,6 +369,11 @@ SEXP R_linalg_svd(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj
 SEXP R_linalg_trace(SEXP backend, SEXP type, SEXP x_robj)
 {
   CALL_RFUN(linalg_trace, backend, type, x_robj);
+}
+
+SEXP R_linalg_trinv(SEXP backend, SEXP type, SEXP upper, SEXP unit_diag, SEXP x_robj)
+{
+  CALL_RFUN(linalg_trinv, backend, type, upper, unit_diag, x_robj);
 }
 
 SEXP R_linalg_tssvd(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
@@ -554,6 +562,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_linalg_svd",              (DL_FUNC) &R_linalg_svd,              6},
   {"R_linalg_solve",            (DL_FUNC) &R_linalg_solve,            5},
   {"R_linalg_trace",            (DL_FUNC) &R_linalg_trace,            3},
+  {"R_linalg_trinv",            (DL_FUNC) &R_linalg_trinv,            5},
   {"R_linalg_tssvd",            (DL_FUNC) &R_linalg_tssvd,            6},
   {"R_linalg_xpose",            (DL_FUNC) &R_linalg_xpose,            4},
   // mpimat

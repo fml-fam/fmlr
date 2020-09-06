@@ -458,3 +458,17 @@ extern "C" SEXP R_cpumat_linalg_dot(SEXP type, SEXP x_robj, SEXP y_robj)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+extern "C" SEXP R_cpumat_linalg_trinv(SEXP type, SEXP upper, SEXP unit_diag, SEXP x_robj)
+{
+  #define FMLR_TMP_TRINV(type) { \
+    CAST_FML(cpumat, type, x, x_robj); \
+    linalg::trinv(INT(upper), INT(unit_diag), *x); }
+  
+  APPLY_TEMPLATED_MACRO(FMLR_TMP_TRINV, type);
+  #undef FMLR_TMP_TRINV
+  
+  return R_NilValue;
+}
