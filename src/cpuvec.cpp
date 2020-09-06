@@ -5,8 +5,10 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/_internals/arraytools/src/arraytools.hpp>
-#include <fml/src/cpu/cpuvec.hh>
+#include <fml/_internals/arraytools/src/arraytools.hpp>
+#include <fml/cpu/cpuvec.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_cpuvec_init(SEXP type, SEXP size_)

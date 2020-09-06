@@ -1,6 +1,6 @@
 CXX_STD = CXX14
 
-FML_CPPFLAGS = -I../inst/include
+FML_CPPFLAGS = -I../inst/include/fml/src/
 
 # flags from autoconf
 USE_MPI = @USE_MPI@
@@ -39,21 +39,21 @@ PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)
 
 # libs and objects
 R_OBJS = fmlr-native.o
-CPU_OBJS = cpumat.o cpuvec.o dimops-cpu.o helpers-cpu.o linalg-cpu.o stats-cpu.o
+CPU_OBJS = copy-cpu.o cpumat.o cpuvec.o dimops-cpu.o linalg-cpu.o stats-cpu.o
 PKG_LIBS = $(PKG_LIBS_CPU)
 
 ifeq "$(USE_MPI)" "TRUE"
   PKG_CPPFLAGS += $(PKG_CPPFLAGS_MPI)
   PKG_CXXFLAGS += $(PKG_CXXFLAGS_MPI) 
   PKG_LIBS += $(PKG_LIBS_MPI)
-  MPI_OBJS = dimops-mpi.o grid.o helpers-mpi.o linalg-mpi.o mpimat.o stats-mpi.o
+  MPI_OBJS = copy-mpi.o dimops-mpi.o grid.o linalg-mpi.o mpimat.o stats-mpi.o
 else
   MPI_OBJS = mpi-dummy-bindings.o
 endif
 
 ifeq "$(USE_GPU)" "TRUE"
   PKG_LIBS += $(PKG_LIBS_GPU)
-  GPU_OBJS = card.o dimops-gpu.o gpumat.o gpuvec.o helpers-gpu.o linalg-gpu.o stats-gpu.o
+  GPU_OBJS = card.o copy-gpu.o dimops-gpu.o gpumat.o gpuvec.o linalg-gpu.o stats-gpu.o
 else
   GPU_OBJS = gpu-dummy-bindings.o
 endif

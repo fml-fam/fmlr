@@ -5,9 +5,11 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/mpi/grid.hh>
-#include <fml/src/mpi/mpihelpers.hh>
-#include <fml/src/mpi/mpimat.hh>
+#include <fml/mpi/grid.hh>
+#include <fml/mpi/copy.hh>
+#include <fml/mpi/mpimat.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_mpimat_init(SEXP type, SEXP g_robj, SEXP m_, SEXP n_, SEXP mb_, SEXP nb_)
@@ -131,7 +133,7 @@ extern "C" SEXP R_mpimat_dupe(SEXP type, SEXP x_robj)
   #define FMLR_TMP_DUPE(type) { \
     mpimat<type> *x = (mpimat<type>*) getRptr(x_robj); \
     mpimat<type> *y = new mpimat<type>(x->get_grid(), x->bf_rows(), x->bf_cols()); \
-    mpihelpers::mpi2mpi(*x, *y); \
+    copy::mpi2mpi(*x, *y); \
     newRptr(y, ret, fml_object_finalizer<mpimat<type>>); }
   
   if (INT(type) == TYPE_DOUBLE)
@@ -417,7 +419,7 @@ extern "C" SEXP R_mpimat_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocMatrix(REALSXP, m, n));
     cpumat<double> ret_mat(REAL(ret), m, n, false);
-    mpihelpers::mpi2cpu(*x, ret_mat);
+    copy::mpi2cpu(*x, ret_mat);
   }
   else if (INT(type) == TYPE_FLOAT)
   {
@@ -427,7 +429,7 @@ extern "C" SEXP R_mpimat_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocMatrix(INTSXP, m, n));
     cpumat<float> ret_mat((float*) INTEGER(ret), m, n, false);
-    mpihelpers::mpi2cpu(*x, ret_mat);
+    copy::mpi2cpu(*x, ret_mat);
   }
   else //if (INT(type) == TYPE_INT)
   {
@@ -437,7 +439,7 @@ extern "C" SEXP R_mpimat_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocMatrix(INTSXP, m, n));
     cpumat<int> ret_mat(INTEGER(ret), m, n, false);
-    mpihelpers::mpi2cpu(*x, ret_mat);
+    copy::mpi2cpu(*x, ret_mat);
   }
   
   UNPROTECT(1);
@@ -459,7 +461,7 @@ extern "C" SEXP R_mpimat_from_robj(SEXP x_robj, SEXP robj)
     x->resize(m, n);
   
   cpumat<double> robj_mat(REAL(robj), m, n, false);
-  mpihelpers::cpu2mpi(robj_mat, *x);
+  copy::cpu2mpi(robj_mat, *x);
   
   return R_NilValue;
 }

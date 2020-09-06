@@ -2,8 +2,10 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/cpu/cpumat.hh>
-#include <fml/src/cpu/linalg.hh>
+#include <fml/cpu/cpumat.hh>
+#include <fml/cpu/linalg.hh>
+
+using namespace fml;
 
 
 template <typename REAL>

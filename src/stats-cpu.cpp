@@ -2,8 +2,10 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/cpu/cpumat.hh>
-#include <fml/src/cpu/stats.hh>
+#include <fml/cpu/cpumat.hh>
+#include <fml/cpu/stats.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_cpumat_stats_pca(SEXP type, SEXP rm_mean_, SEXP rm_sd_, SEXP x_robj, SEXP sdev_robj, SEXP rot_robj)

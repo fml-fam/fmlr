@@ -9,3 +9,6 @@ src/Makevars
 src/*.o
 src/*.so
 
+mk_gpu
+mk_mpi
+

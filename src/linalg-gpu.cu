@@ -2,10 +2,11 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/gpu/card.hh>
-#include <fml/src/gpu/gpuhelpers.hh>
-#include <fml/src/gpu/gpumat.hh>
-#include <fml/src/gpu/linalg.hh>
+#include <fml/gpu/card.hh>
+#include <fml/gpu/gpumat.hh>
+#include <fml/gpu/linalg.hh>
+
+using namespace fml;
 
 
 template <typename REAL>

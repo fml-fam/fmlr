@@ -4,7 +4,10 @@
 #include "extptr.hpp"
 #include "rutils.h"
 
-#include <fml/src/mpi/grid.hh>
+#include <fml/mpi/grid.hh>
+
+using namespace fml;
+
 
 #define GET_R_STRING(x,i) ((char*)CHAR(STRING_ELT(x,i)))
 #define GET_R_CHAR(x,i) ((GET_R_STRING(x,i))[0])

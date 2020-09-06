@@ -1,7 +1,9 @@
 #include "apply.hpp"
 #include "extptr.hpp"
 
-#include <fml/src/gpu/card.hh>
+#include <fml/gpu/card.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_card_init(SEXP id_)

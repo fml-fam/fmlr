@@ -2,16 +2,18 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/cpu/cpuhelpers.hh>
-#include <fml/src/cpu/cpumat.hh>
-#include <fml/src/cpu/cpuvec.hh>
+#include <fml/cpu/copy.hh>
+#include <fml/cpu/cpumat.hh>
+#include <fml/cpu/cpuvec.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_cpuvec_cpu2cpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP out_robj)
 {
   #define FMLR_TMP_CPU2CPU_SINGLE(type, out_robj) \
     cpuvec<type> *out = (cpuvec<type>*) getRptr(out_robj); \
-    cpuhelpers::cpu2cpu(*in, *out);
+    copy::cpu2cpu(*in, *out);
   
   #define FMLR_TMP_CPU2CPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \
@@ -49,7 +51,7 @@ extern "C" SEXP R_cpumat_cpu2cpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_CPU2CPU_SINGLE(type, out_robj) \
     cpumat<type> *out = (cpumat<type>*) getRptr(out_robj); \
-    cpuhelpers::cpu2cpu(*in, *out);
+    copy::cpu2cpu(*in, *out);
   
   #define FMLR_TMP_CPU2CPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \

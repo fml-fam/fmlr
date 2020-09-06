@@ -5,8 +5,10 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/_internals/arraytools/src/arraytools.hpp>
-#include <fml/src/cpu/cpumat.hh>
+#include <fml/_internals/arraytools/src/arraytools.hpp>
+#include <fml/cpu/cpumat.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_cpumat_init(SEXP type, SEXP m_, SEXP n_)

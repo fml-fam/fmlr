@@ -2,8 +2,10 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/gpu/gpumat.hh>
-#include <fml/src/gpu/dimops.hh>
+#include <fml/gpu/gpumat.hh>
+#include <fml/gpu/dimops.hh>
+
+using namespace fml;
 
 
 template <typename REAL>

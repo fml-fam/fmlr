@@ -2,8 +2,10 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/gpu/gpumat.hh>
-#include <fml/src/gpu/stats.hh>
+#include <fml/gpu/gpumat.hh>
+#include <fml/gpu/stats.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_gpumat_stats_pca(SEXP type, SEXP rm_mean_, SEXP rm_sd_, SEXP x_robj, SEXP sdev_robj, SEXP rot_robj)

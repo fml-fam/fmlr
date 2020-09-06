@@ -5,11 +5,13 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/cpu/cpuvec.hh>
+#include <fml/cpu/cpuvec.hh>
 
-#include <fml/src/gpu/card.hh>
-#include <fml/src/gpu/gpuhelpers.hh>
-#include <fml/src/gpu/gpuvec.hh>
+#include <fml/gpu/card.hh>
+#include <fml/gpu/copy.hh>
+#include <fml/gpu/gpuvec.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_gpuvec_init(SEXP type, SEXP c_robj, SEXP size_)
@@ -86,7 +88,7 @@ extern "C" SEXP R_gpuvec_dupe(SEXP type, SEXP x_robj)
   #define FMLR_TMP_DUPE(type) { \
     gpuvec<type> *x = (gpuvec<type>*) getRptr(x_robj); \
     gpuvec<type> *y = new gpuvec<type>(x->get_card()); \
-    gpuhelpers::gpu2gpu(*x, *y); \
+    copy::gpu2gpu(*x, *y); \
     newRptr(y, ret, fml_object_finalizer<gpuvec<type>>); }
   
   if (INT(type) == TYPE_DOUBLE)
@@ -227,7 +229,7 @@ extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocVector(REALSXP, size));
     cpuvec<double> ret_vec(REAL(ret), size, false);
-    gpuhelpers::gpu2cpu(*x, ret_vec);
+    copy::gpu2cpu(*x, ret_vec);
   }
   else if (INT(type) == TYPE_FLOAT)
   {
@@ -236,7 +238,7 @@ extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocVector(INTSXP, size));
     cpuvec<float> ret_vec((float*) INTEGER(ret), size, false);
-    gpuhelpers::gpu2cpu(*x, ret_vec);
+    copy::gpu2cpu(*x, ret_vec);
   }
   else //if (INT(type) == TYPE_INT)
   {
@@ -245,7 +247,7 @@ extern "C" SEXP R_gpuvec_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocVector(INTSXP, size));
     cpuvec<int> ret_vec(INTEGER(ret), size, false);
-    gpuhelpers::gpu2cpu(*x, ret_vec);
+    copy::gpu2cpu(*x, ret_vec);
   }
   
   UNPROTECT(1);
@@ -265,17 +267,17 @@ extern "C" SEXP R_gpuvec_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP 
     if (INT(type_robj) == TYPE_DOUBLE) \
     { \
       cpuvec<double> robj_vec(REAL(robj), size, false); \
-      TRY_CATCH( gpuhelpers::cpu2gpu(robj_vec, *x) ) \
+      TRY_CATCH( copy::cpu2gpu(robj_vec, *x) ) \
     } \
     else if (INT(type_robj) == TYPE_FLOAT) \
     { \
       cpuvec<float> robj_vec(FLOAT(robj), size, false); \
-      TRY_CATCH( gpuhelpers::cpu2gpu(robj_vec, *x) ) \
+      TRY_CATCH( copy::cpu2gpu(robj_vec, *x) ) \
     } \
     else \
     { \
       cpuvec<int> robj_vec(INTEGER(robj), size, false); \
-      TRY_CATCH( gpuhelpers::cpu2gpu(robj_vec, *x) ) \
+      TRY_CATCH( copy::cpu2gpu(robj_vec, *x) ) \
     }
   
   if (INT(type) == TYPE_DOUBLE)

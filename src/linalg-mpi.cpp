@@ -2,9 +2,11 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/mpi/grid.hh>
-#include <fml/src/mpi/linalg.hh>
-#include <fml/src/mpi/mpimat.hh>
+#include <fml/mpi/grid.hh>
+#include <fml/mpi/linalg.hh>
+#include <fml/mpi/mpimat.hh>
+
+using namespace fml;
 
 
 template <typename REAL>

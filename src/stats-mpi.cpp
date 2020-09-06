@@ -2,8 +2,10 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/mpi/mpimat.hh>
-#include <fml/src/mpi/stats.hh>
+#include <fml/mpi/mpimat.hh>
+#include <fml/mpi/stats.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_mpimat_stats_pca(SEXP type, SEXP rm_mean_, SEXP rm_sd_, SEXP x_robj, SEXP sdev_robj, SEXP rot_robj)

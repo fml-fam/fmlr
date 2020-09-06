@@ -2,8 +2,10 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/mpi/mpimat.hh>
-#include <fml/src/mpi/dimops.hh>
+#include <fml/mpi/mpimat.hh>
+#include <fml/mpi/dimops.hh>
+
+using namespace fml;
 
 
 template <typename REAL>

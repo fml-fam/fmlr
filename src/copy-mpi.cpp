@@ -2,16 +2,18 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/cpu/cpumat.hh>
-#include <fml/src/mpi/mpihelpers.hh>
-#include <fml/src/mpi/mpimat.hh>
+#include <fml/mpi/copy.hh>
+#include <fml/cpu/cpumat.hh>
+#include <fml/mpi/mpimat.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_mpimat_cpu2mpi(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP out_robj)
 {
   #define FMLR_TMP_CPU2MPI_SINGLE(type, out_robj) \
     mpimat<type> *out = (mpimat<type>*) getRptr(out_robj); \
-    mpihelpers::cpu2mpi(*in, *out);
+    copy::cpu2mpi(*in, *out);
   
   #define FMLR_TMP_CPU2MPI(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \
@@ -49,7 +51,7 @@ extern "C" SEXP R_mpimat_mpi2cpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_MPI2CPU_SINGLE(type, out_robj) \
     cpumat<type> *out = (cpumat<type>*) getRptr(out_robj); \
-    mpihelpers::mpi2cpu(*in, *out, INT(rdest), INT(cdest));
+    copy::mpi2cpu(*in, *out, INT(rdest), INT(cdest));
   
   #define FMLR_TMP_MPI2CPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \
@@ -87,7 +89,7 @@ extern "C" SEXP R_mpimat_mpi2mpi(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_MPI2MPI_SINGLE(type, out_robj) \
     mpimat<type> *out = (mpimat<type>*) getRptr(out_robj); \
-    mpihelpers::mpi2mpi(*in, *out);
+    copy::mpi2mpi(*in, *out);
   
   #define FMLR_TMP_MPI2MPI(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \

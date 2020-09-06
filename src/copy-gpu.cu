@@ -2,12 +2,14 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/cpu/cpumat.hh>
-#include <fml/src/cpu/cpuvec.hh>
+#include <fml/cpu/cpumat.hh>
+#include <fml/cpu/cpuvec.hh>
 
-#include <fml/src/gpu/gpuhelpers.hh>
-#include <fml/src/gpu/gpumat.hh>
-#include <fml/src/gpu/gpuvec.hh>
+#include <fml/gpu/copy.hh>
+#include <fml/gpu/gpumat.hh>
+#include <fml/gpu/gpuvec.hh>
+
+using namespace fml;
 
 
 // -----------------------------------------------------------------------------
@@ -19,7 +21,7 @@ extern "C" SEXP R_gpuvec_gpu2cpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_GPU2CPU_SINGLE(type, out_robj) \
     cpuvec<type> *out = (cpuvec<type>*) getRptr(out_robj); \
-    gpuhelpers::gpu2cpu(*in, *out);
+    copy::gpu2cpu(*in, *out);
   
   #define FMLR_TMP_GPU2CPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \
@@ -57,7 +59,7 @@ extern "C" SEXP R_gpumat_gpu2cpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_GPU2CPU_SINGLE(type, out_robj) \
     cpumat<type> *out = (cpumat<type>*) getRptr(out_robj); \
-    gpuhelpers::gpu2cpu(*in, *out);
+    copy::gpu2cpu(*in, *out);
   
   #define FMLR_TMP_GPU2CPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \
@@ -99,7 +101,7 @@ extern "C" SEXP R_gpuvec_cpu2gpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_CPU2GPU_SINGLE(type, out_robj) \
     gpuvec<type> *out = (gpuvec<type>*) getRptr(out_robj); \
-    gpuhelpers::cpu2gpu(*in, *out);
+    copy::cpu2gpu(*in, *out);
   
   #define FMLR_TMP_CPU2GPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \
@@ -137,7 +139,7 @@ extern "C" SEXP R_gpumat_cpu2gpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_CPU2GPU_SINGLE(type, out_robj) \
     gpumat<type> *out = (gpumat<type>*) getRptr(out_robj); \
-    gpuhelpers::cpu2gpu(*in, *out);
+    copy::cpu2gpu(*in, *out);
   
   #define FMLR_TMP_CPU2GPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \
@@ -179,7 +181,7 @@ extern "C" SEXP R_gpuvec_gpu2gpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_GPU2GPU_SINGLE(type, out_robj) \
     gpuvec<type> *out = (gpuvec<type>*) getRptr(out_robj); \
-    gpuhelpers::gpu2gpu(*in, *out);
+    copy::gpu2gpu(*in, *out);
   
   #define FMLR_TMP_GPU2GPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \
@@ -217,7 +219,7 @@ extern "C" SEXP R_gpumat_gpu2gpu(SEXP type_in, SEXP type_out, SEXP in_robj, SEXP
 {
   #define FMLR_TMP_GPU2GPU_SINGLE(type, out_robj) \
     gpumat<type> *out = (gpumat<type>*) getRptr(out_robj); \
-    gpuhelpers::gpu2gpu(*in, *out);
+    copy::gpu2gpu(*in, *out);
   
   #define FMLR_TMP_GPU2GPU(type_out, in, out_robj) \
     if (INT(type_out) == TYPE_DOUBLE) { \

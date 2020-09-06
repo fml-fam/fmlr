@@ -5,11 +5,13 @@
 #include "extptr.hpp"
 #include "types.h"
 
-#include <fml/src/cpu/cpuvec.hh>
+#include <fml/cpu/cpuvec.hh>
 
-#include <fml/src/gpu/card.hh>
-#include <fml/src/gpu/gpuhelpers.hh>
-#include <fml/src/gpu/gpumat.hh>
+#include <fml/gpu/card.hh>
+#include <fml/gpu/copy.hh>
+#include <fml/gpu/gpumat.hh>
+
+using namespace fml;
 
 
 extern "C" SEXP R_gpumat_init(SEXP type, SEXP c_robj, SEXP m_, SEXP n_)
@@ -80,7 +82,7 @@ extern "C" SEXP R_gpumat_dupe(SEXP type, SEXP x_robj)
   #define FMLR_TMP_DUPE(type) { \
     gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
     gpumat<type> *y = new gpumat<type>(x->get_card()); \
-    gpuhelpers::gpu2gpu(*x, *y); \
+    copy::gpu2gpu(*x, *y); \
     newRptr(y, ret, fml_object_finalizer<gpumat<type>>); }
   
   if (INT(type) == TYPE_DOUBLE)
@@ -365,7 +367,7 @@ extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocMatrix(REALSXP, m, n));
     cpumat<double> ret_mat(REAL(ret), m, n, false);
-    gpuhelpers::gpu2cpu(*x, ret_mat);
+    copy::gpu2cpu(*x, ret_mat);
   }
   else if (INT(type) == TYPE_FLOAT)
   {
@@ -375,7 +377,7 @@ extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocMatrix(INTSXP, m, n));
     cpumat<float> ret_mat((float*) INTEGER(ret), m, n, false);
-    gpuhelpers::gpu2cpu(*x, ret_mat);
+    copy::gpu2cpu(*x, ret_mat);
   }
   else //if (INT(type) == TYPE_INT)
   {
@@ -385,7 +387,7 @@ extern "C" SEXP R_gpumat_to_robj(SEXP type, SEXP x_robj)
     
     PROTECT(ret = allocMatrix(INTSXP, m, n));
     cpumat<int> ret_mat(INTEGER(ret), m, n, false);
-    gpuhelpers::gpu2cpu(*x, ret_mat);
+    copy::gpu2cpu(*x, ret_mat);
   }
   
   UNPROTECT(1);
@@ -405,17 +407,17 @@ extern "C" SEXP R_gpumat_from_robj(SEXP type, SEXP x_robj, SEXP type_robj, SEXP 
     if (INT(type_robj) == TYPE_DOUBLE) \
     { \
       cpumat<double> robj_mat(REAL(robj), m, n, false); \
-      TRY_CATCH( gpuhelpers::cpu2gpu(robj_mat, *x) ) \
+      TRY_CATCH( copy::cpu2gpu(robj_mat, *x) ) \
     } \
     else if (INT(type_robj) == TYPE_FLOAT) \
     { \
       cpumat<float> robj_mat(FLOAT(robj), m, n, false); \
-      TRY_CATCH( gpuhelpers::cpu2gpu(robj_mat, *x) ) \
+      TRY_CATCH( copy::cpu2gpu(robj_mat, *x) ) \
     } \
     else \
     { \
       cpumat<int> robj_mat(INTEGER(robj), m, n, false); \
-      TRY_CATCH( gpuhelpers::cpu2gpu(robj_mat, *x) ) \
+      TRY_CATCH( copy::cpu2gpu(robj_mat, *x) ) \
     }
   
   if (INT(type) == TYPE_DOUBLE)
