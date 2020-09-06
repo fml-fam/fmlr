@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>cpumat — cpumat • fmlr</title>
+<title>norms — norm • fmlr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="cpumat — cpumat" />
-<meta property="og:description" content="Constructor for cpumat objects." />
+<meta property="og:title" content="norms — norm" />
+<meta property="og:description" content="Norms." />
 
 
 
@@ -132,39 +132,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>cpumat</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fml-fam/fmlr/blob/master/R/cpumat.r'><code>R/cpumat.r</code></a></small>
-    <div class="hidden name"><code>cpumat.Rd</code></div>
+    <h1>norms</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fml-fam/fmlr/blob/master/R/linalg.r'><code>R/linalg.r</code></a></small>
+    <div class="hidden name"><code>linalg-norm.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Constructor for cpumat objects.</p>
+    <p>Norms.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cpumat</span>(<span class='kw'>nrows</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ncols</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"double"</span>)</pre>
+    <pre class="usage"><span class='fu'>linalg_norm_1</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>nrows, ncols</th>
-      <td><p>The dimensions of the matrix.</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>Storage type for the matrix. Should be one of 'int', 'float', or 'double'.</p></td>
+      <th>x</th>
+      <td><p>Input data. The data is un-modified except for <code>norm_2()</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A cpumat class object.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Data is held in an external pointer.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='cpumat-class.html'>cpumat-class</a></code></p></div>
+    <p>The requested norm.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2-1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3-0</span>
       </span>
     </div>
 
@@ -154,6 +154,7 @@
 <ul>
 <li><p><a href='#method-new'><code>cardR6$new()</code></a></p></li>
 <li><p><a href='#method-set'><code>cardR6$set()</code></a></p></li>
+<li><p><a href='#method-synch'><code>cardR6$synch()</code></a></p></li>
 <li><p><a href='#method-info'><code>cardR6$info()</code></a></p></li>
 <li><p><a href='#method-print'><code>cardR6$print()</code></a></p></li>
 <li><p><a href='#method-get_id'><code>cardR6$get_id()</code></a></p></li>
@@ -188,6 +189,16 @@
 </dl><p></div></p>
 <h3>Details</h3>
 <p>Set card to a different GPU.</p>
+
+<p><hr>
+<a id="method-synch"></a></p><h3>Method <code>synch()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>cardR6</span>$<span class='fu'>synch</span>()</pre><p></div></p>
+
+<h3>Details</h3>
+<p>Synchronizes the GPU, i.e. blocks further GPU execution until the device
+completes all previously executed kernels.</p>
 
 <p><hr>
 <a id="method-info"></a></p><h3>Method <code>info()</code></h3>
