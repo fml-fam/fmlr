@@ -1,15 +1,19 @@
 # Release 0.3-0 (//)
 
 New:
-  * 
+  * Updated to fml v. 0.3-0:
+    * Added min/max methods for cpuvec and gpuvec.
+    * Added norm functions `linalg_norm_1()`, `linalg_norm_I()`,
+      `linalg_norm_F()`, `linalg_norm_M()`, and `linalg_norm_2()`.
+    * Added condition number functions `linalg_cond_1()`, `linalg_cond_I()`, and
+      `linalg_cond_2()`.
 
 API Changes: None
 
 Bug Fixes:
-  * 
+  * See fml 0.3-0 release.
 
-Documentation:
-  * 
+Documentation: None
 
 
 
