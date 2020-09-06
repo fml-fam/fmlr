@@ -401,7 +401,7 @@ extern "C" SEXP R_mpimat_linalg_lq_Q(SEXP type, SEXP LQ_robj, SEXP lqaux_robj, S
   WARN_AND_RETURN("MPI");
 }
 
-extern "C" SEXP R_mpimat_linalg_tssvd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
+extern "C" SEXP R_mpimat_linalg_qrsvd(SEXP type, SEXP x_robj, SEXP s_robj, SEXP u_robj, SEXP vt_robj)
 {
   unused(type, x_robj, s_robj, u_robj, vt_robj);
   WARN_AND_RETURN("MPI");

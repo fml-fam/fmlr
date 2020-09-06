@@ -515,21 +515,21 @@ linalg_lq_Q = function(LQ, lqaux, Q, work)
 
 
 
-#' tssvd
+#' qrsvd
 #' 
-#' Tall/skinny SVD.
+#' QR/LQ-based SVD. Useful for very tall/skinny or short/wide data.
 #' 
 #' @param x Input data. The input values are overwritten.
 #' @param s Singular values.
 #' @param u,vt The left/right singular vectors. Should both be \code{NULL} or
 #' matrices of the same backend and fundamental type as \code{x}.
 #' 
-#' @rdname linalg-tssvd
-#' @name tssvd
-#' @useDynLib fmlr R_linalg_tssvd
+#' @rdname linalg-qrsvd
+#' @name qrsvd
+#' @useDynLib fmlr R_linalg_qrsvd
 #' 
 #' @export
-linalg_tssvd = function(x, s, u=NULL, vt=NULL)
+linalg_qrsvd = function(x, s, u=NULL, vt=NULL)
 {
   check_is_mat(x)
   check_is_vec(s)
@@ -541,9 +541,9 @@ linalg_tssvd = function(x, s, u=NULL, vt=NULL)
     stop("must pass neither u and vt or both u and vt")
   
   if (is.null(u))
-    .Call(R_linalg_tssvd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
+    .Call(R_linalg_qrsvd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), NULL, NULL)
   else
-    .Call(R_linalg_tssvd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
+    .Call(R_linalg_qrsvd, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), u$data_ptr(), vt$data_ptr())
   
   invisible(NULL)
 }
