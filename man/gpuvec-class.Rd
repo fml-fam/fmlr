@@ -24,6 +24,8 @@ Data is held in an external pointer.
 \item \href{#method-scale}{\code{gpuvecR6$scale()}}
 \item \href{#method-rev}{\code{gpuvecR6$rev()}}
 \item \href{#method-sum}{\code{gpuvecR6$sum()}}
+\item \href{#method-min}{\code{gpuvecR6$min()}}
+\item \href{#method-max}{\code{gpuvecR6$max()}}
 \item \href{#method-get}{\code{gpuvecR6$get()}}
 \item \href{#method-set}{\code{gpuvecR6$set()}}
 \item \href{#method-size}{\code{gpuvecR6$size()}}
@@ -226,6 +228,38 @@ Sum the vector.
 
 \subsection{Returns}{
 Returns the sum.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-min"></a>}}
+\if{latex}{\out{\hypertarget{method-min}{}}}
+\subsection{Method \code{min()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$min()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Finds the minimum value of the vector.
+}
+
+\subsection{Returns}{
+Returns the min.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-max"></a>}}
+\if{latex}{\out{\hypertarget{method-max}{}}}
+\subsection{Method \code{max()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$max()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Finds the maximum value of the vector.
+}
+
+\subsection{Returns}{
+Returns the max.
 }
 }
 \if{html}{\out{<hr>}}

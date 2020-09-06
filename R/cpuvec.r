@@ -193,6 +193,28 @@ cpuvecR6 = R6::R6Class("cpuvec",
     
     
     #' @details
+    #' Finds the minimum value of the vector.
+    #' @return Returns the min.
+    #' @useDynLib fmlr R_cpuvec_min
+    min = function()
+    {
+      .Call(R_cpuvec_min, private$type, private$x_ptr)
+    },
+    
+    
+    
+    #' @details
+    #' Finds the maximum value of the vector.
+    #' @return Returns the max.
+    #' @useDynLib fmlr R_cpuvec_max
+    max = function()
+    {
+      .Call(R_cpuvec_max, private$type, private$x_ptr)
+    },
+    
+    
+    
+    #' @details
     #' Get element from the vector.
     #' @param i Index (0-based).
     #' @useDynLib fmlr R_cpuvec_get

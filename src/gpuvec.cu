@@ -186,6 +186,54 @@ extern "C" SEXP R_gpuvec_sum(SEXP type, SEXP x_robj)
 
 
 
+extern "C" SEXP R_gpuvec_min(SEXP type, SEXP x_robj)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_MIN(type){ \
+    gpuvec<type> *x = (gpuvec<type>*) getRptr(x_robj); \
+    REAL(ret)[0] = (double) x->min(); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_MIN(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_MIN(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_MIN(int)
+  
+  #undef FMLR_TMP_MIN
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
+extern "C" SEXP R_gpuvec_max(SEXP type, SEXP x_robj)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(REALSXP, 1));
+  
+  #define FMLR_TMP_MAX(type){ \
+    gpuvec<type> *x = (gpuvec<type>*) getRptr(x_robj); \
+    REAL(ret)[0] = (double) x->max(); }
+  
+  if (INT(type) == TYPE_DOUBLE)
+    FMLR_TMP_MAX(double)
+  else if (INT(type) == TYPE_FLOAT)
+    FMLR_TMP_MAX(float)
+  else //if (INT(type) == TYPE_INT)
+    FMLR_TMP_MAX(int)
+  
+  #undef FMLR_TMP_MAX
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
 extern "C" SEXP R_gpuvec_get(SEXP type, SEXP x_robj, SEXP i)
 {
   SEXP ret;

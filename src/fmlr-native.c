@@ -76,6 +76,8 @@ extern SEXP R_cpuvec_get(SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_info(SEXP, SEXP);
 extern SEXP R_cpuvec_inherit(SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_init(SEXP, SEXP);
+extern SEXP R_cpuvec_max(SEXP, SEXP);
+extern SEXP R_cpuvec_min(SEXP, SEXP);
 extern SEXP R_cpuvec_print(SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_resize(SEXP, SEXP, SEXP);
 extern SEXP R_cpuvec_rev(SEXP, SEXP);
@@ -149,6 +151,8 @@ extern SEXP R_gpuvec_gpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_gpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_info(SEXP, SEXP);
 extern SEXP R_gpuvec_init(SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpuvec_max(SEXP, SEXP);
+extern SEXP R_gpuvec_min(SEXP, SEXP);
 extern SEXP R_gpuvec_print(SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_resize(SEXP, SEXP, SEXP);
 extern SEXP R_gpuvec_rev(SEXP, SEXP);
@@ -433,6 +437,8 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpuvec_info",             (DL_FUNC) &R_cpuvec_info,             2},
   {"R_cpuvec_inherit",          (DL_FUNC) &R_cpuvec_inherit,          3},
   {"R_cpuvec_init",             (DL_FUNC) &R_cpuvec_init,             2},
+  {"R_cpuvec_max",              (DL_FUNC) &R_cpuvec_max,              2},
+  {"R_cpuvec_min",              (DL_FUNC) &R_cpuvec_min,              2},
   {"R_cpuvec_print",            (DL_FUNC) &R_cpuvec_print,            3},
   {"R_cpuvec_resize",           (DL_FUNC) &R_cpuvec_resize,           3},
   {"R_cpuvec_rev",              (DL_FUNC) &R_cpuvec_rev,              2},
@@ -491,6 +497,8 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gpuvec_gpu2gpu",          (DL_FUNC) &R_gpuvec_gpu2gpu,          4},
   {"R_gpuvec_info",             (DL_FUNC) &R_gpuvec_info,             2},
   {"R_gpuvec_init",             (DL_FUNC) &R_gpuvec_init,             4},
+  {"R_gpuvec_max",              (DL_FUNC) &R_gpuvec_max,              2},
+  {"R_gpuvec_min",              (DL_FUNC) &R_gpuvec_min,              2},
   {"R_gpuvec_print",            (DL_FUNC) &R_gpuvec_print,            3},
   {"R_gpuvec_resize",           (DL_FUNC) &R_gpuvec_resize,           3},
   {"R_gpuvec_rev",              (DL_FUNC) &R_gpuvec_rev,              2},

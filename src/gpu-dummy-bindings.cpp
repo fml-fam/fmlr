@@ -124,6 +124,18 @@ extern "C" SEXP R_gpuvec_sum(SEXP type, SEXP x_robj)
   WARN_AND_RETURN("GPU");
 }
 
+extern "C" SEXP R_gpuvec_min(SEXP type, SEXP x_robj)
+{
+  unused(type, x_robj);
+  WARN_AND_RETURN("GPU");
+}
+
+extern "C" SEXP R_gpuvec_max(SEXP type, SEXP x_robj)
+{
+  unused(type, x_robj);
+  WARN_AND_RETURN("GPU");
+}
+
 extern "C" SEXP R_gpuvec_get(SEXP type, SEXP x_robj, SEXP i)
 {
   unused(type, x_robj, i);
