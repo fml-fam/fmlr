@@ -1,4 +1,4 @@
-# Release 0.3-0 (//)
+# Release 0.3-0 (9/6/2020)
 
 New:
   * Updated to fml v. 0.3-0:
