@@ -1,6 +1,7 @@
 CXX_STD = CXX14
 
-FML_CPPFLAGS = -I../inst/include/fml/src/
+#FML_CPPFLAGS = -I../../fml/src
+FML_CPPFLAGS = @FML_INCL@/fml/src
 
 # flags from autoconf
 USE_MPI = @USE_MPI@

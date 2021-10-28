@@ -13,7 +13,8 @@ R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
 # this is exactly what it looks like
 $(shell ${R_SCMD} "cat(paste(sub('@USE_MPI@', '"${USE_MPI}"', sub('@USE_GPU@', '"${USE_GPU}"', readLines('../R/02-features.r.in'))), collapse='\n'), file='../R/02-features.r')")
 
-FML_CPPFLAGS = -I../inst/include/fml/src/
+FML_INCL = $(shell ${R_SCMD} "fmlh:::cppflags()")
+FML_CPPFLAGS = $(FML_INCL)/fml/src
 
 FLOAT_INCL = $(shell ${R_SCMD} "float:::cppflags()")
 FLOAT_LIBS = $(shell ${R_SCMD} "float:::ldflags()")
