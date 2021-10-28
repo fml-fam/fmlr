@@ -589,6 +589,7 @@ SLAP_LDFLAGS
 SPMD_LDFLAGS
 SPMD_CPPFLAGS
 USE_MPI
+FML_INCL
 FLOAT_INCL
 FLOAT_LIBS
 R_CPPFLAGS
@@ -1857,6 +1858,8 @@ R_CPPFLAGS=`"${R_HOME}/bin/R" CMD config --cppflags`
 FLOAT_LIBS=`${R_SCMD} "float:::ldflags()"`
 FLOAT_INCL=`${R_SCMD} "float:::cppflags()"`
 
+FML_INCL=`${R_SCMD} "fmlh:::cppflags()"`
+
 
 
 # MPI flags
@@ -2841,6 +2844,7 @@ echo "* R Report:"
 echo "    >> R_CPPFLAGS=${R_CPPFLAGS}"
 echo "    >> FLOAT_LIBS=${FLOAT_LIBS}"
 echo "    >> FLOAT_INCL=${FLOAT_INCL}"
+echo "    >> FML_INCL=${FML_INCL}"
 echo "* GPU Report:"
 if test "X${USE_GPU}" = "XTRUE"; then
   echo "    >> NVCC=${NVCC}"
@@ -2859,6 +2863,7 @@ else
 fi
 echo "*************************************************************************"
 echo " "
+
 
 
 

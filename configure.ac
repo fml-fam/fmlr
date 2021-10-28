@@ -20,6 +20,8 @@ R_CPPFLAGS=`"${R_HOME}/bin/R" CMD config --cppflags`
 FLOAT_LIBS=`${R_SCMD} "float:::ldflags()"`
 FLOAT_INCL=`${R_SCMD} "float:::cppflags()"`
 
+FML_INCL=`${R_SCMD} "fmlh:::cppflags()"`
+
 
 
 # MPI flags
@@ -83,6 +85,7 @@ echo "* R Report:"
 echo "    >> R_CPPFLAGS=${R_CPPFLAGS}"
 echo "    >> FLOAT_LIBS=${FLOAT_LIBS}"
 echo "    >> FLOAT_INCL=${FLOAT_INCL}"
+echo "    >> FML_INCL=${FML_INCL}"
 echo "* GPU Report:"
 if test "X${USE_GPU}" = "XTRUE"; then
   echo "    >> NVCC=${NVCC}"
@@ -107,6 +110,7 @@ echo " "
 AC_SUBST(R_CPPFLAGS)
 AC_SUBST(FLOAT_LIBS)
 AC_SUBST(FLOAT_INCL)
+AC_SUBST(FML_INCL)
 
 AC_SUBST(USE_MPI)
 AC_SUBST(SPMD_CPPFLAGS)
