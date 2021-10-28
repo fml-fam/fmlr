@@ -1,5 +1,6 @@
 AC_PREREQ([2.69])
-AC_INIT(DESCRIPTION)
+AC_INIT
+AC_CONFIG_SRCDIR([DESCRIPTION])
 AC_CONFIG_MACRO_DIR([tools/])
 
 
@@ -26,10 +27,8 @@ FML_INCL=`${R_SCMD} "fmlh:::cppflags()"`
 
 # MPI flags
 AC_ARG_ENABLE(mpi,
-  AC_HELP_STRING(
-    [--enable-mpi], 
-    [Enable MPI bindings.]
-  ),
+  AS_HELP_STRING([--enable-mpi],[Enable MPI bindings.
+  ]),
   [USE_MPI="TRUE"],
   [USE_MPI="FALSE"]
 )
@@ -60,10 +59,8 @@ fi
 
 # GPU flags
 AC_ARG_ENABLE(gpu,
-  AC_HELP_STRING(
-    [--enable-gpu], 
-    [Enable GPU bindings.]
-  ),
+  AS_HELP_STRING([--enable-gpu],[Enable GPU bindings.
+  ]),
   [USE_GPU="TRUE"],
   [USE_GPU="FALSE"]
 )
@@ -122,5 +119,7 @@ AC_SUBST(NVCC)
 AC_SUBST(CUDA_CFLAGS)
 AC_SUBST(CUDA_LDFLAGS)
 
-AC_OUTPUT(src/Makevars)
-AC_OUTPUT(R/02-features.r)
+AC_CONFIG_FILES([src/Makevars])
+AC_OUTPUT
+AC_CONFIG_FILES([R/02-features.r])
+AC_OUTPUT

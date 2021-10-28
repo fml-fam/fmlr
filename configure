@@ -1841,6 +1841,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
+
 # Determine R_HOME.
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
