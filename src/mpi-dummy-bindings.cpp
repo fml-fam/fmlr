@@ -298,9 +298,9 @@ extern "C" SEXP R_mpimat_linalg_add(SEXP type, SEXP transx, SEXP transy, SEXP al
   WARN_AND_RETURN("MPI");
 }
 
-extern "C" SEXP R_mpimat_linalg_matmult(SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+extern "C" SEXP R_mpimat_linalg_matmult(SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_class, SEXP x_robj, SEXP y_class, SEXP y_robj, SEXP ret_robj)
 {
-  unused(type, transx, transy, alpha, x_robj, y_robj, ret_robj);
+  unused(type, transx, transy, alpha, x_class, x_robj, y_class, y_robj, ret_robj);
   WARN_AND_RETURN("MPI");
 }
 

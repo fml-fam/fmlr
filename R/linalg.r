@@ -73,7 +73,7 @@ linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
   if (is.null(ret))
     ret = setret(x)
   
-  .Call(R_linalg_matmult, get_backend(x), x$get_type(), transx, transy, alpha, x$data_ptr(), y$data_ptr(), ret$data_ptr())
+  .Call(R_linalg_matmult, get_backend(x), x$get_type(), transx, transy, alpha, x$get_type(), x$data_ptr(), y$get_type(), y$data_ptr(), ret$data_ptr())
   
   if (invisiret)
     invisible(ret)

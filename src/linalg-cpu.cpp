@@ -29,24 +29,46 @@ extern "C" SEXP R_cpumat_linalg_add(SEXP type, SEXP transx, SEXP transy, SEXP al
 
 
 
-template <typename REAL>
-static inline void matmult(bool transx, bool transy, REAL alpha, void *x, void *y, void *ret)
+extern "C" SEXP R_cpumat_linalg_matmult(SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_class, SEXP x_robj, SEXP y_class, SEXP y_robj, SEXP ret_robj)
 {
-  CAST_MAT(cpumat, REAL, x_cast, x);
-  CAST_MAT(cpumat, REAL, y_cast, y);
-  CAST_MAT(cpumat, REAL, ret_cast, ret);
-  linalg::matmult(transx, transy, alpha, *x_cast, *y_cast, *ret_cast);
-}
-
-extern "C" SEXP R_cpumat_linalg_matmult(SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
-{
-  void *x = getRptr(x_robj);
-  void *y = getRptr(y_robj);
-  void *ret = getRptr(ret_robj);
-  APPLY_TEMPLATED_FUNCTION(type, matmult, LGL(transx), LGL(transy), DBL(alpha), x, y, ret);
+  #define FMLR_TMP_MATMULT(type) \
+    if (INT(x_class) == CLASS_VEC){ \
+      if (INT(y_class) == CLASS_VEC) \
+        throw std::runtime_error("At least one of 'x' or 'y' must be a matrix in matmult"); \
+      \
+      cpuvec<type> *x = (cpuvec<type>*) getRptr(x_robj); \
+      cpumat<type> *y = (cpumat<type>*) getRptr(y_robj); \
+      cpuvec<type> *ret = (cpuvec<type>*) getRptr(ret_robj); \
+      linalg::matmult(LGL(transx), LGL(transy), (type)DBL(alpha), *x, *y, *ret); \
+    } else { \
+      cpumat<type> *x = (cpumat<type>*) getRptr(x_robj); \
+      if (INT(y_class) == CLASS_MAT){ \
+        cpumat<type> *y = (cpumat<type>*) getRptr(y_robj); \
+        cpumat<type> *ret = (cpumat<type>*) getRptr(ret_robj); \
+        linalg::matmult(LGL(transx), LGL(transy), (type)DBL(alpha), *x, *y, *ret); \
+    } else { \
+        cpuvec<type> *y = (cpuvec<type>*) getRptr(y_robj); \
+        cpuvec<type> *ret = (cpuvec<type>*) getRptr(ret_robj); \
+        linalg::matmult(LGL(transx), LGL(transy), (type)DBL(alpha), *x, *y, *ret); \
+      } \
+    }
+  
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    FMLR_TMP_MATMULT(double)
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    FMLR_TMP_MATMULT(float)
+  }
+  else
+    error(TYPE_ERR);
+  
+  #undef FMLR_TMP_SOLVE
   
   return R_NilValue;
 }
+
 
 
 

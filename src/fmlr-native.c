@@ -49,7 +49,7 @@ extern SEXP R_cpumat_linalg_lq(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_lq_L(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_lu(SEXP, SEXP);
-extern SEXP R_cpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -128,7 +128,7 @@ extern SEXP R_gpumat_linalg_lq(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_lq_L(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_lu(SEXP, SEXP);
-extern SEXP R_gpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -225,7 +225,7 @@ extern SEXP R_mpimat_linalg_lq(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_lq_L(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_lq_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_lu(SEXP, SEXP);
-extern SEXP R_mpimat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_linalg_matmult(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_norm(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_linalg_qr_Q(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -334,9 +334,9 @@ SEXP R_linalg_lu(SEXP backend, SEXP type, SEXP x_robj)
   CALL_RFUN(linalg_lu, backend, type, x_robj);
 }
 
-SEXP R_linalg_matmult(SEXP backend, SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+SEXP R_linalg_matmult(SEXP backend, SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_class, SEXP x_robj, SEXP y_class, SEXP y_robj, SEXP ret_robj)
 {
-  CALL_RFUN(linalg_matmult, backend, type, transx, transy, alpha, x_robj, y_robj, ret_robj);
+  CALL_RFUN(linalg_matmult, backend, type, transx, transy, alpha, x_class, x_robj, y_class, y_robj, ret_robj);
 }
 
 SEXP R_linalg_norm(SEXP backend, SEXP type, SEXP x_robj, SEXP norm)
@@ -562,7 +562,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_linalg_lq",               (DL_FUNC) &R_linalg_lq,               4},
   {"R_linalg_lq_L",             (DL_FUNC) &R_linalg_lq_L,             4},
   {"R_linalg_lq_Q",             (DL_FUNC) &R_linalg_lq_Q,             6},
-  {"R_linalg_matmult",          (DL_FUNC) &R_linalg_matmult,          8},
+  {"R_linalg_matmult",          (DL_FUNC) &R_linalg_matmult,         10},
   {"R_linalg_norm",             (DL_FUNC) &R_linalg_norm,             4},
   {"R_linalg_qr",               (DL_FUNC) &R_linalg_qr,               4},
   {"R_linalg_qr_Q",             (DL_FUNC) &R_linalg_qr_Q,             6},

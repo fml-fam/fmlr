@@ -39,7 +39,7 @@ static inline void matmult(bool transx, bool transy, REAL alpha, void *x, void *
   linalg::matmult(transx, transy, alpha, *x_cast, *y_cast, *ret_cast);
 }
 
-extern "C" SEXP R_gpumat_linalg_matmult(SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+extern "C" SEXP R_gpumat_linalg_matmult(SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_class, SEXP x_robj, SEXP y_class, SEXP y_robj, SEXP ret_robj)
 {
   void *x = getRptr(x_robj);
   void *y = getRptr(y_robj);
