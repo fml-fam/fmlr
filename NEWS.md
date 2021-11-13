@@ -1,12 +1,39 @@
+# Release 0.4-0 (//)
+
+New:
+  * Moved fml headers to separate fmlh package.
+  * Updated to fmlh 0.4-0:
+      - Added `linalg_dot()`
+      - Added `linalg_trinv()`
+      - Added `linalg_rsvd()`
+
+API Changes:
+  * `linalg_matmult()` can now accept mixed matrix/vector arguments.
+  * Renamed `linalg_tssvd()` to `linalg_qrsvd()`.
+
+Bug Fixes:
+  * Fixed gpu/mpi bug on norm/cond dispatch.
+
+Documentation: None
+
+Internal Changes of Note from Latest fml Release:
+  * Changed gpumat crossprod() and tcrossprod() to use Xgemm() instead of
+    Xsyrk() for better run-time performance.
+  * Switched linalg::qr_Q() and linalg::lq_Q() to use `Xorgqr()`/`Xorglq()` except in gpumat lq_Q().
+
+
+
+
+
 # Release 0.3-0 (9/6/2020)
 
 New:
   * Updated to fml v. 0.3-0:
-    * Added min/max methods for cpuvec and gpuvec.
-    * Added norm functions `linalg_norm_1()`, `linalg_norm_I()`,
-      `linalg_norm_F()`, `linalg_norm_M()`, and `linalg_norm_2()`.
-    * Added condition number functions `linalg_cond_1()`, `linalg_cond_I()`, and
-      `linalg_cond_2()`.
+      - Added min/max methods for cpuvec and gpuvec.
+      - Added norm functions `linalg_norm_1()`, `linalg_norm_I()`,
+        `linalg_norm_F()`, `linalg_norm_M()`, and `linalg_norm_2()`.
+      - Added condition number functions `linalg_cond_1()`, `linalg_cond_I()`, 
+        and `linalg_cond_2()`.
 
 API Changes: None
 
