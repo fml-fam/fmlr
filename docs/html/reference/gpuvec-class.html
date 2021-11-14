@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-0</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/fml-fam/fmlr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -149,7 +149,7 @@
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>gpuvecR6$new()</code></a></p></li>
@@ -177,13 +177,13 @@
 <li><p><a href='#method-clone'><code>gpuvecR6$clone()</code></a></p></li>
 </ul>
 <p><hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>new</span>(<span class='no'>card</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"double"</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>card</span>, size <span class='op'>=</span> <span class='fl'>0</span>, type <span class='op'>=</span> <span class='st'>"double"</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>card</code></dt><dd><p>A GPU card object; the return of <code><a href='card.html'>card()</a></code>. See <code><a href='card.html'>?card</a></code>.</p></dd>
 
 <dt><code>size</code></dt><dd><p>The length of the vector.</p></dd>
@@ -191,253 +191,253 @@
 <dt><code>type</code></dt><dd><p>Storage type for the vector. Should be one of 'int', 'float', or 'double'.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Class initializer. See also <code><a href='gpuvec.html'>?gpuvec</a></code>.</p>
 
 <p><hr>
-<a id="method-resize"></a></p><h3>Method <code>resize()</code></h3>
+<a id="method-resize"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>resize()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>resize</span>(<span class='no'>size</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>resize</span><span class='op'>(</span><span class='va'>size</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>size</code></dt><dd><p>The new length.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Change the length of the vector object.</p>
 
 <p><hr>
-<a id="method-dupe"></a></p><h3>Method <code>dupe()</code></h3>
+<a id="method-dupe"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>dupe()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>dupe</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>dupe</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Duplicate the vector in a deep copy.</p>
 
 <p><hr>
-<a id="method-info"></a></p><h3>Method <code>info()</code></h3>
+<a id="method-info"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>info()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>info</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>info</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Print one-line information about the vector.</p>
 
 <p><hr>
-<a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
+<a id="method-print"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>ndigits</span> <span class='kw'>=</span> <span class='fl'>4</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span>ndigits <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>ndigits</code></dt><dd><p>Number of decimal digits to print.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Print the data.</p>
 
 <p><hr>
-<a id="method-fill_zero"></a></p><h3>Method <code>fill_zero()</code></h3>
+<a id="method-fill_zero"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_zero()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>fill_zero</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>fill_zero</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill all entries with zero.</p>
 
 <p><hr>
-<a id="method-fill_val"></a></p><h3>Method <code>fill_val()</code></h3>
+<a id="method-fill_val"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_val()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>fill_val</span>(<span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>fill_val</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>v</code></dt><dd><p>Value to set all entries to.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill all entries with supplied value.</p>
 
 <p><hr>
-<a id="method-fill_linspace"></a></p><h3>Method <code>fill_linspace()</code></h3>
+<a id="method-fill_linspace"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_linspace()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>fill_linspace</span>(<span class='no'>start</span>, <span class='no'>stop</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>fill_linspace</span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>stop</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>start, stop</code></dt><dd><p>Beginning/end of the linear spacing.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill the vector (column-wise) with linearly-spaced values.</p>
 
 <p><hr>
-<a id="method-scale"></a></p><h3>Method <code><a href='scale.html'>scale()</a></code></h3>
+<a id="method-scale"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='scale.html'>scale()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'><a href='scale.html'>scale</a></span>(<span class='no'>s</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>scale</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>s</code></dt><dd><p>Value to scale all entries by.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Scale all entries by the supplied value.</p>
 
 <p><hr>
-<a id="method-rev"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/rev.html'>rev()</a></code></h3>
+<a id="method-rev"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/rev.html'>rev()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>rev</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Reverse rows.</p>
 
 <p><hr>
-<a id="method-sum"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/sum.html'>sum()</a></code></h3>
+<a id="method-sum"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/sum.html'>sum()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>sum</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Sum the vector.</p>
 
-<h3>Returns</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
 <p>Returns the sum.</p>
 <p><hr>
-<a id="method-min"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/Extremes.html'>min()</a></code></h3>
+<a id="method-min"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/Extremes.html'>min()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>min</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Finds the minimum value of the vector.</p>
 
-<h3>Returns</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
 <p>Returns the min.</p>
 <p><hr>
-<a id="method-max"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/Extremes.html'>max()</a></code></h3>
+<a id="method-max"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/Extremes.html'>max()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>max</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Finds the maximum value of the vector.</p>
 
-<h3>Returns</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
 <p>Returns the max.</p>
 <p><hr>
-<a id="method-get"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/get.html'>get()</a></code></h3>
+<a id="method-get"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/get.html'>get()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='no'>i</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>i</code></dt><dd><p>Index (0-based).</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Get element from the vector.</p>
 
 <p><hr>
-<a id="method-set"></a></p><h3>Method <code>set()</code></h3>
+<a id="method-set"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>set()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>set</span>(<span class='no'>i</span>, <span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>i</code></dt><dd><p>Index (0-based).</p></dd>
 
 <dt><code>v</code></dt><dd><p>Value.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Set element of the vector.</p>
 
 <p><hr>
-<a id="method-size"></a></p><h3>Method <code>size()</code></h3>
+<a id="method-size"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>size()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>size</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>size</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns length of the vector.</p>
 
 <p><hr>
-<a id="method-get_card"></a></p><h3>Method <code>get_card()</code></h3>
+<a id="method-get_card"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_card()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>get_card</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>get_card</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the internal card object.</p>
 
 <p><hr>
-<a id="method-data_ptr"></a></p><h3>Method <code>data_ptr()</code></h3>
+<a id="method-data_ptr"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>data_ptr()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>data_ptr</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>data_ptr</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the external pointer data. For developers only.</p>
 
 <p><hr>
-<a id="method-get_type"></a></p><h3>Method <code>get_type()</code></h3>
+<a id="method-get_type"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_type()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>get_type</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>get_type</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the integer code for the underlying storage type. For developers only.</p>
 
 <p><hr>
-<a id="method-get_type_str"></a></p><h3>Method <code>get_type_str()</code></h3>
+<a id="method-get_type_str"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_type_str()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>get_type_str</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>get_type_str</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the string code for the underlying storage type. For developers only.</p>
 
 <p><hr>
-<a id="method-to_robj"></a></p><h3>Method <code>to_robj()</code></h3>
+<a id="method-to_robj"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>to_robj()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>to_robj</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>to_robj</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns an R vector containing a copy of the class data.</p>
 
 <p><hr>
-<a id="method-from_robj"></a></p><h3>Method <code>from_robj()</code></h3>
+<a id="method-from_robj"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>from_robj()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>from_robj</span>(<span class='no'>robj</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>from_robj</span><span class='op'>(</span><span class='va'>robj</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>robj</code></dt><dd><p>R vector.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Copies the values of the input to the class data. See also <code><a href='as_gpuvec.html'>?as_gpuvec</a></code>.</p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>gpuvecR6</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -459,7 +459,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

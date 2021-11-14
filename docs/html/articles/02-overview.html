@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -74,7 +74,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/fml-fam/fmlr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -129,36 +129,43 @@ pre a {color: #5daffc;}
 <a href="#quick-example-and-basic-usage" class="anchor"></a>Quick Example and Basic Usage</h2>
 <p>To keep things simple, in this article we will only be dealing with the simplest backend: the CPU backend. We also will ignore issues like fundamental type. We will discuss these issues in later articles. But note that other than object creation, all functions we describe will work <em>without modification</em> for any other combination of backends and fundamental types.</p>
 <p>Most <em>fmlr</em> operations occur via side effects. Some functions can return objects as a matter of convenience, but generally you will need to initialize an object and apply functions/methods to it. A typical fmlr function may only return <code>NULL</code>, so the typical R pattern of forming repeated chains of:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">x</span> <span class="kw">=</span> <span class="fu">operate_on_data</span>(<span class="no">x</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu">operate_on_data</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 <p>should be avoided.</p>
 <p>This approach has performance advantages, primarily in avoiding copies. But it is very different from how things normally work in R.</p>
 <p>Anyway, let’s start with a basic 3x2 matrix:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">fmlr</span>))
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fml-fam/fmlr">fmlr</a></span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span>(<span class="fl">3</span>, <span class="fl">2</span>)
-<span class="no">x</span>$<span class="fu">fill_linspace</span>(<span class="fl">1</span>, <span class="fl">6</span>)
-<span class="no">x</span>$<span class="fu">info</span>()</pre></body></html></div>
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="va">x</span><span class="op">$</span><span class="fu">fill_linspace</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span>
+<span class="va">x</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## # cpumat 3x2 type=d</code></pre>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span></code></pre></div>
 <pre><code>## 1.0000 4.0000 
 ## 2.0000 5.0000 
 ## 3.0000 6.0000</code></pre>
 <p>A concise R equivalent would look something like <code>x = matrix(1:6, 3)</code>. Obviously, fmlr is much more verbose. But we can do plenty of things that R can’t, but one thing at a time.</p>
 <p>Here’s how we compute the singular values with fmlr:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">s</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpuvec.html">cpuvec</a></span>()
-<span class="fu"><a href="../reference/linalg-svd.html">linalg_svd</a></span>(<span class="no">x</span>, <span class="no">s</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpuvec.html">cpuvec</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/svd.html">linalg_svd</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s</span><span class="op">)</span>
 
-<span class="no">s</span>$<span class="fu">info</span>()</pre></body></html></div>
+<span class="va">s</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## # cpuvec 2 type=d</code></pre>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">s</span></pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s</span></code></pre></div>
 <pre><code>## 9.5080 0.7729</code></pre>
-<p>The R equivalent would be something like <code>s = svd(x, nu=0, nv=0)$d</code>. Concise, but not the prettiest either. In contrast, notice that with fmlr, we had to initialize the return before passing it to the <code><a href="../reference/linalg-svd.html">linalg_svd()</a></code> function.</p>
+<p>The R equivalent would be something like <code>s = svd(x, nu=0, nv=0)$d</code>. Concise, but not the prettiest either. In contrast, notice that with fmlr, we had to initialize the return before passing it to the <code><a href="../reference/svd.html">linalg_svd()</a></code> function.</p>
 <p>Also, <code>s</code> is an fmlr vector - not an ordinary R vector. If we wanted to turn it into an R vector, we can do:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">s</span>$<span class="fu">to_robj</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s</span><span class="op">$</span><span class="fu">to_robj</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 9.5080320 0.7728696</code></pre>
 <p>Keep in mind that this will create a copy of the data.</p>
-<p>Finally, we note that when we call <code><a href="../reference/linalg-svd.html">linalg_svd()</a></code>, the data in the input <code>x</code> is overwritten but the underlying math library (in this case, LAPACK):</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">x</span></pre></body></html></div>
+<p>Finally, we note that when we call <code><a href="../reference/svd.html">linalg_svd()</a></code>, the data in the input <code>x</code> is overwritten but the underlying math library (in this case, LAPACK):</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span></code></pre></div>
 <pre><code>## -3.7417 -8.5524 
 ## 0.0000 1.9640 
 ## 0.6327 0.8598</code></pre>
@@ -167,32 +174,38 @@ pre a {color: #5daffc;}
 <div id="copying-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#copying-data" class="anchor"></a>Copying Data</h2>
-<p>Assignment via <code>&lt;-</code> or <code>=</code> (or <code>-&gt;</code> for the weirdos) will only produce a “shallow copy”. It will not duplicate the data in memory. Observe:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span>(<span class="fl">2</span>, <span class="fl">3</span>)
-<span class="no">x</span>$<span class="fu">fill_linspace</span>(<span class="fl">1</span>, <span class="fl">2</span>)
-<span class="no">x</span></pre></body></html></div>
+<p>Assignment via <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code> or <code><a href="https://rdrr.io/r/base/assignOps.html">=</a></code> (or <code><a href="https://rdrr.io/r/base/assignOps.html">-&gt;</a></code> for the weirdos) will only produce a “shallow copy”. It will not duplicate the data in memory. Observe:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="va">x</span><span class="op">$</span><span class="fu">fill_linspace</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="va">x</span></code></pre></div>
 <pre><code>## 1.0000 1.4000 1.8000 
 ## 1.2000 1.6000 2.0000</code></pre>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">y</span> <span class="kw">=</span> <span class="no">x</span>
-<span class="no">y</span>$<span class="fu">fill_val</span>(<span class="no">pi</span>)
-<span class="no">y</span></pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">=</span> <span class="va">x</span>
+<span class="va">y</span><span class="op">$</span><span class="fu">fill_val</span><span class="op">(</span><span class="va">pi</span><span class="op">)</span>
+<span class="va">y</span></code></pre></div>
 <pre><code>## 3.1416 3.1416 3.1416 
 ## 3.1416 3.1416 3.1416</code></pre>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span></code></pre></div>
 <pre><code>## 3.1416 3.1416 3.1416 
 ## 3.1416 3.1416 3.1416</code></pre>
 <p>Here, there is only one allocation of memory representing a 2x3 matrix. That single allocation has two names, <code>x</code> and <code>y</code>. The data is literally exactly the same, so performing an operation on <code>y</code> will be witnessed on <code>x</code> as well.</p>
 <p>Instead, if we need an actual duplicate, then we need to create a “deep copy”. We can do this via the <code>dupe()</code> method:</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">z</span> <span class="kw">=</span> <span class="no">x</span>$<span class="fu">dupe</span>()
-<span class="no">x</span>$<span class="fu">fill_zero</span>()
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span> <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="fu">dupe</span><span class="op">(</span><span class="op">)</span>
+<span class="va">x</span><span class="op">$</span><span class="fu">fill_zero</span><span class="op">(</span><span class="op">)</span>
 
-<span class="no">x</span></pre></body></html></div>
+<span class="va">x</span></code></pre></div>
 <pre><code>## 0.0000 0.0000 0.0000 
 ## 0.0000 0.0000 0.0000</code></pre>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">y</span></pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span></code></pre></div>
 <pre><code>## 0.0000 0.0000 0.0000 
 ## 0.0000 0.0000 0.0000</code></pre>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">z</span></pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span></code></pre></div>
 <pre><code>## 3.1416 3.1416 3.1416 
 ## 3.1416 3.1416 3.1416</code></pre>
 </div>
@@ -220,7 +233,7 @@ pre a {color: #5daffc;}
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

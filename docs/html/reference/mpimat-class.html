@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-0</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/fml-fam/fmlr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -149,7 +149,7 @@
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>mpimatR6$new()</code></a></p></li>
@@ -191,20 +191,20 @@
 <li><p><a href='#method-clone'><code>mpimatR6$clone()</code></a></p></li>
 </ul>
 <p><hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>new</span>(
-  <span class='no'>grid</span>,
-  <span class='kw'>nrows</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>ncols</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>bf_rows</span> <span class='kw'>=</span> <span class='fl'>16</span>,
-  <span class='kw'>bf_cols</span> <span class='kw'>=</span> <span class='fl'>16</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"double"</span>
-)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>
+  <span class='va'>grid</span>,
+  nrows <span class='op'>=</span> <span class='fl'>0</span>,
+  ncols <span class='op'>=</span> <span class='fl'>0</span>,
+  bf_rows <span class='op'>=</span> <span class='fl'>16</span>,
+  bf_cols <span class='op'>=</span> <span class='fl'>16</span>,
+  type <span class='op'>=</span> <span class='st'>"double"</span>
+<span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>grid</code></dt><dd><p>An MPI grid object; the return of <code><a href='grid.html'>grid()</a></code>. See <code><a href='grid.html'>?grid</a></code>.</p></dd>
 
 <dt><code>nrows, ncols</code></dt><dd><p>The dimension of the matrix.</p></dd>
@@ -214,418 +214,418 @@
 <dt><code>type</code></dt><dd><p>Storage type for the matrix. Should be one of 'int', 'float', or 'double'.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Class initializer. See also <code><a href='mpimat.html'>?mpimat</a></code>.</p>
 
 <p><hr>
-<a id="method-resize"></a></p><h3>Method <code>resize()</code></h3>
+<a id="method-resize"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>resize()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>resize</span>(<span class='no'>nrows</span>, <span class='no'>ncols</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>resize</span><span class='op'>(</span><span class='va'>nrows</span>, <span class='va'>ncols</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>nrows, ncols</code></dt><dd><p>The new dimension.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Change the dimension of the matrix object.</p>
 
 <p><hr>
-<a id="method-dupe"></a></p><h3>Method <code>dupe()</code></h3>
+<a id="method-dupe"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>dupe()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>dupe</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>dupe</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Duplicate the matrix in a deep copy.</p>
 
 <p><hr>
-<a id="method-info"></a></p><h3>Method <code>info()</code></h3>
+<a id="method-info"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>info()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>info</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>info</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Print one-line information about the matrix.</p>
 
 <p><hr>
-<a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
+<a id="method-print"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>ndigits</span> <span class='kw'>=</span> <span class='fl'>4</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span>ndigits <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>ndigits</code></dt><dd><p>Number of decimal digits to print.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Print the data.</p>
 
 <p><hr>
-<a id="method-fill_zero"></a></p><h3>Method <code>fill_zero()</code></h3>
+<a id="method-fill_zero"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_zero()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>fill_zero</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>fill_zero</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill all entries with zero.</p>
 
 <p><hr>
-<a id="method-fill_val"></a></p><h3>Method <code>fill_val()</code></h3>
+<a id="method-fill_val"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_val()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>fill_val</span>(<span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>fill_val</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>v</code></dt><dd><p>Value to set all entries to.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill all entries with supplied value.</p>
 
 <p><hr>
-<a id="method-fill_linspace"></a></p><h3>Method <code>fill_linspace()</code></h3>
+<a id="method-fill_linspace"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_linspace()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>fill_linspace</span>(<span class='no'>start</span>, <span class='no'>stop</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>fill_linspace</span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>stop</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>start, stop</code></dt><dd><p>Beginning/end of the linear spacing.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill the matrix (column-wise) with linearly-spaced values.</p>
 
 <p><hr>
-<a id="method-fill_eye"></a></p><h3>Method <code>fill_eye()</code></h3>
+<a id="method-fill_eye"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_eye()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>fill_eye</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>fill_eye</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill diagonal values to 1 and non-diagonal values to 0.</p>
 
 <p><hr>
-<a id="method-fill_diag"></a></p><h3>Method <code>fill_diag()</code></h3>
+<a id="method-fill_diag"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_diag()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>fill_diag</span>(<span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>fill_diag</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>v</code></dt><dd><p>A cpuvec object.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Set diagonal entries of the matrix to those in the vector. If the vector
 is smaller than the matrix diagonal, the vector will recycle until the
 matrix diagonal is filled.</p>
 
 <p><hr>
-<a id="method-fill_runif"></a></p><h3>Method <code>fill_runif()</code></h3>
+<a id="method-fill_runif"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_runif()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>fill_runif</span>(<span class='no'>seed</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>fill_runif</span><span class='op'>(</span><span class='va'>seed</span>, min <span class='op'>=</span> <span class='fl'>0</span>, max <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>seed</code></dt><dd><p>Seed for the generator. Can be left blank.</p></dd>
 
 <dt><code>min, max</code></dt><dd><p>Parameters for the generator.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill the matrix with random unifmorm data.</p>
 
 <p><hr>
-<a id="method-fill_rnorm"></a></p><h3>Method <code>fill_rnorm()</code></h3>
+<a id="method-fill_rnorm"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fill_rnorm()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>fill_rnorm</span>(<span class='no'>seed</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>fill_rnorm</span><span class='op'>(</span><span class='va'>seed</span>, mean <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>seed</code></dt><dd><p>Seed for the generator. Can be left blank.</p></dd>
 
 <dt><code>mean, sd</code></dt><dd><p>Parameters for the generator.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Fill the matrix with random normal data.</p>
 
 <p><hr>
-<a id="method-diag"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/diag.html'>diag()</a></code></h3>
+<a id="method-diag"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/diag.html'>diag()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>diag</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>v</code></dt><dd><p>A cpuvec object.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Get diagonal entries of the matrix.</p>
 
 <p><hr>
-<a id="method-antidiag"></a></p><h3>Method <code>antidiag()</code></h3>
+<a id="method-antidiag"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>antidiag()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>antidiag</span>(<span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>antidiag</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>v</code></dt><dd><p>A cpuvec object.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Get anti-diagonal entries of the matrix.</p>
 
 <p><hr>
-<a id="method-scale"></a></p><h3>Method <code><a href='scale.html'>scale()</a></code></h3>
+<a id="method-scale"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='scale.html'>scale()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'><a href='scale.html'>scale</a></span>(<span class='no'>s</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>scale</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>s</code></dt><dd><p>Value to scale all entries by.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Scale all entries by the supplied value.</p>
 
 <p><hr>
-<a id="method-rev_rows"></a></p><h3>Method <code>rev_rows()</code></h3>
+<a id="method-rev_rows"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>rev_rows()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>rev_rows</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>rev_rows</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Reverse rows.</p>
 
 <p><hr>
-<a id="method-rev_cols"></a></p><h3>Method <code>rev_cols()</code></h3>
+<a id="method-rev_cols"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>rev_cols()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>rev_cols</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>rev_cols</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Reverse columns.</p>
 
 <p><hr>
-<a id="method-get"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/get.html'>get()</a></code></h3>
+<a id="method-get"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/get.html'>get()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='no'>i</span>, <span class='no'>j</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>j</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>i, j</code></dt><dd><p>Indices (0-based).</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Get element from the matrix.</p>
 
 <p><hr>
-<a id="method-set"></a></p><h3>Method <code>set()</code></h3>
+<a id="method-set"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>set()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>set</span>(<span class='no'>i</span>, <span class='no'>j</span>, <span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>j</span>, <span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>i, j</code></dt><dd><p>Indices (0-based).</p></dd>
 
 <dt><code>v</code></dt><dd><p>Value.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Set element of the matrix.</p>
 
 <p><hr>
-<a id="method-get_row"></a></p><h3>Method <code>get_row()</code></h3>
+<a id="method-get_row"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_row()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>get_row</span>(<span class='no'>i</span>, <span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>get_row</span><span class='op'>(</span><span class='va'>i</span>, <span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>i</code></dt><dd><p>Index (0-based).</p></dd>
 
 <dt><code>v</code></dt><dd><p>A cpuvec object.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Get the specified row.</p>
 
 <p><hr>
-<a id="method-get_col"></a></p><h3>Method <code>get_col()</code></h3>
+<a id="method-get_col"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_col()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>get_col</span>(<span class='no'>j</span>, <span class='no'>v</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>get_col</span><span class='op'>(</span><span class='va'>j</span>, <span class='va'>v</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>j</code></dt><dd><p>Index (0-based).</p></dd>
 
 <dt><code>v</code></dt><dd><p>A cpuvec object.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Get the specified column.</p>
 
 <p><hr>
-<a id="method-dim"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/dim.html'>dim()</a></code></h3>
+<a id="method-dim"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/dim.html'>dim()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>dim</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of rows and columns of the matrix.</p>
 
 <p><hr>
-<a id="method-nrows"></a></p><h3>Method <code>nrows()</code></h3>
+<a id="method-nrows"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>nrows()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>nrows</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>nrows</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of rows of the matrix.</p>
 
 <p><hr>
-<a id="method-ncols"></a></p><h3>Method <code>ncols()</code></h3>
+<a id="method-ncols"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>ncols()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>ncols</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>ncols</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of columns of the matrix.</p>
 
 <p><hr>
-<a id="method-ldim"></a></p><h3>Method <code>ldim()</code></h3>
+<a id="method-ldim"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>ldim()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>ldim</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>ldim</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of rows and columns of the matrix.</p>
 
 <p><hr>
-<a id="method-nrows_local"></a></p><h3>Method <code>nrows_local()</code></h3>
+<a id="method-nrows_local"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>nrows_local()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>nrows_local</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>nrows_local</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of columns of the matrix.</p>
 
 <p><hr>
-<a id="method-ncols_local"></a></p><h3>Method <code>ncols_local()</code></h3>
+<a id="method-ncols_local"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>ncols_local()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>ncols_local</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>ncols_local</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of columns of the matrix.</p>
 
 <p><hr>
-<a id="method-bfdim"></a></p><h3>Method <code>bfdim()</code></h3>
+<a id="method-bfdim"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>bfdim()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>bfdim</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>bfdim</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of rows and columns of the matrix.</p>
 
 <p><hr>
-<a id="method-bf_rows"></a></p><h3>Method <code>bf_rows()</code></h3>
+<a id="method-bf_rows"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>bf_rows()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>bf_rows</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>bf_rows</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of columns of the matrix.</p>
 
 <p><hr>
-<a id="method-bf_cols"></a></p><h3>Method <code>bf_cols()</code></h3>
+<a id="method-bf_cols"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>bf_cols()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>bf_cols</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>bf_cols</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns number of columns of the matrix.</p>
 
 <p><hr>
-<a id="method-get_grid"></a></p><h3>Method <code>get_grid()</code></h3>
+<a id="method-get_grid"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_grid()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>get_grid</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>get_grid</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the internal grid object.</p>
 
 <p><hr>
-<a id="method-data_ptr"></a></p><h3>Method <code>data_ptr()</code></h3>
+<a id="method-data_ptr"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>data_ptr()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>data_ptr</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>data_ptr</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the external pointer data. For developers only.</p>
 
 <p><hr>
-<a id="method-get_type"></a></p><h3>Method <code>get_type()</code></h3>
+<a id="method-get_type"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_type()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>get_type</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>get_type</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the integer code for the underlying storage type. For developers only.</p>
 
 <p><hr>
-<a id="method-get_type_str"></a></p><h3>Method <code>get_type_str()</code></h3>
+<a id="method-get_type_str"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_type_str()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>get_type_str</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>get_type_str</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the string code for the underlying storage type. For developers only.</p>
 
 <p><hr>
-<a id="method-to_robj"></a></p><h3>Method <code>to_robj()</code></h3>
+<a id="method-to_robj"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>to_robj()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>to_robj</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>to_robj</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns an R matrix containing a copy of the class data.</p>
 
 <p><hr>
-<a id="method-from_robj"></a></p><h3>Method <code>from_robj()</code></h3>
+<a id="method-from_robj"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>from_robj()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>from_robj</span>(<span class='no'>robj</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>from_robj</span><span class='op'>(</span><span class='va'>robj</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>robj</code></dt><dd><p>R matrix.</p></dd>
 
 </dl><p></div></p>
-<h3>Details</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Copies the values of the input to the class data. See also <code><a href='as_mpimat.html'>?as_mpimat</a></code>.</p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>mpimatR6</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>mpimatR6</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -647,7 +647,7 @@ matrix diagonal is filled.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

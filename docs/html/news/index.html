@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-0</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +114,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/fml-fam/fmlr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,6 +135,40 @@
       <small>Source: <a href='https://github.com/fml-fam/fmlr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="release-04-0-" class="section level1">
+<h1 class="page-header" data-toc-text="0.4-0">
+<a href="#release-04-0-" class="anchor"></a>Release 0.4-0 (//)</h1>
+<p>New:</p>
+<ul>
+<li>Moved fml headers to separate fmlh package.</li>
+<li>Updated to fmlh 0.4-0:
+<ul>
+<li>Added <code><a href="../reference/dot.html">linalg_dot()</a></code>
+</li>
+<li>Added <code><a href="../reference/trinv.html">linalg_trinv()</a></code>
+</li>
+<li>Added <code><a href="../reference/rsvd.html">linalg_rsvd()</a></code>
+</li>
+</ul>
+</li>
+</ul>
+<p>API Changes:</p>
+<ul>
+<li>
+<code><a href="../reference/matmult.html">linalg_matmult()</a></code> can now accept mixed matrix/vector arguments.</li>
+<li>Renamed <code>linalg_tssvd()</code> to <code><a href="../reference/qrsvd.html">linalg_qrsvd()</a></code>.</li>
+</ul>
+<p>Bug Fixes:</p>
+<ul>
+<li>Fixed gpu/mpi bug on norm/cond dispatch.</li>
+</ul>
+<p>Documentation: None</p>
+<p>Internal Changes of Note from Latest fml Release:</p>
+<ul>
+<li>Changed gpumat crossprod() and tcrossprod() to use Xgemm() instead of Xsyrk() for better run-time performance.</li>
+<li>Switched linalg::qr_Q() and linalg::lq_Q() to use <code>Xorgqr()</code>/<code>Xorglq()</code> except in gpumat lq_Q().</li>
+</ul>
+</div>
     <div id="release-03-0-962020" class="section level1">
 <h1 class="page-header" data-toc-text="0.3-0">
 <a href="#release-03-0-962020" class="anchor"></a>Release 0.3-0 (9/6/2020)</h1>
@@ -143,8 +177,8 @@
 <li>Updated to fml v. 0.3-0:
 <ul>
 <li>Added min/max methods for cpuvec and gpuvec.</li>
-<li>Added norm functions <code><a href="../reference/linalg-norm.html">linalg_norm_1()</a></code>, <code><a href="../reference/linalg-norm.html">linalg_norm_I()</a></code>, <code><a href="../reference/linalg-norm.html">linalg_norm_F()</a></code>, <code><a href="../reference/linalg-norm.html">linalg_norm_M()</a></code>, and <code><a href="../reference/linalg-norm.html">linalg_norm_2()</a></code>.</li>
-<li>Added condition number functions <code><a href="../reference/linalg-cond.html">linalg_cond_1()</a></code>, <code><a href="../reference/linalg-cond.html">linalg_cond_I()</a></code>, and <code><a href="../reference/linalg-cond.html">linalg_cond_2()</a></code>.</li>
+<li>Added norm functions <code><a href="../reference/norm.html">linalg_norm_1()</a></code>, <code><a href="../reference/norm.html">linalg_norm_I()</a></code>, <code><a href="../reference/norm.html">linalg_norm_F()</a></code>, <code><a href="../reference/norm.html">linalg_norm_M()</a></code>, and <code><a href="../reference/norm.html">linalg_norm_2()</a></code>.</li>
+<li>Added condition number functions <code><a href="../reference/cond.html">linalg_cond_1()</a></code>, <code><a href="../reference/cond.html">linalg_cond_I()</a></code>, and <code><a href="../reference/cond.html">linalg_cond_2()</a></code>.</li>
 </ul>
 </li>
 </ul>
@@ -302,7 +336,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

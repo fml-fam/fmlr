@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmlr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -74,7 +74,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/fml-fam/fmlr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -122,15 +122,17 @@ pre a {color: #5daffc;}
 <h2 class="hasAnchor">
 <a href="#converting-between-fmlr-objects" class="anchor"></a>Converting Between fmlr Objects</h2>
 <p>Converting between fmlr objects is simple to do using the various helper functions. Let’s start with a simple matrix on the CPU:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">fmlr</span>))
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fml-fam/fmlr">fmlr</a></span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">x_cpu</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span>(<span class="fl">2</span>, <span class="fl">2</span>)
-<span class="no">x_cpu</span>$<span class="fu">fill_linspace</span>(<span class="fl">1</span>, <span class="fl">4</span>)</pre></body></html></div>
+<span class="va">x_cpu</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="va">x_cpu</span><span class="op">$</span><span class="fu">fill_linspace</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p>We can distribute the data to an <code>mpimat</code> object using <code><a href="../reference/cpu2mpi.html">cpu2mpi()</a></code>.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">g</span> <span class="kw">=</span> <span class="fu"><a href="../reference/grid.html">grid</a></span>()
-<span class="no">x_mpi</span> <span class="kw">=</span> <span class="fu"><a href="../reference/mpimat.html">mpimat</a></span>(<span class="no">g</span>)
-<span class="fu"><a href="../reference/cpu2mpi.html">cpu2mpi</a></span>(<span class="no">x_cpu</span>, <span class="no">x_mpi</span>)
-<span class="no">x_mpi</span></pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="../reference/grid.html">grid</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">x_mpi</span> <span class="op">=</span> <span class="fu"><a href="../reference/mpimat.html">mpimat</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>
+<span class="fu"><a href="../reference/cpu2mpi.html">cpu2mpi</a></span><span class="op">(</span><span class="va">x_cpu</span>, <span class="va">x_mpi</span><span class="op">)</span>
+<span class="va">x_mpi</span></code></pre></div>
 <pre><code>## 1.0000 3.0000 
 ## 2.0000 4.0000</code></pre>
 <p>These are completely different kinds of objects, so there is no concept of “shallow copying” here. New storage will be allocated. Also note that running this in one process instead of launching the script with <code>mpirun</code> isn’t actually that useful (or even properly distributed). We only provide this for demonstration. See the <a href="docs/vignettes/03-backends.Rmd">article on backends</a> for more information.</p>
@@ -177,34 +179,40 @@ pre a {color: #5daffc;}
 </ul>
 <p>In the future, we plan to support <code>__half</code> for GPU objects, as the C++ fml does.</p>
 <p>R supports <code>int</code> and <code>double</code> in their overloaded <code>numeric</code> type. The float package adds some support for <code>float</code> data. R also has some skeleton support for <code>double complex</code> for computing eigenvalues of non-symmetric matrices. We do not plan to ever support complex types.</p>
-<p>In fmlr, all methods support <code>float</code> and <code>double</code>. Some methods will support <code>int</code>, but most will not. This is a major departure from normal R behavior. For example, if you wanted to compute the SVD of an integer matrix, R will automatically promote the <code>int</code> data to <code>double</code> without asking or telling you, and then perform the SVD on the <code>double</code> copy. This is because it doesn’t really make any sense to talk about an SVD of integer data most of the time. However, in fmlr, the <code><a href="../reference/linalg-svd.html">linalg_svd()</a></code> function will just throw an error:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span>(<span class="fl">3</span>, <span class="fl">2</span>, <span class="st">"int"</span>)
-<span class="no">x</span>$<span class="fu">fill_linspace</span>(<span class="fl">1</span>, <span class="fl">6</span>)
+<p>In fmlr, all methods support <code>float</code> and <code>double</code>. Some methods will support <code>int</code>, but most will not. This is a major departure from normal R behavior. For example, if you wanted to compute the SVD of an integer matrix, R will automatically promote the <code>int</code> data to <code>double</code> without asking or telling you, and then perform the SVD on the <code>double</code> copy. This is because it doesn’t really make any sense to talk about an SVD of integer data most of the time. However, in fmlr, the <code><a href="../reference/svd.html">linalg_svd()</a></code> function will just throw an error:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="st">"int"</span><span class="op">)</span>
+<span class="va">x</span><span class="op">$</span><span class="fu">fill_linspace</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span>
 
-<span class="no">s</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpuvec.html">cpuvec</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">"int"</span>)
+<span class="va">s</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpuvec.html">cpuvec</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">"int"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/linalg-svd.html">linalg_svd</a></span>(<span class="no">x</span>, <span class="no">s</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/svd.html">linalg_svd</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s</span><span class="op">)</span></code></pre></div>
 <pre><code>## Error in linalg_svd(x, s): unsupported fundamental type</code></pre>
 <p>If you really do need to compute on the integer data, then you will need to manually copy it. Fortunately, this is easy. We just use the <code><a href="../reference/cpu2cpu.html">cpu2cpu()</a></code> helper:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">y</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">"f"</span>)
-<span class="fu"><a href="../reference/cpu2cpu.html">cpu2cpu</a></span>(<span class="no">x</span>, <span class="no">y</span>)
-<span class="no">y</span>$<span class="fu">info</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">"f"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/cpu2cpu.html">cpu2cpu</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+<span class="va">y</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## # cpumat 3x2 type=f</code></pre>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">y</span></pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span></code></pre></div>
 <pre><code>## 1.0000 4.0000 
 ## 2.0000 5.0000 
 ## 3.0000 6.0000</code></pre>
 <p>Since <code>y</code> has fundamental type <code>float</code>, it is using exactly as much memory as its <code>int</code> counterpart in <code>x</code>. If we had chosen <code>double</code> then it would require twice as much memory.</p>
 <p>From here, computing the SVD is easy:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">s</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpuvec.html">cpuvec</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">"f"</span>)
-<span class="fu"><a href="../reference/linalg-svd.html">linalg_svd</a></span>(<span class="no">y</span>, <span class="no">s</span>)
-<span class="no">s</span>$<span class="fu">info</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpuvec.html">cpuvec</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">"f"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/svd.html">linalg_svd</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">s</span><span class="op">)</span>
+<span class="va">s</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## # cpuvec 2 type=f</code></pre>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">s</span></pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s</span></code></pre></div>
 <pre><code>## 9.5080 0.7729</code></pre>
-<p>One other important caveat is that we can’t mix fundamental types for most methods. The converters, for example <code><a href="../reference/cpu2cpu.html">cpu2cpu()</a></code> as seen above, can mix fundamental types. But the compute functions like <code><a href="../reference/linalg-svd.html">linalg_svd()</a></code> will throw an error if we try to mix fundamental types.</p>
+<p>One other important caveat is that we can’t mix fundamental types for most methods. The converters, for example <code><a href="../reference/cpu2cpu.html">cpu2cpu()</a></code> as seen above, can mix fundamental types. But the compute functions like <code><a href="../reference/svd.html">linalg_svd()</a></code> will throw an error if we try to mix fundamental types.</p>
 <p>As a final note, if we convert an fmlr object with fundamental type <code>float</code> to a native R object, it will be wrapped as a <code>float32</code> object from the float package:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">s</span>$<span class="fu">to_robj</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s</span><span class="op">$</span><span class="fu">to_robj</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A float32 vector: 2
 ## [1] 9.50803 0.77287</code></pre>
 </div>
@@ -212,40 +220,46 @@ pre a {color: #5daffc;}
 <h2 class="hasAnchor">
 <a href="#converting-r-objects-into-fmlr-objects" class="anchor"></a>Converting R Objects Into fmlr Objects</h2>
 <p>Let’s start with a simple R matrix:</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="fl">1</span>:<span class="fl">6</span>), <span class="fl">3</span>, <span class="fl">2</span>)
-<span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="va">x</span></code></pre></div>
 <pre><code>##          [,1]     [,2]
 ## [1,] 1.000000 2.000000
 ## [2,] 1.414214 2.236068
 ## [3,] 1.732051 2.449490</code></pre>
 <p>We can convert this into an fmlr matrix using the object’s <code>from_robj()</code> method. For simplicity, we’ll just use a CPU matrix:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">x_cpu</span> <span class="kw">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span>()$<span class="fu">from_robj</span>(<span class="no">x</span>)
-<span class="no">x_cpu</span></pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_cpu</span> <span class="op">=</span> <span class="fu"><a href="../reference/cpumat.html">cpumat</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">from_robj</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="va">x_cpu</span></code></pre></div>
 <pre><code>## 1.0000 2.0000 
 ## 1.4142 2.2361 
 ## 1.7321 2.4495</code></pre>
 <p>This copy is a “deep copy”, in that the memory of the R object <code>x</code> and the fmlr object <code>x_cpu</code> are different. Observe:</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">x_cpu</span>$<span class="fu">fill_zero</span>()
-<span class="no">x_cpu</span></pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_cpu</span><span class="op">$</span><span class="fu">fill_zero</span><span class="op">(</span><span class="op">)</span>
+<span class="va">x_cpu</span></code></pre></div>
 <pre><code>## 0.0000 0.0000 
 ## 0.0000 0.0000 
 ## 0.0000 0.0000</code></pre>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span></code></pre></div>
 <pre><code>##          [,1]     [,2]
 ## [1,] 1.000000 2.000000
 ## [2,] 1.414214 2.236068
 ## [3,] 1.732051 2.449490</code></pre>
 <p>The <code><a href="../reference/as_cpumat.html">as_cpumat()</a></code>function offers a shorthand for this operation, so you do not have to manually create the skeleton object:</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">x_cpu</span> <span class="kw">=</span> <span class="fu"><a href="../reference/as_cpumat.html">as_cpumat</a></span>(<span class="no">x</span>)
-<span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_cpu</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_cpumat.html">as_cpumat</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="va">x</span></code></pre></div>
 <pre><code>##          [,1]     [,2]
 ## [1,] 1.000000 2.000000
 ## [2,] 1.414214 2.236068
 ## [3,] 1.732051 2.449490</code></pre>
 <p>However, for CPU matrices/vectors, there is a way to shallow copy. This allows us to create an fmlr object that merely inherits the same pointer that R is using. We can do this via the <code>inherit()</code> method, or by setting the argument <code>copy=FALSE</code> in <code><a href="../reference/as_cpumat.html">as_cpumat()</a></code>. However, care must be exercised when doing this because it can produce surprising results if you are not careful:</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">x_cpu</span> <span class="kw">=</span> <span class="fu"><a href="../reference/as_cpumat.html">as_cpumat</a></span>(<span class="no">x</span>, <span class="kw">copy</span><span class="kw">=</span><span class="fl">FALSE</span>)
-<span class="no">x_cpu</span>$<span class="fu">fill_zero</span>()
-<span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_cpu</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_cpumat.html">as_cpumat</a></span><span class="op">(</span><span class="va">x</span>, copy<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">x_cpu</span><span class="op">$</span><span class="fu">fill_zero</span><span class="op">(</span><span class="op">)</span>
+<span class="va">x</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    0    0
 ## [2,]    0    0
@@ -253,15 +267,17 @@ pre a {color: #5daffc;}
 <p>Also, <strong>do not allow a reallocation to trigger on the inherited pointer</strong> as this will crash your R session.</p>
 <p>All of the above is likewise true for numeric R vectors and <code>cpuvec</code> objects. Likewise, we can inherit shallow copies from <code>float32</code> objects (those from the float package).</p>
 <p>For <code>gpumat</code> and <code>gpuvec</code>, we can not inherit data without a copy - because native R matrices/vectors do not live on GPUs. To copy R matrix data to a GPU, we can use <code><a href="../reference/cpu2gpu.html">cpu2gpu()</a></code>. But first, we have to have the R data represented as an fmlr object. Using <code><a href="../reference/as_cpumat.html">as_cpumat()</a></code> as above:</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="fl">1</span>:<span class="fl">6</span>), <span class="fl">3</span>, <span class="fl">2</span>)
-<span class="no">x_cpu</span> <span class="kw">=</span> <span class="fu"><a href="../reference/as_cpumat.html">as_cpumat</a></span>(<span class="no">x</span>, <span class="kw">copy</span><span class="kw">=</span><span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="va">x_cpu</span> <span class="op">=</span> <span class="fu"><a href="../reference/as_cpumat.html">as_cpumat</a></span><span class="op">(</span><span class="va">x</span>, copy<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="no">c</span> <span class="kw">=</span> <span class="fu"><a href="../reference/card.html">card</a></span>()
-<span class="no">x_gpu</span> <span class="kw">=</span> <span class="fu"><a href="../reference/gpumat.html">gpumat</a></span>(<span class="no">c</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"float"</span>)
-<span class="fu"><a href="../reference/cpu2gpu.html">cpu2gpu</a></span>(<span class="no">x_cpu</span>, <span class="no">x_gpu</span>)
-<span class="no">x_gpu</span>$<span class="fu">info</span>()</pre></body></html></div>
+<span class="va">c</span> <span class="op">=</span> <span class="fu"><a href="../reference/card.html">card</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">x_gpu</span> <span class="op">=</span> <span class="fu"><a href="../reference/gpumat.html">gpumat</a></span><span class="op">(</span><span class="va">c</span>, type<span class="op">=</span><span class="st">"float"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/cpu2gpu.html">cpu2gpu</a></span><span class="op">(</span><span class="va">x_cpu</span>, <span class="va">x_gpu</span><span class="op">)</span>
+<span class="va">x_gpu</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## # gpumat 3x2 type=f </code></pre>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">x_gpu</span></pre></body></html></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_gpu</span></code></pre></div>
 <pre><code>## 1.0000 2.0000 
 ## 1.4142 2.2361 
 ## 1.7321 2.4495</code></pre>
@@ -272,15 +288,17 @@ pre a {color: #5daffc;}
 <a href="#converting-fmlr-objects-into-r-objects" class="anchor"></a>Converting fmlr Objects Into R Objects</h2>
 <p>We have already seen several examples of using the <code>to_robj()</code> method to copy data back to an R object. This operates via a deep copy.</p>
 <p>For cases like the above where we had a shallow copy of an R object in a <code>cpumat</code> object, we can, for example, copy back from GPU memory to CPU memory without a copy. Observe:</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">x_gpu</span>$<span class="fu">fill_eye</span>()
-<span class="fu"><a href="../reference/gpu2cpu.html">gpu2cpu</a></span>(<span class="no">x_gpu</span>, <span class="no">x_cpu</span>)
-<span class="no">x</span></pre></body></html></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_gpu</span><span class="op">$</span><span class="fu">fill_eye</span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/gpu2cpu.html">gpu2cpu</a></span><span class="op">(</span><span class="va">x_gpu</span>, <span class="va">x_cpu</span><span class="op">)</span>
+<span class="va">x</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    0
 ## [2,]    0    1
 ## [3,]    0    0</code></pre>
 <p>If <code>x</code> and <code>x_cpu</code> had used different memory, we could have copied back via:</p>
-<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">x</span> <span class="kw">=</span> <span class="no">x_gpu</span>$<span class="fu">to_robj</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="va">x_gpu</span><span class="op">$</span><span class="fu">to_robj</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
@@ -299,7 +317,7 @@ pre a {color: #5daffc;}
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Page not found (404) • fmlr</title>
+<title>rsvd — rsvd • fmlr</title>
 
 
 <!-- jquery -->
@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -33,13 +33,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Page not found (404)" />
+<meta property="og:title" content="rsvd — rsvd" />
+<meta property="og:description" content="SVD approximation via random projections." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -70,7 +71,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">fmlr</a>
+        <a class="navbar-link" href="../index.html">fmlr</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-0</span>
       </span>
     </div>
@@ -78,13 +79,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -94,21 +95,21 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/01-installation.html">01 - Installation Guide</a>
+      <a href="../articles/01-installation.html">01 - Installation Guide</a>
     </li>
     <li>
-      <a href="articles/02-overview.html">02 - Overview of fmlr</a>
+      <a href="../articles/02-overview.html">02 - Overview of fmlr</a>
     </li>
     <li>
-      <a href="articles/03-backends.html">03 - Managing Backends</a>
+      <a href="../articles/03-backends.html">03 - Managing Backends</a>
     </li>
     <li>
-      <a href="articles/04-data.html">04 - Data Management</a>
+      <a href="../articles/04-data.html">04 - Data Management</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -129,23 +130,62 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Page not found (404)</h1>
+    <h1>rsvd</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fml-fam/fmlr/blob/master/R/linalg.r'><code>R/linalg.r</code></a></small>
+    <div class="hidden name"><code>linalg-rsvd.Rd</code></div>
     </div>
 
-Content not found. Please use links in the navbar.
+    <div class="ref-description">
+    <p>SVD approximation via random projections.</p>
+    </div>
+
+    <pre class="usage"><span class='fu'>linalg_rsvd</span><span class='op'>(</span><span class='va'>seed</span>, <span class='va'>k</span>, <span class='va'>q</span>, <span class='va'>x</span>, <span class='va'>s</span>, u <span class='op'>=</span> <span class='cn'>NULL</span>, vt <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>seed</th>
+      <td><p>Seed for the random generator.</p></td>
+    </tr>
+    <tr>
+      <th>k</th>
+      <td><p>The number of components to estimate. Integer &gt; 0.</p></td>
+    </tr>
+    <tr>
+      <th>q</th>
+      <td><p>Exponent (see paper if you really care). Values of 1 or 2 are good.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>Input data. The input values are overwritten.</p></td>
+    </tr>
+    <tr>
+      <th>s</th>
+      <td><p>Singular values.</p></td>
+    </tr>
+    <tr>
+      <th>u, vt</th>
+      <td><p>The left/right singular vectors. Should both be <code>NULL</code> or
+matrices of the same backend and fundamental type as <code>x</code>.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Halko, Nathan, Per-Gunnar Martinsson, and Joel A. Tropp. "Finding
+structure with randomness: Probabilistic algorithms for constructing
+approximate matrix decompositions." SIAM review 53, no. 2 (2011): 217-288.</p>
 
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
-
 
 
       <footer>
