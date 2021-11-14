@@ -60,18 +60,24 @@ linalg_add = function(transx=FALSE, transy=FALSE, alpha=1, beta=1, x, y, ret=NUL
 #' @export
 linalg_matmult = function(transx=FALSE, transy=FALSE, alpha=1, x, y, ret=NULL)
 {
-  check_is_mat(x)
-  check_is_mat(y)
+  if (!is_mat(x) && !is_vec(x))
+    stop("argument 'x' must be a matrix or vector type")
+  if (!is_mat(y) && !is_vec(y))
+    stop("argument 'y' must be a matrix or vector type")
   
   transx = as.logical(transx)
   transy = as.logical(transy)
   
   alpha = as.double(alpha)
   
-  invisiret = check_inputs(ret, x, y)
+  
+  invisiret = check_inputs(ret, x, y, check_class=FALSE)
   
   if (is.null(ret))
-    ret = setret(x)
+  {
+    vec = is_vec(x) || is_vec(y)
+    ret = setret(x, vec=vec)
+  }
   
   .Call(R_linalg_matmult, get_backend(x), x$get_type(), transx, transy, alpha, x$get_type(), x$data_ptr(), y$get_type(), y$data_ptr(), ret$data_ptr())
   
