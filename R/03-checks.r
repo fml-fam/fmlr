@@ -69,11 +69,11 @@ check_type_consistency = function(...)
 
 
 
-check_inputs = function(ret, ..., class=TRUE)
+check_inputs = function(ret, ..., check_class=TRUE)
 {
   if (!is.null(ret))
   {
-    if (class)
+    if (check_class)
       check_class_consistency(ret, ...)
     else
       check_backend_consistency(ret, ...)
@@ -83,7 +83,7 @@ check_inputs = function(ret, ..., class=TRUE)
   }
   else
   {
-    if (class)
+    if (check_class)
       check_class_consistency(...)
     else
       check_backend_consistency(ret, ...)
