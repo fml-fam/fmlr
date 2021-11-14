@@ -30,21 +30,42 @@ extern "C" SEXP R_gpumat_linalg_add(SEXP type, SEXP transx, SEXP transy, SEXP al
 
 
 
-template <typename REAL>
-static inline void matmult(bool transx, bool transy, REAL alpha, void *x, void *y, void *ret)
-{
-  CAST_MAT(gpumat, REAL, x_cast, x);
-  CAST_MAT(gpumat, REAL, y_cast, y);
-  CAST_MAT(gpumat, REAL, ret_cast, ret);
-  linalg::matmult(transx, transy, alpha, *x_cast, *y_cast, *ret_cast);
-}
-
 extern "C" SEXP R_gpumat_linalg_matmult(SEXP type, SEXP transx, SEXP transy, SEXP alpha, SEXP x_class, SEXP x_robj, SEXP y_class, SEXP y_robj, SEXP ret_robj)
 {
-  void *x = getRptr(x_robj);
-  void *y = getRptr(y_robj);
-  void *ret = getRptr(ret_robj);
-  APPLY_TEMPLATED_FUNCTION(type, matmult, LGL(transx), LGL(transy), DBL(alpha), x, y, ret);
+  #define FMLR_TMP_MATMULT(type) \
+    if (INT(x_class) == CLASS_VEC){ \
+      if (INT(y_class) == CLASS_VEC) \
+        throw std::runtime_error("At least one of 'x' or 'y' must be a matrix in matmult"); \
+      \
+      gpuvec<type> *x = (gpuvec<type>*) getRptr(x_robj); \
+      gpumat<type> *y = (gpumat<type>*) getRptr(y_robj); \
+      gpuvec<type> *ret = (gpuvec<type>*) getRptr(ret_robj); \
+      linalg::matmult(LGL(transx), LGL(transy), (type)DBL(alpha), *x, *y, *ret); \
+    } else { \
+      gpumat<type> *x = (gpumat<type>*) getRptr(x_robj); \
+      if (INT(y_class) == CLASS_MAT){ \
+        gpumat<type> *y = (gpumat<type>*) getRptr(y_robj); \
+        gpumat<type> *ret = (gpumat<type>*) getRptr(ret_robj); \
+        linalg::matmult(LGL(transx), LGL(transy), (type)DBL(alpha), *x, *y, *ret); \
+    } else { \
+        gpuvec<type> *y = (gpuvec<type>*) getRptr(y_robj); \
+        gpuvec<type> *ret = (gpuvec<type>*) getRptr(ret_robj); \
+        linalg::matmult(LGL(transx), LGL(transy), (type)DBL(alpha), *x, *y, *ret); \
+      } \
+    }
+  
+  if (INT(type) == TYPE_DOUBLE)
+  {
+    FMLR_TMP_MATMULT(double)
+  }
+  else if (INT(type) == TYPE_FLOAT)
+  {
+    FMLR_TMP_MATMULT(float)
+  }
+  else
+    error(TYPE_ERR);
+  
+  #undef FMLR_TMP_MATMULT
   
   return R_NilValue;
 }

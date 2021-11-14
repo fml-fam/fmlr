@@ -12,6 +12,10 @@ if (fml_gpu()){
   y$fill_eye()
   yr = y$to_robj()
   
+  v = gpumat(c, n)
+  v$fill_linspace(1, n)
+  vr = v$to_robj()
+  
   source("internals/common.r")
   source("internals/linalg.r")
 } # end if (fml_gpu())
