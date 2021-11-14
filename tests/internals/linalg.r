@@ -18,6 +18,10 @@ test = linalg_matmult(transx=TRUE, transy=FALSE, x=x, y=y)$to_robj()
 truth = t(xr) %*% yr
 cmp(test, truth)
 
+test = linalg_matmult(transx=FALSE, transy=FALSE, x=x, y=v)$to_robj()
+truth = xr %*% vr
+cmp(test, truth)
+
 
 
 # crossprod
