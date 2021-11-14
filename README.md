@@ -89,7 +89,7 @@ For more information and examples, see:
 
 ## fml from C++
 
-A copy of the core fml library is included in the fmlr package source in `inst/include/fml`. If you wish to link with fml to create your own C++ kernels, you can add `LinkingTo: fml` to your R package DESCRIPTION file.
+A copy of the core fml library is included in the [fmlh package](https://github.com/fml-fam/fmlh). If you wish to link with fml to create your own C++ kernels, you can add `LinkingTo: fmlh` to your R package DESCRIPTION file, as this very package does.
 
 Before you write your own C++ code using fml, you should check the [fml API stability](https://github.com/fml-fam/fml#api-stability) progress, as some things may be subject to change.
 
