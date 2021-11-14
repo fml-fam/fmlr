@@ -64,7 +64,7 @@ extern "C" SEXP R_cpumat_linalg_matmult(SEXP type, SEXP transx, SEXP transy, SEX
   else
     error(TYPE_ERR);
   
-  #undef FMLR_TMP_SOLVE
+  #undef FMLR_TMP_MATMULT
   
   return R_NilValue;
 }
