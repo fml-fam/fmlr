@@ -93,10 +93,17 @@ If you have an appropriate GPU, you can also install [NVIDIA® CUDA™](https://
 
 #### TLDR
 
-* R6 (this one shouldn't give any trouble)
-* float
-* Optionally:
-    * pbdMPI and pbdSLAP
+CRAN Packages
+  - [R6](https://cran.r-project.org/web/packages/R6/index.html)
+  - [float](https://cran.r-project.org/web/packages/float/index.html)
+  - Optionally:
+      - [pbdMPI](https://cran.r-project.org/web/packages/pbdMPI/index.html) and pbdSLAP
+      - [memuse](https://cran.r-project.org/web/packages/memuse/index.html)
+
+HPCRAN Packages
+  - [fmlh](https://hpcran.org/packages/fmlh/index.html)
+  - Optionally:
+      - [merkhet](https://hpcran.org/packages/merkhet/index.html)
 
 #### Long version
 
