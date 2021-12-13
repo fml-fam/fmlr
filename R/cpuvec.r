@@ -260,6 +260,10 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' Returns the string code for the underlying storage type. For developers only.
     get_type_str = function() private$type_str,
     
+    #' @details
+    #' Returns the integer code the class type, in this case CLASS_VEC.
+    get_class = function() CLASS_VEC,
+    
     
     
     #' @details

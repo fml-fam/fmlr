@@ -41,6 +41,7 @@ Data is held in an external pointer.
 \item \href{#method-data_ptr}{\code{gpumatR6$data_ptr()}}
 \item \href{#method-get_type}{\code{gpumatR6$get_type()}}
 \item \href{#method-get_type_str}{\code{gpumatR6$get_type_str()}}
+\item \href{#method-get_class}{\code{gpumatR6$get_class()}}
 \item \href{#method-to_robj}{\code{gpumatR6$to_robj()}}
 \item \href{#method-from_robj}{\code{gpumatR6$from_robj()}}
 \item \href{#method-clone}{\code{gpumatR6$clone()}}
@@ -528,6 +529,19 @@ Returns the integer code for the underlying storage type. For developers only.
 
 \subsection{Details}{
 Returns the string code for the underlying storage type. For developers only.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_class"></a>}}
+\if{latex}{\out{\hypertarget{method-get_class}{}}}
+\subsection{Method \code{get_class()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpumatR6$get_class()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the integer code the class type, in this case CLASS_MAT.
 }
 
 }
