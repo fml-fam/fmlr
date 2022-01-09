@@ -58,3 +58,9 @@ type_robj2str = function(robj) type_int2str(type_robj2int(robj))
 PROC_GRID_SQUARE = 0L
 PROC_GRID_WIDE = 1L
 PROC_GRID_TALL = 2L
+
+# op globals
+SWEEP_ADD = 0L
+SWEEP_SUB = 1L
+SWEEP_MUL = 2L
+SWEEP_DIV = 3L

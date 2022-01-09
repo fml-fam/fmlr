@@ -112,3 +112,56 @@ dimops_scale = function(rm_mean=TRUE, rm_sd=FALSE, x)
   .Call(R_dimops_scale, get_backend(x), x$get_type(), rm_mean, rm_sd, x$data_ptr())
   invisible(NULL)
 }
+
+
+
+#' sweep
+#' 
+#' Sweep a vector through the rows/cols of a matrix using an arithmetic
+#' operation.
+#' 
+#' @param x Input matrix.
+#' @param s Either \code{NULL} or an already allocated fml matrix of the same
+#' class and type as \code{x}.
+#' @param op The operation: \code{SWEEP_ADD}, \code{SWEEP_SUB},
+#' \code{SWEEP_MUL}, or \code{SWEEP_DIV}.
+#' @return Returns the matrix sum.
+#' 
+#' @rdname dimops
+#' @name dimops
+NULL
+
+
+
+check_sweep_op = function(op)
+{
+  op = as.integer(op)
+  if (op != SWEEP_ADD && op != SWEEP_SUB && op != SWEEP_MUL && op != SWEEP_DIV)
+    stop("invalid argument 'op'")
+  
+  op
+}
+
+#' @name dimops
+#' @useDynLib fmlr R_dimops_rowsweep
+#' @export
+dimops_rowsweep = function(x, s, op)
+{
+  op = check_sweep_op(op)
+  check_is_mat(x)
+  invisiret = check_inputs(s, x, check_class=FALSE)
+  
+  .Call(R_dimops_rowsweep, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), op)
+}
+
+#' @name dimops
+#' @useDynLib fmlr R_dimops_colsweep
+#' @export
+dimops_colsweep = function(x, s, op)
+{
+  op = check_sweep_op(op)
+  check_is_mat(x)
+  invisiret = check_inputs(s, x, check_class=FALSE)
+  
+  .Call(R_dimops_colsweep, get_backend(x), x$get_type(), x$data_ptr(), s$data_ptr(), op)
+}

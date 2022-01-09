@@ -461,6 +461,18 @@ extern "C" SEXP R_mpimat_dimops_scale(SEXP type, SEXP rm_mean, SEXP rm_sd, SEXP 
   WARN_AND_RETURN("MPI");
 }
 
+extern "C" SEXP R_mpimat_dimops_rowsweep(SEXP type, SEXP x_robj, SEXP s_robj, SEXP op)
+{
+  unused(type, x_robj, s_robj, op);
+  WARN_AND_RETURN("MPI");
+}
+
+extern "C" SEXP R_mpimat_dimops_colsweep(SEXP type, SEXP x_robj, SEXP s_robj, SEXP op)
+{
+  unused(type, x_robj, s_robj, op);
+  WARN_AND_RETURN("MPI");
+}
+
 
 
 // -----------------------------------------------------------------------------

@@ -55,3 +55,39 @@ extern "C" SEXP R_mpimat_dimops_scale(SEXP type, SEXP rm_mean, SEXP rm_sd, SEXP 
   
   return R_NilValue;
 }
+
+
+
+template <typename REAL>
+static inline void rowsweep(void *x, void *s, int op)
+{
+  CAST_MAT(mpimat, REAL, x_cast, x);
+  CAST_MAT(cpuvec, REAL, s_cast, s);
+  dimops::rowsweep(*x_cast, *s_cast, (dimops::sweep_op) op);
+}
+
+extern "C" SEXP R_mpimat_dimops_rowsweep(SEXP type, SEXP x_robj, SEXP s_robj, SEXP op)
+{
+  void *x = getRptr(x_robj);
+  void *s = getRptr(s_robj);
+  APPLY_TEMPLATED_FUNCTION(type, rowsweep, x, s, INT(op));
+  
+  return R_NilValue;
+}
+
+template <typename REAL>
+static inline void colsweep(void *x, void *s, int op)
+{
+  CAST_MAT(mpimat, REAL, x_cast, x);
+  CAST_MAT(cpuvec, REAL, s_cast, s);
+  dimops::colsweep(*x_cast, *s_cast, (dimops::sweep_op) op);
+}
+
+extern "C" SEXP R_mpimat_dimops_colsweep(SEXP type, SEXP x_robj, SEXP s_robj, SEXP op)
+{
+  void *x = getRptr(x_robj);
+  void *s = getRptr(s_robj);
+  APPLY_TEMPLATED_FUNCTION(type, colsweep, x, s, INT(op));
+  
+  return R_NilValue;
+}

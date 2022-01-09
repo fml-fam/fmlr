@@ -6,6 +6,8 @@
 \alias{dimops_rowmeans}
 \alias{dimops_colsums}
 \alias{dimops_colmeans}
+\alias{dimops_rowsweep}
+\alias{dimops_colsweep}
 \title{matsums}
 \usage{
 dimops_rowsums(x, s = NULL)
@@ -15,16 +17,28 @@ dimops_rowmeans(x, s = NULL)
 dimops_colsums(x, s = NULL)
 
 dimops_colmeans(x, s = NULL)
+
+dimops_rowsweep(x, s, op)
+
+dimops_colsweep(x, s, op)
 }
 \arguments{
 \item{x}{Input matrix.}
 
 \item{s}{Either \code{NULL} or an already allocated fml matrix of the same
 class and type as \code{x}.}
+
+\item{op}{The operation: \code{SWEEP_ADD}, \code{SWEEP_SUB},
+\code{SWEEP_MUL}, or \code{SWEEP_DIV}.}
 }
 \value{
+Returns the matrix sum.
+
 Returns the matrix sum.
 }
 \description{
 Compute the sums/means of the rows/columns of a matrix.
+
+Sweep a vector through the rows/cols of a matrix using an arithmetic
+operation.
 }

@@ -19,7 +19,9 @@ extern SEXP R_cpumat_antidiag(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_cpu2cpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_diag(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_dim(SEXP, SEXP);
+extern SEXP R_cpumat_dimops_colsweep(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_dimops_matsums(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_dimops_rowsweep(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_dimops_scale(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_dupe(SEXP, SEXP);
 extern SEXP R_cpumat_fill_diag(SEXP, SEXP, SEXP);
@@ -98,7 +100,9 @@ extern SEXP R_gpumat_antidiag(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_cpu2gpu(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_diag(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_dim(SEXP, SEXP);
+extern SEXP R_gpumat_dimops_colsweep(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_dimops_matsums(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_dimops_rowsweep(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_dimops_scale(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_dupe(SEXP, SEXP);
 extern SEXP R_gpumat_fill_diag(SEXP, SEXP, SEXP);
@@ -197,7 +201,9 @@ extern SEXP R_mpimat_bfdim(SEXP, SEXP);
 extern SEXP R_mpimat_cpu2mpi(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_diag(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_dim(SEXP, SEXP);
+extern SEXP R_mpimat_dimops_colsweep(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_dimops_matsums(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_dimops_rowsweep(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_dimops_scale(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_dupe(SEXP, SEXP);
 extern SEXP R_mpimat_fill_diag(SEXP, SEXP, SEXP);
@@ -410,6 +416,16 @@ SEXP R_dimops_scale(SEXP backend, SEXP type, SEXP rm_mean, SEXP rm_sd, SEXP x_ro
   CALL_RFUN(dimops_scale, backend, type, rm_mean, rm_sd, x_robj);
 }
 
+SEXP R_dimops_rowsweep(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP op)
+{
+  CALL_RFUN(dimops_rowsweep, backend, type, x_robj, s_robj, op);
+}
+
+SEXP R_dimops_colsweep(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP op)
+{
+  CALL_RFUN(dimops_colsweep, backend, type, x_robj, s_robj, op);
+}
+
 // -----------------------------------------------------------------------------
 // stats
 // -----------------------------------------------------------------------------
@@ -483,8 +499,10 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_cpuvec_sum",              (DL_FUNC) &R_cpuvec_sum,              2},
   {"R_cpuvec_to_robj",          (DL_FUNC) &R_cpuvec_to_robj,          2},
   // dimops
-  {"R_dimops_matsums",   (DL_FUNC) &R_dimops_matsums,   6},
-  {"R_dimops_scale",   (DL_FUNC) &R_dimops_scale,   5},
+  {"R_dimops_colsweep",         (DL_FUNC) &R_dimops_colsweep,         5},
+  {"R_dimops_matsums",          (DL_FUNC) &R_dimops_matsums,          6},
+  {"R_dimops_rowsweep",         (DL_FUNC) &R_dimops_rowsweep,         5},
+  {"R_dimops_scale",            (DL_FUNC) &R_dimops_scale,            5},
   // gpumat
   {"R_gpumat_antidiag",         (DL_FUNC) &R_gpumat_antidiag,         3},
   {"R_gpumat_cpu2gpu",          (DL_FUNC) &R_gpumat_cpu2gpu,          4},
