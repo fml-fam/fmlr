@@ -15,6 +15,10 @@ if (fml_mpi()){
   y$fill_eye()
   yr = y$to_robj()
   
+  v = cpumat(n)
+  v$fill_linspace(1, n)
+  vr = v$to_robj()
+  
   source("internals/common.r")
   source("internals/linalg.r")
 } # end if (fml_mpi())
