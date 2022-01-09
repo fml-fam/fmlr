@@ -6,6 +6,8 @@ New:
       - Added `linalg_dot()`
       - Added `linalg_trinv()`
       - Added `linalg_rsvd()`
+      - Added `pow()` methods for cpuvec and gpuvec
+      - Added `dimops_rowsweep()` and `dimops_colsweep()`
 
 API Changes:
   * `linalg_matmult()` can now accept mixed matrix/vector arguments.
