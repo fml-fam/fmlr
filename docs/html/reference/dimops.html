@@ -40,7 +40,9 @@
 
 
 <meta property="og:title" content="matsums — dimops" />
-<meta property="og:description" content="Compute the sums/means of the rows/columns of a matrix." />
+<meta property="og:description" content="Compute the sums/means of the rows/columns of a matrix.
+Sweep a vector through the rows/cols of a matrix using an arithmetic
+operation." />
 
 
 
@@ -139,6 +141,8 @@
 
     <div class="ref-description">
     <p>Compute the sums/means of the rows/columns of a matrix.</p>
+<p>Sweep a vector through the rows/cols of a matrix using an arithmetic
+operation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dimops_rowsums</span><span class='op'>(</span><span class='va'>x</span>, s <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
@@ -147,7 +151,11 @@
 
 <span class='fu'>dimops_colsums</span><span class='op'>(</span><span class='va'>x</span>, s <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>dimops_colmeans</span><span class='op'>(</span><span class='va'>x</span>, s <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='fu'>dimops_colmeans</span><span class='op'>(</span><span class='va'>x</span>, s <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='fu'>dimops_rowsweep</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>s</span>, <span class='va'>op</span><span class='op'>)</span>
+
+<span class='fu'>dimops_colsweep</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>s</span>, <span class='va'>op</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,11 +169,17 @@
       <td><p>Either <code>NULL</code> or an already allocated fml matrix of the same
 class and type as <code>x</code>.</p></td>
     </tr>
+    <tr>
+      <th>op</th>
+      <td><p>The operation: <code>SWEEP_ADD</code>, <code>SWEEP_SUB</code>,
+<code>SWEEP_MUL</code>, or <code>SWEEP_DIV</code>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns the matrix sum.</p>
+<p>Returns the matrix sum.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

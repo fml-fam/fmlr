@@ -161,6 +161,7 @@
 <li><p><a href='#method-fill_val'><code>gpuvecR6$fill_val()</code></a></p></li>
 <li><p><a href='#method-fill_linspace'><code>gpuvecR6$fill_linspace()</code></a></p></li>
 <li><p><a href='#method-scale'><code>gpuvecR6$scale()</code></a></p></li>
+<li><p><a href='#method-pow'><code>gpuvecR6$pow()</code></a></p></li>
 <li><p><a href='#method-rev'><code>gpuvecR6$rev()</code></a></p></li>
 <li><p><a href='#method-sum'><code>gpuvecR6$sum()</code></a></p></li>
 <li><p><a href='#method-min'><code>gpuvecR6$min()</code></a></p></li>
@@ -172,6 +173,7 @@
 <li><p><a href='#method-data_ptr'><code>gpuvecR6$data_ptr()</code></a></p></li>
 <li><p><a href='#method-get_type'><code>gpuvecR6$get_type()</code></a></p></li>
 <li><p><a href='#method-get_type_str'><code>gpuvecR6$get_type_str()</code></a></p></li>
+<li><p><a href='#method-get_class'><code>gpuvecR6$get_class()</code></a></p></li>
 <li><p><a href='#method-to_robj'><code>gpuvecR6$to_robj()</code></a></p></li>
 <li><p><a href='#method-from_robj'><code>gpuvecR6$from_robj()</code></a></p></li>
 <li><p><a href='#method-clone'><code>gpuvecR6$clone()</code></a></p></li>
@@ -292,6 +294,20 @@
 <p>Scale all entries by the supplied value.</p>
 
 <p><hr>
+<a id="method-pow"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>pow()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>pow</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>p</code></dt><dd><p>Value to raise all entries to.</p></dd>
+
+</dl><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
+<p>Exponentiate all entries by the supplied value.</p>
+
+<p><hr>
 <a id="method-rev"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/rev.html'>rev()</a></code></h3>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
@@ -407,6 +423,15 @@
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
 <p>Returns the string code for the underlying storage type. For developers only.</p>
+
+<p><hr>
+<a id="method-get_class"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_class()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>gpuvecR6</span><span class='op'>$</span><span class='fu'>get_class</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
+<p>Returns the integer code the class type, in this case CLASS_VEC.</p>
 
 <p><hr>
 <a id="method-to_robj"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>to_robj()</code></h3>
