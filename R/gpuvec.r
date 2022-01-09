@@ -140,6 +140,20 @@ gpuvecR6 = R6::R6Class("gpuvec",
     
     
     #' @details
+    #' Exponentiate all entries by the supplied value.
+    #' @param p Value to raise all entries to.
+    #' @useDynLib fmlr R_gpuvec_pow
+    pow = function(s)
+    {
+      s = as.double(s)
+      
+      .Call(R_gpuvec_pow, private$type, private$x_ptr, s)
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
     #' Reverse rows.
     #' @useDynLib fmlr R_gpuvec_rev
     rev = function()

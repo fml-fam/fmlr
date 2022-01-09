@@ -112,6 +112,12 @@ extern "C" SEXP R_gpuvec_scale(SEXP type, SEXP x_robj, SEXP s)
   WARN_AND_RETURN("GPU");
 }
 
+extern "C" SEXP R_gpuvec_pow(SEXP type, SEXP x_robj, SEXP s)
+{
+  unused(type, x_robj, s);
+  WARN_AND_RETURN("GPU");
+}
+
 extern "C" SEXP R_gpuvec_rev(SEXP type, SEXP x_robj)
 {
   unused(type, x_robj);

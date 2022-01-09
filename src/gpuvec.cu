@@ -154,6 +154,14 @@ extern "C" SEXP R_gpuvec_scale(SEXP type, SEXP x_robj, SEXP s)
 
 
 
+extern "C" SEXP R_gpuvec_pow(SEXP type, SEXP x_robj, SEXP s)
+{
+  APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, pow, DBL(s));
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_gpuvec_rev(SEXP type, SEXP x_robj)
 {
   APPLY_TEMPLATED_METHOD(gpuvec, type, x_robj, rev);

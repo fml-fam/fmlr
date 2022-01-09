@@ -171,6 +171,20 @@ cpuvecR6 = R6::R6Class("cpuvec",
     
     
     #' @details
+    #' Exponentiate all entries by the supplied value.
+    #' @param p Value to raise all entries to.
+    #' @useDynLib fmlr R_cpuvec_pow
+    pow = function(s)
+    {
+      s = as.double(s)
+      
+      .Call(R_cpuvec_pow, private$type, private$x_ptr, s)
+      invisible(self)
+    },
+    
+    
+    
+    #' @details
     #' Reverse rows.
     #' @useDynLib fmlr R_cpuvec_rev
     rev = function()

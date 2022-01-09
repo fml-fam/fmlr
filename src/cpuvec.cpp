@@ -173,6 +173,14 @@ extern "C" SEXP R_cpuvec_scale(SEXP type, SEXP x_robj, SEXP s)
 
 
 
+extern "C" SEXP R_cpuvec_pow(SEXP type, SEXP x_robj, SEXP s)
+{
+  APPLY_TEMPLATED_METHOD(cpuvec, type, x_robj, pow, DBL(s));
+  return R_NilValue;
+}
+
+
+
 extern "C" SEXP R_cpuvec_rev(SEXP type, SEXP x_robj)
 {
   APPLY_TEMPLATED_METHOD_0(cpuvec, type, x_robj, rev);

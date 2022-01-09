@@ -22,6 +22,7 @@ Data is held in an external pointer.
 \item \href{#method-fill_val}{\code{gpuvecR6$fill_val()}}
 \item \href{#method-fill_linspace}{\code{gpuvecR6$fill_linspace()}}
 \item \href{#method-scale}{\code{gpuvecR6$scale()}}
+\item \href{#method-pow}{\code{gpuvecR6$pow()}}
 \item \href{#method-rev}{\code{gpuvecR6$rev()}}
 \item \href{#method-sum}{\code{gpuvecR6$sum()}}
 \item \href{#method-min}{\code{gpuvecR6$min()}}
@@ -199,6 +200,26 @@ Fill the vector (column-wise) with linearly-spaced values.
 }
 \subsection{Details}{
 Scale all entries by the supplied value.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-pow"></a>}}
+\if{latex}{\out{\hypertarget{method-pow}{}}}
+\subsection{Method \code{pow()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$pow(s)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{p}}{Value to raise all entries to.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Exponentiate all entries by the supplied value.
 }
 
 }
