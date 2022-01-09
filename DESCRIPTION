@@ -18,7 +18,7 @@ Imports:
     R6 (>= 2.4.1)
 LinkingTo:
     float (>= 0.2-4),
-    fmlh (>= 0.4-0)
+    fmlh (>= 0.4-1)
 Suggests:
     pbdMPI (>= 0.4-0),
     pbdSLAP (>= 0.3-0),

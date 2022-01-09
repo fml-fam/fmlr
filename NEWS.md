@@ -2,7 +2,7 @@
 
 New:
   * Moved fml headers to separate fmlh package.
-  * Updated to fmlh 0.4-0:
+  * Updated to fmlh 0.4-1:
       - Added `linalg_dot()`
       - Added `linalg_trinv()`
       - Added `linalg_rsvd()`
