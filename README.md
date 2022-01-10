@@ -7,6 +7,30 @@
 * **Documentation**: https://fml-fam.github.io/fmlr
 
 
+## Quick Intro
+
+**What is this?**
+
+fmlr is an R package for high-performance matrix computing. We offer CPU, GPU, and MPI matrix classes and numerous linear algebra and statistics methods.
+
+**Who is this for?**
+
+Primarily anyone who is creating and implementing statistical methods with a heavy linear algebra component. For example, statisticians who are interested in pursuing computing and HPC grants.
+
+Eventually we hope to add more support for the consumer of statistical methods (e.g. data scientists).
+
+**How does it compare to <other matrix framework>**
+
+fmlr is "medium-level", and unique in that it not only performs well against the wallclock, but also in terms of memory consumption.
+
+**How can I use this?**
+
+The best place to start is looking at the [fmlr articles](https://fml-fam.github.io/fmlr).
+
+
+
+## Details
+
 fmlr is an R interface to the [fml library](https://github.com/fml-fam/fml). It is a "medium-level" interface for multiple dense matrix types, principally CPU, GPU, and MPI. Each supports multiple fundamental types (int, float, double), and data is held externally to R and operations that modify data generally occur in-place. The interface largely tracks with the core 'fml' interface. The interface is written such that generally an 'fmlr' R code can be easily translated to an 'fml' C++ code.
 
 Differences between fmlr and other matrix interfaces (including the core R interface):
