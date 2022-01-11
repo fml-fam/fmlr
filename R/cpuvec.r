@@ -147,8 +147,17 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' @useDynLib fmlr R_cpuvec_fill_linspace
     fill_linspace = function(start, stop)
     {
-      start = as.double(start)
-      stop = as.double(stop)
+      if ((missing(start) && !missing(stop)) || (!missing(start) && missing(stop)))
+        stop("must supply both 'start' and 'stop', or neither")
+      
+      if (!missing(start))
+        start = check_is_number(start)
+      else
+        start = NULL
+      if (!missing(stop))
+        stop = check_is_number(stop)
+      else
+        stop = NULL
       
       .Call(R_cpuvec_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)

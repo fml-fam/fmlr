@@ -134,7 +134,15 @@ extern "C" SEXP R_gpumat_fill_val(SEXP type, SEXP x_robj, SEXP v)
 
 extern "C" SEXP R_gpumat_fill_linspace(SEXP type, SEXP x_robj, SEXP start, SEXP stop)
 {
-  APPLY_TEMPLATED_METHOD(gpumat, type, x_robj, fill_linspace, DBL(start), DBL(stop));
+  if (isNull(start))
+  {
+    APPLY_TEMPLATED_METHOD(gpumat, type, x_robj, fill_linspace);
+  }
+  else
+  {
+    APPLY_TEMPLATED_METHOD(gpumat, type, x_robj, fill_linspace, DBL(start), DBL(stop));
+  }
+  
   return R_NilValue;
 }
 

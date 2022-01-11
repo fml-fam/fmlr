@@ -123,8 +123,17 @@ mpimatR6 = R6::R6Class("mpimat",
     #' @useDynLib fmlr R_mpimat_fill_linspace
     fill_linspace = function(start, stop)
     {
-      start = check_is_number(start)
-      stop = check_is_number(stop)
+      if ((missing(start) && !missing(stop)) || (!missing(start) && missing(stop)))
+        stop("must supply both 'start' and 'stop', or neither")
+      
+      if (!missing(start))
+        start = check_is_number(start)
+      else
+        start = NULL
+      if (!missing(stop))
+        stop = check_is_number(stop)
+      else
+        stop = NULL
       
       .Call(R_mpimat_fill_linspace, private$type, private$x_ptr, start, stop)
       invisible(self)
