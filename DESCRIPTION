@@ -1,7 +1,7 @@
 Package: fmlr
 Type: Package
 Title: Fused Matrix Library for R
-Version: 0.4-0
+Version: 0.4-1
 Description: 'fmlr' is an R interface to the 'fml' library. It is a
     "medium-level" interface for multiple dense matrix types, principally CPU,
     GPU, and MPI. Each supports multiple fundamental types (int, float, double),
@@ -18,7 +18,7 @@ Imports:
     R6 (>= 2.4.1)
 LinkingTo:
     float (>= 0.2-4),
-    fmlh (>= 0.4-1)
+    fmlh (>= 0.4-2)
 Suggests:
     pbdMPI (>= 0.4-0),
     pbdSLAP (>= 0.3-0),
