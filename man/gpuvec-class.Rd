@@ -208,7 +208,7 @@ Scale all entries by the supplied value.
 \if{latex}{\out{\hypertarget{method-pow}{}}}
 \subsection{Method \code{pow()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$pow(s)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{gpuvecR6$pow(p)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

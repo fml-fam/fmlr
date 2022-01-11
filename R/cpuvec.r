@@ -183,11 +183,11 @@ cpuvecR6 = R6::R6Class("cpuvec",
     #' Exponentiate all entries by the supplied value.
     #' @param p Value to raise all entries to.
     #' @useDynLib fmlr R_cpuvec_pow
-    pow = function(s)
+    pow = function(p)
     {
       s = as.double(s)
       
-      .Call(R_cpuvec_pow, private$type, private$x_ptr, s)
+      .Call(R_cpuvec_pow, private$type, private$x_ptr, p)
       invisible(self)
     },
     
