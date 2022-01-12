@@ -484,3 +484,15 @@ extern "C" SEXP R_mpimat_stats_pca(SEXP type, SEXP rm_mean_, SEXP rm_sd_, SEXP x
   unused(type, rm_mean_, rm_sd_, x_robj, sdev_robj, rot_robj);
   WARN_AND_RETURN("MPI");
 }
+
+extern "C" SEXP R_mpimat_stats_cov(SEXP type, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+{
+  unused(type, x_robj, y_robj, ret_robj);
+  WARN_AND_RETURN("MPI");
+}
+
+extern "C" SEXP R_mpimat_stats_cor(SEXP type, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+{
+  unused(type, x_robj, y_robj, ret_robj);
+  WARN_AND_RETURN("MPI");
+}

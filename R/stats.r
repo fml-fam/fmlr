@@ -45,3 +45,78 @@ stats_pca = function(rm_mean=TRUE, rm_sd=FALSE, x, sdev, rot=NULL)
   
   invisible(NULL)
 }
+
+
+
+#' Covariance and Correlation
+#' 
+#' Compute covariance and pearson correlation matrices.
+#' 
+#' @param x,y Input data.
+#' @param ret The covariance/correlation matrix.
+#' 
+#' @rdname cov
+#' @name cov
+NULL
+
+#' @rdname cov
+#' @useDynLib fmlr R_stats_cov
+#' @export
+stats_cov = function(x, y=NULL, ret=NULL)
+{
+  check_is_mat(x)
+  
+  if (is.null(ret))
+  {
+    invisiret = FALSE
+    ret = setret(x)
+  }
+  else
+    invisiret = TRUE
+  
+  if (!is.null(y))
+  {
+    y_d = y$data_ptr()
+    check_inputs(ret, x, y)
+  }
+  else
+    y_d = NULL
+  
+  .Call(R_stats_cov, get_backend(x), x$get_type(), x$data_ptr(), y_d, ret$data_ptr())
+  
+  if (invisiret)
+    invisible(ret)
+  else
+    ret
+}
+
+#' @rdname cov
+#' @useDynLib fmlr R_stats_cor
+#' @export
+stats_cor = function(x, y=NULL, ret=NULL)
+{
+  check_is_mat(x)
+  
+  if (is.null(ret))
+  {
+    invisiret = FALSE
+    ret = setret(x)
+  }
+  else
+    invisiret = TRUE
+  
+  if (!is.null(y))
+  {
+    y_d = y$data_ptr()
+    check_inputs(ret, x, y)
+  }
+  else
+    y_d = NULL
+  
+  .Call(R_stats_cor, get_backend(x), x$get_type(), x$data_ptr(), y_d, ret$data_ptr())
+  
+  if (invisiret)
+    invisible(ret)
+  else
+    ret
+}

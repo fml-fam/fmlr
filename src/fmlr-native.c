@@ -69,6 +69,8 @@ extern SEXP R_cpumat_rev_cols(SEXP, SEXP);
 extern SEXP R_cpumat_rev_rows(SEXP, SEXP);
 extern SEXP R_cpumat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_stats_cor(SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_cpumat_stats_cov(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_stats_pca(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_cpumat_to_robj(SEXP, SEXP);
 
@@ -151,6 +153,8 @@ extern SEXP R_gpumat_rev_cols(SEXP, SEXP);
 extern SEXP R_gpumat_rev_rows(SEXP, SEXP);
 extern SEXP R_gpumat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_stats_cor(SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_gpumat_stats_cov(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_stats_pca(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_gpumat_to_robj(SEXP, SEXP);
 
@@ -253,6 +257,8 @@ extern SEXP R_mpimat_rev_cols(SEXP, SEXP);
 extern SEXP R_mpimat_rev_rows(SEXP, SEXP);
 extern SEXP R_mpimat_scale(SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_set(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_stats_cor(SEXP, SEXP, SEXP, SEXP);
+extern SEXP R_mpimat_stats_cov(SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_stats_pca(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP R_mpimat_to_robj(SEXP, SEXP);
 
@@ -433,6 +439,16 @@ SEXP R_dimops_colsweep(SEXP backend, SEXP type, SEXP x_robj, SEXP s_robj, SEXP o
 SEXP R_stats_pca(SEXP backend, SEXP type, SEXP rm_mean, SEXP rm_sd, SEXP x_robj, SEXP sdev_robj, SEXP rot_robj)
 {
   CALL_RFUN(stats_pca, backend, type, rm_mean, rm_sd, x_robj, sdev_robj, rot_robj);
+}
+
+SEXP R_stats_cov(SEXP backend, SEXP type, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+{
+  CALL_RFUN(stats_cov, backend, type, x_robj, y_robj, ret_robj);
+}
+
+SEXP R_stats_cor(SEXP backend, SEXP type, SEXP x_robj, SEXP y_robj, SEXP ret_robj)
+{
+  CALL_RFUN(stats_cor, backend, type, x_robj, y_robj, ret_robj);
 }
 
 
@@ -627,7 +643,9 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_mpimat_set",              (DL_FUNC) &R_mpimat_set,              5},
   {"R_mpimat_to_robj",          (DL_FUNC) &R_mpimat_to_robj,          2},
   // stats
-  {"R_stats_pca",   (DL_FUNC) &R_stats_pca,   7},
+  {"R_stats_pca",               (DL_FUNC) &R_stats_pca,               7},
+  {"R_stats_cov",               (DL_FUNC) &R_stats_cov,               5},
+  {"R_stats_cor",               (DL_FUNC) &R_stats_cor,               5},
   // 
   {NULL, NULL, 0}
 };
